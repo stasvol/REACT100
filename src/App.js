@@ -1,17 +1,44 @@
 import React, {Component} from 'react';
 import './App.css';
-import Header from './components/Header'
-import Navbar from "./components/Nav";
-import Profile from "./components/Profile"
+import Header from './components/Header/Header'
+import Navbar from "./components/Nav/Nav";
+import Profile from "./components/Profile/Profile"
+import Dialogs from "./components/Dialogs/Dialog";
+import {BrowserRouter, Route} from "react-router-dom";
+import Music from './components/Music/Music';
+import News from './components/News/News';
+import Setting from './components/Settings/Setting';
 
-const App = () => {
+
+
+ const App = (props) => {
+
     return (
+      <BrowserRouter>
         <div className="app-wrapper">
              <Header />
-             <Navbar />
-             <Profile />
+             <Navbar data={props.state.siteBar} dispatch={props.dispatch} />
+
+             <div className={'app-pages'}>
+                 <Route path={'/Dialogs'} render={ () => <Dialogs  data={props.state.dialogPage.dialogPage} dispatch={props.dispatch}/>}/>
+                                                                   {/*// addMessage={props.addMessage}*/}
+                                                                   {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
+                 <Route path={'/Profile'} render={ () => <Profile  data={props.state.postPage} dispatch={props.dispatch}/>}/>
+                                                                   {/*// addPost={props.addPost}*/}
+                                                                   {/*// addChangeText={props.addChangeText} />}/>*/}
+                 <Route path={'/Music'}  component={ Music }/>
+                 <Route path={'/News'}  component={ News }/>
+                 <Route path={'/Setting'}  component={ Setting }/>
+             {/*<Dialogs />*/}
+             {/*<Profile />*/}
+             {/* <Music />*/}
+             {/* <News />*/}
+             {/* <Setting />*/}
+             </div>
         </div>
+      </BrowserRouter>
     );
+
 }
 
 

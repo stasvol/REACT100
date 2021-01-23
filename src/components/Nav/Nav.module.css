@@ -1,0 +1,25 @@
+.nav {
+    grid-area: n;
+    background: #990199;
+}
+ .item{
+     list-style-type: none;
+     font-size: 1.5em;
+     padding: 1em;
+ }
+ .item a {
+    margin: 20px;
+    color: white;
+    cursor: pointer;
+}
+  .item  .active {
+    color: silver;
+  }
+
+ .header {
+     font-size: 2em;
+    color: gold;
+    text-align: center;
+    margin: 80px 50px 0 0;
+
+}
