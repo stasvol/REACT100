@@ -8,7 +8,7 @@ const SiteBar = (props) => {
         alert('HELLO FRIEND - ' + props.name);
         // let action = handleChangeActionCreator();
         // props.dispatch(action)
-        props.dispatch(handleChangeActionCreator());
+        // props.store.dispatch(handleChangeActionCreator());
 
     }
 

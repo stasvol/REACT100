@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import classes from './Nav.module.css';
 import {NavLink} from "react-router-dom";
 import SiteBar from  './SiteBar/SiteBar'
+import SiteBarContainer from "./SiteBar/SiteBarContainer";
 
 
 const Navbar = (props) => {
 
-    let Friends = props.data.siteBar.siteBarNav.map( obj => {
-        return <SiteBar id={obj.id} name={obj.name} img={obj.img } dispatch={props.dispatch} />
+    let Friends = props.data.siteBarNav.map( obj => {
+        return <SiteBar id={obj.id} name={obj.name} img={obj.img } store={props.store}  />
     })
 
     return  (
@@ -28,7 +29,7 @@ const Navbar = (props) => {
             </ul>
 
             {Friends}
-
+             {/*<SiteBarContainer store={props.store} />*/}
         </nav>
     )
 }

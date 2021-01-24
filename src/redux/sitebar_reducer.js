@@ -1,8 +1,8 @@
 const SITE_BAR = 'SITE BAR';
 
 let initialState = {
-    siteBar: {
-        siteBarNav: [
+
+     siteBarNav: [
             {
                 id: 1,
                 name: 'Andre',
@@ -19,15 +19,22 @@ let initialState = {
                 img: 'https://i.pinimg.com/236x/4d/fa/04/4dfa04c4070771935150bad24ac02cbf.jpg'
             },
         ],
-    }
+
 
 }
 
 const siteBarReducer = (state=initialState, action) =>{
 
-        //
-        // switch (action.type) {
-        //     case SITE_BAR:
+        switch (action.type) {
+            case SITE_BAR:
+                let friend={
+                    id: 4,
+                    name: 'FRiEND',
+                    img:  'https://lh3.googleusercontent.com/proxy/krN8SvINewOOKbbVK5ooDb2G7CzD46uX9l_Mp693MVsNUw402CT53gHtQXW9gvKhJ3zVeZy_IG2h3KRGAgjFwTyBDLUyNK4KWH3uHw'
+                }
+                state.siteBarNav.push(friend);
+               console.log(friend)
+        }
 
                 return  state
 }
