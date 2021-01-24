@@ -6,25 +6,25 @@ import MessageUser from './MessageUser/MessageUser';
 import {addNewMessageActionCreator, handleChangeDialogActionCreator} from '../../redux/dialog_reducer';
 
 const Dialogs = (props) => {
-    let state = props.store.getState().dialogPage
+    // let state = props.store.getState().dialogPage
 
-    let DialogUserData = state.DialogData.map(obj => <DialogUser name={obj.name} id={obj.id} img={obj.img} />);
-    let MessageData = state.MessageUserData.map(message => <MessageUser message={message.message} id={message.id} />);
+    let DialogUserData = props.data.DialogData.map(obj => <DialogUser name={obj.name} id={obj.id} img={obj.img} />);
+    let MessageData = props.data.MessageUserData.map(message => <MessageUser message={message.message} id={message.id} />);
 
     // let newMessage = React.createRef();
 
     const addNewMessage = () =>{
         // let messageText = newMessage.current.value;
-        // props.addMessage();
+        props.addMessage();
         // newMessage.current.value = '';
        // props.addChangeNewMessage('');
-        props.dispatch(addNewMessageActionCreator());
+       //  props.dispatch(addNewMessageActionCreator());
     }
 
     const handleChange = (e) =>{
         let messageText = e.target.value;
-        // props.addChangeNewMessage(messageText)
-        props.dispatch(handleChangeDialogActionCreator(messageText));
+        props.addChangeNewMessage(messageText)
+        // props.dispatch(handleChangeDialogActionCreator(messageText));
     }
 
 

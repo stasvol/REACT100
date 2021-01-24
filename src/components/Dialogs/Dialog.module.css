@@ -1,14 +1,14 @@
 
-
- .bg {
-     display: grid;
-     grid-template-columns: 3fr 9fr;
+.bg {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
     background: #fcfaa9;
 }
 
 textarea {
     margin: 20px;
 }
+
 .circle {
     width: 30px;
     height: 30px;
@@ -16,10 +16,12 @@ textarea {
     background: #eedd8f;
     margin: 20px 0 0 100px;
 }
- .active {
- position: relative;
-     right: 200px;
+
+.active {
+    position: relative;
+    right: 200px;
 }
- .dialog {
-     min-width: 50px;
- }
+
+.dialog {
+    min-width: 50px;
+}

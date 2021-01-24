@@ -8,6 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Music from './components/Music/Music';
 import News from './components/News/News';
 import Setting from './components/Settings/Setting';
+import DialogContainer from "./components/Dialogs/DialogContainer";
 
 
 
@@ -20,8 +21,9 @@ import Setting from './components/Settings/Setting';
              <Navbar data={props.state.siteBar} dispatch={props.dispatch}  />
 
              <div className={'app-pages'}>
-                 <Route path={'/Dialogs'} render={ () => <Dialogs  data={props.state.dialogPage}
-                                                                   dispatch={props.dispatch} store={props.store}/>}/>
+                 <Route path={'/Dialogs'} render={ () => <DialogContainer store={props.store} data={props.state.dialogPage}/>}/>
+                     {/*// <Dialogs  data={props.state.dialogPage}*/}
+                     {/*//                                               dispatch={props.dispatch} store={props.store}/>}/>*/}
                                                                    {/*// addMessage={props.addMessage}*/}
                                                                    {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
                  <Route path={'/Profile'} render={ () => <Profile  data={props.state.postPage} dispatch={props.dispatch}/>}/>
@@ -35,6 +37,7 @@ import Setting from './components/Settings/Setting';
              {/* <Music />*/}
              {/* <News />*/}
              {/* <Setting />*/}
+
              </div>
         </div>
       </BrowserRouter>
