@@ -26,7 +26,8 @@ import DialogContainer from "./components/Dialogs/DialogContainer";
                      {/*//                                               dispatch={props.dispatch} store={props.store}/>}/>*/}
                                                                    {/*// addMessage={props.addMessage}*/}
                                                                    {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
-                 <Route path={'/Profile'} render={ () => <Profile  data={props.state.postPage} dispatch={props.dispatch}/>}/>
+                 <Route path={'/Profile'} render={ () => <Profile store={props.store} data={props.state.postPage} />}/>
+                                                                   {/*dispatch={props.dispatch}/>}/>*/}
                                                                    {/*// addPost={props.addPost}*/}
                                                                    {/*// addChangeText={props.addChangeText} />}/>*/}
                  <Route path={'/Music'}  component={ Music }/>

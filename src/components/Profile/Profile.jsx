@@ -3,6 +3,7 @@ import classes from './Profile.module.css';
 import MyPost from "./MyPosts/MyPost";
 import ProfInfo from  './ProfilInfo/ProfilInfo'
 import ProfAvatar from './ProfAvatar/ProfAvatar'
+import MyPostContainer from "./MyPosts/MyPostContainer";
 
 const Profile = (props) => {
 
@@ -12,9 +13,10 @@ const Profile = (props) => {
         <div className={''}>
             <ProfInfo />
             <ProfAvatar />
-            <MyPost PostData={props.data.PostData} newText={props.data.newText} dispatch={props.dispatch}
-                    // addPost={props.addPost}  addChangeText={props.addChangeText}
-                    post={'MY POSTS'}/>
+            <MyPostContainer store={props.store}  PostData={props.data.PostData} newText={props.data.newText}  post={'MY POSTS'} />
+            {/*<MyPost PostData={props.data.PostData} newText={props.data.newText} dispatch={props.dispatch}*/}
+            {/*        // addPost={props.addPost}  addChangeText={props.addChangeText}*/}
+            {/*        post={'MY POSTS'}/>*/}
 
         </div>
     )
