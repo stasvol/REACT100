@@ -2,7 +2,7 @@ const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
 
 let initialState = {
-    postPage: {
+
         PostData: [
             {id: 1, like: '20', message: 'Super'},
             {id: 2, like: '3', message: 'Kliovo'},
@@ -11,8 +11,8 @@ let initialState = {
 
         newText: 'Hello',
 
-    },
-}
+    }
+
 
 const postReducer = (state=initialState, action) => {
 
@@ -21,16 +21,16 @@ const postReducer = (state=initialState, action) => {
             let newPost = {
                 id: 4,
                 like: '0',
-                message: state.postPage.newText                 // (message)-parametr funktion
+                message: state.newText                 // (message)-parametr funktion
             };
-            state.postPage.PostData.push(newPost);
+            state.PostData.push(newPost);
             console.log(newPost)
-            state.postPage.newText = '';
-            console.log(state.postPage.newText)
+            state.newText = '';
+            console.log(state.newText)
             return state;
         case ADD_CHANGE_TEXT:
-            state.postPage.newText = action.newText;
-            console.log(state.postPage.newText)
+            state.newText = action.newText;
+            console.log(state.newText)
             return state;
 
         default:

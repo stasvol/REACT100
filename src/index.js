@@ -11,7 +11,7 @@ import store from './redux/reduxStore'
     ReactDOM.render(
         <React.StrictMode>
 
-            <App state={state} dispatch={store.dispatch.bind(store)} />
+            <App store={store} state={state}  dispatch={store.dispatch.bind(store)}  />
                  {/*addChangeText={store.addChangeText.bind(store)}*/}
                  {/*addMessage={store.addMessage.bind(store)} addChangeNewMessage={store.addChangeNewMessage.bind(store)}  */}
 

@@ -17,10 +17,11 @@ import Setting from './components/Settings/Setting';
       <BrowserRouter>
         <div className="app-wrapper">
              <Header />
-             <Navbar data={props.state.siteBar} dispatch={props.dispatch} />
+             <Navbar data={props.state.siteBar} dispatch={props.dispatch}  />
 
              <div className={'app-pages'}>
-                 <Route path={'/Dialogs'} render={ () => <Dialogs  data={props.state.dialogPage.dialogPage} dispatch={props.dispatch}/>}/>
+                 <Route path={'/Dialogs'} render={ () => <Dialogs  data={props.state.dialogPage}
+                                                                   dispatch={props.dispatch} store={props.store}/>}/>
                                                                    {/*// addMessage={props.addMessage}*/}
                                                                    {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
                  <Route path={'/Profile'} render={ () => <Profile  data={props.state.postPage} dispatch={props.dispatch}/>}/>

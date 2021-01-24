@@ -2,7 +2,6 @@ const ADD_MESSAGE = 'ADD MESSAGE';
 const ADD_CHANGE_NEW_MESSAGE = 'ADD CHANGE NEW MESSAGE';
 
 let initialState = {
-    dialogPage: {
         DialogData: [
 
             {id: 1, name: 'Artur', img: 'https://avatarko.ru/img/kartinka/1/monstr_kot.jpg'},
@@ -29,7 +28,7 @@ let initialState = {
 
 
     }
-}
+
 
 const dialogReducer = (state=initialState, action) => {
 
@@ -38,15 +37,15 @@ const dialogReducer = (state=initialState, action) => {
         case ADD_MESSAGE:
             let textMessage = {
                 id: 7,
-                message: state.dialogPage.newMessageText          // (newMessage)-parametr funktion
+                message: state.newMessageText          // (newMessage)-parametr funktion
             };
-            state.dialogPage.MessageUserData.push(textMessage);
+            state.MessageUserData.push(textMessage);
             console.log(textMessage)
-            state.dialogPage.newMessageText = '';
-            console.log(state.dialogPage.newMessageText)
+            state.newMessageText = '';
+            console.log(state.newMessageText)
             return state
         case ADD_CHANGE_NEW_MESSAGE:
-            state.dialogPage.newMessageText = action.newMessageText;
+            state.newMessageText = action.newMessageText;
             return state
         default:
             return state

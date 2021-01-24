@@ -6,10 +6,12 @@ import MessageUser from './MessageUser/MessageUser';
 import {addNewMessageActionCreator, handleChangeDialogActionCreator} from '../../redux/dialog_reducer';
 
 const Dialogs = (props) => {
-    let DialogUserData = props.data.DialogData.map(obj => <DialogUser name={obj.name} id={obj.id} img={obj.img} />);
-    let MessageData = props.data.MessageUserData.map(message => <MessageUser message={message.message} id={message.id} />);
-    console.log(props.data)
-    let newMessage = React.createRef();
+    let state = props.store.getState().dialogPage
+
+    let DialogUserData = state.DialogData.map(obj => <DialogUser name={obj.name} id={obj.id} img={obj.img} />);
+    let MessageData = state.MessageUserData.map(message => <MessageUser message={message.message} id={message.id} />);
+
+    // let newMessage = React.createRef();
 
     const addNewMessage = () =>{
         // let messageText = newMessage.current.value;
@@ -19,8 +21,8 @@ const Dialogs = (props) => {
         props.dispatch(addNewMessageActionCreator());
     }
 
-    const handleChange = () =>{
-        let messageText = newMessage.current.value;
+    const handleChange = (e) =>{
+        let messageText = e.target.value;
         // props.addChangeNewMessage(messageText)
         props.dispatch(handleChangeDialogActionCreator(messageText));
     }
@@ -42,7 +44,7 @@ const Dialogs = (props) => {
             </div>
             <div className={classes.messsages}>
 
-                 <textarea ref={newMessage} onChange={handleChange} value={props.data.newMessageText}  placeholder={'add message'}> </textarea>
+                 <textarea  onChange={handleChange} value={props.data.newMessageText}  placeholder={'add message'}> </textarea>
                  <button onClick={ addNewMessage } className={classes.btn}>Add Message</button>
 
                 <div className={classes.circle}>

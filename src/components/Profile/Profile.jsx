@@ -12,7 +12,7 @@ const Profile = (props) => {
         <div className={''}>
             <ProfInfo />
             <ProfAvatar />
-            <MyPost PostData={props.data.postPage.PostData} newText={props.data.postPage.newText} dispatch={props.dispatch}
+            <MyPost PostData={props.data.PostData} newText={props.data.newText} dispatch={props.dispatch}
                     // addPost={props.addPost}  addChangeText={props.addChangeText}
                     post={'MY POSTS'}/>
 
