@@ -18,15 +18,15 @@ import DialogContainer from "./components/Dialogs/DialogContainer";
       <BrowserRouter>
         <div className="app-wrapper">
              <Header />
-             <Navbar data={props.state.siteBar}   store={props.store}  />
+             <Navbar state={props.state.siteBar} />
 
              <div className={'app-pages'}>
-                 <Route path={'/Dialogs'} render={ () => <DialogContainer data={props.state.dialogPage}/>}/>
+                 <Route path={'/Dialogs'} render={ ( ) => <DialogContainer  state={props.state.dialogPage}/>}/>
                      {/*// <Dialogs  data={props.state.dialogPage}*/}
                      {/*//                                               dispatch={props.dispatch} store={props.store}/>}/>*/}
                                                                    {/*// addMessage={props.addMessage}*/}
                                                                    {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
-                 <Route path={'/Profile'} render={ () => <Profile  data={props.state.postPage} />}/>
+                 <Route path={'/Profile'} render={ () => <Profile  state={props.state.postPage} />}/>
                                                                    {/*dispatch={props.dispatch}/>}/>*/}
                                                                    {/*// addPost={props.addPost}*/}
                                                                    {/*// addChangeText={props.addChangeText} />}/>*/}

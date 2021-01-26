@@ -8,8 +8,8 @@ import {addNewMessageActionCreator, handleChangeDialogActionCreator} from '../..
 const Dialogs = (props) => {
     // let state = props.store.getState().dialogPage
 
-    let DialogUserData = props.data.DialogData.map(obj => <DialogUser name={obj.name} id={obj.id} img={obj.img} />);
-    let MessageData = props.data.MessageUserData.map(message => <MessageUser message={message.message} id={message.id} />);
+    let DialogUserData = props.state.DialogData.map(obj => <DialogUser name={obj.name} id={obj.id} img={obj.img} />);
+    let MessageData = props.state.MessageUserData.map(message => <MessageUser message={message.message} id={message.id} />);
 
     // let newMessage = React.createRef();
 
@@ -44,7 +44,7 @@ const Dialogs = (props) => {
             </div>
             <div className={classes.messsages}>
 
-                 <textarea  onChange={handleChange} value={props.data.newMessageText}  placeholder={'add message'}> </textarea>
+                 <textarea  onChange={handleChange} value={props.state.newMessageText}  placeholder={'add message'}> </textarea>
                  <button onClick={ addNewMessage } className={classes.btn}>Add Message</button>
 
                 <div className={classes.circle}>
@@ -59,6 +59,7 @@ const Dialogs = (props) => {
                 {/*<MessageUser message={MessageUserData[4].message}/>*/}
             </div>
         </div>
+
     )
 }
 

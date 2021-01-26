@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import classes from './Nav.module.css';
 import {NavLink} from "react-router-dom";
 import SiteBar from  './SiteBar/SiteBar'
-import SiteBarContainer from "./SiteBar/SiteBarContainer";
+import SiteBarContainer from "./SiteBar/NavContainer";
 
 
 const Navbar = (props) => {
 
-    let Friends = props.data.siteBarNav.map( obj => {
-        return <SiteBar id={obj.id} name={obj.name} img={obj.img } store={props.store}  />
+    let Friends = props.state.siteBarNav.map( obj => {
+        return <SiteBar id={obj.id} name={obj.name} img={obj.img }  />
     })
 
     return  (

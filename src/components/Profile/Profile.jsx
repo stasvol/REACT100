@@ -7,14 +7,14 @@ import MyPostContainer from "./MyPosts/MyPostContainer";
 
 const Profile = (props) => {
 
-    // console.log(props.data)
+    // console.log(props.state)
 
     return (
         <div className={''}>
             <ProfInfo />
             <ProfAvatar />
-            <MyPostContainer  PostData={props.data.PostData} newText={props.data.newText}  post={'MY POSTS'} />
-            {/*<MyPost PostData={props.data.PostData} newText={props.data.newText} dispatch={props.dispatch}*/}
+            <MyPostContainer  PostData={props.state.PostData} newText={props.state.newText}  post={'MY POSTS'} />
+            {/*<MyPost PostData={props.state.PostData} newText={props.state.newText} dispatch={props.dispatch}*/}
             {/*        // addPost={props.addPost}  addChangeText={props.addChangeText}*/}
             {/*        post={'MY POSTS'}/>*/}
 

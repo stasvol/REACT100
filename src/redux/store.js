@@ -31,10 +31,7 @@ let store = {
                 {id: 6, name: 'Tom', img: 'https://chance2.ru/photo/img/krasivye-koshki-foto-na-avatarku-2.jpg'},
                 {id: 7, name: 'Stas', img: 'https://i.pinimg.com/474x/01/b9/cf/01b9cfe00d3987af5cbb8d06688affbe.jpg'},
                 {id: 8, name: 'Vova', img: 'https://www.meme-arsenal.com/memes/e0d6c17f7cdbf397eaa821e56e2c1b51.jpg'},
-                {
-                    id: 9,
-                    name: 'Vovan',
-                    img: 'https://i.pinimg.com/originals/5b/1a/9a/5b1a9ab141ba1ade4ab06c8215059225.jpg'
+                {id: 9, name: 'Vovan', img: 'https://i.pinimg.com/originals/5b/1a/9a/5b1a9ab141ba1ade4ab06c8215059225.jpg'
                 },
 
             ],

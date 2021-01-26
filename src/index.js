@@ -4,20 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/reduxStore'
-import MyContext, {MyProvider} from "./MyContext";
+import {Provider} from "react-redux";
+// import MyContext, {Provider} from "./MyContext";
 
 
 const rerenderEntireTree = (state) => {
 
     ReactDOM.render(
         <React.StrictMode>
+
+            <Provider store={store}>
             {/*<MyContext.Provider value={store}>*/}
-            <MyProvider store={store}>
-                <App state={state}/>
+            <App state={state}/>
                 {/*addChangeText={store.addChangeText.bind(store)}*/}
                 {/*addMessage={store.addMessage.bind(store)} addChangeNewMessage={store.addChangeNewMessage.bind(store)}  */}
-            </MyProvider>
-            {/*</MyContext.Provider>*/}
+                {/*</MyContext.Provider>*/}
+            </Provider>
 
         </React.StrictMode>,
         document.getElementById('root')

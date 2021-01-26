@@ -3,49 +3,64 @@ const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
 
 let initialState = {
 
-        PostData: [
-            {id: 1, like: '20', message: 'Super'},
-            {id: 2, like: '3', message: 'Kliovo'},
-            {id: 3, like: '9', message: 'Class'},
-        ],
+    PostData: [
+        {id: 1, like: '20', message: 'Super'},
+        {id: 2, like: '3', message: 'Kliovo'},
+        {id: 3, like: '9', message: 'Class'},
+    ],
 
-        newText: 'Hello',
+    newText: 'Hello',
 
-    }
+}
 
-
-const postReducer = (state=initialState, action) => {
+const postReducer = (state = initialState, action) => {
 
     switch (action.type) {
+
         case ADD_POST:
+            // let newPost = {
+            //     id: 4,
+            //     like: '0',
+            //     message: state.newText                 // (message)-parametr funktion
+            // };
+            // let copyState = {...state};
+            // copyState.PostData = [...state.PostData];
+            // copyState.PostData.push(newPost);
+            // copyState.newText = '';
+            //
+            // return copyState;
             let newPost = {
                 id: 4,
                 like: '0',
                 message: state.newText                 // (message)-parametr funktion
             };
-            state.PostData.push(newPost);
-            console.log(newPost)
-            state.newText = '';
-            console.log(state.newText)
-            return state;
-        case ADD_CHANGE_TEXT:
-            state.newText = action.newText;
-            console.log(state.newText)
-            return state;
+             return {
+                 ...state,
+                 PostData:[...state.PostData, newPost],
+                 newText: ''
+             }
+
+             case ADD_CHANGE_TEXT:
+
+            // let copyState = {...state}
+            // copyState.newText = action.newText;
+            //
+            // return copyState;
+            return{
+                ...state,
+                newText: action.newText
+            }
 
         default:
             return state;
     }
 }
 
-export  const addNewPostActionCreator =() => ({ type: ADD_POST  });
+export const addNewPostActionCreator = () => ({type: ADD_POST});
 
-export  const handleChangeActionCreator =(newPost) => ({ type:ADD_CHANGE_TEXT, newText:newPost });
+export const handleChangeActionCreator = (newPost) => ({type: ADD_CHANGE_TEXT, newText: newPost});
 
 export default postReducer
-
-
-
 
 
 // if (action.type=== ADD_POST){
