@@ -9,6 +9,8 @@ import Music from './components/Music/Music';
 import News from './components/News/News';
 import Setting from './components/Settings/Setting';
 import DialogContainer from "./components/Dialogs/DialogContainer";
+import UserContainer from "./components/Users/UserContainer";
+import NavContainer from "./components/Nav/NavContainer";
 
 
 
@@ -18,7 +20,8 @@ import DialogContainer from "./components/Dialogs/DialogContainer";
       <BrowserRouter>
         <div className="app-wrapper">
              <Header />
-             <Navbar state={props.state.siteBar} />
+             <NavContainer/>
+             {/*<Navbar state={props.state.siteBar} />*/}
 
              <div className={'app-pages'}>
                  <Route path={'/Dialogs'} render={ ( ) => <DialogContainer  state={props.state.dialogPage}/>}/>
@@ -30,9 +33,11 @@ import DialogContainer from "./components/Dialogs/DialogContainer";
                                                                    {/*dispatch={props.dispatch}/>}/>*/}
                                                                    {/*// addPost={props.addPost}*/}
                                                                    {/*// addChangeText={props.addChangeText} />}/>*/}
-                 <Route path={'/Music'}  component={ Music }/>
+                 <Route path={'/User'}  render={ () =>  <UserContainer />}/>
                  <Route path={'/News'}  component={ News }/>
+                 <Route path={'/Music'}  component={ Music }/>
                  <Route path={'/Setting'}  component={ Setting }/>
+                 {/*<Route path={'/Film'} render={ () =>  {return <div>FILM</div>}}/>*/}
              {/*<Dialogs />*/}
              {/*<Profile />*/}
              {/* <Music />*/}
@@ -40,6 +45,7 @@ import DialogContainer from "./components/Dialogs/DialogContainer";
              {/* <Setting />*/}
 
              </div>
+
         </div>
       </BrowserRouter>
     );

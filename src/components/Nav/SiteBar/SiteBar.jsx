@@ -9,6 +9,7 @@ const SiteBar = (props) => {
         // let action = handleChangeActionCreator();
         // props.dispatch(action)
         // props.store.dispatch(handleChangeActionCreator());
+        props.changeClick(props.id);
 
     }
 
