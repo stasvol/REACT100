@@ -7,9 +7,10 @@ import SiteBar from  './SiteBar/SiteBar'
 
 const Navbar = (props) => {
 
-    let Friends = props.state.siteBarNav.map( obj => {
-        return <SiteBar id={obj.id} name={obj.name} img={obj.img }  key={obj.id} />
+    let Friends = props.state.siteBarNav.map( (obj, i) => {
+        return <SiteBar id={obj.id} name={obj.name} img={obj.img }   changeClick={props.changeClick}  key={i}/>
     })
+
 
 
     return  (
@@ -32,6 +33,7 @@ const Navbar = (props) => {
             </ul>
             {Friends}
         </nav>
+
     )
 }
 

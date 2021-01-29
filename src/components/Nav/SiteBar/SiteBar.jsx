@@ -4,23 +4,22 @@ import {handleChangeActionCreator} from "../../../redux/post_reducer";
 
 const SiteBar = (props) => {
 
-    const changeClick = () =>{
+    const changeClick = () => {
         alert('HELLO FRIEND - ' + props.name);
         // let action = handleChangeActionCreator();
         // props.dispatch(action)
         // props.store.dispatch(handleChangeActionCreator());
-        props.changeClick(props.id);
+        // props.changeClick(props.id);
 
     }
 
-    return(
+    return (
         <div className={classes.block}>
-            <img onClick={changeClick} className={classes.imgAvat}   src={props.img} alt={props.id} />
+            <img onClick={changeClick} className={classes.imgAvat} src={props.img} alt={props.id}/>
             <span className={classes.text}>{props.name}</span>
         </div>
     )
 }
 
 
-
-export  default SiteBar
+export default SiteBar

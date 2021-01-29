@@ -37,6 +37,7 @@ const siteBarReducer = (state = initialState, action) => {
                 siteBarNav: [...state.siteBarNav, friend]
             }
         // state.siteBarNav.push(friend);
+
         default:
             return state
     }

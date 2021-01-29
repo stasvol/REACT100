@@ -5,3 +5,14 @@
     border-radius: 10px;
     margin-left: 20px;
 }
+
+.pagin {
+    font-weight: bold;
+
+
+}
+.pagesNum {
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px;
+}

@@ -5,8 +5,7 @@ import {addNewPostActionCreator, handleChangeActionCreator} from '../../../redux
 
 
 const MyPost = (props) => {
-
-    let PostUser = props.PostData.map(p => <Post like={p.like} message={p.message} id={p.id}/>);
+    let PostUser = props.PostData.map(p => <Post like={p.like} message={p.message} id={p.id} key={p.id}/>);
 
     let newPostText = React.createRef();
 

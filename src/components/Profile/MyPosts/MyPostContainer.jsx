@@ -53,6 +53,7 @@ import {connect} from "react-redux";
 // export default MyPostContainer1
 
 const mapStateToProps = (state) =>{
+
     return{
         state: state.postPage.PostData,
         newText:  state.postPage.newText,

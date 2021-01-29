@@ -34,7 +34,7 @@ import NavContainer from "./components/Nav/NavContainer";
                                                                    {/*// addPost={props.addPost}*/}
                                                                    {/*// addChangeText={props.addChangeText} />}/>*/}
                  <Route path={'/User'}  render={ () =>  <UserContainer />}/>
-                 <Route path={'/News'}  component={ News }/>
+                 {/*<Route path={'/News'}  component={ News }/>*/}
                  <Route path={'/Music'}  component={ Music }/>
                  <Route path={'/Setting'}  component={ Setting }/>
                  {/*<Route path={'/Film'} render={ () =>  {return <div>FILM</div>}}/>*/}
