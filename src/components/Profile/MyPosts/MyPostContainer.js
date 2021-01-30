@@ -55,7 +55,7 @@ import {connect} from "react-redux";
 const mapStateToProps = (state) =>{
 
     return{
-        state: state.postPage.PostData,
+        // state: state.postPage.PostData,
         newText:  state.postPage.newText,
         post:'MY POSTS'
     }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classes from './Nav.module.css';
 import {NavLink} from "react-router-dom";
-import SiteBar from  './SiteBar/SiteBar'
+import SiteBar from './SiteBar/SiteBar'
 
 
 

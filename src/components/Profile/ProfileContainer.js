@@ -11,7 +11,7 @@
 //
 //
 // const mapStateToProps = (state) =>{
-//
+//      debugger
 //     return{
 //         state: state.postPage.PostData,
 //         newText:  state.postPage.newText,

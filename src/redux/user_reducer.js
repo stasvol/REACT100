@@ -3,6 +3,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET USERS'
 const SET_CURRENT_PAGE = 'SET CURRENT PAGE'
 const SET_TOTAL_COUNT = 'SET TOTAL COUNT'
+const TOGGLE_PRELOADER = 'TOGGLE PRELOADER'
 
 let initialState = {
     // [  {
@@ -25,7 +26,8 @@ let initialState = {
        users:[],
        pageSize: 3,
        totalUsersCount: 0,
-       currentPage: 1
+       currentPage: 1,
+       isLoading: false
     }
 
 
@@ -73,7 +75,14 @@ const userReducer = (state=initialState, action) => {
 
         case SET_TOTAL_COUNT:
             return {
-                ...state, totalUsersCount: action.totalCount
+                ...state,
+                totalUsersCount: action.totalCount
+            }
+
+        case  TOGGLE_PRELOADER:
+            return {
+                ...state,
+                isLoading: action.isLoading
             }
 
 
@@ -90,7 +99,9 @@ export  const setUsersAC =(users) =>({type: SET_USERS, users});
 
 export  const setCurrentPageAC = (currentPage) => ({type:SET_CURRENT_PAGE, currentPage:currentPage});
 
-export const setTotalCountAC = (totalCount)  => ({type: SET_TOTAL_COUNT,totalCount})
+export const setTotalUsersCountAC = (totalCount)  => ({type: SET_TOTAL_COUNT,totalCount});
+
+export const togglePreloaderAC = (isLoading) => ({type:TOGGLE_PRELOADER, isLoading})
 
 export default userReducer
 

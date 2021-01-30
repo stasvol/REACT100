@@ -11,6 +11,7 @@ import Setting from './components/Settings/Setting';
 import DialogContainer from "./components/Dialogs/DialogContainer";
 import UserContainer from "./components/Users/UserContainer";
 import NavContainer from "./components/Nav/NavContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 
@@ -24,7 +25,7 @@ import NavContainer from "./components/Nav/NavContainer";
              {/*<Navbar state={props.state.siteBar} />*/}
 
              <div className={'app-pages'}>
-                 <Route path={'/Dialogs'} render={ ( ) => <DialogContainer  state={props.state.dialogPage}/>}/>
+                 <Route path={'/Dialogs'} render={ ( ) => <DialogContainer />}/>
                      {/*// <Dialogs  data={props.state.dialogPage}*/}
                      {/*//                                               dispatch={props.dispatch} store={props.store}/>}/>*/}
                                                                    {/*// addMessage={props.addMessage}*/}
