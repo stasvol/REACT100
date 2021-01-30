@@ -1,12 +1,10 @@
 import React from 'react';
 import {connect, Provider} from 'react-redux';
 import Users from "./User";
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, togglePreloaderAC, unfollowAC} from "../../redux/user_reducer";
+import {follow, setCurrentPage, setTotalUsersCount, setUsers, togglePreloader, unfollow,} from "../../redux/user_reducer";
 import * as axios from 'axios';
 import UsersF from './UserF';
 import Preloader from "../common/preloader/preloader";
-
-
 
 
 class UsersApiContainer extends React.Component {
@@ -50,6 +48,7 @@ class UsersApiContainer extends React.Component {
     }
 }
 
+
 const mapStateToProps = (state) =>{
     return{
         users: state.usersPage.users,
@@ -60,31 +59,32 @@ const mapStateToProps = (state) =>{
     }
 }
 
-const mapDispatchToProps = (dispatch) =>{
-    return {
-      follow:(userId) => {
-         dispatch(followAC(userId));
-      },
-      unfollow:(userId) => {
-          dispatch(unfollowAC(userId));
-      },
-        setUsers:(users) => {
-          dispatch(setUsersAC(users));
-        },
-        setCurrentPage:(pageNumber) => {
-          dispatch(setCurrentPageAC(pageNumber));
-        },
-        setTotalUsersCount:(totalCount) => {
-          dispatch(setTotalUsersCountAC(totalCount));
-        },
-        togglePreloader: (isLoading) => {
-          dispatch(togglePreloaderAC(isLoading))
-        }
+// const mapDispatchToProps = (dispatch) =>{
+//     return {
+//       follow:(userId) => {
+//          dispatch(followAC(userId));
+//       },
+//       unfollow:(userId) => {
+//           dispatch(unfollowAC(userId));
+//       },
+//         setUsers:(users) => {
+//           dispatch(setUsersAC(users));
+//         },
+//         setCurrentPage:(pageNumber) => {
+//           dispatch(setCurrentPageAC(pageNumber));
+//         },
+//         setTotalUsersCount:(totalCount) => {
+//           dispatch(setTotalUsersCountAC(totalCount));
+//         },
+//         togglePreloader: (isLoading) => {
+//           dispatch(togglePreloaderAC(isLoading))
+//         }
+//
+//     }
+// }
 
-    }
-}
 
-
-const UserContainer = connect(mapStateToProps,mapDispatchToProps)(UsersApiContainer)
+const UserContainer = connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage,
+    setTotalUsersCount, togglePreloader })  (UsersApiContainer)
 
 export default UserContainer
