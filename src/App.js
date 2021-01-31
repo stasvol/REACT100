@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import Header from './components/Header/Header'
-import Navbar from "./components/Nav/Nav";
-import Profile from "./components/Profile/Profile"
-import Dialogs from "./components/Dialogs/Dialog";
 import {BrowserRouter, Route} from "react-router-dom";
 import Music from './components/Music/Music';
 import News from './components/News/News';
@@ -30,12 +27,12 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
                      {/*//                                               dispatch={props.dispatch} store={props.store}/>}/>*/}
                                                                    {/*// addMessage={props.addMessage}*/}
                                                                    {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
-                 <Route path={'/Profile'} render={ () => <Profile  state={props.state.postPage} />}/>
+                 <Route path={'/Profile'} render={ () => <ProfileContainer  state={props.state.profPage} />}/>
                                                                    {/*dispatch={props.dispatch}/>}/>*/}
                                                                    {/*// addPost={props.addPost}*/}
                                                                    {/*// addChangeText={props.addChangeText} />}/>*/}
                  <Route path={'/User'}  render={ () =>  <UserContainer />}/>
-                 {/*<Route path={'/News'}  component={ News }/>*/}
+                 <Route path={'/News'}  component={ News }/>
                  <Route path={'/Music'}  component={ Music }/>
                  <Route path={'/Setting'}  component={ Setting }/>
                  {/*<Route path={'/Film'} render={ () =>  {return <div>FILM</div>}}/>*/}

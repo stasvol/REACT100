@@ -3,7 +3,7 @@ import * as axios from "axios";
 import photo from "../../Photo/Images/user.png";
 import classes from "./user.module.css";
 import UserContainer from "./UserContainer";
-
+import {NavLink} from "react-router-dom";
 
 const UsersF = (props) => {
 
@@ -58,7 +58,11 @@ const UsersF = (props) => {
                     props.users.map(user => <div key={user.id}>
                     <div>
                         {/*<img src={user.photoUrl} className={classes.photo}/>*/}
+
+                        <NavLink to={'/Profile/' + user.id}>
                         <img src={user.photos.small != null ? user.photos.small : photo} className={classes.photo}/>
+                        </NavLink>
+
                     </div>
                     <div>
                         {user.followed ? <button onClick={() => {props.unfollow(user.id)}}>UnFollow</button>

@@ -1,38 +1,36 @@
-// import React from 'react';
-// import classes from './MyPost.module.css';
-// import Post from "./Post/Post";
-// import {addNewPostActionCreator, handleChangeActionCreator} from '../../../redux/post_reducer';
-// import MyPost from "./MyPost";
-// // import MyContext from "../../../MyContext";
-// import {connect} from "react-redux";
-// import Profile from "./Profile";
-// import MyPostContainer from "./MyPosts/MyPostContainer";
-//
-//
-//
-// const mapStateToProps = (state) =>{
-//      debugger
-//     return{
-//         state: state.postPage.PostData,
-//         newText:  state.postPage.newText,
-//         post:'MY POSTS'
-//     }
-// }
-//
-// const mapDispatchToProps = (dispatch) =>{
-//     return{
-//         addChangeText: (newPost) =>{
-//             dispatch(handleChangeActionCreator(newPost));
-//         },
-//
-//         addPost: () =>{
-//             let action = addNewPostActionCreator();
-//             dispatch(action);
-//         }
-//     }
-// }
-//
-// const ProfileContainer = connect(mapStateToProps,mapDispatchToProps) (Profile);
-//
-//
-// export default ProfileContainer
+import React, {Component} from 'react';
+import Profile from "./Profile";
+import * as axios from "axios";
+import {setUsersProfile} from "../../redux/prof_reducer";
+import {connect} from "react-redux";
+
+
+
+class ProfileContainer extends React.Component{
+
+    componentDidMount() {
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/2`).then(response => {
+
+            this.props.setUsersProfile(response.data);
+
+        })
+
+    }
+
+    render () {
+             return (
+                 <div >
+                    <Profile  {...this.props} profile={this.props.profile}/>
+
+                 </div>
+             )
+         }
+}
+
+let mapStateToProps = (state) => ({
+    profile: state.profPage.profile
+})
+
+
+export default connect (mapStateToProps, {setUsersProfile}) (ProfileContainer);

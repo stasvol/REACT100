@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './MyPost.module.css';
 import Post from "./Post/Post";
-import {addNewPostActionCreator, handleChangeActionCreator} from '../../../redux/post_reducer';
+import {addNewPostActionCreator, handleChangeActionCreator} from '../../../redux/prof_reducer';
 import MyPost from "./MyPost";
 // import MyContext from "../../../MyContext";
 import {connect} from "react-redux";
@@ -53,10 +53,9 @@ import {connect} from "react-redux";
 // export default MyPostContainer1
 
 const mapStateToProps = (state) =>{
-
     return{
-        // state: state.postPage.PostData,
-        newText:  state.postPage.newText,
+        state: state.profPage.PostData,
+        newText:  state.profPage.newText,
         post:'MY POSTS'
     }
 }

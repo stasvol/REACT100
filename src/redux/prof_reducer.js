@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
+const SET_USERS_PROFILE = 'SET USERS PROFILE'
 
 let initialState = {
 
@@ -10,10 +11,11 @@ let initialState = {
     ],
 
     newText: 'Hello',
+    profile: null
 
 }
 
-const postReducer = (state = initialState, action) => {
+const profReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
@@ -51,6 +53,13 @@ const postReducer = (state = initialState, action) => {
                 newText: action.newText
             }
 
+        case SET_USERS_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+
+            }
+
         default:
             return state;
     }
@@ -60,7 +69,9 @@ export const addNewPostActionCreator = () => ({type: ADD_POST});
 
 export const handleChangeActionCreator = (newPost) => ({type: ADD_CHANGE_TEXT, newText: newPost});
 
-export default postReducer
+export  const setUsersProfile = (profile)  => ({type: SET_USERS_PROFILE,profile})
+
+export default profReducer
 
 
 // if (action.type=== ADD_POST){

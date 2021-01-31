@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './SiteBar.module.css';
-import {handleChangeActionCreator} from "../../../redux/post_reducer";
+import {handleChangeActionCreator} from "../../../redux/prof_reducer";
 
 const SiteBar = (props) => {
 

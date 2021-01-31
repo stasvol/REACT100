@@ -1,5 +1,5 @@
 import dialogReducer from './dialog_reducer';
-import postReducer from  './post_reducer';
+import postReducer from './prof_reducer';
 import siteBarReducer from './sitebar_reducer';
 
 // const ADD_POST = 'ADD POST';
