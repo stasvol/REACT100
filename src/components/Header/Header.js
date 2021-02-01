@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
+import photo from "../../Photo/Images/kot.jpg";
 
 const Header = (props) =>{
     return(
