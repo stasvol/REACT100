@@ -8,14 +8,14 @@ import {Provider} from "react-redux";
 // import MyContext, {Provider} from "./MyContext";
 
 
-const rerenderEntireTree = (state) => {
+// const rerenderEntireTree = (state) => {
 
     ReactDOM.render(
         <React.StrictMode>
 
             <Provider store={store}>
             {/*<MyContext.Provider value={store}>*/}
-            <App state={state}/>
+            <App state={store.getState()}/>
                 {/*addChangeText={store.addChangeText.bind(store)}*/}
                 {/*addMessage={store.addMessage.bind(store)} addChangeNewMessage={store.addChangeNewMessage.bind(store)}  */}
                 {/*</MyContext.Provider>*/}
@@ -24,15 +24,15 @@ const rerenderEntireTree = (state) => {
         </React.StrictMode>,
         document.getElementById('root')
     );
-}
-
-rerenderEntireTree(store.getState());
-// store.subscribe(rerenderEntireTree())
-
-store.subscribe(() => {
-    let state = store.getState();
-    rerenderEntireTree(state);
-});
+// }
+// //
+// rerenderEntireTree(store.getState());
+// // // store.subscribe(rerenderEntireTree())
+// //
+// store.subscribe(() => {
+//     let state = store.getState();
+//     rerenderEntireTree(state);
+// });
 
 
 // ReactDOM.render(

@@ -5,6 +5,7 @@ import Post from "./Post/Post";
 
 
 const MyPost = (props) => {
+
     let PostUser = props.PostData.map(p => <Post like={p.like} message={p.message} id={p.id} key={p.id}/>);
 
     let newPostText = React.createRef();
@@ -22,6 +23,7 @@ const MyPost = (props) => {
         let newPost = newPostText.current.value;
         props.addChangeText(newPost)
         // props.dispatch(handleChangeActionCreator(newPost));
+        console.log(newPost)
     }
     // console.log(props.newText)
 

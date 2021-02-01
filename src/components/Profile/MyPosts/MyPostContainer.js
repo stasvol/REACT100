@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './MyPost.module.css';
 import Post from "./Post/Post";
-import {addNewPostActionCreator, handleChangeActionCreator} from '../../../redux/prof_reducer';
+import {addChangeText, addNewPostActionCreator, addPost, handleChangeActionCreator} from '../../../redux/prof_reducer';
 import MyPost from "./MyPost";
 // import MyContext from "../../../MyContext";
 import {connect} from "react-redux";
@@ -63,11 +63,11 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) =>{
     return{
         addChangeText: (newPost) =>{
-            dispatch(handleChangeActionCreator(newPost));
+            dispatch(addChangeText(newPost));
         },
 
         addPost: () =>{
-            let action = addNewPostActionCreator();
+            let action = addPost();
             dispatch(action);
         }
     }

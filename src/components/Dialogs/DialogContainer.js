@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
-import classes from './Dialog.module.css';
-import {NavLink} from "react-router-dom";
-import DialogUser from './DialogUser/DialogUser';
-import MessageUser from './MessageUser/MessageUser';
-import {addNewMessageActionCreator, handleChangeDialogActionCreator} from '../../redux/dialog_reducer';
+import {addChangeNewMessage, addMessage,} from '../../redux/dialog_reducer';
 import Dialogs from "./Dialog";
 import MyContext from "../../MyContext";
 import {connect} from "react-redux";
@@ -20,10 +16,10 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) =>{
     return{
         addChangeNewMessage: (messageText) => {
-            dispatch(handleChangeDialogActionCreator(messageText))
+            dispatch(addChangeNewMessage(messageText))
         },
         addMessage: () => {
-            dispatch(addNewMessageActionCreator())
+            dispatch(addMessage())
         }
     }
 }

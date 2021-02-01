@@ -38,7 +38,7 @@ const profReducer = (state = initialState, action) => {
             };
              return {
                  ...state,
-                 PostData:[...state.PostData, newPost],
+                 PostData:[...state.PostData,newPost],
                  newText: ''
              }
 
@@ -65,9 +65,9 @@ const profReducer = (state = initialState, action) => {
     }
 }
 
-export const addNewPostActionCreator = () => ({type: ADD_POST});
+export const addPost = () => ({type: ADD_POST});
 
-export const handleChangeActionCreator = (newPost) => ({type: ADD_CHANGE_TEXT, newText: newPost});
+export const addChangeText = (newPost) => ({type: ADD_CHANGE_TEXT, newText: newPost});
 
 export  const setUsersProfile = (profile)  => ({type: SET_USERS_PROFILE,profile})
 

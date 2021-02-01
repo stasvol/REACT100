@@ -16,7 +16,7 @@ const UsersF = (props) => {
 //         });
 //     }
 // }
-
+//
 // props.setUsers([
 //         {
 //             id: 1, photoUrl: 'https://download-cs.net/steam/avatars/3424.jpg',
@@ -37,7 +37,7 @@ const UsersF = (props) => {
 //         }
 // ]);
 
-    let pageCount = Math.ceil((props.totalUsersCount/props.pageSize)/200)
+    let pageCount = Math.ceil((props.totalUsersCount/props.pageSize)/100)
     let  pages = [];
     for (let i=1;  i <= pageCount; i++ ){
         pages.push(i);
@@ -49,7 +49,7 @@ const UsersF = (props) => {
             <div className={classes.pagesNum}>
                 { pages.map(p => {
 
-                    return  <span className={ props.currentPage === p  && classes.pagin}
+                    return  <span key={p.id} className={ props.currentPage === p  && classes.pagin}
                                   onClick={(e) =>{props.onChangePage(p)}}> {p} </span>}) }
 
             </div>
@@ -60,7 +60,7 @@ const UsersF = (props) => {
                         {/*<img src={user.photoUrl} className={classes.photo}/>*/}
 
                         <NavLink to={'/Profile/' + user.id}>
-                        <img src={user.photos.small != null ? user.photos.small : photo} className={classes.photo}/>
+                        <img src={user.photos.small != null ? user.photos.small : photo} alt={'image'} className={classes.photo}/>
                         </NavLink>
 
                     </div>
