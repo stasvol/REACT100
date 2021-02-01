@@ -6,7 +6,7 @@ const ProfAvatar = (props) => {
     return (
         <div>
             <div>
-                <img className={classes.img}
+                <img className={classes.img} alt={'image'}
                      src={'https://cdn.psychologytoday.com/sites/default/files/styles/article-inline-half-caption/public/field_blog_entry_images/2020-06/angry_chihuahua.png?itok=TWxYDbOT'}/>
                 <div className={classes.block}>
                     <h3 className={classes.head}>ZAGOLOVOK</h3>

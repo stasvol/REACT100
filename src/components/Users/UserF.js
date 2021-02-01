@@ -4,6 +4,7 @@ import photo from "../../Photo/Images/user.png";
 import classes from "./user.module.css";
 import UserContainer from "./UserContainer";
 import {NavLink} from "react-router-dom";
+import {userApi} from "../../Api/api";
 
 const UsersF = (props) => {
 
@@ -65,9 +66,29 @@ const UsersF = (props) => {
 
                     </div>
                     <div>
-                        {user.followed ? <button onClick={() => {props.unfollow(user.id)}}>UnFollow</button>
-                            : <button onClick={() => {props.follow(user.id)}}>Follow</button>
+                        {user.followed
+                            ? <button onClick={() => {
+
+                        userApi.deleteUser(user.id).then(data => {
+
+                                       if (data.resultCode === 0) {
+                                            props.unfollow(user.id)
+                                        }
+                                    });
+
+                            }}>UnFollow</button>
+
+                            : <button onClick={() => {
+
+                           -userApi.postUser(user.id).then(data => {
+
+                                   if (data.resultCode === 0) {
+                                       props.follow(user.id)
+                                   }
+                                });
+                            }}>Follow</button>
                         }
+
                     </div>
                     <div>{user.name}</div>
                     <div>{user.status}</div>

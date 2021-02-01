@@ -4,6 +4,7 @@ import {follow, setCurrentPage, setTotalUsersCount, setUsers, togglePreloader, u
 import * as axios from 'axios';
 import UsersF from './UserF';
 import Preloader from "../common/preloader/preloader";
+import {userApi} from "../../Api/api";
 
 
 class UsersApiContainer extends React.Component {
@@ -11,24 +12,25 @@ class UsersApiContainer extends React.Component {
     componentDidMount() {
         this.props.togglePreloader(true);
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        userApi.getUserPage(this.props.currentPage, this.props.pageSize).then(data => {
 
-            this.props.togglePreloader(false);
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount);
-        });
+                this.props.togglePreloader(false);
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount);
+            });
     }
 
     onChangePage = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.togglePreloader(true);
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
 
-            this.props.togglePreloader(false);
-            this.props.setUsers(response.data.items);
+        userApi.getUserPage (pageNumber,this.props.pageSize).then(data => {
 
-        });
+                this.props.togglePreloader(false);
+                this.props.setUsers(data.items);
+
+            });
 
     }
 
@@ -37,10 +39,10 @@ class UsersApiContainer extends React.Component {
 
         return (
             <>
-                  { this.props.isLoading ? <Preloader /> : null }
-            <UsersF onChangePage={this.onChangePage}  currentPage={this.props.currentPage}
-                    totalUsersCount={this.props.totalUsersCount} pageSize={this.props.pageSize}
-                    users={this.props.users} follow={this.props.follow} unfollow={this.props.unfollow}/>
+                {this.props.isLoading ? <Preloader/> : null}
+                <UsersF onChangePage={this.onChangePage} currentPage={this.props.currentPage}
+                        totalUsersCount={this.props.totalUsersCount} pageSize={this.props.pageSize}
+                        users={this.props.users} follow={this.props.follow} unfollow={this.props.unfollow}/>
             </>
         )
 
@@ -48,8 +50,8 @@ class UsersApiContainer extends React.Component {
 }
 
 
-const mapStateToProps = (state) =>{
-    return{
+const mapStateToProps = (state) => {
+    return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
@@ -83,7 +85,9 @@ const mapStateToProps = (state) =>{
 // }
 
 
-const UserContainer = connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage,
-    setTotalUsersCount, togglePreloader })  (UsersApiContainer)
+const UserContainer = connect(mapStateToProps, {
+    follow, unfollow, setUsers, setCurrentPage,
+    setTotalUsersCount, togglePreloader
+})(UsersApiContainer)
 
 export default UserContainer
