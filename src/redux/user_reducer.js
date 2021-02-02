@@ -4,6 +4,7 @@ const SET_USERS = 'SET USERS'
 const SET_CURRENT_PAGE = 'SET CURRENT PAGE'
 const SET_TOTAL_COUNT = 'SET TOTAL COUNT'
 const TOGGLE_PRELOADER = 'TOGGLE PRELOADER'
+const DISABLE_BUTTON_FOL = 'DISABLE BUTTON FOL'
 
 let initialState = {
     // [  {
@@ -24,10 +25,11 @@ let initialState = {
             //     followed: true, fullName: 'Sweta ',status: 'I am a boss',location: {country: 'Ukraine', city: 'Rivne'}
             // }  ],
        users:[],
-       pageSize: 3,
+       pageSize: 5,
        totalUsersCount: 0,
        currentPage: 1,
-       isLoading: false
+       isLoading: true,
+       disableButton: []
     }
 
 
@@ -85,6 +87,14 @@ const userReducer = (state=initialState, action) => {
                 isLoading: action.isLoading
             }
 
+        case  DISABLE_BUTTON_FOL:
+            return {
+                ...state,
+                disableButton: action.disableButton
+                    ? [...state.disableButton,action.userId]
+                    : state.disableButton.filter(id => id !== action.userId)
+            }
+
 
              default:
             return state;
@@ -102,6 +112,8 @@ export  const setCurrentPage = (currentPage) => ({type:SET_CURRENT_PAGE, current
 export const setTotalUsersCount = (totalCount)  => ({type: SET_TOTAL_COUNT,totalCount});
 
 export const togglePreloader = (isLoading) => ({type:TOGGLE_PRELOADER, isLoading})
+
+export const disableButtonFol = (disableButton,userId) => ({type: DISABLE_BUTTON_FOL, disableButton,userId })
 
 export default userReducer
 

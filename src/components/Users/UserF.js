@@ -48,15 +48,15 @@ const UsersF = (props) => {
 
         <div>
             <div className={classes.pagesNum}>
-                { pages.map(p => {
+                { pages.map((p, i) => {
 
-                    return  <span key={p.id} className={ props.currentPage === p  && classes.pagin}
+                    return  <span key={i} className={ props.currentPage === p  ? classes.pagin : null}
                                   onClick={(e) =>{props.onChangePage(p)}}> {p} </span>}) }
 
             </div>
             {/*<button onClick={this.addUsers}>ADD USERS</button>*/}
             {
-                    props.users.map(user => <div key={user.id}>
+                    props.users.map((user,i) => <div key={i}>
                     <div>
                         {/*<img src={user.photoUrl} className={classes.photo}/>*/}
 
@@ -67,24 +67,29 @@ const UsersF = (props) => {
                     </div>
                     <div>
                         {user.followed
-                            ? <button onClick={() => {
-
+                            ? <button disabled={props.disableButton.some(id => id === user.id)} onClick={() => {
+                             props.disableButtonFol(true, user.id)
                         userApi.deleteUser(user.id).then(data => {
 
                                        if (data.resultCode === 0) {
                                             props.unfollow(user.id)
                                         }
+                            props.disableButtonFol(false,user.id)
                                     });
 
                             }}>UnFollow</button>
 
-                            : <button onClick={() => {
+                            : <button disabled={props.disableButton.some(id => id === user.id)} onClick={() => {
 
-                           -userApi.postUser(user.id).then(data => {
+                                props.disableButtonFol(true, user.id)
+
+                           userApi.postUser(user.id).then(data => {
 
                                    if (data.resultCode === 0) {
                                        props.follow(user.id)
                                    }
+                               props.disableButtonFol(false,user.id)
+
                                 });
                             }}>Follow</button>
                         }
