@@ -68,29 +68,32 @@ const UsersF = (props) => {
                     <div>
                         {user.followed
                             ? <button disabled={props.disableButton.some(id => id === user.id)} onClick={() => {
-                             props.disableButtonFol(true, user.id)
-                        userApi.deleteUser(user.id).then(data => {
 
-                                       if (data.resultCode === 0) {
-                                            props.unfollow(user.id)
-                                        }
-                            props.disableButtonFol(false,user.id)
-                                    });
+                                props.unFollowThunkCreator(user.id)
+                        //      props.disableButtonFol(true, user.id)
+                        // userApi.deleteUser(user.id).then(data => {
+                        //
+                        //                if (data.resultCode === 0) {
+                        //                     props.unfollow(user.id)
+                        //                 }
+                        //     props.disableButtonFol(false,user.id)
+                        //             });
 
                             }}>UnFollow</button>
 
                             : <button disabled={props.disableButton.some(id => id === user.id)} onClick={() => {
 
-                                props.disableButtonFol(true, user.id)
-
-                           userApi.postUser(user.id).then(data => {
-
-                                   if (data.resultCode === 0) {
-                                       props.follow(user.id)
-                                   }
-                               props.disableButtonFol(false,user.id)
-
-                                });
+                                props.FollowThunkCreator(user.id)
+                           //      props.disableButtonFol(true, user.id)
+                           //
+                           // userApi.postUser(user.id).then(data => {
+                           //
+                           //         if (data.resultCode === 0) {
+                           //             props.follow(user.id)
+                           //         }
+                           //     props.disableButtonFol(false,user.id)
+                           //
+                           //      });
                             }}>Follow</button>
                         }
 

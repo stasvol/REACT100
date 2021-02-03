@@ -1,3 +1,5 @@
+import {userApi} from "../Api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET USERS'
@@ -111,9 +113,55 @@ export  const setCurrentPage = (currentPage) => ({type:SET_CURRENT_PAGE, current
 
 export const setTotalUsersCount = (totalCount)  => ({type: SET_TOTAL_COUNT,totalCount});
 
-export const togglePreloader = (isLoading) => ({type:TOGGLE_PRELOADER, isLoading})
+export const togglePreloader = (isLoading) => ({type:TOGGLE_PRELOADER, isLoading});
 
-export const disableButtonFol = (disableButton,userId) => ({type: DISABLE_BUTTON_FOL, disableButton,userId })
+export const disableButtonFol = (disableButton,userId) => ({type: DISABLE_BUTTON_FOL, disableButton,userId });
+
+ //    THUNK
+
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+
+   return     (dispatch) => {
+
+        dispatch(togglePreloader(true));
+
+        userApi.getUserPage(currentPage, pageSize).then(data => {
+
+            dispatch(togglePreloader(false));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersCount(data.totalCount));
+        });
+    }
+}
+
+export const  FollowThunkCreator = (userId) => {
+
+    return     (dispatch) => {
+
+        dispatch(disableButtonFol(true, userId))
+        userApi.postUser (userId).then(data => {
+
+            if (data.resultCode === 0) {
+               dispatch(follow(userId))
+            }
+            dispatch(disableButtonFol(false,userId))
+        });
+    }
+}
+export const  unFollowThunkCreator = (userId) => {
+
+    return     (dispatch) => {
+
+        dispatch(disableButtonFol(true, userId))
+        userApi.deleteUser(userId).then(data => {
+
+            if (data.resultCode === 0) {
+                dispatch(unfollow(userId))
+            }
+            dispatch(disableButtonFol(false,userId))
+        });
+    }
+}
 
 export default userReducer
 

@@ -1,13 +1,8 @@
 import React from 'react';
 import {connect, Provider} from 'react-redux';
 import {
-    disableButtonFol,
-    follow,
-    setCurrentPage,
-    setTotalUsersCount,
-    setUsers,
-    togglePreloader,
-    unfollow,
+    disableButtonFol, follow, FollowThunkCreator, getUsersThunkCreator, setCurrentPage, setTotalUsersCount,
+    setUsers, togglePreloader, unfollow, unFollowThunkCreator,
 } from "../../redux/user_reducer";
 import * as axios from 'axios';
 import UsersF from './UserF';
@@ -18,27 +13,31 @@ import {userApi} from "../../Api/api";
 class UsersApiContainer extends React.Component {
 
     componentDidMount() {
-        this.props.togglePreloader(true);
 
-        userApi.getUserPage(this.props.currentPage, this.props.pageSize).then(data => {
-
-                this.props.togglePreloader(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount);
-            });
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        // this.props.togglePreloader(true);
+        //
+        // userApi.getUserPage(this.props.currentPage, this.props.pageSize).then(data => {
+        //
+        //         this.props.togglePreloader(false);
+        //         this.props.setUsers(data.items);
+        //         this.props.setTotalUsersCount(data.totalCount);
+        //     });
     }
 
     onChangePage = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.togglePreloader(true);
 
-
-        userApi.getUserPage (pageNumber,this.props.pageSize).then(data => {
-
-                this.props.togglePreloader(false);
-                this.props.setUsers(data.items);
-
-            });
+        this.props.getUsersThunkCreator(pageNumber)
+        // this.props.setCurrentPage(pageNumber);
+        // this.props.togglePreloader(true);
+        //
+        //
+        // userApi.getUserPage (pageNumber,this.props.pageSize).then(data => {
+        //
+        //         this.props.togglePreloader(false);
+        //         this.props.setUsers(data.items);
+        //
+        //     });
 
     }
 
@@ -52,7 +51,8 @@ class UsersApiContainer extends React.Component {
                         totalUsersCount={this.props.totalUsersCount} pageSize={this.props.pageSize}
                         users={this.props.users} follow={this.props.follow} unfollow={this.props.unfollow}
                         disableButtonFol={this.props.disableButtonFol} disableButton={this.props.disableButton}
-                         />
+                        FollowThunkCreator={this.props.FollowThunkCreator}
+                        unFollowThunkCreator={this.props.unFollowThunkCreator} />
             </>
         )
 
@@ -95,8 +95,17 @@ const mapStateToProps = (state) => {
 //     }
 // }
 
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         getUsers: (currentPage, pageSize) => {
+//             dispatch(getUsersThunkCreator(currentPage, pageSize))
+//         }
+//     }
+// }
+
 
 const UserContainer = connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage,
-    setTotalUsersCount, togglePreloader,disableButtonFol})(UsersApiContainer)
+    setTotalUsersCount, togglePreloader,disableButtonFol,
+    getUsersThunkCreator, FollowThunkCreator, unFollowThunkCreator  })(UsersApiContainer)
 
 export default UserContainer
