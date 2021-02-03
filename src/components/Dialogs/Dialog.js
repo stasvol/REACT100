@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
+import  { Redirect } from 'react-router-dom'
 import classes from './Dialog.module.css';
 import {NavLink} from "react-router-dom";
 import DialogUser from './DialogUser/DialogUser';
 import MessageUser from './MessageUser/MessageUser';
 import {addNewMessageActionCreator, handleChangeDialogActionCreator} from '../../redux/dialog_reducer';
+
+
 
 const Dialogs = (props) => {
     // let state = props.store.getState().dialogPage
@@ -26,7 +29,7 @@ const Dialogs = (props) => {
         props.addChangeNewMessage(messageText)
         // props.dispatch(handleChangeDialogActionCreator(messageText));
     }
-
+         if (props.isAuth) return <Redirect to={'/Login'} />
 
     return (
 

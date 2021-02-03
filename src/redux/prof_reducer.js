@@ -1,3 +1,5 @@
+import {userApi as addAxios} from "../Api/api";
+
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
 const SET_USERS_PROFILE = 'SET USERS PROFILE'
@@ -71,7 +73,32 @@ export const addChangeText = (newPost) => ({type: ADD_CHANGE_TEXT, newText: newP
 
 export  const setUsersProfile = (profile)  => ({type: SET_USERS_PROFILE,profile})
 
+
+export const  profileThunkCreator = (userId) => {
+
+    return (dispatch) =>  {
+
+        // let userId = this.props.match.params.userId;
+        // if (!userId){
+        //     userId=2;
+        // }
+        addAxios.getProfile(userId)
+            // axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/`+userId)
+
+            .then(response => {
+
+                dispatch(setUsersProfile(response.data));
+
+            })
+
+
+
+    }
+}
+
 export default profReducer
+
+
 
 
 // if (action.type=== ADD_POST){

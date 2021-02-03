@@ -41,6 +41,13 @@ export  const userApi = {
 
             .then(response => { return response.data  })
 
+    },
+
+    getProfile(userId) {
+
+        return  addAxios.get(`https://social-network.samuraijs.com/api/1.0/Profile/`+ userId)
+
+
     }
 
 }

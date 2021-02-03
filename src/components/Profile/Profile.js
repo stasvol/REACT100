@@ -6,6 +6,7 @@ import MyPostContainer from "./MyPosts/MyPostContainer";
 const Profile = (props) => {
 
     return (
+
         <div >
             <ProfInfo profile={props.profile} />
             <ProfAvatar />
