@@ -1,3 +1,6 @@
+import thunk from "redux-thunk";
+import {userApi} from "../Api/api";
+
 const SET_AUTH_USERS_DATA = 'SET AUTH USERS DATA';
 
 
@@ -33,6 +36,19 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuthUserData = (id, email, login) => ({type:SET_AUTH_USERS_DATA, data:{ id, email, login }});
 
+
+export  const authThunkCreator = (id, email, login) => {
+
+    return   (dispatch ) => {
+        userApi.loginUser().then(data => {
+
+            if (data.resultCode === 0) {
+                let {id, email, login} = data.data
+                dispatch(setAuthUserData(id, email, login));
+            }
+        });
+    }
+}
 
 export default authReducer
 

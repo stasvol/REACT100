@@ -6,12 +6,12 @@
     margin-left: 20px;
 }
 
-.pagin {
+ .active {
     font-weight: bold;
+     cursor: pointer;
+ }
 
-
-}
-.pagesNum {
+  .pagesNum {
     font-size: 20px;
     padding: 10px;
 }

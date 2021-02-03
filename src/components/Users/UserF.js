@@ -48,9 +48,9 @@ const UsersF = (props) => {
 
         <div>
             <div className={classes.pagesNum}>
-                { pages.map((p, i) => {
+                { pages.map((p ,i) => {
 
-                    return  <span key={i} className={ props.currentPage === p  ? classes.pagin : null}
+                    return  <span key={i} className={ props.currentPage === p  ?  classes.active : classes.pageNum }
                                   onClick={(e) =>{props.onChangePage(p)}}> {p} </span>}) }
 
             </div>
