@@ -29,7 +29,7 @@ const Dialogs = (props) => {
         props.addChangeNewMessage(messageText)
         // props.dispatch(handleChangeDialogActionCreator(messageText));
     }
-         if (!props.isAuth) return <Redirect to={'/Login'} />
+         // if (!props.isAuth) return <Redirect to={'/Login'} />
 
     return (
 

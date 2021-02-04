@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import Profile from "./Profile";
-import * as axios from "axios";
 import {addChangeText, addPost, profileThunkCreator, setUsersProfile} from "../../redux/prof_reducer";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom"
-import {userApi as addAxios} from "../../Api/api";
 import { Redirect } from "react-router-dom"
+import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
+import Dialog from "../Dialogs/Dialog";
+import {compose} from "redux";
+
 
 class ProfileContainer extends React.Component{
 
@@ -29,7 +31,7 @@ class ProfileContainer extends React.Component{
     }
 
     render () {
-             if (!this.props.isAuth) return <Redirect to={'/login'} />
+             // if (!this.props.isAuth) return <Redirect to={'/login'} />
              return (
                  <div >
                     <Profile  {...this.props} profile={this.props.profile}/>
@@ -39,15 +41,38 @@ class ProfileContainer extends React.Component{
          }
 }
 
+//       HOC
+
+// let RedirectComponent = (props) => {
+//
+//     if (!props.isAuth) return <Redirect to={'/login'} />
+//
+//     return  <ProfileContainer {...props} />
+//
+// }
+// let AuthRedirectComponent = withAuthRedirect(ProfileContainer) ;
+// let mapStateToPropsRedirect = (state) => ({
+//     isAuth: state.auth.isAuth
+// });
+// AuthRedirectComponent = connect(mapStateToPropsRedirect) (AuthRedirectComponent)
+
+
+
 let mapStateToProps = (state) => ({
     state: state.profPage,
     profile: state.profPage.profile,
-    isAuth: state.auth.isAuth
+    // isAuth: state.auth.isAuth
 
 
 });
 
- let WithRouterProfileContainer = withRouter(ProfileContainer)
+ // let WithRouterProfileContainer = withRouter(AuthRedirectComponent)
 
 
-export default connect (mapStateToProps, {setUsersProfile,profileThunkCreator}) (WithRouterProfileContainer);
+// export default connect (mapStateToProps, {setUsersProfile,profileThunkCreator}) (WithRouterProfileContainer);
+export default compose(
+    connect (mapStateToProps, {setUsersProfile,profileThunkCreator}),
+    withRouter,
+    withAuthRedirect
+)
+(ProfileContainer)

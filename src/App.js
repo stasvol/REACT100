@@ -11,6 +11,8 @@ import NavContainer from "./components/Nav/NavContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/login";
+import {withAuthRedirect} from "./Hoc/withAuthRedirect";
+import {connect} from "react-redux";
 
 
 const App = (props) => {

@@ -8,6 +8,8 @@ import * as axios from 'axios';
 import UsersF from './UserF';
 import Preloader from "../common/preloader/preloader";
 import {userApi} from "../../Api/api";
+import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 class UsersApiContainer extends React.Component {
@@ -104,8 +106,14 @@ const mapStateToProps = (state) => {
 // }
 
 
-const UserContainer = connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage,
-    setTotalUsersCount, togglePreloader,disableButtonFol,
-    getUsersThunkCreator, FollowThunkCreator, unFollowThunkCreator  })(UsersApiContainer)
+// const UserContainer = withAuthRedirect( connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage,
+//     setTotalUsersCount, togglePreloader,disableButtonFol,
+//     getUsersThunkCreator, FollowThunkCreator, unFollowThunkCreator  })) (UsersApiContainer);
 
-export default UserContainer
+// export default UserContainer
+export default compose(
+    withAuthRedirect,
+    connect          (mapStateToProps, {follow, unfollow, setUsers,
+                      setCurrentPage, setTotalUsersCount, togglePreloader,disableButtonFol,
+                      getUsersThunkCreator, FollowThunkCreator, unFollowThunkCreator  }))
+(UsersApiContainer);

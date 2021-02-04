@@ -3,19 +3,31 @@ import {addChangeNewMessage, addMessage,} from '../../redux/dialog_reducer';
 import Dialogs from "./Dialog";
 import MyContext from "../../MyContext";
 import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
+import Dialog from "./Dialog";
+import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
+//       HOC
 
-const mapStateToProps = (state) =>{
+// let AuthRedirectComponent= (props) =>{
+//     if (!props.isAuth) return <Redirect to={'/Login'} />
+//
+//     return  <Dialog {...props} />
+// }
+// let AuthRedirectComponent = withAuthRedirect(Dialog);
 
-   return{
-       state : state.dialogPage,
-       isAuth: state.auth.isAuth
+const mapStateToProps = (state) => {
 
-   }
+    return {
+        state: state.dialogPage,
+        // isAuth: state.auth.isAuth
+
+    }
 }
-const mapDispatchToProps = (dispatch) =>{
-    return{
+const mapDispatchToProps = (dispatch) => {
+    return {
         addChangeNewMessage: (messageText) => {
             dispatch(addChangeNewMessage(messageText))
         },
@@ -25,9 +37,14 @@ const mapDispatchToProps = (dispatch) =>{
     }
 }
 
-const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
-export default DialogContainer
+// const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+//
+// export default DialogContainer
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect)
+(Dialog)
 
 
 // const DialogContainer1 = (props) => {

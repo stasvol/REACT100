@@ -5,7 +5,7 @@ const Login = (props)=> {
 
     return (
        <div>
-           LOGIN
+          <h1>LOGIN</h1>
        </div>
     )
 
