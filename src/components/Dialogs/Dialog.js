@@ -11,8 +11,8 @@ import {addNewMessageActionCreator, handleChangeDialogActionCreator} from '../..
 const Dialogs = (props) => {
     // let state = props.store.getState().dialogPage
 
-    let DialogUserData = props.state.DialogData.map(obj => <DialogUser name={obj.name} id={obj.id} img={obj.img} key={obj.id}/>);
-    let MessageData = props.state.MessageUserData.map(message => <MessageUser message={message.message} id={message.id} key={message.id}/>);
+    let DialogUserData = props.state.DialogData.map((obj,i) => <DialogUser name={obj.name} id={obj.id} img={obj.img} key={i}/>);
+    let MessageData = props.state.MessageUserData.map((message, i) => <MessageUser message={message.message} id={message.id} key={i}/>);
 
     // let newMessage = React.createRef();
 
