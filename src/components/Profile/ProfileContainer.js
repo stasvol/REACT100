@@ -12,7 +12,7 @@ class ProfileContainer extends React.Component{
 
          let userId = this.props.match.params.userId;
          if (!userId){
-             userId=1045;
+             userId=1049;
          }
         this.props.profileThunkCreator(userId);
          this.props.getStatus(userId);
