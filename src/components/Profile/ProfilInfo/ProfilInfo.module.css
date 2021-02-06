@@ -5,4 +5,9 @@
 .smail {
     width: 15px;
 }
+.status {
+    margin: 20px;
+    font-weight: bold ;
+    color: #770477;
+}
 

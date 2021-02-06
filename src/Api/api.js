@@ -42,13 +42,23 @@ export  const userApi = {
             .then(response => { return response.data  })
 
     },
+}
+//    PROFILE
+
+export const profileApi = {
 
     getProfile(userId) {
 
-        return  addAxios.get(`https://social-network.samuraijs.com/api/1.0/Profile/`+ userId)
+        return addAxios.get(`https://social-network.samuraijs.com/api/1.0/Profile/` + userId)
 
+    },
 
-    }
+     getStatus(userId) {
+         return addAxios.get(`Profile/status/` + userId)
+     },
+
+    updateStatus(status) {
+        return addAxios.put(`Profile/status`,{status:status})
+    },
 
 }
-

@@ -1,8 +1,9 @@
-import {userApi as addAxios} from "../Api/api";
+import {profileApi, userApi as addAxios} from "../Api/api";
 
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
-const SET_USERS_PROFILE = 'SET USERS PROFILE'
+const SET_USERS_PROFILE = 'SET USERS PROFILE';
+const SET_STATUS =  'SET STATUS'
 
 let initialState = {
 
@@ -13,7 +14,8 @@ let initialState = {
     ],
 
     newText: 'Hello',
-    profile: null
+    profile: null,
+    status: ''
 
 }
 
@@ -62,6 +64,12 @@ const profReducer = (state = initialState, action) => {
 
             }
 
+        case SET_STATUS :
+            return {
+                ...state,
+                status: action.status
+            }
+
         default:
             return state;
     }
@@ -71,7 +79,9 @@ export const addPost = () => ({type: ADD_POST});
 
 export const addChangeText = (newPost) => ({type: ADD_CHANGE_TEXT, newText: newPost});
 
-export  const setUsersProfile = (profile)  => ({type: SET_USERS_PROFILE,profile})
+export  const setUsersProfile = (profile)  => ({type: SET_USERS_PROFILE,profile});
+
+export const setStatus = (status)  => ({type:SET_STATUS, status})
 
 
 export const  profileThunkCreator = (userId) => {
@@ -82,7 +92,7 @@ export const  profileThunkCreator = (userId) => {
         // if (!userId){
         //     userId=2;
         // }
-        addAxios.getProfile(userId)
+        profileApi.getProfile(userId)
             // axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/`+userId)
 
             .then(response => {
@@ -90,11 +100,36 @@ export const  profileThunkCreator = (userId) => {
                 dispatch(setUsersProfile(response.data));
 
             })
-
-
-
     }
 }
+export const  getStatus = (userId) => {
+
+    return (dispatch) =>  {
+
+        profileApi.getStatus(userId) .then(response => {
+
+                dispatch(setStatus(response.data));
+        })
+    }
+}
+export const  updateStatus = (status) => {
+
+    return (dispatch) =>  {
+
+        profileApi.updateStatus(status) .then(response => {
+
+            if (response.data.resultCode === 0){
+
+                dispatch(setStatus(status));
+            }
+
+
+        })
+    }
+}
+
+
+
 
 export default profReducer
 

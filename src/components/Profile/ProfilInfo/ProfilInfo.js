@@ -11,13 +11,12 @@ const ProfInfo = (props) => {
        }
     return (
         <div>
-            <div>
-                <img className={classes.imgCont} alt={'image'}
-                     src={'https://sites.google.com/site/prirodanasevseegooglgfgf/_/rsrc/1463456237313/home/priroda_gory_nebo_ozero_oblaka_81150_1920x1080.jpg'}/>
-                  <div>
-                <ProfilStatus status={"I'M COOL"}/>
-                  </div>
-
+            {/*<div>*/}
+            {/*    <img className={classes.imgCont} alt={'image'}*/}
+            {/*         src={'https://sites.google.com/site/prirodanasevseegooglgfgf/_/rsrc/1463456237313/home/priroda_gory_nebo_ozero_oblaka_81150_1920x1080.jpg'}/>*/}
+            {/*</div>*/}
+            <div >
+                <ProfilStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
             <div>
                   <img src={props.profile.photos.small} alt={'image'} />

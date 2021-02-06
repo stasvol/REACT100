@@ -6,23 +6,37 @@ import smail from "../../../Photo/Images/smail.png"
 class ProfilStatus extends React.Component {
 
      state = {
-         editMode: false
+         editMode: false,
+         status: this.props.status
     }
 
-    activeEditMode ()  {
+    activeEditMode = () => {
+
+       // console.log(this)
          this.setState({
              editMode: true
          })
         // this.state.editMode=true;
         // this.forceUpdate();
+        // console.log(this.state.editMode)
      }
     deActiveEditMode ()  {
+
         this.setState({
             editMode: false
         })
         // this.state.editMode=true;
         // this.forceUpdate();
+        this.props.updateStatus(this.state.status);
+     }
+
+    changeStatus = (e) => {
+         this.setState({
+              status: e.target.value
+         })
+
     }
+
 
 
     render() {
@@ -31,17 +45,18 @@ class ProfilStatus extends React.Component {
             <div>
                 {!this.state.editMode
                     ?
-                        <div>
-                            <span onDoubleClick={this.activeEditMode.bind(this)}><i>{this.props.status}</i></span>
+                        <div className={classes.status}>
+                            <span onDoubleClick={this.activeEditMode}><i>STATUS:</i>  {this.props.status || "'Noy status'"}</span>
                         </div>
                     :
-                        <div>
-                            <input autoFocus={true} onBlur={this.deActiveEditMode.bind(this)} type={'text'} placeholder={this.props.status}/>
+                        <div className={classes.status}>
+                            <input  onChange={this.changeStatus} autoFocus={true} onBlur={this.deActiveEditMode.bind(this)} type={'text'} value={this.state.status}/>
                         </div>
                 }
             </div>
         )
     }
 }
+
 
 export default ProfilStatus

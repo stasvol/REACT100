@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import Profile from "./Profile";
-import {addChangeText, addPost, profileThunkCreator, setUsersProfile} from "../../redux/prof_reducer";
+import {getStatus, profileThunkCreator, setUsersProfile, updateStatus} from "../../redux/prof_reducer";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom"
-import { Redirect } from "react-router-dom"
-import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
-import Dialog from "../Dialogs/Dialog";
 import {compose} from "redux";
 
 
@@ -15,9 +12,11 @@ class ProfileContainer extends React.Component{
 
          let userId = this.props.match.params.userId;
          if (!userId){
-             userId=2;
+             userId=1045;
          }
         this.props.profileThunkCreator(userId);
+         this.props.getStatus(userId);
+         // this.props.updateStatusThunkCreator(status);
 
         //  addAxios.getProfile(userId)
         // // axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/`+userId)
@@ -34,7 +33,8 @@ class ProfileContainer extends React.Component{
              // if (!this.props.isAuth) return <Redirect to={'/login'} />
              return (
                  <div >
-                    <Profile  {...this.props} profile={this.props.profile}/>
+                    <Profile  {...this.props} profile={this.props.profile}
+                              status={this.props.status} updateStatus={this.props.updateStatus}/>
 
                  </div>
              )
@@ -61,6 +61,7 @@ class ProfileContainer extends React.Component{
 let mapStateToProps = (state) => ({
     state: state.profPage,
     profile: state.profPage.profile,
+    status: state.profPage.status
     // isAuth: state.auth.isAuth
 
 
@@ -71,8 +72,8 @@ let mapStateToProps = (state) => ({
 
 // export default connect (mapStateToProps, {setUsersProfile,profileThunkCreator}) (WithRouterProfileContainer);
 export default compose(
-    connect (mapStateToProps, {setUsersProfile,profileThunkCreator}),
+    connect (mapStateToProps, {setUsersProfile,profileThunkCreator,getStatus,updateStatus}),
     withRouter,
-    withAuthRedirect
+    // withAuthRedirect
 )
 (ProfileContainer)
