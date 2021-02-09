@@ -9,7 +9,10 @@ const Header = (props) =>{
             <header className={classes.header}>
                 <img src={'https://img2.pngio.com/logo-png-images-download-150000-logo-png-resources-with-logo-download-png-360_360.png'} alt={'image'}/>
                 <div className={classes.log}>
-                    { props.isAuth ? props.login :   <NavLink to={'/login'}>LOGIN</NavLink> }
+                    { props.isAuth
+                        ?
+                        <div>{props.login}    <button onClick={props.loginOut}>Log out</button> </div>
+                        :  <NavLink to={'/login'}>LOGIN</NavLink> }
 
                 </div>
             </header>

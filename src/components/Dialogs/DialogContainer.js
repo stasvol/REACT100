@@ -28,11 +28,12 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        addChangeNewMessage: (messageText) => {
-            dispatch(addChangeNewMessage(messageText))
-        },
-        addMessage: () => {
-            dispatch(addMessage())
+        // addChangeNewMessage: (messageText) => {
+        //     dispatch(addChangeNewMessage(messageText))
+        // },
+
+        addMessage: (newMessageText) => {
+            dispatch(addMessage(newMessageText))
         }
     }
 }

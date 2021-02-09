@@ -9,9 +9,9 @@ const addAxios = axios.create({
 
 });
 
-export  const userApi = {
+export const userApi = {
 
-    getUserPage(currentPage,pageSize) {
+    getUserPage(currentPage, pageSize) {
         return addAxios.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
                 return response.data
@@ -20,28 +20,28 @@ export  const userApi = {
 
     deleteUser(userId) {
 
-     return  addAxios.delete(`follow/${userId}`)
-         .then(response => {
-             return response.data
-         })
+        return addAxios.delete(`follow/${userId}`)
+            .then(response => {
+                return response.data
+            })
     },
 
     postUser(userId) {
 
-        return addAxios.post(`follow/${userId}`, {}, )
+        return addAxios.post(`follow/${userId}`, {},)
             .then(response => {
-            return response.data
+                return response.data
             })
 
     },
 
-    loginUser() {
-
-        return  addAxios.get(`auth/me` ,)
-
-            .then(response => { return response.data  })
-
-    },
+    // loginUser() {
+    //
+    //     return  addAxios.get(`auth/me` ,)
+    //
+    //         .then(response => { return response.data  })
+    //
+    // },
 }
 //    PROFILE
 
@@ -53,12 +53,40 @@ export const profileApi = {
 
     },
 
-     getStatus(userId) {
-         return addAxios.get(`Profile/status/` + userId)
-     },
+    getStatus(userId) {
+        return addAxios.get(`Profile/status/` + userId)
+    },
 
     updateStatus(status) {
-        return addAxios.put(`Profile/status`,{status:status})
+        return addAxios.put(`Profile/status`, {status: status})
     },
+
+}
+
+export const loginApi = {
+
+    loginUser() {
+
+        return addAxios.get(`auth/me`)
+            .then(response => {
+                return response.data
+            })
+    },
+
+    login(email, password, rememberMe = false) {
+
+        return addAxios.post(`auth/login`, {email, password, rememberMe})
+        .then(response => {
+            return response.data
+        })
+    },
+    logOut() {
+
+        return addAxios.delete(`auth/login`)
+        .then(response => {
+            return response.data
+        })
+    }
+
 
 }

@@ -38,7 +38,8 @@ const profReducer = (state = initialState, action) => {
             let newPost = {
                 id: 4,
                 like: '0',
-                message: state.newText                 // (message)-parametr funktion
+                // message: state.newText                 // (message)-parametr funktion
+                message: action.newText                 // (message)-parametr funktion
             };
              return {
                  ...state,
@@ -75,7 +76,7 @@ const profReducer = (state = initialState, action) => {
     }
 }
 
-export const addPost = () => ({type: ADD_POST});
+export const addPost = (newText) => ({type: ADD_POST, newText});
 
 export const addChangeText = (newPost) => ({type: ADD_CHANGE_TEXT, newText: newPost});
 

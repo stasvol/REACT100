@@ -66,8 +66,8 @@ const mapDispatchToProps = (dispatch) =>{
             dispatch(addChangeText(newPost));
         },
 
-        addPost: () =>{
-            let action = addPost();
+        addPost: (newText) =>{
+            let action = addPost(newText);
             dispatch(action);
         }
     }

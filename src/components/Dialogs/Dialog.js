@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import DialogUser from './DialogUser/DialogUser';
 import MessageUser from './MessageUser/MessageUser';
 import {addNewMessageActionCreator, handleChangeDialogActionCreator} from '../../redux/dialog_reducer';
+import DialogForm from "./Dialog.Form";
 
 
 
@@ -16,20 +17,26 @@ const Dialogs = (props) => {
 
     // let newMessage = React.createRef();
 
-    const addNewMessage = () =>{
-        // let messageText = newMessage.current.value;
-        props.addMessage();
-        // newMessage.current.value = '';
-       // props.addChangeNewMessage('');
-       //  props.dispatch(addNewMessageActionCreator());
-    }
-
-    const handleChange = (e) =>{
-        let messageText = e.target.value;
-        props.addChangeNewMessage(messageText)
-        // props.dispatch(handleChangeDialogActionCreator(messageText));
-    }
+    // const addNewMessage = () =>{
+    //     // let messageText = newMessage.current.value;
+    //     props.addMessage();
+    //     // newMessage.current.value = '';
+    //    // props.addChangeNewMessage('');
+    //    //  props.dispatch(addNewMessageActionCreator());
+    // }
+    //
+    // const handleChange = (e) =>{
+    //     let messageText = e.target.value;
+    //     props.addChangeNewMessage(messageText)
+    //     // props.dispatch(handleChangeDialogActionCreator(messageText));
+    // }
          // if (!props.isAuth) return <Redirect to={'/Login'} />
+
+    const onSubmit =(value) =>{
+        // alert(value.newMessageText)
+        props.addMessage(value.newMessageText)
+
+    }
 
     return (
 
@@ -47,8 +54,10 @@ const Dialogs = (props) => {
             </div>
             <div className={classes.messsages}>
 
-                 <textarea  onChange={handleChange} value={props.state.newMessageText}  placeholder={'add message'}> </textarea>
-                 <button onClick={ addNewMessage } className={classes.btn}>Add Message</button>
+                <DialogForm onSubmit={onSubmit} />
+
+                 {/*<textarea  onChange={handleChange} value={props.state.newMessageText}  placeholder={'add message'}> </textarea>*/}
+                 {/*<button onClick={ addNewMessage } className={classes.btn}>Add Message</button>*/}
 
                 <div className={classes.circle}>
                  <div className={`${classes.circle} ${classes.active}`}>{MessageData}</div>
