@@ -4,6 +4,7 @@ import {getStatus, profileThunkCreator, setUsersProfile, updateStatus} from "../
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom"
 import {compose} from "redux";
+import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
 
 
 class ProfileContainer extends React.Component{
@@ -19,7 +20,12 @@ class ProfileContainer extends React.Component{
              // <img src={'https://goodhostel.lviv.ua/sites/default/files/clAvHWVG4GE.jpg'}/>
              //     // 1049;
                  // 14585;
+             if (!userId) {
+                 userId = this.props.history.push('/login')
+             }
          }
+
+
         this.props.getUsers(userId)
         // this.props.profileThunkCreator(userId);
          this.props.getStatus(userId);
@@ -80,6 +86,6 @@ let mapStateToProps = (state) => ({
 export default compose(
     connect (mapStateToProps, {setUsersProfile,getUsers: profileThunkCreator,getStatus,updateStatus}),
     withRouter,
-    // withAuthRedirect
+    withAuthRedirect
 )
 (ProfileContainer)

@@ -124,6 +124,7 @@ export const getUsersThunkCreator = (currentPage, pageSize) => {
    return     (dispatch) => {
 
         dispatch(togglePreloader(true));
+        dispatch (setCurrentPage(currentPage))
 
         userApi.getUserPage(currentPage, pageSize).then(data => {
 

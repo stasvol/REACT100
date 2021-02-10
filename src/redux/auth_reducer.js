@@ -37,51 +37,51 @@ const authReducer = (state = initialState, action) => {
             return state
     }
 }
-                                                                                       // data
-export const setAuthUserData = (id, email, login,isAuth) => ({type:SET_AUTH_USERS_DATA, payload:{ id, email, login,isAuth }});
+// data
+export const setAuthUserData = (id, email, login, isAuth) => ({
+    type: SET_AUTH_USERS_DATA,
+    payload: {id, email, login, isAuth}
+});
 
 
-export  const authThunkCreator = (id, email, login,isAuth) => {
+export const authThunkCreator = (id, email, login, isAuth) => (dispatch) => {
 
-    return   (dispatch ) => {
-
-   return   loginApi.loginUser().then(data => {         // return - промисы - для app_reducer
-            if (data.resultCode === 0) {
-                let {id, email, login} = data.data
-                dispatch(setAuthUserData(id, email, login,true));
-            }
-        });
-    }
+    return loginApi.loginUser().then(data => {         // return - промисы - для app_reducer
+        if (data.resultCode === 0) {
+            let {id, email, login} = data.data
+            dispatch(setAuthUserData(id, email, login, true));
+        }
+    });
+    // return 'DDDDDDDDDDDDDDDDDDDDDDDDD'
 }
 
-export  const loginPost = (email, password, rememberMe) => (dispatch ) => {
+export const loginPost = (email, password, rememberMe) => (dispatch) => {
 
-        loginApi.login(email, password, rememberMe).then(data => {
+    loginApi.login(email, password, rememberMe).then(data => {
 
-            if (data.resultCode === 0) {
-                dispatch(authThunkCreator(email, password, rememberMe));
-            } else {
-                // let action = stopSubmit('login', {email: 'Email is wrong'});
-                let messages = data.messages ? data.messages : 'Some Error';
-                // let action = stopSubmit('login', {_error: messages});
-                // dispatch(action);
-                dispatch(stopSubmit('login', {_error: messages}));
-            }
-        });
+        if (data.resultCode === 0) {
+            dispatch(authThunkCreator(email, password, rememberMe));
+        } else {
+            // let action = stopSubmit('login', {email: 'Email is wrong'});
+            let messages = data.messages ? data.messages : 'Some Error';
+            // let action = stopSubmit('login', {_error: messages});
+            // dispatch(action);
+            dispatch(stopSubmit('login', {_error: messages}));
+        }
+    });
 }
 
-export  const loginOut = (email, password, rememberMe,isAuth) => {
+export const loginOut = (email, password, rememberMe, isAuth) => {
 
-    return   (dispatch ) => {
+    return (dispatch) => {
         loginApi.logOut().then(data => {
 
             if (data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null,false));
+                dispatch(setAuthUserData(null, null, null, false));
             }
         });
     }
 }
-
 
 
 export default authReducer

@@ -16,16 +16,15 @@ import {connect} from "react-redux";
 import {authThunkCreator, loginOut, setAuthUserData} from "./redux/auth_reducer";
 import { withRouter } from 'react-router-dom';
 import {compose} from "redux";
-import {setInitializedApp} from "./redux/app_reducer";
+import {initializeApp} from "./redux/app_reducer";
 import Preloader from "./components/common/preloader/preloader";
-import Profile from "./components/Profile/Profile";
-import Dialog from "./components/Dialogs/Dialog";
+
 
 class App extends Component {
 
 
     componentDidMount(props) {
-        this.props.setInitializedApp()
+        this.props.initializeApp()
         // this.props.authThunkCreator (this.props.id, this.props.email, this.props.login,this.props.isAuth)
         // userApi.loginUser().then(data => {
         //
@@ -38,18 +37,18 @@ class App extends Component {
     }
 
     render() {
+
         if (!this.props.initialized) {
-            return <Preloader/>
-
+             // return <img src={'https://cdn.segodnya.ua/img/gallery/5975/59/615213_main.jpg'}/>
+            return  <Preloader/>
         }
-        return (
+            return (
 
-            // <BrowserRouter>
+                // <BrowserRouter>
                 <div className="app-wrapper">
                     <HeaderContainer/>
                     <NavContainer/>
                     {/*<Navbar state={props.state.siteBar} />*/}
-
                     <div className={'app-pages'}>
                         <Route path={'/Dialogs'} render={() => <DialogContainer/>}/>
                         {/*// <Dialogs  data={props.state.dialogPage}*/}
@@ -75,20 +74,20 @@ class App extends Component {
                     </div>
 
                 </div>
-            // </BrowserRouter>
-        );
-
-    }
+                // </BrowserRouter>
+            );
+        }
 }
 let mapStateToProps = (state) => ({
-
     // auth: state.auth,
     // isAuth: state.auth.isAuth,
-    initialized: state.app.initialized
+    initialized: state.app.initialized,
+
+
 });
 
 export default compose (
     withRouter,
-    connect ( mapStateToProps,{setInitializedApp})) (App);
+    connect ( mapStateToProps,{initializeApp})) (App);
 // withRouter (connect ( mapStateToProps,{authThunkCreator}) (App));
 // export default App;

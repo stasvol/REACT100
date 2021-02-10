@@ -3,7 +3,7 @@ import {authThunkCreator} from "./auth_reducer";
 // import {loginApi, loginUser, userApi} from "../Api/api";
 // import {stopSubmit} from "redux-form";
 
-const SET_INITIALISED = 'SET INITIALISED';
+const INITIALISED_SUCCESS = 'INITIALISED SUCCESS';
 
 
 let initialState = {
@@ -18,10 +18,10 @@ const appReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case SET_INITIALISED:
+        case INITIALISED_SUCCESS:
 
             return {
-                ...state,
+                // ...state,
                 initialized: true
 
 
@@ -33,20 +33,19 @@ const appReducer = (state = initialState, action) => {
     }
 }
 // data
-export const setInitialized = () => ({type: setInitialized});
+export const initializedSuccess = () => ({type: INITIALISED_SUCCESS});
 
 
-export const setInitializedApp = () => (dispatch) => {
+export const initializeApp = () => (dispatch) => {
 
     let promise = dispatch(authThunkCreator());
     // dispatch(AC1())
     // dispatch(AC2())
     //  promise.then(() =>{
-    //      dispatch( setInitialized() );
+    //      dispatch(initializedSuccess() );
     //  })
-
     Promise.all([promise]).then(() => {
-        dispatch(setInitialized());
+        dispatch(initializedSuccess())
     })
 
 

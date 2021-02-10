@@ -10,6 +10,12 @@ import Preloader from "../common/preloader/preloader";
 import {userApi} from "../../Api/api";
 import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    currentPageSelector, disableButtonSector,
+    getUsersSelector, isLoadingSelector,
+    pageSizeSelector,
+    totalUsersCountSelector,
+} from "../../redux/users_selectors";
 
 
 class UsersApiContainer extends React.Component {
@@ -60,18 +66,28 @@ class UsersApiContainer extends React.Component {
 
     }
 }
-
-
 const mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading,
-        disableButton: state.usersPage.disableButton
+        users: getUsersSelector(state),
+        pageSize: pageSizeSelector(state),
+        totalUsersCount: totalUsersCountSelector(state),
+        currentPage: currentPageSelector(state),
+        isLoading: isLoadingSelector(state),
+        disableButton: disableButtonSector(state)
     }
 }
+
+
+// const mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isLoading: state.usersPage.isLoading,
+//         disableButton: state.usersPage.disableButton
+//     }
+// }
 
 // const mapDispatchToProps = (dispatch) =>{
 //     return {
