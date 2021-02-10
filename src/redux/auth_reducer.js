@@ -1,5 +1,6 @@
 import thunk from "redux-thunk";
 import {loginApi, loginUser, userApi} from "../Api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_AUTH_USERS_DATA = 'SET AUTH USERS DATA';
 
@@ -8,7 +9,8 @@ let initialState = {
     id: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+
 
 }
 
@@ -27,6 +29,7 @@ const authReducer = (state = initialState, action) => {
                 // ...action.data,
                 ...action.payload,
                 // isAuth: true
+
             }
 
 
@@ -42,7 +45,7 @@ export  const authThunkCreator = (id, email, login,isAuth) => {
 
     return   (dispatch ) => {
 
-        loginApi.loginUser().then(data => {
+   return   loginApi.loginUser().then(data => {         // return - промисы - для app_reducer
             if (data.resultCode === 0) {
                 let {id, email, login} = data.data
                 dispatch(setAuthUserData(id, email, login,true));
@@ -51,17 +54,22 @@ export  const authThunkCreator = (id, email, login,isAuth) => {
     }
 }
 
-export  const loginPost = (email, password, rememberMe) => {
+export  const loginPost = (email, password, rememberMe) => (dispatch ) => {
 
-    return   (dispatch ) => {
         loginApi.login(email, password, rememberMe).then(data => {
 
             if (data.resultCode === 0) {
                 dispatch(authThunkCreator(email, password, rememberMe));
+            } else {
+                // let action = stopSubmit('login', {email: 'Email is wrong'});
+                let messages = data.messages ? data.messages : 'Some Error';
+                // let action = stopSubmit('login', {_error: messages});
+                // dispatch(action);
+                dispatch(stopSubmit('login', {_error: messages}));
             }
         });
-    }
 }
+
 export  const loginOut = (email, password, rememberMe,isAuth) => {
 
     return   (dispatch ) => {

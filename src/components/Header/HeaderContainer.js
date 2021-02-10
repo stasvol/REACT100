@@ -9,17 +9,17 @@ import {userApi} from "../../Api/api";
 
 class HeaderContainer extends React.Component {
 
-    componentDidMount(props) {
-         this.props.authThunkCreator (this.props.id, this.props.email, this.props.login,this.props.isAuth)
-        // userApi.loginUser().then(data => {
-        //
-        //           if (data.resultCode === 0){
-        //               let {id, email, login} = data.data
-        //            this.props.setAuthUserData(id, email, login);
-        //        }
-        // });
-
-    }
+    // componentDidMount(props) {
+    //      this.props.authThunkCreator (this.props.id, this.props.email, this.props.login,this.props.isAuth)
+    //     // userApi.loginUser().then(data => {
+    //     //
+    //     //           if (data.resultCode === 0){
+    //     //               let {id, email, login} = data.data
+    //     //            this.props.setAuthUserData(id, email, login);
+    //     //        }
+    //     // });
+    //
+    // }
 
     render() {
         return (
@@ -34,4 +34,4 @@ let mapStateToProps = (state) => ({
     login: state.auth.login
 });
 
-export default connect ( mapStateToProps,{setAuthUserData,authThunkCreator,loginOut}) (HeaderContainer);
+export default connect ( mapStateToProps,{loginOut}) (HeaderContainer);

@@ -11,8 +11,14 @@ class ProfileContainer extends React.Component{
     componentDidMount() {
 
          let userId = this.props.match.params.userId;
+
          if (!userId){
-             userId=1049;
+
+             userId = this.props.authorisedUserId
+             // userId= 14585;
+             // <img src={'https://goodhostel.lviv.ua/sites/default/files/clAvHWVG4GE.jpg'}/>
+             //     // 1049;
+                 // 14585;
          }
         this.props.getUsers(userId)
         // this.props.profileThunkCreator(userId);
@@ -57,13 +63,12 @@ class ProfileContainer extends React.Component{
 // });
 // AuthRedirectComponent = connect(mapStateToPropsRedirect) (AuthRedirectComponent)
 
-
-
 let mapStateToProps = (state) => ({
     state: state.profPage,
     profile: state.profPage.profile,
-    status: state.profPage.status
-    // isAuth: state.auth.isAuth
+    status: state.profPage.status,
+    authorisedUserId: state.auth.id,
+    isAuth: state.auth.isAuth
 
 
 });

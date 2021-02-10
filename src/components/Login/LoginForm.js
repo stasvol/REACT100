@@ -4,6 +4,7 @@ import classes from './Login.module.css';
 import {Input} from "../common/FormControl/formComponent";
 import {maxLength, minLength, required} from "../../Utility/ValidateForm/validator";
 
+
 const maxLength20 =  maxLength(20);
 const minLength2 =  minLength(2);
 
@@ -30,7 +31,13 @@ const LoginForm = (props)=> {
                 <label htmlFor="Checkbox">Remember me</label>
                 <Field name="RememberMe" component={Input} type="checkbox" validate={[required ]}/>
             </div>
-            <button type="submit">LOGIN</button>
+            { props.error
+                ?  <div className={classes.formError}>
+                {props.error}
+                   </div>
+                :  ''
+            }
+            <button type="submit" >LOGIN</button>
         </form>
     )
 

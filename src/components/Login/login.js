@@ -8,15 +8,17 @@ import {Redirect} from "react-router-dom"
 const Login = (props) => {
 
 
+
+
     const onSubmit = (formData) => {
         props.loginPost(formData.Email, formData.Password, formData.RememberMe)
         // alert(formData.email,formData.password,formData.rememberMe)
         // console.log(formData)
     }
 
-    // if (props.isAuth) {
-    //     return <Redirect to={'/Profile'}/>
-    // }
+    if (props.isAuth) {
+        return <Redirect to={'/Profile'}/>
+    }
     return (
         <div>
             <h1>LOGIN</h1>

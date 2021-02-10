@@ -13,45 +13,82 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/login";
 import {withAuthRedirect} from "./Hoc/withAuthRedirect";
 import {connect} from "react-redux";
+import {authThunkCreator, loginOut, setAuthUserData} from "./redux/auth_reducer";
+import { withRouter } from 'react-router-dom';
+import {compose} from "redux";
+import {setInitializedApp} from "./redux/app_reducer";
+import Preloader from "./components/common/preloader/preloader";
+import Profile from "./components/Profile/Profile";
+import Dialog from "./components/Dialogs/Dialog";
+
+class App extends Component {
 
 
-const App = (props) => {
-    return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <HeaderContainer/>
-                <NavContainer/>
-                {/*<Navbar state={props.state.siteBar} />*/}
+    componentDidMount(props) {
+        this.props.setInitializedApp()
+        // this.props.authThunkCreator (this.props.id, this.props.email, this.props.login,this.props.isAuth)
+        // userApi.loginUser().then(data => {
+        //
+        //           if (data.resultCode === 0){
+        //               let {id, email, login} = data.data
+        //            this.props.setAuthUserData(id, email, login);
+        //        }
+        // });
 
-                <div className={'app-pages'}>
-                    <Route path={'/Dialogs'} render={() => <DialogContainer/>}/>
-                    {/*// <Dialogs  data={props.state.dialogPage}*/}
-                    {/*//                                               dispatch={props.dispatch} store={props.store}/>}/>*/}
-                    {/*// addMessage={props.addMessage}*/}
-                    {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
-                    <Route path={'/Profile/:userId?'} render={() => <ProfileContainer/>}/>
-                    {/*dispatch={props.dispatch}/>}/>*/}
-                    {/*// addPost={props.addPost}*/}
-                    {/*// addChangeText={props.addChangeTe} />}/>*/}
-                    <Route path={'/User'} render={() => <UserContainer/>}/>
-                    <Route path={'/News'} component={News}/>
-                    <Route path={'/Music'} component={Music}/>
-                    <Route path={'/Login'} component={Login}/>
-                    <Route path={'/Setting'} component={Setting}/>
-                    {/*<Route path={'/Film'} render={ () =>  {return <div>FILM</div>}}/>*/}
-                    {/*<Dialogs />*/}
-                    {/*<Profile />*/}
-                    {/* <Music />*/}
-                    {/* <News />*/}
-                    {/* <Setting />*/}
+    }
+
+    render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+
+        }
+        return (
+
+            // <BrowserRouter>
+                <div className="app-wrapper">
+                    <HeaderContainer/>
+                    <NavContainer/>
+                    {/*<Navbar state={props.state.siteBar} />*/}
+
+                    <div className={'app-pages'}>
+                        <Route path={'/Dialogs'} render={() => <DialogContainer/>}/>
+                        {/*// <Dialogs  data={props.state.dialogPage}*/}
+                        {/*//                                               dispatch={props.dispatch} store={props.store}/>}/>*/}
+                        {/*// addMessage={props.addMessage}*/}
+                        {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
+                        <Route path={'/Profile/:userId?'} render={() => <ProfileContainer/>}/>
+                        {/*dispatch={props.dispatch}/>}/>*/}
+                        {/*// addPost={props.addPost}*/}
+                        {/*// addChangeText={props.addChangeTe} />}/>*/}
+                        <Route path={'/User'} render={() => <UserContainer/>}/>
+                        <Route path={'/News'} component={News}/>
+                        <Route path={'/Music'} component={Music}/>
+                        <Route path={'/Login'} component={Login}/>
+                        <Route path={'/Setting'} component={Setting}/>
+                        {/*<Route path={'/Film'} render={ () =>  {return <div>FILM</div>}}/>*/}
+                        {/*<Dialogs />*/}
+                        {/*<Profile />*/}
+                        {/* <Music />*/}
+                        {/* <News />*/}
+                        {/* <Setting />*/}
+
+                    </div>
 
                 </div>
+            // </BrowserRouter>
+        );
 
-            </div>
-        </BrowserRouter>
-    );
-
+    }
 }
+let mapStateToProps = (state) => ({
 
+    // auth: state.auth,
+    // isAuth: state.auth.isAuth,
+    initialized: state.app.initialized
+});
 
-export default App;
+export default compose (
+    withRouter,
+    connect ( mapStateToProps,{setInitializedApp})) (App);
+// withRouter (connect ( mapStateToProps,{authThunkCreator}) (App));
+// export default App;
