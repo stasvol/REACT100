@@ -3,6 +3,8 @@ import classes from './ProfilInfo.module.css';
 import Preloader from "../../common/preloader/preloader";
 import smail from "../../../Photo/Images/smail.png"
 import ProfilStatus from "./ProfilStatus";
+import ProfilStatusWithHook from "./ProfilStatusWithHook";
+import ProfilStatusHook from "./ProfilStatusWithHook";
 
 const ProfInfo = (props) => {
 
@@ -16,7 +18,8 @@ const ProfInfo = (props) => {
             {/*         src={'https://sites.google.com/site/prirodanasevseegooglgfgf/_/rsrc/1463456237313/home/priroda_gory_nebo_ozero_oblaka_81150_1920x1080.jpg'}/>*/}
             {/*</div>*/}
             <div >
-                <ProfilStatus status={props.status} updateStatus={props.updateStatus}/>
+                <ProfilStatusHook status={props.status} updateStatus={props.updateStatus}/>
+                    {/*<ProfilStatus status={props.status} updateStatus={props.updateStatus}/>*/}
             </div>
             <div>
                   <img src={props.profile.photos.small} alt={'image'} />
