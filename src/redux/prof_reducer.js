@@ -3,7 +3,8 @@ import {profileApi, userApi as addAxios} from "../Api/api";
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
 const SET_USERS_PROFILE = 'SET USERS PROFILE';
-const SET_STATUS =  'SET STATUS'
+const SET_STATUS =  'SET STATUS';
+const DELETE_POST = 'DELETE POST'
 
 let initialState = {
 
@@ -47,6 +48,8 @@ const profReducer = (state = initialState, action) => {
                  newText: ''
              }
 
+
+
              case ADD_CHANGE_TEXT:
 
             // let copyState = {...state}
@@ -71,6 +74,13 @@ const profReducer = (state = initialState, action) => {
                 status: action.status
             }
 
+        case DELETE_POST:
+
+            return {
+                ...state,
+                PostData: [...state.PostData].filter(({ id }) => id !== action.postId)
+            }
+
         default:
             return state;
     }
@@ -82,7 +92,9 @@ export const addChangeText = (newPost) => ({type: ADD_CHANGE_TEXT, newText: newP
 
 export  const setUsersProfile = (profile)  => ({type: SET_USERS_PROFILE,profile});
 
-export const setStatus = (status)  => ({type:SET_STATUS, status})
+export const setStatus = (status)  => ({type:SET_STATUS, status});
+
+export const deletePost = (postId) => ({type:DELETE_POST, postId});
 
 
 export const  profileThunkCreator = (userId) => {
