@@ -1,5 +1,6 @@
 const ADD_MESSAGE = 'ADD MESSAGE';
 // const ADD_CHANGE_NEW_MESSAGE = 'ADD CHANGE NEW MESSAGE';
+const DELETE_MESSAGE = 'DELETE MESSAGE';
 
 let initialState = {
     DialogData: [
@@ -58,6 +59,12 @@ const dialogReducer = (state = initialState, action) => {
                 }],
                 newMessageText: ''
             }
+            
+        case DELETE_MESSAGE:
+                return {
+                    ...state,
+                    MessageUserData: [...state.MessageUserData].filter(m => m.id !== action.id)
+                }
 
         // case ADD_CHANGE_NEW_MESSAGE:
         //
@@ -76,8 +83,8 @@ const dialogReducer = (state = initialState, action) => {
 
 // export  const addMessage =() =>({ type: ADD_MESSAGE  });
 export const addMessage = (newMessageText) => ({type: ADD_MESSAGE, newMessageText});
-
 // export const addChangeNewMessage = (messageText) => ({type: ADD_CHANGE_NEW_MESSAGE, newMessageText: messageText});
+export const deleteMessage = (id) => ({type:DELETE_MESSAGE,id});
 
 
 export default dialogReducer

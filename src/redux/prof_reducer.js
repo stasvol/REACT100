@@ -78,7 +78,7 @@ const profReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                PostData: [...state.PostData].filter(({ id }) => id !== action.postId)
+                PostData: state.PostData.filter(({ id }) => id !== action.postId)
             }
 
         default:

@@ -2,14 +2,15 @@ import {userApi} from "../Api/api";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET USERS'
-const SET_CURRENT_PAGE = 'SET CURRENT PAGE'
-const SET_TOTAL_COUNT = 'SET TOTAL COUNT'
-const TOGGLE_PRELOADER = 'TOGGLE PRELOADER'
-const DISABLE_BUTTON_FOL = 'DISABLE BUTTON FOL'
+const SET_USERS = 'SET USERS';
+const SET_CURRENT_PAGE = 'SET CURRENT PAGE';
+const SET_TOTAL_COUNT = 'SET TOTAL COUNT';
+const TOGGLE_PRELOADER = 'TOGGLE PRELOADER';
+const DISABLE_BUTTON_FOL = 'DISABLE BUTTON FOL';
+const DELETE_USER = 'DELETE USER'
 
 let initialState = {
-    // [  {
+    // Users: [  {
             //     id: 1, photoUrl: 'https://download-cs.net/steam/avatars/3424.jpg',
             //     followed: true, fullName: 'Anna', status: 'I am a boss', location: {country: 'Ukraine', city: 'Kiev'}
             // },
@@ -97,6 +98,13 @@ const userReducer = (state=initialState, action) => {
                     : state.disableButton.filter(id => id !== action.userId)
             }
 
+        case  DELETE_USER:
+            return {
+                ...state,
+                Users: [...state.Users].filter(u => u.id !== action.userId)
+            }
+
+
 
              default:
             return state;
@@ -116,6 +124,8 @@ export const setTotalUsersCount = (totalCount)  => ({type: SET_TOTAL_COUNT,total
 export const togglePreloader = (isLoading) => ({type:TOGGLE_PRELOADER, isLoading});
 
 export const disableButtonFol = (disableButton,userId) => ({type: DISABLE_BUTTON_FOL, disableButton,userId });
+
+export const deleteUsers = (userId) =>({type:DELETE_USER, userId});
 
  //    THUNK
 
