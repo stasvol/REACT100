@@ -5,6 +5,7 @@ import classes from "./user.module.css";
 import UserContainer from "./UserContainer";
 import {NavLink} from "react-router-dom";
 import {userApi} from "../../Api/api";
+import PageNum from "./PageNum";
 
 const UsersF = (props) => {
 
@@ -38,23 +39,20 @@ const UsersF = (props) => {
 //         }
 // ]);
 
-    let pageCount = Math.ceil((props.totalUsersCount/props.pageSize)/100)
-    let  pages = [];
-    for (let i=1;  i <= pageCount; i++ ){
-        pages.push(i);
-    }
+    // let pageCount = Math.ceil((props.totalUsersCount/props.pageSize)/100)
+    // let  pages = [];
+    // for (let i=1;  i <= pageCount; i++ ){
+    //     pages.push(i);
+    // }
 
     return (
 
         <div>
-            <div className={classes.pagesNum}>
-                { pages.map((p ,i) => {
+             <PageNum  currentPage={props.currentPage} onChangePage={props.onChangePage}
+                       totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}/>
 
-                    return  <span key={i} className={ props.currentPage === p  ?  classes.active : classes.pageNum }
-                                  onClick={(e) =>{props.onChangePage(p)}}> {p} </span>}) }
-
-            </div>
             {/*<button onClick={this.addUsers}>ADD USERS</button>*/}
+
             {
                     props.users.map((user,i) => <div key={i}>
                     <div>

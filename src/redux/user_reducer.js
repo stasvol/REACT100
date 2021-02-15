@@ -1,4 +1,5 @@
 import {userApi} from "../Api/api";
+import {updateObjectInArray} from "../Utility/object_helper";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -11,70 +12,72 @@ const DELETE_USER = 'DELETE USER'
 
 let initialState = {
     // Users: [  {
-            //     id: 1, photoUrl: 'https://download-cs.net/steam/avatars/3424.jpg',
-            //     followed: true, fullName: 'Anna', status: 'I am a boss', location: {country: 'Ukraine', city: 'Kiev'}
-            // },
-            // {
-            //     id: 2, photoUrl: 'https://cs16planet.ru/steam-avatars/images/avatar2960.jpg',
-            //     followed: false, fullName: 'Ivan', status: 'I am a boss', location: {country: 'Ukraine', city: 'Lvov'}
-            // },
-            // {
-            //     id: 3, photoUrl: 'https://download-cs.net/steam/avatars/3426.jpg',
-            //     followed: false, fullName: 'Vovan', status: 'I am a boss', location: {country: 'Ukraine', city: 'Odessa'}
-            // },
-            // {
-            //     id: 4,
-            //     photoUrl: 'https://2ch.hk/sex/thumb/6329995/15866325175470s.jpg',
-            //     followed: true, fullName: 'Sweta ',status: 'I am a boss',location: {country: 'Ukraine', city: 'Rivne'}
-            // }  ],
-       users:[],
-       pageSize: 5,
-       totalUsersCount: 0,
-       currentPage: 1,
-       isLoading: true,
-       disableButton: []
-    }
+    //     id: 1, photoUrl: 'https://download-cs.net/steam/avatars/3424.jpg',
+    //     followed: true, fullName: 'Anna', status: 'I am a boss', location: {country: 'Ukraine', city: 'Kiev'}
+    // },
+    // {
+    //     id: 2, photoUrl: 'https://cs16planet.ru/steam-avatars/images/avatar2960.jpg',
+    //     followed: false, fullName: 'Ivan', status: 'I am a boss', location: {country: 'Ukraine', city: 'Lvov'}
+    // },
+    // {
+    //     id: 3, photoUrl: 'https://download-cs.net/steam/avatars/3426.jpg',
+    //     followed: false, fullName: 'Vovan', status: 'I am a boss', location: {country: 'Ukraine', city: 'Odessa'}
+    // },
+    // {
+    //     id: 4,
+    //     photoUrl: 'https://2ch.hk/sex/thumb/6329995/15866325175470s.jpg',
+    //     followed: true, fullName: 'Sweta ',status: 'I am a boss',location: {country: 'Ukraine', city: 'Rivne'}
+    // }  ],
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1,
+    isLoading: true,
+    disableButton: []
+}
 
 
-const userReducer = (state=initialState, action) => {
+const userReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
         case  FOLLOW:
 
-           return{
-                   ...state,
-                  // users: [...state.users]
-                  users: state.users.map(user =>{
-                      if (user.id === action.userId){
-                          return {...user, followed:true};
-                      }
-                         return user
-                  })
-           }
+            return {
+                ...state,
+                // users: [...state.users]
+                users: updateObjectInArray (state.users,action.userId,'id',{followed: true})
+                // users: state.users.map(user => {
+                //     if (user.id === action.userId) {
+                //         return {...user, followed: true};
+                //     }
+                //     return user
+                // })
+            }
 
         case UNFOLLOW:
 
             return {
                 ...state,
-                users: state.users.map(user=> {
-                    if (user.id === action.userId) {
-                        return {...user,followed:false};
-                    }
-                    return user;
-                })
+                users: updateObjectInArray (state.users,action.userId,'id',{followed: false}),
+                // users: state.users.map(user => {
+                //     if (user.id === action.userId) {
+                //         return {...user, followed: false};
+                //     }
+                //     return user;
+                // })
 
             }
 
         case SET_USERS:
-             return {
-                 ...state,
-                 users: [ ...action.users]
-             }
+            return {
+                ...state,
+                users: [...action.users]
+            }
 
         case SET_CURRENT_PAGE:
             return {
-                  ...state,
+                ...state,
                 currentPage: action.currentPage
             }
 
@@ -94,7 +97,7 @@ const userReducer = (state=initialState, action) => {
             return {
                 ...state,
                 disableButton: action.disableButton
-                    ? [...state.disableButton,action.userId]
+                    ? [...state.disableButton, action.userId]
                     : state.disableButton.filter(id => id !== action.userId)
             }
 
@@ -105,72 +108,93 @@ const userReducer = (state=initialState, action) => {
             }
 
 
-
-             default:
+        default:
             return state;
     }
 }
 
-export  const follow =(userId) =>({ type: FOLLOW, userId });
+export const follow = (userId) => ({type: FOLLOW, userId});
 
-export  const unfollow  =(userId) =>({type: UNFOLLOW, userId});
+export const unfollow = (userId) => ({type: UNFOLLOW, userId});
 
-export  const setUsers =(users) =>({type: SET_USERS, users});
+export const setUsers = (users) => ({type: SET_USERS, users});
 
-export  const setCurrentPage = (currentPage) => ({type:SET_CURRENT_PAGE, currentPage:currentPage});
+export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage: currentPage});
 
-export const setTotalUsersCount = (totalCount)  => ({type: SET_TOTAL_COUNT,totalCount});
+export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_COUNT, totalCount});
 
-export const togglePreloader = (isLoading) => ({type:TOGGLE_PRELOADER, isLoading});
+export const togglePreloader = (isLoading) => ({type: TOGGLE_PRELOADER, isLoading});
 
-export const disableButtonFol = (disableButton,userId) => ({type: DISABLE_BUTTON_FOL, disableButton,userId });
+export const disableButtonFol = (disableButton, userId) => ({type: DISABLE_BUTTON_FOL, disableButton, userId});
 
-export const deleteUsers = (userId) =>({type:DELETE_USER, userId});
+export const deleteUsers = (userId) => ({type: DELETE_USER, userId});
 
- //    THUNK
+//    THUNK
 
 export const getUsersThunkCreator = (currentPage, pageSize) => {
 
-   return     (dispatch) => {
+    return async (dispatch) => {
 
         dispatch(togglePreloader(true));
-        dispatch (setCurrentPage(currentPage))
+        dispatch(setCurrentPage(currentPage))
+        //response
+        const data = await userApi.getUserPage(currentPage, pageSize)
+        // .then(data => {
 
-        userApi.getUserPage(currentPage, pageSize).then(data => {
-
-            dispatch(togglePreloader(false));
-            dispatch(setUsers(data.items));
-            dispatch(setTotalUsersCount(data.totalCount));
-        });
+        dispatch(togglePreloader(false));
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
+        // });
     }
 }
 
-export const  FollowThunkCreator = (userId) => {
 
-    return     (dispatch) => {
+   const followUnfollowFlow = async(dispatch, userId, ApiMethod,ActionCreator) => {
 
-        dispatch(disableButtonFol(true, userId))
-        userApi.postUser (userId).then(data => {
+       dispatch(disableButtonFol(true, userId))
+       const data = await ApiMethod(userId)
+       // .then(data => {
+       if (data.resultCode === 0) {
+           dispatch(ActionCreator(userId))
+       }
+       dispatch(disableButtonFol(false, userId))
 
-            if (data.resultCode === 0) {
-               dispatch(follow(userId))
-            }
-            dispatch(disableButtonFol(false,userId))
-        });
+}
+
+
+export const FollowThunkCreator = (userId) => {
+
+    return async (dispatch) => {
+        // const ApiMethod = userApi.postUser.bind(userId)
+        // const ActionCreator = follow;
+        followUnfollowFlow(dispatch, userId, userApi.postUser.bind(userId), follow)
+
+        // dispatch(disableButtonFol(true, userId))
+        // const data = await ApiMethod
+        // // .then(data => {
+        // if (data.resultCode === 0) {
+        //     dispatch(ActionCreator(userId))
+        // }
+        // dispatch(disableButtonFol(false, userId))
+        // });
     }
 }
-export const  unFollowThunkCreator = (userId) => {
+export const unFollowThunkCreator = (userId) => {
 
-    return     (dispatch) => {
+    return async (dispatch) => {
+        const ApiMethod = userApi.deleteUser.bind(userId)
+        const ActionCreator = unfollow
+        followUnfollowFlow(dispatch, userId, ApiMethod, ActionCreator)
 
-        dispatch(disableButtonFol(true, userId))
-        userApi.deleteUser(userId).then(data => {
+        // dispatch(disableButtonFol(true, userId))
+        // const data = await ApiMethod
+        // // .then(data => {
+        // if (data.resultCode === 0) {
+        //     dispatch(ActionCreator(userId))
+        // }
+        // dispatch(disableButtonFol(false, userId))
 
-            if (data.resultCode === 0) {
-                dispatch(unfollow(userId))
-            }
-            dispatch(disableButtonFol(false,userId))
-        });
+        // });
     }
 }
 

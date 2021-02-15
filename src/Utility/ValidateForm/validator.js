@@ -3,7 +3,7 @@ import React from 'react';
 
 export const required = value => {
 
-  return   (value  || typeof  value === 'number' ?  undefined : 'Field is required')
+  return   ( value  || typeof  value === 'number' ?  undefined : 'Field is required')
     //     return  undefined;
     // return 'Field is required';
 }

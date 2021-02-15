@@ -99,37 +99,39 @@ export const deletePost = (postId) => ({type:DELETE_POST, postId});
 
 export const  profileThunkCreator = (userId) => {
 
-    return (dispatch) =>  {
+    return  async (dispatch) =>  {
 
         // let userId = this.props.match.params.userId;
         // if (!userId){
         //     userId=2;
         // }
-        profileApi.getProfile(userId)
+       const response = await profileApi.getProfile(userId)
             // axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/`+userId)
 
-            .then(response => {
+            // .then(response => {
 
                 dispatch(setUsersProfile(response.data));
 
-            })
+            // })
     }
 }
 export const  getStatus = (userId) => {
 
-    return (dispatch) =>  {
+    return async (dispatch) =>  {
 
-        profileApi.getStatus(userId) .then(response => {
+        const response = await profileApi.getStatus(userId)
+            // .then(response => {
 
                 dispatch(setStatus(response.data));
-        })
+        // })
     }
 }
 export const  updateStatus = (status) => {
 
-    return (dispatch) =>  {
+    return async (dispatch) =>  {
 
-        profileApi.updateStatus(status) .then(response => {
+        const response = await profileApi.updateStatus(status)
+            // .then(response => {
 
             if (response.data.resultCode === 0){
 
@@ -137,7 +139,7 @@ export const  updateStatus = (status) => {
             }
 
 
-        })
+        // })
     }
 }
 

@@ -38,26 +38,28 @@ const authReducer = (state = initialState, action) => {
     }
 }
 // data
-export const setAuthUserData = (id, email, login, isAuth) => ({
-    type: SET_AUTH_USERS_DATA,
-    payload: {id, email, login, isAuth}
-});
+export const setAuthUserData = (id, email, login, isAuth) => ({type: SET_AUTH_USERS_DATA,
+    payload: {id, email, login, isAuth}});
 
 
-export const authThunkCreator = (id, email, login, isAuth) => (dispatch) => {
+export const authThunkCreator = (id, email, login, isAuth) => async (dispatch) => {
 
-    return loginApi.loginUser().then(data => {         // return - промисы - для app_reducer
+
+   const data = await loginApi.loginUser()
+        // .then(data => {         // return - промисы - для app_reducer
         if (data.resultCode === 0) {
             let {id, email, login} = data.data
             dispatch(setAuthUserData(id, email, login, true));
         }
-    });
+
+    // });
     // return 'DDDDDDDDDDDDDDDDDDDDDDDDD'
 }
 
-export const loginPost = (email, password, rememberMe) => (dispatch) => {
+export const loginPost = (email, password, rememberMe) => async (dispatch) => {
 
-    loginApi.login(email, password, rememberMe).then(data => {
+    const data = await loginApi.login(email, password, rememberMe)
+        // .then(data => {
 
         if (data.resultCode === 0) {
             dispatch(authThunkCreator(email, password, rememberMe));
@@ -68,18 +70,19 @@ export const loginPost = (email, password, rememberMe) => (dispatch) => {
             // dispatch(action);
             dispatch(stopSubmit('login', {_error: messages}));
         }
-    });
+    // });
 }
 
 export const loginOut = (email, password, rememberMe, isAuth) => {
 
-    return (dispatch) => {
-        loginApi.logOut().then(data => {
+    return  async (dispatch) => {
+        const data = await loginApi.logOut()
+            // .then(data => {
 
             if (data.resultCode === 0) {
                 dispatch(setAuthUserData(null, null, null, false));
             }
-        });
+        // });
     }
 }
 
