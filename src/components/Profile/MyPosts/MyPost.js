@@ -5,7 +5,7 @@ import MyPostForm from "./MyPostForm";
 
 
 const MyPost = (props) => {
-    console.log('RENDER')
+    // console.log('RENDER')
     let PostUser = props.PostData.map(p => <Post like={p.like} message={p.message} id={p.id} key={p.id}/>);
 
     // let newPostText = React.createRef();
