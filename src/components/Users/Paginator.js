@@ -3,7 +3,7 @@ import classes from "./pagination.module.css";
 import {useState} from "react";
 
 
-const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize,portionSize=10}) => {
+const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumberSizes=10}) => {
 
 
     let pageCount = Math.ceil((totalUsersCount/pageSize)/100)
@@ -11,15 +11,15 @@ const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize,portionSiz
     for (let i=1;  i <= pageCount; i++ ){
         pages.push(i);
     }
-    const portionCount = Math.ceil(pageCount/portionSize);
-    const [portionNumber, setPortionNumber] = useState(1);
-    const leftPortionPageNumber = (portionNumber-1) * portionSize + 1;
-    const rightPortionPageNumber = portionNumber * portionSize;
+    const pageCountSize = Math.ceil(pageCount/pageNumberSizes);
+    const [pageNumber, setPageNumber] = useState(1);
+    const leftPortionPageNumber = (pageNumber-1) * pageNumberSizes + 1;
+    const rightPortionPageNumber = pageNumber * pageNumberSizes;
 
     return (
         <div className={classes.paginator}>
-            {portionNumber > 1 &&
-                <button onClick={() =>{setPortionNumber(portionNumber-1)}}>PREV</button> }
+            {pageNumber > 1 &&
+                <button onClick={() =>{setPageNumber(pageNumber-1)}}>◀◀◀ PREV</button> }
 
             {pages
                 .filter(p =>p >= leftPortionPageNumber && p <= rightPortionPageNumber)
@@ -32,8 +32,8 @@ const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize,portionSiz
                                   onChangePage(p);
                               }} >{p}</span>
                     })}
-            { portionCount > portionNumber &&
-                <button onClick={() => {setPortionNumber(portionNumber + 1)}}>NEXT</button> }
+            { pageCountSize > pageNumber &&
+                <button onClick={() => {setPageNumber(pageNumber + 1)}}>NEXT ▶▶▶</button> }
 
 
 
@@ -46,7 +46,6 @@ const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize,portionSiz
             //                       onClick={(e) =>{onChangePage(p)}}> {p} </span>}) }
             //
             // </div>
-
     )
 
 }
