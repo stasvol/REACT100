@@ -15,11 +15,14 @@
 }
 .pageNumber{
     padding: 2px;
-    border: 1px solid grey;
+    border: 1px solid #e2d6d6;
     /*border-right: 0 ;*/
     cursor: pointer;
 }
  .selectedPage  {
     font-weight: bold;
-    border-color: #f63d3d;
+     border: 1px solid black;
+     padding: 2px;
+     color: #960f0f;
+
 }

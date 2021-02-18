@@ -11,7 +11,7 @@ const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumbe
     for (let i=1;  i <= pageCount; i++ ){
         pages.push(i);
     }
-    const pageCountSize = Math.ceil(pageCount/pageNumberSizes);
+    const pageCountSize = Math.ceil(pageCount/pageNumberSizes); //   /10 = pageNumberSizes
     const [pageNumber, setPageNumber] = useState(1);
     const leftPortionPageNumber = (pageNumber-1) * pageNumberSizes + 1;
     const rightPortionPageNumber = pageNumber * pageNumberSizes;
@@ -22,31 +22,36 @@ const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumbe
                 <button onClick={() =>{setPageNumber(pageNumber-1)}}>◀◀◀ PREV</button> }
 
             {pages
-                .filter(p =>p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map((p) => {
-                    return <span className={ ({
-                    [classes.selectedPage] : currentPage === p},
-                        classes.pageNumber) }
+                    return <span className={  currentPage === p ? classes.selectedPage : classes.pageNumber }
+                    // [classes.selectedPage] : currentPage === p},
+                    //     classes.pageNumber) }
                               key={p}
                               onClick={(e) => {
                                   onChangePage(p);
                               }} >{p}</span>
                     })}
-            { pageCountSize > pageNumber &&
-                <button onClick={() => {setPageNumber(pageNumber + 1)}}>NEXT ▶▶▶</button> }
+            { pageCountSize > pageNumber  ?
+                <button onClick={() => {setPageNumber(pageNumber + 1)}}>NEXT ▶▶▶</button>
+                                          : null
+            }
+
 
 
 
         </div>
-
-            // <div className={classes.pagesNum}>
-            //     { pages.map((p ,i) => {
-            //
-            //         return  <span key={i} className={ currentPage === p  ?  classes.active : classes.pageNum }
-            //                       onClick={(e) =>{onChangePage(p)}}> {p} </span>}) }
-            //
-            // </div>
     )
+
+    //  return  (
+    //          <div className={classes.pagesNum}>
+    //             { pages.map((p ,i) => {
+    //
+    //                 return  <span key={i} className={ currentPage === p  ?  classes.active : classes.pageNum }
+    //                               onClick={(e) =>{onChangePage(p)}}> {p} </span>}) }
+    //
+    //         </div>
+    // )
 
 }
 
