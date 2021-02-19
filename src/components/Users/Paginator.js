@@ -6,7 +6,7 @@ import {useState} from "react";
 const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumberSizes=10}) => {
 
 
-    let pageCount = Math.ceil((totalUsersCount/pageSize)/100)
+    let pageCount = Math.ceil((totalUsersCount/pageSize))
     let  pages = [];
     for (let i=1;  i <= pageCount; i++ ){
         pages.push(i);

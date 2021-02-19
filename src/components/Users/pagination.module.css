@@ -21,8 +21,9 @@
 }
  .selectedPage  {
     font-weight: bold;
-     border: 1px solid black;
+     border: 2px solid black;
      padding: 2px;
      color: #960f0f;
+
 
 }
