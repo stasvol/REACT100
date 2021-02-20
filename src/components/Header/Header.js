@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
-import photo from "../../Photo/Images/kot.jpg";
+import photo from "../../Photo/Images/kot.png";
 
 const Header = (props) =>{
     return(

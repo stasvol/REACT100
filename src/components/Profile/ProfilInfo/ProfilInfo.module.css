@@ -10,4 +10,7 @@
     font-weight: bold ;
     color: #770477;
 }
-
+.image {
+    width: 150px;
+    border-radius: 50%;
+}

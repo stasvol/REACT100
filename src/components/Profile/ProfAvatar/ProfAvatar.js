@@ -1,6 +1,6 @@
 import React from "react";
 import classes from './ProfAvatar.module.css'
-import photo from "../../../Photo/Images/kot.jpg";
+import photo from "../../../Photo/Images/kot.png";
 
 const ProfAvatar = (props) => {
     return (

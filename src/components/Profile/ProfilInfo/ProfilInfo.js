@@ -4,13 +4,20 @@ import Preloader from "../../common/preloader/preloader";
 import smail from "../../../Photo/Images/smail.png"
 import ProfilStatus from "./ProfilStatus";
 import ProfilStatusWithHook from "./ProfilStatusWithHook";
+import kot from "../../../Photo/Images/kot.png"
 import ProfilStatusHook from "./ProfilStatusWithHook";
+
 
 const ProfInfo = (props) => {
 
        if (!props.profile){
            return <Preloader />
        }
+ const onPhotoChange = (e)  => {
+      if (e.target.files.length) {
+          props.savePhoto(e.target.files[0])
+      }
+ }
     return (
         <div>
             {/*<div>*/}
@@ -22,7 +29,10 @@ const ProfInfo = (props) => {
                     {/*<ProfilStatus status={props.status} updateStatus={props.updateStatus}/>*/}
             </div>
             <div>
-                  <img src={props.profile.photos.small} alt={'image'} />
+                  <img src={props.profile.photos.small || kot } className={classes.image} alt={'image'} />
+
+                {props.isOwner  &&  <input type={"file"} onChange={onPhotoChange}/> }
+
             </div>
             <div>
                 <div>About Me : {props.profile.aboutMe}</div>

@@ -1,7 +1,7 @@
 import React, {Component,Suspense} from 'react';
 import './App.css';
 import Header from './components/Header/Header'
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route} from "react-router-dom";
 import Music from './components/Music/Music';
 import News from './components/News/News';
 import Setting from './components/Settings/Setting';
@@ -107,7 +107,8 @@ const AppContainer = compose(
 
 let  MyApp = (props) => {
     return <React.StrictMode>
-        <BrowserRouter>
+        {/*<HashRouter>*/}
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 {/*<MyContext.Provider value={store}>*/}
                 <AppContainer state={store.getState()}/>
@@ -116,6 +117,7 @@ let  MyApp = (props) => {
                 {/*</MyContext.Provider>*/}
             </Provider>
         </BrowserRouter>
+        {/*</HashRouter>*/}
     </React.StrictMode>
 }
 export default MyApp
