@@ -168,6 +168,21 @@ export const  savePhoto = (file) => {
     }
 }
 
+export const  editProfile = (profile) =>async (dispatch,getState) =>  {
+
+       const userId = getState().auth.userId
+
+    const response = await profileApi.editProfile(profile)
+        // .then(response => {
+
+        if (response.data.resultCode === 0){
+
+            dispatch(profileThunkCreator(userId));
+        }
+
+
+}
+
 
 
 

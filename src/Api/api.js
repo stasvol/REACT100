@@ -70,6 +70,10 @@ export const profileApi = {
                 'Content-Type':'multipart/form-data'
             }
         })
+    },
+
+      editProfile(profile) {
+        return addAxios.put(`Profile`, profile)
     }
 
 }

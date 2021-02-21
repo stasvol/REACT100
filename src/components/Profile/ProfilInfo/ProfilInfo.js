@@ -7,9 +7,10 @@ import ProfilStatusWithHook from "./ProfilStatusWithHook";
 import kot from "../../../Photo/Images/kot.png"
 import ProfilStatusHook from "./ProfilStatusWithHook";
 import {useState} from "react";
+import ProfDataForm from "./ProfDataForm";
 
 
-const ProfInfo = (props) => {
+const ProfInfo = ({...props}) => {
 
     const [editMode, setEditMode] = useState(false);
 
@@ -21,12 +22,22 @@ const ProfInfo = (props) => {
             props.savePhoto(e.target.files[0])
         }
     }
+
+    const onSubmit = (formData) => {
+        props.editProfile(formData)
+        // setEditMode(false);
+        // props.loginPost(formData.Email, formData.Password, formData.RememberMe)
+        //  alert(formData.email,formData.password,formData.rememberMe)
+        console.log(formData)
+}
+
     return (
         <div className={classes.contact}>
             {/*<div>*/}
             {/*    <img className={classes.imgCont} alt={'image'}*/}
             {/*         src={'https://sites.google.com/site/prirodanasevseegooglgfgf/_/rsrc/1463456237313/home/priroda_gory_nebo_ozero_oblaka_81150_1920x1080.jpg'}/>*/}
             {/*</div>*/}
+
             <div>
                 <ProfilStatusHook status={props.status} updateStatus={props.updateStatus}/>
                 {/*<ProfilStatus status={props.status} updateStatus={props.updateStatus}/>*/}
@@ -38,7 +49,11 @@ const ProfInfo = (props) => {
 
             </div>
 
-            {editMode ? <ProfDataForm {...props}/> : <ProfData {...props} /> }
+
+            {editMode
+                ? <ProfDataForm {...props} onSubmit={onSubmit}  initialValues={props.profile} profile={props.profile} />
+                : <ProfData goToEditMode={()=>{setEditMode( true) }}  {...props}  isOwner={props.isOwner}  />
+            }
 
             {/*<div>*/}
 
@@ -66,18 +81,20 @@ const ProfInfo = (props) => {
             {/*</div>*/}
         </div>
     )
+
 }
 
 const Contact = ({contactTitle, contactValue}) => {
     return <div><b>{contactTitle}</b> : {contactValue} </div>
 }
 
-const ProfData = ({ ...props}) => {
+const ProfData = ({...props}) => {
 
     return <div>
+                  {props.isOwner  &&  <button onClick={props.goToEditMode}>Edit</button>}
 
                     <div><b>FullName</b> : {props.profile.fullName}</div>
-                    <div><b>About Me</b> : {props.profile.aboutMe}</div>
+                    <div><b>About Me</b> :  </div>
                     <div><b>LookingForAJob</b> : {props.profile.lookingForAJob ? 'Yes' : 'No'}
                         <img className={classes.smail} src={smail} alt={'image'}/>
                     </div>
@@ -100,8 +117,6 @@ const ProfData = ({ ...props}) => {
     </div>
 
 }
-const ProfDataForm = ({ ...props}) => {
 
-}
 
 export default ProfInfo
