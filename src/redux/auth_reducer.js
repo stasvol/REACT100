@@ -36,6 +36,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 captchaUrl: action.payload.captchaUrl
+                // ...action.payload.captchaUrl
             }
 
 
