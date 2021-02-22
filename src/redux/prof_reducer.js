@@ -1,4 +1,5 @@
 import {profileApi, userApi as addAxios} from "../Api/api";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
@@ -170,7 +171,7 @@ export const  savePhoto = (file) => {
 
 export const  editProfile = (profile) =>async (dispatch,getState) =>  {
 
-       const userId = getState().auth.userId
+       const userId = getState().auth.id
 
     const response = await profileApi.editProfile(profile)
         // .then(response => {
@@ -178,6 +179,9 @@ export const  editProfile = (profile) =>async (dispatch,getState) =>  {
         if (response.data.resultCode === 0){
 
             dispatch(profileThunkCreator(userId));
+        }else {
+            dispatch(stopSubmit('editProfile', {_error: response.data.messages}));
+            return Promise.reject(response.data.messages)
         }
 
 

@@ -31,6 +31,10 @@ const LoginForm = (props)=> {
                 <label htmlFor="Checkbox">Remember me</label>
                 <Field name="RememberMe" component={Input} type="checkbox" validate={[required ]}/>
             </div>
+
+            { props.captchaUrl && <img src={props.captchaUrl} alt={'error'} />}
+            { props.captchaUrl && <Field name="captcha" component={Input} placeholder={'Symbol from image'} validate={[required ]}/>}
+
             { props.error
                 ?  <div className={classes.formError}>
                 {props.error}

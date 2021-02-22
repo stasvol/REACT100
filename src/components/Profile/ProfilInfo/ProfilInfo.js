@@ -25,7 +25,12 @@ const ProfInfo = ({...props}) => {
 
     const onSubmit = (formData) => {
         props.editProfile(formData)
-        // setEditMode(false);
+            .then(
+                  () =>{
+                  setEditMode(false);
+                }
+        )
+
         // props.loginPost(formData.Email, formData.Password, formData.RememberMe)
         //  alert(formData.email,formData.password,formData.rememberMe)
         console.log(formData)
@@ -51,7 +56,7 @@ const ProfInfo = ({...props}) => {
 
 
             {editMode
-                ? <ProfDataForm {...props} onSubmit={onSubmit}  initialValues={props.profile} profile={props.profile} />
+                ? <ProfDataForm {...props} onSubmit={onSubmit}  initialValues={props.profile}  />
                 : <ProfData goToEditMode={()=>{setEditMode( true) }}  {...props}  isOwner={props.isOwner}  />
             }
 
@@ -73,7 +78,7 @@ const ProfInfo = ({...props}) => {
             {/*    /!*<div> VK : {props.profile.contacts.vk}</div>*!/*/}
             {/*    /!*<div> Twitter : {props.profile.contacts.twitter}</div>*!/*/}
             {/*    /!*<div> Instagram : {props.profile.contacts.instagram}</div>*!/*/}
-            {/*    /!*<div> Git Hub : {props.profile.contacts.github}</div>*!/*/}
+            {/*    /!*<-div> Git Hub : {props.profile.contacts.github}</div>*!/*/}
             {/*    /!*<div> Youtube : {props.profile.contacts.Youtube}</div>*!/*/}
             {/*    /!*<div>MainLink : {props.profile.mainLink}</div>*!/*/}
             {/*    /!*<div> FullName : {props.profile.fullName}</div>*!/*/}
@@ -89,12 +94,11 @@ const Contact = ({contactTitle, contactValue}) => {
 }
 
 const ProfData = ({...props}) => {
-
     return <div>
                   {props.isOwner  &&  <button onClick={props.goToEditMode}>Edit</button>}
 
                     <div><b>FullName</b> : {props.profile.fullName}</div>
-                    <div><b>About Me</b> :  </div>
+                    <div><b>About Me</b> : {props.profile.aboutMe} </div>
                     <div><b>LookingForAJob</b> : {props.profile.lookingForAJob ? 'Yes' : 'No'}
                         <img className={classes.smail} src={smail} alt={'image'}/>
                     </div>
@@ -115,8 +119,5 @@ const ProfData = ({...props}) => {
                           {/*<div> FullName : {props.profile.fullName}</div>*/}
                           {/*<div>Photos : {props.profile.photos} </div>*/}
     </div>
-
 }
-
-
 export default ProfInfo

@@ -66,13 +66,13 @@ export const profileApi = {
 
         return addAxios.put(`Profile/photo`, formData,
             {
-            headers: {
-                'Content-Type':'multipart/form-data'
-            }
-        })
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
     },
 
-      editProfile(profile) {
+    editProfile(profile) {
         return addAxios.put(`Profile`, profile)
     }
 
@@ -89,20 +89,26 @@ export const loginApi = {
             })
     },
 
-    login(email, password, rememberMe = false) {
+    login(email, password, rememberMe = false,captcha=null) {
 
-        return addAxios.post(`auth/login`, {email, password, rememberMe})
-        .then(response => {
-            return response.data
-        })
+        return addAxios.post(`auth/login`, {email, password, rememberMe,captcha})
+            .then(response => {
+                return response.data
+            })
     },
     logOut() {
 
         return addAxios.delete(`auth/login`)
-        .then(response => {
-            return response.data
-        })
+            .then(response => {
+                return response.data
+            })
     }
+}
 
+export const securityApi = {
 
+    getCaptchaUrl()
+    {
+        return addAxios.get(`security/get-captcha-url`)
+    }
 }

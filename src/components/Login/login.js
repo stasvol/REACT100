@@ -11,7 +11,7 @@ const Login = (props) => {
 
 
     const onSubmit = (formData) => {
-        props.loginPost(formData.Email, formData.Password, formData.RememberMe)
+        props.loginPost(formData.Email, formData.Password, formData.RememberMe, formData.captcha )
         // alert(formData.email,formData.password,formData.rememberMe)
         // console.log(formData)
     }
@@ -22,7 +22,7 @@ const Login = (props) => {
     return (
         <div>
             <h1>LOGIN</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
         </div>
     )
 
@@ -30,7 +30,8 @@ const Login = (props) => {
 }
 const mapStateToProps = (state) => ({
 
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl:state.auth.captchaUrl
 
 });
 

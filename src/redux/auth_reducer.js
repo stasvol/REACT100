@@ -1,8 +1,9 @@
 import thunk from "redux-thunk";
-import {loginApi, loginUser, userApi} from "../Api/api";
+import {loginApi, loginUser, securityApi, userApi} from "../Api/api";
 import {stopSubmit} from "redux-form";
 
 const SET_AUTH_USERS_DATA = 'SET AUTH USERS DATA';
+const SET_CAPTCHA_URL_SUCCESS = 'SET CAPTCHA URL SUCCESS'
 
 
 let initialState = {
@@ -10,7 +11,7 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-
+    captchaUrl: null    // if( captchaUrl === null) ? no captcha : url->captchaUrl (captcha no null)
 
 }
 
@@ -29,7 +30,12 @@ const authReducer = (state = initialState, action) => {
                 // ...action.data,
                 ...action.payload,
                 // isAuth: true
+            }
 
+        case SET_CAPTCHA_URL_SUCCESS:
+            return {
+                ...state,
+                captchaUrl: action.payload.captchaUrl
             }
 
 
@@ -40,12 +46,11 @@ const authReducer = (state = initialState, action) => {
 // data
 export const setAuthUserData = (id, email, login, isAuth) => ({type: SET_AUTH_USERS_DATA,
     payload: {id, email, login, isAuth}});
+export const setCaptchaUrlSuccess =(captchaUrl) =>({type:SET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}});
 
 
 export const authThunkCreator = (id, email, login, isAuth) => async (dispatch) => {
-
-
-   const data = await loginApi.loginUser()
+    const data = await loginApi.loginUser()
         // .then(data => {         // return - промисы - для app_reducer
         if (data.resultCode === 0) {
             let {id, email, login} = data.data
@@ -56,14 +61,17 @@ export const authThunkCreator = (id, email, login, isAuth) => async (dispatch) =
     // return 'DDDDDDDDDDDDDDDDDDDDDDDDD'
 }
 
-export const loginPost = (email, password, rememberMe) => async (dispatch) => {
+export const loginPost = (email, password, rememberMe,captcha) => async (dispatch) => {
 
-    const data = await loginApi.login(email, password, rememberMe)
+    const data = await loginApi.login(email, password, rememberMe,captcha)
         // .then(data => {
-
-        if (data.resultCode === 0) {
+            if (data.resultCode === 0) {
+          // success, get auth data
             dispatch(authThunkCreator(email, password, rememberMe));
         } else {
+              if (data.resultCode === 10) {
+                 dispatch(getCaptchaUrl())
+              }
             // let action = stopSubmit('login', {email: 'Email is wrong'});
             let messages = data.messages ? data.messages : 'Some Error';
             // let action = stopSubmit('login', {_error: messages});
@@ -72,6 +80,17 @@ export const loginPost = (email, password, rememberMe) => async (dispatch) => {
         }
     // });
 }
+
+export const getCaptchaUrl = () => async (dispatch) => {
+
+    const response = await securityApi.getCaptchaUrl()
+     const captchaUrl = response.data.url
+
+    dispatch(setCaptchaUrlSuccess(captchaUrl));
+    }
+
+
+
 
 export const loginOut = (email, password, rememberMe, isAuth) => {
 
