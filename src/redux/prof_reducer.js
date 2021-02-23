@@ -144,11 +144,21 @@ export const  updateStatus = (status) => {
 
         const response = await profileApi.updateStatus(status)
             // .then(response => {
+         try {
+             if (response.data.resultCode === 0){
 
-            if (response.data.resultCode === 0){
+                 dispatch(setStatus(status));
+             }
 
-                dispatch(setStatus(status));
-            }
+             if (response.data.resultCode === 1) {
+                throw new Error('Something went wrong.');
+
+             }
+         } catch (error){
+
+            alert(error)
+        }
+
 
 
         // })

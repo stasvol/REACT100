@@ -1,11 +1,12 @@
-import React, {Component,Suspense} from 'react';
+import React, {Component, Suspense} from 'react';
 import './App.css';
 import Header from './components/Header/Header'
-import {BrowserRouter, HashRouter, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Switch, Route, Redirect} from "react-router-dom";
 import Music from './components/Music/Music';
 import News from './components/News/News';
 import Setting from './components/Settings/Setting';
 import NavContainer from "./components/Nav/NavContainer";
+// import { Switch } from "react-router"
 // import UserContainer from "./components/Users/UserContainer";
 // import DialogContainer from "./components/Dialogs/DialogContainer";
 // import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -20,10 +21,17 @@ import {initializeApp} from "./redux/app_reducer";
 import Preloader from "./components/common/preloader/preloader";
 import store from "./redux/reduxStore";
 import {withLazySuspense} from "./Hoc/withLazySuspense";
+import Error from "./Error/error";
 
-const DialogContainer =  React.lazy( () => import("./components/Dialogs/DialogContainer"));
-const ProfileContainer =  React.lazy(() => import("./components/Profile/ProfileContainer"));
-const UserContainer    = React.lazy( () => import("./components/Users/UserContainer"));
+const DialogContainer = React.lazy(() => import("./components/Dialogs/DialogContainer"));
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
+const UserContainer = React.lazy(() => import("./components/Users/UserContainer"));
+
+// class Switch extends Component {
+//     render() {
+//         return null;
+//     }
+// }
 
 class App extends Component {
 
@@ -55,34 +63,40 @@ class App extends Component {
                 <NavContainer/>
                 {/*<Navbar state={props.state.siteBar} />*/}
                 <div className={'app-pages'}>
+
                     <Suspense fallback={<div>Loading...</div>}>
-                        <section>
-                        <Route path={'/Dialogs'} render={ () => <DialogContainer/>}/>
-                        <Route path={'/Profile/:userId?'} render={() => <ProfileContainer/>}/>
-                        </section>
+                        <Switch>
+                            <Route exact path={'/'} render={() => <Redirect to={'/Profile'} />}/>
+                            <Route path={'/Dialogs'} render={() => <DialogContainer/>}/>
+                            <Route path={'/Profile/:userId?'} render={() => <ProfileContainer/>}/>
+
+
+
+                            {/*// <Dialogs  data={props.state.dialogPage}*/}
+                            {/*//                                               dispatch={props.dispatch} store={props.store}/>}/>*/}
+                            {/*// addMessage={props.addMessage}*/}
+                            {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
+                            {/*dispatch={props.dispatch}/>}/>*/}
+                            {/*// addPost={props.addPost}*/}
+                            {/*// addChangeText={props.addChangeTe} />}/>*/}
+
+                            <Route path={'/User'} render={withLazySuspense(() => <UserContainer/>)}/>
+
+
+                            <Route path={'/News/vk'} render={() => <div>vk</div>}/>
+                            <Route exact path={'/News'} render={() => <News/>}/>
+                            <Route path={'/Music'} render={() => <Music/>}/>
+                            <Route path={'/Login'} render={() => <Login/>}/>
+                            <Route path={'/Setting'} component={Setting}/>
+                            {/*<Route path={'/Film'} render={ () =>  {return <div>FILM</div>}}/>*/}
+                            {/*<Dialogs />*/}
+                            {/*<Profile />*/}
+                            {/* <Music />*/}
+                            {/* <News />*/}
+                            {/* <Setting />*/}
+                            <Route path={'*'} render={() => <Error/>}/>
+                        </Switch>
                     </Suspense>
-                    {/*// <Dialogs  data={props.state.dialogPage}*/}
-                    {/*//                                               dispatch={props.dispatch} store={props.store}/>}/>*/}
-                    {/*// addMessage={props.addMessage}*/}
-                    {/*// addChangeNewMessage={props.addChangeNewMessage}/>}/>*/}
-                    {/*dispatch={props.dispatch}/>}/>*/}
-                    {/*// addPost={props.addPost}*/}
-                    {/*// addChangeText={props.addChangeTe} />}/>*/}
-
-                    <Route path={'/User'} render={withLazySuspense(() =><UserContainer/>)}/>
-
-
-                    <Route path={'/News'} component={News}/>
-                    <Route path={'/Music'} component={Music}/>
-                    <Route path={'/Login'} component={Login}/>
-                    <Route path={'/Setting'} component={Setting}/>
-                    {/*<Route path={'/Film'} render={ () =>  {return <div>FILM</div>}}/>*/}
-                    {/*<Dialogs />*/}
-                    {/*<Profile />*/}
-                    {/* <Music />*/}
-                    {/* <News />*/}
-                    {/* <Setting />*/}
-
                 </div>
 
             </div>
@@ -105,7 +119,7 @@ const AppContainer = compose(
 // withRouter (connect ( mapStateToProps,{authThunkCreator}) (App));
 // export default App;
 
-let  MyApp = (props) => {
+let MyApp = (props) => {
     return <React.StrictMode>
         {/*<HashRouter>*/}
         <BrowserRouter basename={process.env.PUBLIC_URL}>
