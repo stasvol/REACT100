@@ -19,7 +19,7 @@ let initialState = {
     newText: 'Hello',
     profile: null,
     status: '',
-    // photos: null
+
 
 }
 
