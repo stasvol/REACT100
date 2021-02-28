@@ -67,7 +67,7 @@ class App extends Component {
                     <Suspense fallback={<div>Loading...</div>}>
                         <Switch>
                             <Route exact path={'/'} render={() => <Redirect to={'/Profile'} />}/>
-                            <Route path={'/Dialogs'} render={() => <DialogContainer/>}/>
+                            <Route path={'/Dialogs'} render={() => <DialogContainer />}/>
                             <Route path={'/Profile/:userId?'} render={() => <ProfileContainer/>}/>
 
 
