@@ -1,5 +1,7 @@
 import {profileApi, userApi as addAxios} from "../Api/api";
 import {stopSubmit} from "redux-form";
+import classes from "../Error/error.module.css";
+import React from "react";
 
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
@@ -156,7 +158,12 @@ export const  updateStatus = (status) => {
              }
          } catch (error){
 
-            alert(error)
+                // return  <div className={classes.modul}>
+                //      <span>404 NOT FOUND</span> <br/>
+                //      <span>'Something went wrong'</span>
+                //  </div>
+
+            alert(`${error.name} : ${error.message} `)
         }
 
 
