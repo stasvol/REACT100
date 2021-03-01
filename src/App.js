@@ -22,6 +22,9 @@ import Preloader from "./components/common/preloader/preloader";
 import store from "./redux/reduxStore";
 import {withLazySuspense} from "./Hoc/withLazySuspense";
 import Error from "./Error/error";
+import state from './components/Settings/State'
+import {addNewMessage,addNewText,updateNewText} from "./components/Settings/State"
+
 
 const DialogContainer = React.lazy(() => import("./components/Dialogs/DialogContainer"));
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
@@ -87,7 +90,10 @@ class App extends Component {
                             <Route exact path={'/News'} render={() => <News/>}/>
                             <Route path={'/Music'} render={() => <Music/>}/>
                             <Route path={'/Login'} render={() => <Login/>}/>
-                            <Route path={'/Setting'} component={Setting}/>
+                            <Route path={'/Setting'} render={() => <Setting state={state}
+                                addNewMessage={addNewMessage} newMessage={state.newMessage}
+                                updateNewText={updateNewText}/>}/>
+
                             {/*<Route path={'/Film'} render={ () =>  {return <div>FILM</div>}}/>*/}
                             {/*<Dialogs />*/}
                             {/*<Profile />*/}

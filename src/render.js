@@ -17,6 +17,7 @@
 
 // import React from 'react';
 // import ReactDOM from 'react-dom';
+// import MyApp from "./App";
 // import './index.css';
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
@@ -31,4 +32,15 @@
 //         </React.StrictMode>,
 //         document.getElementById('root')
 //     );
+// }
+
+
+// export const rerender =(state)=>{
+//     ReactDOM.render(
+//
+//      <MyApp />,
+//
+//     document.getElementById('root')
+// )
+//
 // }

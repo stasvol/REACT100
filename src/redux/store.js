@@ -114,10 +114,10 @@
 // export default store
 //
 // window.store = store;
-//__________________________________________________________________________________________________________________
-
+// __________________________________________________________________________________________________________________
+//
 //  Create  ActionCreator   REDUCE;
-
+//
 // dispatch(action) {
 //     if(action.type===ADD_POST){
 //         let newPost = {
@@ -158,12 +158,12 @@
 //
 // export  const handleChangeDialogActionCreator =(messageText) =>
 //     ({type: ADD_CHANGE_NEW_MESSAGE, newMessageText: messageText});
-
-
-//___________________________________________________________________________________________________________________
-
- // In object =store= add medchod  DISPATCH
-
+//
+//
+// ___________________________________________________________________________________________________________________
+//
+//  In object =store= add medchod  DISPATCH
+//
 // addPost() {          // (message)-parametr funktion
 //     let newPost = {
 //         id: 4,
@@ -197,11 +197,11 @@
 //
 //     this._subscriber(this._state);
 // },
-
-//_____________________________________________________________________________________________________________________
-
+//
+// _____________________________________________________________________________________________________________________
+//
 // function components функции до object =store=
-
+//
 // export const addPost = () => {               // (message)-parametr funktion
 //     let newPost = {
 //         id: 4,
@@ -217,8 +217,8 @@
 //     state.postPage.newText = newText
 //     rerenderEntireTree(state);
 // }
-
-
+//
+//
 // export const addMessage = () =>{                // (newMessage)-parametr funktion
 //     let textMessage ={
 //         id: 7,
@@ -234,6 +234,6 @@
 //     state.dialogPage.newMessageText = newMessageText;
 //     rerenderEntireTree(state);
 // }
-
+//
 // export const Subscribe = (observer) =>{  //observer pattern наблюдатель
 //     rerenderEntireTree = observer;

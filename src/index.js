@@ -7,17 +7,21 @@ import store from './redux/reduxStore'
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import MyApp from "./App";
+import {subscribe} from "./components/Settings/State";
 // import MyContext, {Provider} from "./MyContext";
 
 
 // const rerenderEntireTree = (state) => {
-
+ const rerender =(state)=> {
 ReactDOM.render(
 
      <MyApp />,
 
     document.getElementById('root')
 )
+}
+rerender();
+subscribe(rerender);
 // }
 // //
 // rerenderEntireTree(store.getState());
