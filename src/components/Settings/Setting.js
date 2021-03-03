@@ -1,7 +1,10 @@
 import React from 'react';
 import classes from './Setting.module.css';
 import {createRef} from "react";
-import state, {addNewMessage, addNewText, updateNewText} from './State'
+import state, {addNewMessage, addNewMessageAC, addNewText, updateNewText, updateNewTextAC} from './Set_reducers/setReducer'
+import SettingMessage from "./SettingMessage";
+import Store from "./State";
+import SetReducer from "./Set_reducers/setReducer";
 
 
 const Setting = (props) => {
@@ -37,23 +40,29 @@ const Setting = (props) => {
    // const addUser = props.state.user.map((user,i) => <li key={i}><div>name: {user.name} </div>
    //     <div>age: {user.age}</div></li>)
 
- const addMessage = props.state.message.map((mes,i)=> <li key={i}> <div>{mes.message}</div>
+ const addMessage = props.Store.getState().message.map((mes,i)=> <li key={i}> <div>{mes.message}</div>
      <div>like : {mes.like}</div>  </li> )
-console.log(addMessage)
+
+
+
     const  newText = createRef()
 
 const handleChange =()=>{
      const newTextMes = newText.current.value
-    props.updateNewText(newTextMes);
-     console.log(newTextMes)
+    // props.updateNewText(newTextMes);
+    //  const action = {type: 'UPDATE_NEW_TEXT',newTextMes:newTextMes}
+    //   props.dispatch(action)
+    props.dispatch(updateNewTextAC(newTextMes));
+
 }
 
 const  handleClick = ()=>{
     // let text = document.getElementById('ref').value
     // const text = newText.current.value
-     props.addNewMessage()
+    //  props.addNewMessage()
      // newText.current.value = ''
-
+    // props.dispatch({type: 'ADD_NEW_MESSAGE'});
+    props.dispatch(addNewMessageAC());
  }
 
 
@@ -61,13 +70,18 @@ const  handleClick = ()=>{
         return (
             <div>
                 <h3>Setting</h3>
-                <input onChange={handleChange}  ref={newText} type={'text'} placeholder={'add data'} value={props.newMessage } />
+               <div>
+                   <textarea onChange={handleChange}  ref={newText}  placeholder={'add data'} defaultValue={ props.newMessage } />
+               </div>
+                <div>
                 <button onClick={handleClick}>ADD</button>
+                </div>
                 <ul>
                     {/*<h4>USERS</h4>*/}
                     {/*{addUser}*/}
                     {/*<h4>POSTS</h4>*/}
                     {addMessage}
+                    <SettingMessage Store={props.Store} dispatch={props.dispatch} newPostMesText={props.newPostMesText}/>
                 </ul>
             </div>
         )
@@ -76,3 +90,5 @@ const  handleClick = ()=>{
 
 
 export default Setting
+
+//

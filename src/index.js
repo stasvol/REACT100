@@ -8,20 +8,21 @@ import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import MyApp from "./App";
 import {subscribe} from "./components/Settings/State";
+import Store from './components/Settings/State'
 // import MyContext, {Provider} from "./MyContext";
 
 
 // const rerenderEntireTree = (state) => {
- const rerender =(state)=> {
+ const rerender =(Store)=> {
 ReactDOM.render(
 
-     <MyApp />,
+     <MyApp  />,
 
     document.getElementById('root')
 )
 }
-rerender();
-subscribe(rerender);
+rerender(Store);
+Store.subscribe(rerender);
 // }
 // //
 // rerenderEntireTree(store.getState());

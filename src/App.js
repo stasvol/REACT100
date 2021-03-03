@@ -22,9 +22,9 @@ import Preloader from "./components/common/preloader/preloader";
 import store from "./redux/reduxStore";
 import {withLazySuspense} from "./Hoc/withLazySuspense";
 import Error from "./Error/error";
-import state from './components/Settings/State'
-import {addNewMessage,addNewText,updateNewText} from "./components/Settings/State"
-
+// import state from './components/Settings/State'
+// import {addNewMessage,addNewText,updateNewText} from "./components/Settings/State"
+import Store from './components/Settings/State'
 
 const DialogContainer = React.lazy(() => import("./components/Dialogs/DialogContainer"));
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
@@ -90,10 +90,11 @@ class App extends Component {
                             <Route exact path={'/News'} render={() => <News/>}/>
                             <Route path={'/Music'} render={() => <Music/>}/>
                             <Route path={'/Login'} render={() => <Login/>}/>
-                            <Route path={'/Setting'} render={() => <Setting state={state}
-                                addNewMessage={addNewMessage} newMessage={state.newMessage}
-                                updateNewText={updateNewText}/>}/>
-
+                            <Route path={'/Setting'} render={() => <Setting Store={Store} newMessage={Store.getState().newMessage}
+                                                                            newPostMesText={Store.getState().newPostMesText}
+                                // addNewMessage={Store.addNewMessage.bind(Store)}
+                                // updateNewText={Store.updateNewText.bind(Store)}/>}/>
+                                                                            dispatch={Store.dispatch.bind(Store)}/>}/>
                             {/*<Route path={'/Film'} render={ () =>  {return <div>FILM</div>}}/>*/}
                             {/*<Dialogs />*/}
                             {/*<Profile />*/}
