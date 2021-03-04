@@ -18,15 +18,24 @@ let initialState = {
                const newMes = {
                    id: 3, message: state.newMessage, like: 1,
                }
+               return {
+                   ...state,
+                   message: [...state.message, newMes ],
+                   // state.message.push(newMes)
+                   newMessage: ''
+               }
 
-               state.push(newMes)
-               state.newMessage = ''
 
-               return state
+               // return  state
 
            case UPDATE_NEW_TEXT:
-               state.newMessage = action.newTextMes
-               return state
+               return {
+                   ...state,
+                   newMessage: action.newTextMes
+               }
+
+               // state.newMessage = action.newTextMes
+               // return state
 
            default:
 

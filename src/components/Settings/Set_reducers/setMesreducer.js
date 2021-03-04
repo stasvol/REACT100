@@ -16,15 +16,30 @@ const initialState = {
           switch (action.type) {
 
               case NEW_POST_MES_TEXT:
-                  state.newPostMesText = action.textNew;
-                  return state;
+
+                  return {
+                      ...state,
+                      newPostMesText: action.textNew
+                  }
+                  // state.newPostMesText = action.textNew;
+                  // return state;
 
               case ADD_NEW_POST:
-                  let textNew = state.newPostMesText
-                  state.newPostMesText = ''
-                  state.push({id: 5, post: textNew })
 
-                  return  state;
+                  let textNew = state.newPostMesText
+                  return {
+
+                      ...state,
+                      posts: [...state.posts,{id: 5, post: textNew }],
+                      newPostMesText: '',
+
+                  }
+
+                  // let textNew = state.newPostMesText
+                  // state.newPostMesText = ''
+                  // state.posts.push({id: 5, post: textNew })
+                  //    console.log(textNew)
+                  // return  state;
 
               default:
                   return  state;

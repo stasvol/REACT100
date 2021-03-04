@@ -9,7 +9,7 @@ import {createRef} from "react";
 
 const SettingMessage = (props) => {
 
-        let  addPostNewMes = props.state.posts.map((el,i) => <li key={i}>{el.post} </li>)
+        let  addPostNewMes = props.posts.map((el,i) => <li key={i}>{el.post} </li>)
           // let newPostMesText = props.newPostMesText
 
     const handleChangeText = (e) =>{
@@ -31,7 +31,7 @@ const SettingMessage = (props) => {
             {/*<form >*/}
             {/*    <labe >POSTS :</labe>*/}
                 <div>
-                    <textarea  onChange={handleChangeText} placeholder={'add post'}  defaultValue={props.newPostMesText}  />
+                    <textarea  onChange={handleChangeText} placeholder={'add post'}  value={props.newPostMesText}  />
                 </div>
                 <div>
                     <button className={classes.button} onClick={handleAddText} type={"submit"}>Add Post</button>

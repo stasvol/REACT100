@@ -72,7 +72,7 @@ const  handleClick = ()=>{
             <div>
                 <h3>Setting</h3>
                <div>
-                   <textarea onChange={handleChange}  ref={newText}  placeholder={'add data'} defaultValue={ props.newMessage } />
+                   <textarea onChange={handleChange}  ref={newText}  placeholder={'add data'} value={ props.newMessage } />
                </div>
                 <div>
                 <button onClick={handleClick}>ADD</button>
