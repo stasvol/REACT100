@@ -9,18 +9,18 @@ import {createRef} from "react";
 
 const SettingMessage = (props) => {
 
-        let  addPostNewMes = props.Store.state.posts.map((el,i) => <li key={i}>{el.post} </li>)
+        let  addPostNewMes = props.state.posts.map((el,i) => <li key={i}>{el.post} </li>)
           // let newPostMesText = props.newPostMesText
 
     const handleChangeText = (e) =>{
         let textNew = e.target.value
-        props.dispatch(newPostMesTextAC(textNew))
+        props.changeText(textNew)
         // console.log(textNew)
     }
 
     const handleAddText = () =>{
         // let textNew = e.target.value
-        props.dispatch(addNewPostAC())
+        props.addText()
 
 
     }

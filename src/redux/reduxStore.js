@@ -7,6 +7,8 @@ import authReducer, {authUserData} from "./auth_reducer";
 import  thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form'
 import appReducer from './app_reducer'
+import SetReducer from "../components/Settings/Set_reducers/setReducer";
+import SetMesReducer from "../components/Settings/Set_reducers/setMesreducer";
 
 let reducers = combineReducers({
     dialogPage: dialogReducer,
@@ -15,7 +17,9 @@ let reducers = combineReducers({
     usersPage: userReducer,
     auth: authReducer,
     form: formReducer,
-    app: appReducer
+    app: appReducer,
+    message: SetReducer,
+    posts: SetMesReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&

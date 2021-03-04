@@ -5,10 +5,13 @@ import state, {addNewMessage, addNewMessageAC, addNewText, updateNewText, update
 import SettingMessage from "./SettingMessage";
 import Store from "./State";
 import SetReducer from "./Set_reducers/setReducer";
-import SettingMessageContainer from "./SettingMessageContainer";
+import Setting from "./Setting";
+import {connect} from "react-redux";
 
 
-const Setting = (props) => {
+const SettingContainer = (props) => {
+
+    // let state = props.Store.getState()
 
     // let state = {
     //     user: [{id: 1, name: 'Ivan', age: 25}, {id: 2, name: 'Andre', age: 40}, {id: 3, name: 'Tom', age: 50}],
@@ -41,55 +44,52 @@ const Setting = (props) => {
    // const addUser = props.state.user.map((user,i) => <li key={i}><div>name: {user.name} </div>
    //     <div>age: {user.age}</div></li>)
 
- const addMessage = props.state.message.map((mes,i)=> <li key={i}> <div>{mes.message}</div>
-     <div>like : {mes.like}</div>  </li> )
 
-
-
-    const  newText = createRef()
-
-const handleChange =()=>{
-     const newTextMes = newText.current.value
-    props.updateNewText(newTextMes);
+const updateNewText =(newTextMes)=>{
+     // const newTextMes = newText.current.value
+    // props.updateNewText(newTextMes);
     //  const action = {type: 'UPDATE_NEW_TEXT',newTextMes:newTextMes}
     //   props.dispatch(action)
-    // props.dispatch(updateNewTextAC(newTextMes));
+    props.Store.dispatch(updateNewTextAC(newTextMes));
 
 }
 
-const  handleClick = ()=>{
+const  addNewMessage = ()=>{
     // let text = document.getElementById('ref').value
     // const text = newText.current.value
-     props.addNewMessage()
+    //  props.addNewMessage()
      // newText.current.value = ''
     // props.dispatch({type: 'ADD_NEW_MESSAGE'});
-    // props.dispatch(addNewMessageAC());
+    props.Store.dispatch(addNewMessageAC());
  }
 
+        return    <Setting Store={props.Store} state={props.Store.getState()}  updateNewText={updateNewText}  addNewMessage={addNewMessage}  newMessage={props.Store.getState().newMessage} />
 
-
-        return (
-            <div>
-                <h3>Setting</h3>
-               <div>
-                   <textarea onChange={handleChange}  ref={newText}  placeholder={'add data'} defaultValue={ props.newMessage } />
-               </div>
-                <div>
-                <button onClick={handleClick}>ADD</button>
-                </div>
-                <ul>
-                    {/*<h4>USERS</h4>*/}
-                    {/*{addUser}*/}
-                    {/*<h4>POSTS</h4>*/}
-                    {addMessage}
-                    <SettingMessageContainer Store={props.Store}   posts={props.posts}/>
-                </ul>
-            </div>
-        )
     }
 
+//   const  mapStateToProps = (state) =>{
+//        return {
+//            state: state.message,
+//            newMessage: state.message.newMessage
+//        }
+//
+//     }
+//    const mapDispatchToProps = (dispatch) => {
+//        return {
+//
+//            updateNewText: (newTextMes) => {
+//                dispatch(updateNewTextAC(newTextMes))
+//            },
+//            addNewMessage: () =>{
+//                dispatch(addNewMessageAC())
+//
+//            }
+//        }
+// }
+//
+//
+// const SettingContainer = connect(mapStateToProps,mapDispatchToProps)(Setting)
 
-
-export default Setting
+export default  SettingContainer
 
 //
