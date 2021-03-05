@@ -4,10 +4,10 @@ const SETTINGUSER = 'SETTINGUSER';
 
 let initialState = {
      users: [
-        {id: 1, photoUrl:"https://i.pinimg.com/originals/53/08/1c/53081c48b54b7be2805a0b2ad5470735.jpg",
-                followed: true, fullName: 'Andre', status: "I'm  Cool"},
-        {id: 2, photoUrl:"https://i.pinimg.com/originals/b4/98/f9/b498f91f653cd9ed231209b12fac64c7.jpg",
-                followed: false, fullName: 'Tom', status: "I'm  authorised"}
+        // {id: 1, photoUrl:"https://i.pinimg.com/originals/53/08/1c/53081c48b54b7be2805a0b2ad5470735.jpg",
+        //         followed: true, name: 'Andre', status: "I'm  Cool"},
+        // {id: 2, photoUrl:"https://i.pinimg.com/originals/b4/98/f9/b498f91f653cd9ed231209b12fac64c7.jpg",
+        //         followed: false, name: 'Tom', status: "I'm  authorised"}
     ],
 
 }
