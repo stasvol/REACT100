@@ -14,7 +14,7 @@ let Store = {
     },
 
        state : {
-        user: [
+        users: [
             {id: 1, name: 'Ivan', age: 25},
             {id: 2, name: 'Andre', age: 40},
             {id: 3, name: 'Tom', age: 50}

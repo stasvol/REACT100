@@ -6,6 +6,7 @@ import SettingMessage from "./SettingMessage";
 import Store from "./State";
 import SetReducer from "./Set_reducers/setReducer";
 import SettingMessageContainer from "./SettingMessageContainer";
+import SettingUsersContainer from "./SettingUsersContainer";
 
 
 const Setting = (props) => {
@@ -83,12 +84,13 @@ const  handleClick = ()=>{
                     {/*<h4>POSTS</h4>*/}
                     {addMessage}
                     <SettingMessageContainer Store={props.Store}   posts={props.posts}/>
+                    <SettingUsersContainer  />
                 </ul>
             </div>
         )
     }
 
-
+// users={props.users}
 
 export default Setting
 

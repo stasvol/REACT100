@@ -13,16 +13,16 @@ import Store from './components/Settings/State'
 
 
 // const rerenderEntireTree = (state) => {
- const rerender =(Store)=> {
+//  const rerender =(Store)=> {
 ReactDOM.render(
 
      <MyApp  />,
 
     document.getElementById('root')
 )
-}
-rerender(Store);
-Store.subscribe(rerender);
+// }
+// rerender(Store);
+// Store.subscribe(rerender);
 // }
 // //
 // rerenderEntireTree(store.getState());

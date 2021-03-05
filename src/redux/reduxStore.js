@@ -9,6 +9,7 @@ import { reducer as formReducer } from 'redux-form'
 import appReducer from './app_reducer'
 import SetReducer from "../components/Settings/Set_reducers/setReducer";
 import SetMesReducer from "../components/Settings/Set_reducers/setMesreducer";
+import SetUserReducer from "../components/Settings/Set_reducers/setUserReducer";
 
 let reducers = combineReducers({
     dialogPage: dialogReducer,
@@ -19,7 +20,8 @@ let reducers = combineReducers({
     form: formReducer,
     app: appReducer,
     message: SetReducer,
-    posts: SetMesReducer
+    posts: SetMesReducer,
+    users: SetUserReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
