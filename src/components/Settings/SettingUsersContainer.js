@@ -17,7 +17,7 @@ import {followAcCr, settingUserAcCr, unfollowAcCr} from "./Set_reducers/setUserR
            setUnFollow: (userId) =>{
           dispatch (unfollowAcCr(userId))
        },
-          settingUser: (users) => {
+       settingAddUser: (users) => {
            dispatch(settingUserAcCr(users))
           }
 
