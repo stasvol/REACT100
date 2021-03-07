@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './Setting.module.css';
-import   axios from "axios";
+import  axios from "axios";
 import Photo from './../../Photo/Images/avatar.png'
 
 function SettingUsers(props) {
@@ -29,8 +29,8 @@ function SettingUsers(props) {
     //         ]
     //     )
     // }
-
     // })()
+
     const addSetingUser = props.users.users.map(user => {
 
         return <div key={user.id}>
@@ -39,6 +39,7 @@ function SettingUsers(props) {
             </div>
             <div>
                 <span><b>{user.name}</b></span>
+                <div>{new Date().toLocaleDateString()}</div>
             </div>
             <div>
                 <span>status: <i>{user.status}</i></span>

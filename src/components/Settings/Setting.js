@@ -90,7 +90,6 @@ const  handleClick = ()=>{
         )
     }
 
-// users={props.users}
 
 export default Setting
 
