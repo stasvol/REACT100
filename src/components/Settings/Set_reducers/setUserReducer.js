@@ -45,7 +45,8 @@ let initialState = {
            case SETTINGUSER:
                return  {
                    ...state,
-                   users: [...state.users, ...action.users]
+                   users: action.users
+                       // [...state.users, ...action.users]
                }
 
 
