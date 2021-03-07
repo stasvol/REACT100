@@ -38,48 +38,52 @@ class SettingUsers extends React.Component {
         // })()
     render() {
 
-        const addSetingUser = this.props.users.users.map((user, i) => {
-
-        return <div key={i}>
-                <div>
-                    <img className={classes.foto} src={user.photos.small ? user.photos.small : Photo} alt={'photo'}/>
-                </div>
-                <div>
-                    <span><b>{user.name}</b></span>
-                    <div>{new Date().toLocaleDateString()}</div>
-                </div>
-                <div>
-                    <span>status: <i>{user.status}</i></span>
-                </div>
-                <div>
-                    {user.followed
-                        ? <button onClick={() => {
-                            this.props.setUnFollow(user.id)
-                        }}>unFollow</button>
-                        : <button onClick={() => {
-                            this.props.setFollow(user.id)
-                        }}>Follow</button>
-                    }
-
-                </div>
-            </div>
-
-        })
-
-
-        return (
+          return (
             <div>
-                 <div className={classes.marg}>
-                         <span className={`${classes.pag} ${classes.active}`}>1</span>
-                         <span className={classes.pag}>2</span>
-                         <span className={classes.pag}>3</span>
-                         <span className={classes.pag}>4</span>
-                         <span className={classes.pag}>5</span>
-                 </div>
                 {/*<button onClick={setAddUserButton}>ADD USERS</button>*/}
                 <h3>USERS</h3>
 
-                {addSetingUser}
+                <div className={classes.marg}>
+                    <span className={`${classes.pag} ${classes.active}`}>1</span>
+                    <span className={classes.pag}>2</span>
+                    <span className={classes.pag}>3</span>
+                    <span className={classes.pag}>4</span>
+                    <span className={classes.pag}>5</span>
+                </div>
+
+                {
+                    this.props.users.users.map((user, i) => {
+
+                    return <div key={i}>
+                        <div>
+                            <img className={classes.foto} src={user.photos.small ? user.photos.small : Photo}
+                                 alt={'photo'}/>
+                        </div>
+                        <div>
+                            <span><b>{user.name}</b></span>
+                            <div>{new Date().toLocaleDateString()}</div>
+                        </div>
+                        <div>
+                            <span>status: <i>{user.status}</i></span>
+                        </div>
+                        <div>
+                            {user.followed
+                                ? <button onClick={() => {
+                                    this.props.setUnFollow(user.id)
+                                }}>unFollow</button>
+                                : <button onClick={() => {
+                                    this.props.setFollow(user.id)
+                                }}>Follow</button>
+                            }
+
+                        </div>
+                      </div>
+
+                   })
+                }
+
+
+                {/*{addSetingUser}*/}
             </div>
         )
 
