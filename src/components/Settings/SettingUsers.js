@@ -37,9 +37,10 @@ class SettingUsers extends React.Component {
         // }
         // })()
     render() {
+
         const addSetingUser = this.props.users.users.map((user, i) => {
 
-            return <div key={i}>
+        return <div key={i}>
                 <div>
                     <img className={classes.foto} src={user.photos.small ? user.photos.small : Photo} alt={'photo'}/>
                 </div>
@@ -65,8 +66,16 @@ class SettingUsers extends React.Component {
 
         })
 
+
         return (
             <div>
+                 <div className={classes.marg}>
+                         <span className={`${classes.pag} ${classes.active}`}>1</span>
+                         <span className={classes.pag}>2</span>
+                         <span className={classes.pag}>3</span>
+                         <span className={classes.pag}>4</span>
+                         <span className={classes.pag}>5</span>
+                 </div>
                 {/*<button onClick={setAddUserButton}>ADD USERS</button>*/}
                 <h3>USERS</h3>
 
