@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from "react-redux";
-import SettingUsers from "./SettingUsers";
+import SettingUsersFunct from "./SettingUsersFunct";
 import {followAcCr, settingUserAcCr, unfollowAcCr} from "./Set_reducers/setUserReducer";
 
 
@@ -25,4 +25,4 @@ import {followAcCr, settingUserAcCr, unfollowAcCr} from "./Set_reducers/setUserR
 
  }
 
-export default connect(mapStateToProps,mapDispatchToProps) (SettingUsers)
+export default connect(mapStateToProps,mapDispatchToProps) (SettingUsersFunct)
