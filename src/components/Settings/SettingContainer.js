@@ -2,9 +2,7 @@ import React from 'react';
 import classes from './Setting.module.css';
 import {createRef} from "react";
 import state, {addNewMessage, addNewMessageAC, addNewText, updateNewText, updateNewTextAC} from './Set_reducers/setReducer'
-import SettingMessage from "./SettingMessage";
-import Store from "./State";
-import SetReducer from "./Set_reducers/setReducer";
+
 import Setting from "./Setting";
 import {connect} from "react-redux";
 

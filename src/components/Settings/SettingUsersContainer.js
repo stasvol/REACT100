@@ -5,7 +5,7 @@ import {
     countUsersSetAcCr,
     currentPageSetAcCr,
     followAcCr,
-    settingUserAcCr,
+    settingUserAcCr, settingUserTotalCountAcCr,
     unfollowAcCr
 } from "./Set_reducers/setUserReducer";
 import SettingUsers from "./SettingUsers";
@@ -31,12 +31,12 @@ import SettingUsers from "./SettingUsers";
        settingAddUser: (users) => {
            dispatch(settingUserAcCr(users))
           },
-       curPageSet: (currentPageSet) => {
+       SetcurPage: (currentPageSet) => {
            dispatch(currentPageSetAcCr(currentPageSet)) ;
        },
-       // countUsersSet:(countUsersSet) => {
-       //         dispatch(countUsersSetAcCr(countUsersSet))
-       // }
+       settingUserTotalCount:(countUsersSet) => {
+           dispatch(settingUserTotalCountAcCr(countUsersSet));
+       }
 
    }
 

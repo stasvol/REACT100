@@ -7,15 +7,14 @@ import Photo from './../../Photo/Images/avatar.png'
 class SettingUsers extends React.Component {
 
     componentDidMount() {
-
-        if (this.props.users.users.length === 0) {
-            // (function () {
+        // if (this.props.users.users.length === 0) {
+        //     // (function () {
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}&page=${this.props.currentPageSet}`).then(response => {
 
                 this.props.settingAddUser(response.data.items)
-            })
-        }
 
+            })
+        // }
     }
 
     // const setAddUserButton = ()=> {
@@ -37,24 +36,21 @@ class SettingUsers extends React.Component {
     // }
      onCurPageSet =(currentPageSet)=>{
 
-         this.props.curPageSet(currentPageSet)
+         this.props.SetcurPage(currentPageSet)
 
-             axios.get(`https://social-network.samuraijs.com/api/1.0/users?
-             count=${this.props.pageSizeSet}&page=${currentPageSet}`).then(response => {
+         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}&page=${currentPageSet}`).then(response => {
 
-                 this.props.settingAddUser(response.data.items);
+             this.props.settingAddUser(response.data.items)
+             this.props.settingUserTotalCount(response.data.totalCount)
 
-                 // this.props.countUsersSet(response.data.totalCount)
-
-
-             })
+         })
 
     }
 
 
     render() {
 
-           const countPagesSet = Math.ceil(this.props.countUsersSet / this.props.pageSizeSet )
+           const countPagesSet = Math.ceil((this.props.countUsersSet / this.props.pageSizeSet )/100)
 
            const pagesSet =[];
 
@@ -72,7 +68,7 @@ class SettingUsers extends React.Component {
                 <div className={classes.marg}>
                 {
                     pagesSet.map((p,i) =>{
-                        return  <span onClick={()=>{this.onCurPageSet(p)}} key={i} className={ this.props.currentPageSet === p
+                        return  <span onClick={(e)=>{this.onCurPageSet(p)}} key={i} className={ this.props.currentPageSet === p
                             ?  classes.active
                             : classes.pag}>{p}</span>
                     })
