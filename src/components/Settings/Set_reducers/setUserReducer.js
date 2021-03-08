@@ -1,14 +1,21 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
-const SETTINGUSER = 'SETTINGUSER';
+const SETTING_USER = 'SETTING_USER';
+const COUNT_USERS_SET = 'COUNT_USERS_SET';
+const PAGE_SIZE_SET = 'PAGE_SIZE_SET';
+const CURRENT_PAGE_SET = 'CURRENT_PAGE_SET';
 
 let initialState = {
+
      users: [
         // {id: 1, photoUrl:"https://i.pinimg.com/originals/53/08/1c/53081c48b54b7be2805a0b2ad5470735.jpg",
         //         followed: true, name: 'Andre', status: "I'm  Cool"},
         // {id: 2, photoUrl:"https://i.pinimg.com/originals/b4/98/f9/b498f91f653cd9ed231209b12fac64c7.jpg",
         //         followed: false, name: 'Tom', status: "I'm  authorised"}
     ],
+     countUsersSet: 30,
+     pageSizeSet: 5,
+     currentPageSet: 1
 
 }
 
@@ -42,11 +49,28 @@ let initialState = {
                    })
                }
 
-           case SETTINGUSER:
+           case SETTING_USER:
                return  {
                    ...state,
                    users: action.users
                        // [...state.users, ...action.users]
+               }
+           case COUNT_USERS_SET:
+
+               return {
+                  ...state,
+                   countUsersSet:action.countUsersSet
+               }
+
+           // case PAGE_SIZE_SET:
+           //     return  {
+           //         ...state,
+           //         pageSizeSet: action.pageSizeSet
+           //     }
+           case CURRENT_PAGE_SET:
+               return {
+                   ...state,
+                   currentPageSet: action.currentPageSet
                }
 
 
@@ -62,7 +86,13 @@ export const followAcCr = (userId) => ({ type:  FOLLOW, userId  });
 
 export const unfollowAcCr = (userId) =>({ type: UNFOLLOW ,userId});
 
-export const settingUserAcCr = (users) => ({type: SETTINGUSER, users});
+export const settingUserAcCr = (users) => ({type: SETTING_USER, users});
+
+export const countUsersSetAcCr = (countUsersSet) => ({type: COUNT_USERS_SET,countUsersSet});
+//
+// export const pageSizeSetAcCr  = () => ({type: PAGE_SIZE_SET});
+
+export const currentPageSetAcCr = (currentPageSet) => ({type: CURRENT_PAGE_SET,currentPageSet})
 
 
  export default SetUserReducer

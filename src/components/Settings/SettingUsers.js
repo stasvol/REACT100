@@ -7,19 +7,19 @@ import Photo from './../../Photo/Images/avatar.png'
 class SettingUsers extends React.Component {
 
     componentDidMount() {
+
         if (this.props.users.users.length === 0) {
             // (function () {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users?count=5').then(response => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}&page=${this.props.currentPageSet}`).then(response => {
 
                 this.props.settingAddUser(response.data.items)
-
             })
         }
 
     }
 
     // const setAddUserButton = ()=> {
-
+    //
     // }
     // if (props.users.users.length === 0) {
     //
@@ -35,21 +35,56 @@ class SettingUsers extends React.Component {
     //         ]
     //     )
     // }
-    // })()
+     onCurPageSet =(currentPageSet)=>{
+
+         this.props.curPageSet(currentPageSet)
+
+             axios.get(`https://social-network.samuraijs.com/api/1.0/users?
+             count=${this.props.pageSizeSet}&page=${currentPageSet}`).then(response => {
+
+                 this.props.settingAddUser(response.data.items);
+
+                 // this.props.countUsersSet(response.data.totalCount)
+
+
+             })
+
+    }
+
+
     render() {
+
+           const countPagesSet = Math.ceil(this.props.countUsersSet / this.props.pageSizeSet )
+
+           const pagesSet =[];
+
+           for ( let i=1; i <= countPagesSet; i++ ) {
+                  pagesSet.push(i)
+           }
+
+
+
 
         return (
             <div>
                 {/*<button onClick={setAddUserButton}>ADD USERS</button>*/}
-                {/*<h3>USERS</h3>*/}
-
+                <h3>USERS</h3>
                 <div className={classes.marg}>
-                    <span className={`${classes.pag} ${classes.active}`}>1</span>
-                    <span className={classes.pag}>2</span>
-                    <span className={classes.pag}>3</span>
-                    <span className={classes.pag}>4</span>
-                    <span className={classes.pag}>5</span>
+                {
+                    pagesSet.map((p,i) =>{
+                        return  <span onClick={()=>{this.onCurPageSet(p)}} key={i} className={ this.props.currentPageSet === p
+                            ?  classes.active
+                            : classes.pag}>{p}</span>
+                    })
+                }
                 </div>
+                {/*<div className={classes.marg}>*/}
+                {/*    <span className={`${classes.pag} ${classes.active}`}>1</span>*/}
+                {/*    <span className={classes.pag}>2</span>*/}
+                {/*    <span className={classes.pag}>3</span>*/}
+                {/*    <span className={classes.pag}>4</span>*/}
+                {/*    <span className={classes.pag}>5</span>*/}
+                {/*</div>*/}
 
                 {
                     this.props.users.users.map((user, i) => {
