@@ -12,7 +12,7 @@ let initialState = {
         // {id: 2, photoUrl:"https://i.pinimg.com/originals/b4/98/f9/b498f91f653cd9ed231209b12fac64c7.jpg",
         //         followed: false, name: 'Tom', status: "I'm  authorised"}
     ],
-     countUsersSet: 1,
+     countUsersSet: 0,
      pageSizeSet: 5,
      currentPageSet: 1
 

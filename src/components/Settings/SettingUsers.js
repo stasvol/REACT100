@@ -12,7 +12,7 @@ class SettingUsers extends React.Component {
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}&page=${this.props.currentPageSet}`).then(response => {
 
                 this.props.settingAddUser(response.data.items)
-
+                this.props.settingUserTotalCount(response.data.totalCount)
             })
         // }
     }
@@ -41,7 +41,7 @@ class SettingUsers extends React.Component {
          axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}&page=${currentPageSet}`).then(response => {
 
              this.props.settingAddUser(response.data.items)
-             this.props.settingUserTotalCount(response.data.totalCount)
+             // this.props.settingUserTotalCount(response.data.totalCount)
 
          })
 
