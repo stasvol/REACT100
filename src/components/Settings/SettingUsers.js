@@ -36,7 +36,7 @@ class SettingUsers extends React.Component {
     // }
      onCurPageSet =(currentPageSet)=>{
 
-         this.props.SetcurPage(currentPageSet)
+         this.props.SetCurPage(currentPageSet)
 
          axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}&page=${currentPageSet}`).then(response => {
 

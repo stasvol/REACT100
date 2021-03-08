@@ -31,7 +31,7 @@ import SettingUsers from "./SettingUsers";
        settingAddUser: (users) => {
            dispatch(settingUserAcCr(users))
           },
-       SetcurPage: (currentPageSet) => {
+       SetCurPage: (currentPageSet) => {
            dispatch(currentPageSetAcCr(currentPageSet)) ;
        },
        settingUserTotalCount:(countUsersSet) => {
