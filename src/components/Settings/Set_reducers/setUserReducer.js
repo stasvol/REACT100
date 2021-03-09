@@ -2,7 +2,8 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SETTING_USER = 'SETTING_USER';
 const CURRENT_PAGE_SET = 'CURRENT_PAGE_SET';
-const SETTING_USER_TOTAL_COUNT = 'SETTING_USER_TOTAL_COUNT'
+const SETTING_USER_TOTAL_COUNT = 'SETTING_USER_TOTAL_COUNT';
+const IS_LOAD = 'IS_LOAD';
 
 let initialState = {
 
@@ -14,7 +15,8 @@ let initialState = {
     ],
      countUsersSet: 0,
      pageSizeSet: 5,
-     currentPageSet: 1
+     currentPageSet: 1,
+     isLoad: false
 
 }
 
@@ -68,6 +70,12 @@ let initialState = {
                    countUsersSet: action.countUsersSet
                }
 
+           case IS_LOAD:
+               return {
+                   ...state,
+                   isLoad: action.isLoad
+               }
+
 
 
            default:
@@ -88,7 +96,7 @@ export const currentPageSetAcCr = (currentPageSet) => ({type: CURRENT_PAGE_SET,c
 
 export const settingUserTotalCountAcCr = (countUsersSet) => ({type: SETTING_USER_TOTAL_COUNT,countUsersSet});
 
-
+export const isLoadAcrCr = (isLoad) => ({type: IS_LOAD, isLoad})
 
 
  export default SetUserReducer

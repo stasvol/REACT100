@@ -84,7 +84,7 @@ const  handleClick = ()=>{
                     {/*<h4>POSTS</h4>*/}
                     {addMessage}
                     <SettingMessageContainer Store={props.Store}   posts={props.posts}/>
-                    <SettingUsersContainer  />
+                    <SettingUsersContainer Store={props.Store} />
                 </ul>
             </div>
         )
