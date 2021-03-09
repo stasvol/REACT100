@@ -3,6 +3,7 @@ import classes from './Setting.module.css';
 import  axios from "axios";
 import Photo from './../../Photo/Images/avatar.png'
 import Loading from "./Loading";
+import {NavLink} from "react-router-dom";
 
 
 const SettingUsers = (props) => {
@@ -116,8 +117,10 @@ const SettingUsers = (props) => {
 
                     return <div key={i}>
                         <div>
+                            <NavLink to={'/Profile'} >
                             <img className={classes.foto} src={user.photos.small ? user.photos.small : Photo}
                                  alt={'photo'}/>
+                            </NavLink>
                         </div>
                         <div>
                             <span><b>{user.name}</b></span>

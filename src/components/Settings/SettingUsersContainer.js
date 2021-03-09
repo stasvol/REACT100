@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {
     countUsersSetAcCr,
     currentPageSetAcCr,
-    followAcCr, isLoadAcrCr,
+    followAcCr, isLoadAcrCr, setProfAcCr,
     settingUserAcCr, settingUserTotalCountAcCr,
     unfollowAcCr
 } from "./Set_reducers/setUserReducer";
@@ -17,7 +17,8 @@ import Loading from "./Loading";
 class SetContainer extends React.Component {
 
     componentDidMount() {
-         this.props.setIsLoad(true)
+
+        this.props.setIsLoad(true)
         // if (this.props.users.users.length === 0) {
         //     // (function () {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}
@@ -25,8 +26,15 @@ class SetContainer extends React.Component {
             this.props.setIsLoad(false)
             this.props.settingAddUser(response.data.items)
             this.props.settingUserTotalCount(response.data.totalCount)
+
+
         })
-        // }
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
+
+            this.props.setProf(response.data)
+
+        })
     }
 
     // const setAddUserButton = ()=> {
@@ -55,6 +63,7 @@ class SetContainer extends React.Component {
             this.props.setIsLoad(false)
             this.props.settingAddUser(response.data.items)
             // this.props.settingUserTotalCount(response.data.totalCount)
+
         })
     }
 
@@ -157,7 +166,8 @@ class SetContainer extends React.Component {
         countUsersSet: state.users.countUsersSet ,
         pageSizeSet: state.users.pageSizeSet ,
         currentPageSet: state.users.currentPageSet,
-        isLoad: state.users.isLoad
+        isLoad: state.users.isLoad,
+        prof: state.users.prof
     }
  }
  const mapDispatchToProps = (dispatch) =>{
@@ -178,7 +188,10 @@ class SetContainer extends React.Component {
            dispatch(settingUserTotalCountAcCr(countUsersSet));
        },
        setIsLoad:(isLoad) => {
-           dispatch(isLoadAcrCr(isLoad))
+           dispatch(isLoadAcrCr(isLoad));
+       },
+       setProf: (prof) => {
+           dispatch(setProfAcCr(prof));
        }
 
    }

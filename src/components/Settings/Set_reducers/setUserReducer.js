@@ -4,6 +4,7 @@ const SETTING_USER = 'SETTING_USER';
 const CURRENT_PAGE_SET = 'CURRENT_PAGE_SET';
 const SETTING_USER_TOTAL_COUNT = 'SETTING_USER_TOTAL_COUNT';
 const IS_LOAD = 'IS_LOAD';
+const PROF = 'PROF';
 
 let initialState = {
 
@@ -16,7 +17,8 @@ let initialState = {
      countUsersSet: 0,
      pageSizeSet: 5,
      currentPageSet: 1,
-     isLoad: false
+     isLoad: false,
+     prof: null,
 
 }
 
@@ -75,6 +77,12 @@ let initialState = {
                    ...state,
                    isLoad: action.isLoad
                }
+           case PROF:
+               return{
+                   ...state,
+                   prof: action.prof
+
+               }
 
 
 
@@ -97,6 +105,8 @@ export const currentPageSetAcCr = (currentPageSet) => ({type: CURRENT_PAGE_SET,c
 export const settingUserTotalCountAcCr = (countUsersSet) => ({type: SETTING_USER_TOTAL_COUNT,countUsersSet});
 
 export const isLoadAcrCr = (isLoad) => ({type: IS_LOAD, isLoad})
+
+export const setProfAcCr = (prof)  => ({type: PROF, prof})
 
 
  export default SetUserReducer
