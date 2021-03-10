@@ -8,24 +8,30 @@ import axios from "axios";
 import {withRouter} from "react-router-dom";
 
 
+class NewsContainer extends React.Component {
 
-const NewsContainer = (props) => {
+    componentDidMount() {
 
-     // let userId = props.match.params.userId
-     // if (!userId){ userId = 2}
+        let userId = this.props.match.params.userId
+        if (!userId){ userId = 2}
 
-    axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/2`).then(response => {
-         props.setProf(response.data)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/${userId}`).then(response => {
+            this.props.setProf(response.data)
 
-    })
+        })
+    }
 
 
-    return (
-         <div>
-          <News {...props} prof={props.prof} />
-        </div>
-    )
+    render() {
+
+        return (
+            <div>
+                <News {...this.props} prof={this.props.prof}/>
+            </div>
+        )
+    }
 }
+
 const mapStateToProps = (state) => {
 
     return {
@@ -57,5 +63,5 @@ const mapDispatchToProps = (dispatch) =>{
         }
     }
 }
-   // let NewsContainerRouter = withRouter(NewsContainer)
-export default connect(mapStateToProps,mapDispatchToProps) (NewsContainer)
+   let NewsContainerRouter = withRouter(NewsContainer)
+export default connect(mapStateToProps,mapDispatchToProps) (NewsContainerRouter)

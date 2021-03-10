@@ -87,8 +87,9 @@ class App extends Component {
                             <Route path={'/Music/vk'} render={() => <div>vk</div>}/>
                             <Route exact path={'/Music'} render={() => <Music/>}/>
 
-                            <Route  path={'/News/:userId?'} render={() => <NewsContainer/>}/>
                             <Route path={'/Login'} render={() => <Login/>}/>
+
+                            <Route  path={'/News/:userId?'} render={() => <NewsContainer/>}/>
                             <Route path={'/Setting'} render={() => <SettingContainer />}/>
                                                                              {/*newMessage={Store.getState().newMessage}*/}
                                                                              {/*newPostMesText={Store.getState().newPostMesText}*/}
