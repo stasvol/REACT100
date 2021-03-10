@@ -1,0 +1,28 @@
+
+.kot{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+.pag {
+    border: 1px solid black;
+    border-right: 0;
+    padding: 2px;
+    cursor: pointer;
+}
+.pag:last-child {
+    border-right: 1px solid black;
+}
+
+.active {
+    font-weight: bold;
+    color: #960f0f;
+    border: 1px solid #960f0f;
+    padding: 2px;
+    border-right: 0;
+    cursor: pointer;
+}
+.active:last-child {
+    border-right: 1px solid #960f0f;
+}
+

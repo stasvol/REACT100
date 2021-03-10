@@ -117,20 +117,21 @@ const SettingUsers = (props) => {
 
                     return <div key={i}>
                         <div>
-                            <NavLink to={'/Profile'} >
+                           <NavLink to={'/News/'+user.id}>
                             <img className={classes.foto} src={user.photos.small ? user.photos.small : Photo}
                                  alt={'photo'}/>
-                            </NavLink>
+                           </NavLink>
                         </div>
                         <div>
-                            <span><b>{user.name}</b></span>
+                            <span><b>{user.fullName}</b></span>
                             <div>{new Date().toLocaleDateString()}</div>
                         </div>
                         <div>
                             <span>status: <i>{user.status}</i></span>
                         </div>
                         <div>
-                            {user.followed
+                            {
+                                user.followed
                                 ? <button onClick={() => {
                                     props.setUnFollow(user.id)
                                 }}>unFollow</button>
@@ -151,7 +152,6 @@ const SettingUsers = (props) => {
     )
 
 }
-
 
 
 

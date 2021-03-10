@@ -12,6 +12,7 @@ import SettingUsers from "./SettingUsers";
 
 import axios from "axios";
 import Loading from "./Loading";
+import {withRouter} from "react-router-dom";
 
 
 class SetContainer extends React.Component {
@@ -23,6 +24,7 @@ class SetContainer extends React.Component {
         //     // (function () {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}
         &page=${this.props.currentPageSet}`).then(response => {
+
             this.props.setIsLoad(false)
             this.props.settingAddUser(response.data.items)
             this.props.settingUserTotalCount(response.data.totalCount)
@@ -30,11 +32,11 @@ class SetContainer extends React.Component {
 
         })
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
-
-            this.props.setProf(response.data)
-
-        })
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/2`).then(response => {
+        //
+        //     this.props.setProf(response.data)
+        //
+        // })
     }
 
     // const setAddUserButton = ()=> {
@@ -58,8 +60,10 @@ class SetContainer extends React.Component {
 
         this.props.SetCurPage(currentPageSet)
              this.props.setIsLoad(true)
+
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}
         &page=${currentPageSet}`).then(response => {
+
             this.props.setIsLoad(false)
             this.props.settingAddUser(response.data.items)
             // this.props.settingUserTotalCount(response.data.totalCount)
@@ -77,7 +81,9 @@ class SetContainer extends React.Component {
                           setFollow={this.props.setFollow} setUnFollow={this.props.setUnFollow}
                           // settingAddUser={this.props.settingAddUser} SetCurPage={this.props.SetCurPage}
                           // settingUserTotalCount={this.props.settingUserTotalCount}
-                          onCurPageSet={this.onCurPageSet}/>
+                          onCurPageSet={this.onCurPageSet}
+                          // prof={this.props.prof}
+            />
             </>
         )
 
@@ -167,7 +173,7 @@ class SetContainer extends React.Component {
         pageSizeSet: state.users.pageSizeSet ,
         currentPageSet: state.users.currentPageSet,
         isLoad: state.users.isLoad,
-        prof: state.users.prof
+        // prof: state.users.prof
     }
  }
  const mapDispatchToProps = (dispatch) =>{
@@ -190,9 +196,9 @@ class SetContainer extends React.Component {
        setIsLoad:(isLoad) => {
            dispatch(isLoadAcrCr(isLoad));
        },
-       setProf: (prof) => {
-           dispatch(setProfAcCr(prof));
-       }
+       // setProf: (prof) => {
+       //     dispatch(setProfAcCr(prof));
+       // }
 
    }
 

@@ -26,6 +26,7 @@ import Error from "./Error/error";
 // import {addNewMessage,addNewText,updateNewText} from "./components/Settings/State"
 import Store from './components/Settings/State'
 import SettingContainer from "./components/Settings/SettingContainer";
+import NewsContainer from "./components/News/NewsContainer";
 
 const DialogContainer = React.lazy(() => import("./components/Dialogs/DialogContainer"));
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
@@ -83,11 +84,12 @@ class App extends Component {
                             <Route path={'/User'} render={withLazySuspense(() => <UserContainer/>)}/>
 
 
-                            <Route path={'/News/vk'} render={() => <div>vk</div>}/>
-                            <Route exact path={'/News'} render={() => <News/>}/>
-                            <Route path={'/Music'} render={() => <Music/>}/>
+                            <Route path={'/Music/vk'} render={() => <div>vk</div>}/>
+                            <Route exact path={'/Music'} render={() => <Music/>}/>
+
+                            <Route  path={'/News/:userId?'} render={() => <NewsContainer/>}/>
                             <Route path={'/Login'} render={() => <Login/>}/>
-                            <Route path={'/Setting'} render={() => <SettingContainer Store={Store} />}/>
+                            <Route path={'/Setting'} render={() => <SettingContainer />}/>
                                                                              {/*newMessage={Store.getState().newMessage}*/}
                                                                              {/*newPostMesText={Store.getState().newPostMesText}*/}
                                  {/*addNewMessage={Store.addNewMessage.bind(Store)}*/}
