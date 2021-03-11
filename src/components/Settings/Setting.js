@@ -92,5 +92,3 @@ const  handleClick = ()=>{
 
 
 export default Setting
-
-//

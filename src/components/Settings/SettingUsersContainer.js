@@ -23,7 +23,7 @@ class SetContainer extends React.Component {
         // if (this.props.users.users.length === 0) {
         //     // (function () {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}
-        &page=${this.props.currentPageSet}`).then(response => {
+        &page=${this.props.currentPageSet}`,{withCredentials:true}).then(response => {
 
             this.props.setIsLoad(false)
             this.props.settingAddUser(response.data.items)
@@ -62,7 +62,7 @@ class SetContainer extends React.Component {
              this.props.setIsLoad(true)
 
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}
-        &page=${currentPageSet}`).then(response => {
+        &page=${currentPageSet}`,{withCredentials:true }).then(response => {
 
             this.props.setIsLoad(false)
             this.props.settingAddUser(response.data.items)

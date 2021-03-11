@@ -3,6 +3,7 @@ import classes from './News.module.css';
 import kot from './../../Photo/Images/kot.png'
 import photo from "../../Photo/Images/user.png";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 const News = (props) => {
 
@@ -16,7 +17,10 @@ const News = (props) => {
         pagesSet.push(i)
 
     return (
+
         <div className={''}>
+
+            { props.isSetAuth ? props.login :  <NavLink to={'/Login'}><button>LOGIN</button></NavLink> }
 
             {
                 pagesSet.map((p,i)=>{
@@ -37,12 +41,46 @@ const News = (props) => {
                            <NavLink to={'/Profile/'+u.id}>
                             <img className={classes.kot} src={u.photos.small ? u.photos.small : kot} alt={'image'}/>
                            </NavLink>
-                            < img src={props.prof.photos.small} alt="image"/>
+                            {/*< img src={props.prof.photos.small} alt="image"/>*/}
                         </div>
                         {
                             u.followed
-                                ?  <button onClick={()=>{props.setUnFollow(u.id)} }>Unfollow</button>
-                                :  <button onClick={()=> {props.setFollow(u.id)} }>Follow</button>
+
+                                ?  <button onClick={()=>{
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                        {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "6ca7206a-79cd-4b75-a7a8-fe4c71b43bb1"
+                                        }
+
+                                    })
+                                        .then(response => {
+
+                                            if (response.data.resultCode===0){
+                                                props.setUnFollow(u.id)
+                                            }
+
+                                        })
+                                      }}>Unfollow</button>
+
+                                :  <button onClick={()=> {
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},
+                                        {
+                                            withCredentials: true,
+                                            "API-KEY": "6ca7206a-79cd-4b75-a7a8-fe4c71b43bb1"
+                                        })
+                                        .then(response => {
+
+                                            if (response.data.resultCode===0){
+
+                                                props.setFollow(u.id)
+
+                                            }
+
+                                        })
+
+                                    } }>Follow</button>
 
                         }
 
@@ -96,6 +134,5 @@ const News = (props) => {
         </div>
     )
 }
-
 
 export default News

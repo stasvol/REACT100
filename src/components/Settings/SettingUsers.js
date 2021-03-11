@@ -121,6 +121,7 @@ const SettingUsers = (props) => {
                             <img className={classes.foto} src={user.photos.small ? user.photos.small : Photo}
                                  alt={'photo'}/>
                            </NavLink>
+                            {/*< img src={props.prof.photos.small} alt="image"/>*/}
                         </div>
                         <div>
                             <span><b>{user.fullName}</b></span>
