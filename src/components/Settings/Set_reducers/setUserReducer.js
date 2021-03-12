@@ -1,3 +1,5 @@
+import {newAuthMeApi, newDelUnfollow, newPostFollow, newProfileApi} from "../SetApiAxios";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SETTING_USER = 'SETTING_USER';
@@ -5,6 +7,7 @@ const CURRENT_PAGE_SET = 'CURRENT_PAGE_SET';
 const SETTING_USER_TOTAL_COUNT = 'SETTING_USER_TOTAL_COUNT';
 const IS_LOAD = 'IS_LOAD';
 const PROF = 'PROF';
+const SET_DISABLE_BUTTON = 'SET_DISABLE_BUTTON'
 
 let initialState = {
 
@@ -19,7 +22,7 @@ let initialState = {
      currentPageSet: 1,
      isLoad: false,
      prof: null,
-
+     setDisableBut: []
 }
 
 
@@ -83,6 +86,13 @@ let initialState = {
                    prof: action.prof
 
                }
+           case SET_DISABLE_BUTTON:
+               return {
+                   ...state,
+                   setDisableBut:action.isLoad
+                   ?  [...state.setDisableBut,action.userId]
+                   :  state.setDisableBut.filter(id=> id !== action.userId)
+               }
 
 
 
@@ -104,9 +114,43 @@ export const currentPageSetAcCr = (currentPageSet) => ({type: CURRENT_PAGE_SET,c
 
 export const settingUserTotalCountAcCr = (countUsersSet) => ({type: SETTING_USER_TOTAL_COUNT,countUsersSet});
 
-export const isLoadAcrCr = (isLoad) => ({type: IS_LOAD, isLoad})
+export const isLoadAcrCr = (isLoad) => ({type: IS_LOAD, isLoad});
 
-export const setProfAcCr = (prof)  => ({type: PROF, prof})
+export const setProfAcCr = (prof)  => ({type: PROF, prof});
+
+export const setLoadDisableButAcCr = (isLoad,userId) => ({type:SET_DISABLE_BUTTON,isLoad,userId});
+
+
+export const setProfThunk = (userId) => (dispatch)=>{
+    newProfileApi(userId).then(response => {
+        dispatch(setProfAcCr(response.data))
+    })
+}
+
+export const setFollowThunk = (userId) =>(dispatch) => {
+
+     dispatch(setLoadDisableButAcCr(true,userId))
+
+    newPostFollow(userId).then(response => {
+
+            if (response.data.resultCode===0){
+                dispatch(followAcCr(userId))
+            }
+            dispatch(setLoadDisableButAcCr(false,userId))
+        })
+}
+export const setUnfoll0wThunk =(userId) => (dispatch)=> {
+
+     dispatch(setLoadDisableButAcCr(true,userId))
+
+    newDelUnfollow(userId).then(response => {
+
+            if (response.data.resultCode===0){
+                dispatch(unfollowAcCr(userId))
+            }
+            dispatch(setLoadDisableButAcCr(false,userId))
+        })
+}
 
 
  export default SetUserReducer

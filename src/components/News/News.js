@@ -4,6 +4,8 @@ import kot from './../../Photo/Images/kot.png'
 import photo from "../../Photo/Images/user.png";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {newDelUnfollow, newPostFollow} from "../Settings/SetApiAxios";
+import {setFollowThunk} from "../Settings/Set_reducers/setUserReducer";
 
 const News = (props) => {
 
@@ -46,39 +48,49 @@ const News = (props) => {
                         {
                             u.followed
 
-                                ?  <button onClick={()=>{
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                        {
-                                        withCredentials: true,
-                                        headers: {
-                                            "API-KEY": "6ca7206a-79cd-4b75-a7a8-fe4c71b43bb1"
-                                        }
-
-                                    })
-                                        .then(response => {
-
-                                            if (response.data.resultCode===0){
-                                                props.setUnFollow(u.id)
-                                            }
-
-                                        })
+                                ?  <button disabled={props.setDisableBut.some(id => id === u.id)} onClick={()=>{
+                                    // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                    //     {
+                                    //     withCredentials: true,
+                                    //     headers: {
+                                    //         "API-KEY": "6ca7206a-79cd-4b75-a7a8-fe4c71b43bb1"
+                                    //     }
+                                    // props.setLoadDisableBut(true,u.id)
+                                    //     newDelUnfollow(u.id)
+                                    //
+                                    //     .then(response => {
+                                    //
+                                    //         if (response.data.resultCode===0){
+                                    //             props.setUnFollow(u.id)
+                                    //         }
+                                    //         props.setLoadDisableBut(false,u.id)
+                                    //     })
+                                    props.setUnfoll0wThunk(u.id)
                                       }}>Unfollow</button>
 
-                                :  <button onClick={()=> {
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},
-                                        {
-                                            withCredentials: true,
-                                            "API-KEY": "6ca7206a-79cd-4b75-a7a8-fe4c71b43bb1"
-                                        })
-                                        .then(response => {
-
-                                            if (response.data.resultCode===0){
-
-                                                props.setFollow(u.id)
-
-                                            }
-
-                                        })
+                                :  <button disabled={props.setDisableBut.some(id => id === u.id)}  onClick={()=> {
+                                    // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},
+                                    //     {
+                                    //         withCredentials: true,
+                                    //         headers:{
+                                    //             "API-KEY": "6ca7206a-79cd-4b75-a7a8-fe4c71b43bb1"
+                                    //         }
+                                    //
+                                    //     })
+                                    // props.setLoadDisableBut(true,u.id)
+                                    //
+                                    // newPostFollow(u.id)
+                                    //
+                                    //     .then(response => {
+                                    //
+                                    //         if (response.data.resultCode===0){
+                                    //
+                                    //             props.setFollow(u.id)
+                                    //
+                                    //         }
+                                    //         props.setLoadDisableBut(false,u.id)
+                                    //     })
+                                     props.setFollowThunk(u.id)
 
                                     } }>Follow</button>
 

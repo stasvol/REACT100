@@ -2,36 +2,47 @@ import  React  from "react";
 import classes from './News.module.css';
 import News from "./News";
 import {connect} from "react-redux";
-import {currentPageSetAcCr, followAcCr, setProfAcCr, settingUserAcCr, unfollowAcCr}
-from "../Settings/Set_reducers/setUserReducer";
+import {
+    currentPageSetAcCr,
+    followAcCr, setFollowThunk,
+    setLoadDisableButAcCr,
+    setProfAcCr, setProfThunk,
+    settingUserAcCr, setUnfoll0wThunk, Unfoll0wThunk,
+    unfollowAcCr
+}
+    from "../Settings/Set_reducers/setUserReducer";
 import axios from "axios";
 import {NavLink, withRouter} from "react-router-dom";
-import {setAuthReducer, setAuthReducerAcCr} from "../Settings/Set_reducers/setAuthReducer";
+import {newAuthThunk, setAuthReducer, setAuthReducerAcCr} from "../Settings/Set_reducers/setAuthReducer";
+import {newAuthMeApi, newProfileApi} from "../Settings/SetApiAxios";
 
 
 class NewsContainer extends React.Component {
 
     componentDidMount() {
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true })
-            .then(response => {
-
-              if (response.data.resultCode===0){
-                  let {id,email,login } = response.data.data
-                  this.props.setAuthReducer(id,email,login)
-              }
-
-            })
-
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true })
+        // newAuthMeApi().then(data => {
+        //           if (data.resultCode===0){
+        //           let {id,email,login } = data.data
+        //           this.props.setAuthReducer(id,email,login)
+        //       }
+        //
+        //     })
+        this.props.newAuthThunk(this.props.id,this.props.email,this.props.login)
 
         let userId = this.props.match.params.userId
         if (!userId){ userId = 2}
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/`+ userId,
-            {withCredentials:true}).then(response => {
-            this.props.setProf(response.data)
-
-        })
+          this.props.setProfThunk(userId)
+        // newProfileApi(userId).then(response => {
+        //           this.props.setProf(response.data)
+        //        })
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/`+ userId,
+        //     {withCredentials:true})
+        //     .then(response => {
+        //     this.props.setProf(response.data)
+        //
+        // })
     }
 
     render() {
@@ -54,8 +65,8 @@ const mapStateToProps = (state) => {
         isLoad: state.users.isLoad,
         prof: state.users.prof,
         isSetAuth:state.setAuth.isSetAuth,
-        login: state.setAuth.login
-
+        login: state.setAuth.login,
+        setDisableBut:state.users.setDisableBut
     }
 }
 const mapDispatchToProps = (dispatch) =>{
@@ -77,6 +88,21 @@ const mapDispatchToProps = (dispatch) =>{
         },
         setAuthReducer: (id,email,login) => {
            dispatch(setAuthReducerAcCr(id,email,login));
+        },
+        setLoadDisableBut: (isLoad,userId) => {
+            dispatch(setLoadDisableButAcCr(isLoad,userId))
+        },
+        newAuthThunk: (id,email,login)=> {
+            dispatch(newAuthThunk(id,email,login));
+        },
+        setProfThunk: (userId) => {
+            dispatch(setProfThunk(userId))
+        },
+        setFollowThunk: (userId) => {
+            dispatch(setFollowThunk(userId))
+        },
+           setUnfoll0wThunk: (userId) => {
+             dispatch(setUnfoll0wThunk(userId))
         }
     }
 }

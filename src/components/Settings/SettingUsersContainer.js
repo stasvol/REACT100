@@ -13,6 +13,7 @@ import SettingUsers from "./SettingUsers";
 import axios from "axios";
 import Loading from "./Loading";
 import {withRouter} from "react-router-dom";
+import {settingApi} from "./SetApiAxios";
 
 
 class SetContainer extends React.Component {
@@ -22,8 +23,10 @@ class SetContainer extends React.Component {
         this.props.setIsLoad(true)
         // if (this.props.users.users.length === 0) {
         //     // (function () {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}
-        &page=${this.props.currentPageSet}`,{withCredentials:true}).then(response => {
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}
+        // &page=${this.props.currentPageSet}`,{withCredentials:true})
+        settingApi.setGetPage (this.props.pageSizeSet,this.props.currentPageSet)
+            .then(response => {
 
             this.props.setIsLoad(false)
             this.props.settingAddUser(response.data.items)
@@ -61,8 +64,10 @@ class SetContainer extends React.Component {
         this.props.SetCurPage(currentPageSet)
              this.props.setIsLoad(true)
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}
-        &page=${currentPageSet}`,{withCredentials:true }).then(response => {
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSizeSet}
+        // &page=${currentPageSet}`,{withCredentials:true })
+         settingApi.setGetUsers(this.props.pageSizeSet,currentPageSet)
+            .then(response => {
 
             this.props.setIsLoad(false)
             this.props.settingAddUser(response.data.items)
@@ -88,9 +93,6 @@ class SetContainer extends React.Component {
         )
 
     }
-
-
-
     // render() {
     //
     //        const countPagesSet = Math.ceil((this.props.countUsersSet / this.props.pageSizeSet )/100)
@@ -163,7 +165,6 @@ class SetContainer extends React.Component {
     //
     // }
 }
-
 
  const mapStateToProps = (state) =>{
 
