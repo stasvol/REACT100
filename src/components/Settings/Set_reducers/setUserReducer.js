@@ -139,7 +139,7 @@ export const setFollowThunk = (userId) =>(dispatch) => {
             dispatch(setLoadDisableButAcCr(false,userId))
         })
 }
-export const setUnfoll0wThunk =(userId) => (dispatch)=> {
+export const setUnfollowThunk =(userId) => (dispatch)=> {
 
      dispatch(setLoadDisableButAcCr(true,userId))
 

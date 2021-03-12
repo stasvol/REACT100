@@ -7,7 +7,7 @@ import {
     followAcCr, setFollowThunk,
     setLoadDisableButAcCr,
     setProfAcCr, setProfThunk,
-    settingUserAcCr, setUnfoll0wThunk, Unfoll0wThunk,
+    settingUserAcCr, setUnfollowThunk, Unfoll0wThunk,
     unfollowAcCr
 }
     from "../Settings/Set_reducers/setUserReducer";
@@ -101,8 +101,8 @@ const mapDispatchToProps = (dispatch) =>{
         setFollowThunk: (userId) => {
             dispatch(setFollowThunk(userId))
         },
-           setUnfoll0wThunk: (userId) => {
-             dispatch(setUnfoll0wThunk(userId))
+           setUnfollowThunk: (userId) => {
+             dispatch(setUnfollowThunk(userId))
         }
     }
 }

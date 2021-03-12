@@ -34,7 +34,7 @@ let initialState = {
 
 export const setAuthReducerAcCr = (id,email,login) => ({ type:  SET_AUTH_REDUCER, data: {id,email,login}  });
 
-export const newAuthThunk = (id,email,login) => (dispatch) => {
+export const newAuthThunk = () => (dispatch) => {
     newAuthMeApi().then(data => {
         if (data.resultCode===0){
             let {id,email,login } = data.data

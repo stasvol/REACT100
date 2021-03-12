@@ -65,7 +65,7 @@ const News = (props) => {
                                     //         }
                                     //         props.setLoadDisableBut(false,u.id)
                                     //     })
-                                    props.setUnfoll0wThunk(u.id)
+                                    props.setUnfollowThunk(u.id)
                                       }}>Unfollow</button>
 
                                 :  <button disabled={props.setDisableBut.some(id => id === u.id)}  onClick={()=> {
