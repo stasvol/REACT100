@@ -12,8 +12,10 @@ import SettingUsers from "./SettingUsers";
 
 import axios from "axios";
 import Loading from "./Loading";
-import {withRouter} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 import {settingApi} from "./SetApiAxios";
+import {withSetComponent} from "./HocSetting/hocWithSet";
+import {compose} from "redux";
 
 
 class SetContainer extends React.Component {
@@ -77,6 +79,7 @@ class SetContainer extends React.Component {
     }
 
     render() {
+
         return (
             <>
                 { this.props.isLoad ? <Loading/> : null}
@@ -174,6 +177,7 @@ class SetContainer extends React.Component {
         pageSizeSet: state.users.pageSizeSet ,
         currentPageSet: state.users.currentPageSet,
         isLoad: state.users.isLoad,
+        isSetAuth:state.setAuth.isSetAuth
         // prof: state.users.prof
     }
  }
@@ -205,4 +209,9 @@ class SetContainer extends React.Component {
 
  }
 
-export default connect(mapStateToProps,mapDispatchToProps) (SetContainer)
+export default compose(
+    withSetComponent,
+    connect(mapStateToProps,mapDispatchToProps)
+)(SetContainer)
+//  const withSet = withSetComponent(SetContainer)
+// export default connect(mapStateToProps,mapDispatchToProps) (withSet)

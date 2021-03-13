@@ -6,6 +6,7 @@ import {NavLink} from "react-router-dom";
 import axios from "axios";
 import {newDelUnfollow, newPostFollow} from "../Settings/SetApiAxios";
 import {setFollowThunk} from "../Settings/Set_reducers/setUserReducer";
+import NewsStatus from "./newsStatus";
 
 const News = (props) => {
 
@@ -24,6 +25,7 @@ const News = (props) => {
 
             { props.isSetAuth ? props.login :  <NavLink to={'/Login'}><button>LOGIN</button></NavLink> }
 
+
             {
                 pagesSet.map((p,i)=>{
                     return <span onClick={(e) => {onCurPageSet(p)}} key={i}
@@ -36,14 +38,22 @@ const News = (props) => {
 
            <h3>News about Users</h3>
 
+            <div>
+                <span><b>STATUS :</b></span>
+                <NewsStatus  status={"Hello Friend"}/>
+            </div>
+
+            <br/>
+
             {
+
                 props.users.map((u, i) => {
                     return <div key={i}>
                         <div>
-                           <NavLink to={'/Profile/'+u.id}>
+                           {/*<NavLink to={'/Profile/'+u.id}>*/}
                             <img className={classes.kot} src={u.photos.small ? u.photos.small : kot} alt={'image'}/>
-                           </NavLink>
-                            {/*< img src={props.prof.photos.small} alt="image"/>*/}
+                           {/*</NavLink>*/}
+                            < img src={props.prof.photos.small} alt="image"/>
                         </div>
                         {
                             u.followed
@@ -140,6 +150,7 @@ const News = (props) => {
                 // website: required(string)
                 // youtube: required(string)
                 // mainLink: required(string)
+
             }
 
 

@@ -12,9 +12,12 @@ import {
 }
     from "../Settings/Set_reducers/setUserReducer";
 import axios from "axios";
-import {NavLink, withRouter} from "react-router-dom";
+import {NavLink, Redirect, withRouter} from "react-router-dom";
 import {newAuthThunk, setAuthReducer, setAuthReducerAcCr} from "../Settings/Set_reducers/setAuthReducer";
 import {newAuthMeApi, newProfileApi} from "../Settings/SetApiAxios";
+import {withSetComponent} from "../Settings/HocSetting/hocWithSet";
+import {compose} from "redux";
+import NewsStatus from "./newsStatus";
 
 
 class NewsContainer extends React.Component {
@@ -47,13 +50,16 @@ class NewsContainer extends React.Component {
 
     render() {
 
+          // if (!this.props.isSetAuth) return <Redirect to={'/Login'}/>
         return (
             <div>
                 <News {...this.props} prof={this.props.prof}/>
+
             </div>
         )
     }
 }
+
 
 const mapStateToProps = (state) => {
 
@@ -106,5 +112,12 @@ const mapDispatchToProps = (dispatch) =>{
         }
     }
 }
-   let NewsContainerRouter = withRouter(NewsContainer)
-export default connect(mapStateToProps,mapDispatchToProps) (NewsContainerRouter)
+
+export default compose(
+    // withSetComponent,
+    withRouter,
+    connect(mapStateToProps,mapDispatchToProps)
+  )(NewsContainer)
+//    // let withSetComponentRedirectCont = withSetComponent(NewsContainer)
+//    let NewsContainerRouter = withRouter(NewsContainer)
+// export default connect(mapStateToProps,mapDispatchToProps) (NewsContainerRouter)
