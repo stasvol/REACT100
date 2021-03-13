@@ -19,7 +19,7 @@ const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumbe
     return (
         <div className={classes.paginator}>
             {pageNumber > 1 &&
-                <button onClick={() =>{setPageNumber(pageNumber-1)}}>◀◀◀ PREV</button> }
+                <button onClick={() =>{setPageNumber(pageNumber-1)}}>PREV</button> }
 
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
@@ -33,7 +33,7 @@ const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumbe
                               }} >{p}</span>
                     })}
             { pageCountSize > pageNumber  ?
-                <button onClick={() => {setPageNumber(pageNumber + 1)}}>NEXT ▶▶▶</button>
+                <button onClick={() => {setPageNumber(pageNumber + 1)}}>NEXT</button>
                                           : null
             }
 
