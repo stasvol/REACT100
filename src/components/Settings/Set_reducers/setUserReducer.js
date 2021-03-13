@@ -1,4 +1,4 @@
-import {newAuthMeApi, newDelUnfollow, newPostFollow, newProfileApi} from "../SetApiAxios";
+import {newApiStatus, newAuthMeApi, newDelUnfollow, newPostFollow, newProfileApi} from "../SetApiAxios";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -7,7 +7,8 @@ const CURRENT_PAGE_SET = 'CURRENT_PAGE_SET';
 const SETTING_USER_TOTAL_COUNT = 'SETTING_USER_TOTAL_COUNT';
 const IS_LOAD = 'IS_LOAD';
 const PROF = 'PROF';
-const SET_DISABLE_BUTTON = 'SET_DISABLE_BUTTON'
+const SET_DISABLE_BUTTON = 'SET_DISABLE_BUTTON';
+const NEW_SET_STATUS = 'NEW_SET_STATUS'
 
 let initialState = {
 
@@ -22,7 +23,8 @@ let initialState = {
      currentPageSet: 1,
      isLoad: false,
      prof: null,
-     setDisableBut: []
+     setDisableBut: [],
+     status:  ''
 }
 
 
@@ -94,6 +96,13 @@ let initialState = {
                    :  state.setDisableBut.filter(id=> id !== action.userId)
                }
 
+           case NEW_SET_STATUS:
+
+               return {
+                   ...state,
+                   status: action.status
+               }
+
 
 
            default:
@@ -119,6 +128,8 @@ export const isLoadAcrCr = (isLoad) => ({type: IS_LOAD, isLoad});
 export const setProfAcCr = (prof)  => ({type: PROF, prof});
 
 export const setLoadDisableButAcCr = (isLoad,userId) => ({type:SET_DISABLE_BUTTON,isLoad,userId});
+
+export const newSetStatus = (status) => ({type: NEW_SET_STATUS,status});
 
 
 export const setProfThunk = (userId) => (dispatch)=>{
@@ -151,6 +162,26 @@ export const setUnfollowThunk =(userId) => (dispatch)=> {
             dispatch(setLoadDisableButAcCr(false,userId))
         })
 }
+
+export const newGetStatusThunk = (userId) => (dispatch) => {
+
+    newApiStatus.newGetStatus (userId).then((response)=> {
+
+            dispatch(newSetStatus(response.data && response.data.data))
+
+    })
+}
+
+ export const newPutStatusThunk = (status) => (dispatch)=> {
+
+     newApiStatus.newPutStatus (status).then(response => {
+          if (response.data.resultCode === 0){
+
+              dispatch(newSetStatus(status))
+          }
+     })
+
+ }
 
 
  export default SetUserReducer

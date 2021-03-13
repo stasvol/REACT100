@@ -177,7 +177,8 @@ class SetContainer extends React.Component {
         pageSizeSet: state.users.pageSizeSet ,
         currentPageSet: state.users.currentPageSet,
         isLoad: state.users.isLoad,
-        isSetAuth:state.setAuth.isSetAuth
+        isSetAuth:state.setAuth.isSetAuth,
+        // status: state.users.status
         // prof: state.users.prof
     }
  }

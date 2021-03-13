@@ -3,8 +3,8 @@ import classes from './News.module.css';
 import News from "./News";
 import {connect} from "react-redux";
 import {
-    currentPageSetAcCr,
-    followAcCr, setFollowThunk,
+    currentPageSetAcCr,newPutStatus,
+    followAcCr, newPutStatusThunk, newSetStatus, newGetStatusThunk, setFollowThunk,
     setLoadDisableButAcCr,
     setProfAcCr, setProfThunk,
     settingUserAcCr, setUnfollowThunk, Unfoll0wThunk,
@@ -23,6 +23,7 @@ import NewsStatus from "./newsStatus";
 class NewsContainer extends React.Component {
 
     componentDidMount() {
+
         // axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true })
         // newAuthMeApi().then(data => {
         //           if (data.resultCode===0){
@@ -37,6 +38,8 @@ class NewsContainer extends React.Component {
         if (!userId){ userId = 2}
 
           this.props.setProfThunk(userId)
+
+          this.props.newGetStatusThunk(userId)
         // newProfileApi(userId).then(response => {
         //           this.props.setProf(response.data)
         //        })
@@ -53,7 +56,7 @@ class NewsContainer extends React.Component {
           // if (!this.props.isSetAuth) return <Redirect to={'/Login'}/>
         return (
             <div>
-                <News {...this.props} prof={this.props.prof}/>
+                <News {...this.props} prof={this.props.prof} status={this.props.status} newPutStatusThunk={this.props.newPutStatusThunk} />
 
             </div>
         )
@@ -72,7 +75,8 @@ const mapStateToProps = (state) => {
         prof: state.users.prof,
         isSetAuth:state.setAuth.isSetAuth,
         login: state.setAuth.login,
-        setDisableBut:state.users.setDisableBut
+        setDisableBut:state.users.setDisableBut,
+        status:state.users.status
     }
 }
 const mapDispatchToProps = (dispatch) =>{
@@ -109,6 +113,12 @@ const mapDispatchToProps = (dispatch) =>{
         },
            setUnfollowThunk: (userId) => {
              dispatch(setUnfollowThunk(userId))
+        },
+        newGetStatusThunk: (userId) => {
+            dispatch(newGetStatusThunk(userId))
+        },
+        newPutStatusThunk: (status) => {
+            dispatch(newPutStatusThunk(status))
         }
     }
 }

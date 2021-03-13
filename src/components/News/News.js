@@ -40,7 +40,7 @@ const News = (props) => {
 
             <div>
                 <span><b>STATUS :</b></span>
-                <NewsStatus  status={"Hello Friend"}/>
+                <NewsStatus  status={ props.status} newPutStatusThunk={props.newPutStatusThunk}/>
             </div>
 
             <br/>

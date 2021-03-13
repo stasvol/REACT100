@@ -84,3 +84,30 @@ export const settingApi = {
     }
 
 }
+// export const newGetStatus = (userId) =>{
+//          return setApiAxios.get(`Profile/status/`+ userId)
+//        }
+//
+// export const newPutStatus = (status) => {
+//          return setApiAxios.put(`Profile/status`,{status:status})
+//         }
+
+
+export const newApiStatus ={
+
+       newGetStatus (userId) {
+         return setApiAxios.get(`Profile/status/${userId}`)
+       },
+
+       newPutStatus (status) {
+         return setApiAxios.put(`Profile/status`,{status:status})
+       }
+
+}
+// getStatus(userId) {
+//     return addAxios.get(`Profile/status/` + userId)
+// },
+//
+// updateStatus(status) {
+//     return addAxios.put(`Profile/status`, {status: status})
+// },
