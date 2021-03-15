@@ -7,6 +7,7 @@ import Store from "./State";
 import SetReducer from "./Set_reducers/setReducer";
 import SettingMessageContainer from "./SettingMessageContainer";
 import SettingUsersContainer from "./SettingUsersContainer";
+import SettingFormContainer from "./settingForm";
 
 
 const Setting = (props) => {
@@ -47,24 +48,26 @@ const Setting = (props) => {
 
 
 
-    const  newText = createRef()
+//     const  newText = createRef()
+//
+// const handleChange =()=>{
+//
+//      const newTextMes = newText.current.value
+//     props.updateNewText(newTextMes);
+//      const action = {type: 'UPDATE_NEW_TEXT',newTextMes:newTextMes}
+//       props.dispatch(action)
+//     props.dispatch(updateNewTextAC(newTextMes));
+//
+// }
 
-const handleChange =()=>{
-     const newTextMes = newText.current.value
-    props.updateNewText(newTextMes);
-    //  const action = {type: 'UPDATE_NEW_TEXT',newTextMes:newTextMes}
-    //   props.dispatch(action)
-    // props.dispatch(updateNewTextAC(newTextMes));
-
-}
-
-const  handleClick = ()=>{
+const  handleClick = (value)=>{
     // let text = document.getElementById('ref').value
     // const text = newText.current.value
-     props.addNewMessage()
+     props.addNewMessage(value.newMessage)
      // newText.current.value = ''
     // props.dispatch({type: 'ADD_NEW_MESSAGE'});
     // props.dispatch(addNewMessageAC());
+    console.log(value)
  }
 
 
@@ -72,12 +75,13 @@ const  handleClick = ()=>{
         return (
             <div>
                 <h3>Setting</h3>
-               <div>
-                   <textarea onChange={handleChange}  ref={newText}  placeholder={'add data'} value={ props.newMessage } />
-               </div>
-                <div>
-                <button onClick={handleClick}>ADD</button>
-                </div>
+                <SettingFormContainer  onSubmit={handleClick} />
+               {/*<div>*/}
+               {/*    <textarea onChange={handleChange}  ref={newText}  placeholder={'add data'} value={ props.newMessage } />*/}
+               {/*</div>*/}
+               {/* <div>*/}
+               {/* <button onClick={handleClick}>ADD</button>*/}
+               {/* </div>*/}
                 <ul>
                     {/*<h4>USERS</h4>*/}
                     {/*{addUser}*/}

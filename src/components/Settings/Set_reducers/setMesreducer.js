@@ -26,7 +26,7 @@ const initialState = {
 
               case ADD_NEW_POST:
 
-                  let textNew = state.newPostMesText
+                  let textNew = action.newPostMesText        //state.newPostMesText
                   return {
 
                       ...state,
@@ -57,11 +57,9 @@ const initialState = {
 
  }
 
-export const newPostMesTextAC = (textNew) =>{
-    return {type:NEW_POST_MES_TEXT, textNew}
-}
-export const addNewPostAC = () => {
-    return {type: ADD_NEW_POST}
-}
+export const newPostMesTextAC = (textNew) =>({type:NEW_POST_MES_TEXT, textNew})
+
+export const addNewPostAC = (newPostMesText) => ({type: ADD_NEW_POST,newPostMesText})
+
 
  export default SetMesReducer

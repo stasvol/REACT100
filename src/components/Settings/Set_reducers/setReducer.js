@@ -16,7 +16,7 @@ let initialState = {
            case ADD_NEW_MESSAGE :
 
                const newMes = {
-                   id: 3, message: state.newMessage, like: 1,
+                   id: 3, message: action.newMessage, like: 1,
                }
                return {
                    ...state,
@@ -59,7 +59,7 @@ let initialState = {
      // }
  }
 
-export const addNewMessageAC = () => ({ type:  ADD_NEW_MESSAGE  });
+export const addNewMessageAC = (newMessage) => ({ type:  ADD_NEW_MESSAGE,newMessage  });
 
 export const updateNewTextAC = (newTextMes) =>{
     return  { type: UPDATE_NEW_TEXT ,newTextMes:newTextMes}

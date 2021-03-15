@@ -100,7 +100,8 @@ let initialState = {
 
                return {
                    ...state,
-                   status: action.status
+                   status: action.status,
+                   newPutStatus: action.newPutStatus,
                }
 
 
@@ -129,7 +130,7 @@ export const setProfAcCr = (prof)  => ({type: PROF, prof});
 
 export const setLoadDisableButAcCr = (isLoad,userId) => ({type:SET_DISABLE_BUTTON,isLoad,userId});
 
-export const newSetStatus = (status) => ({type: NEW_SET_STATUS,status});
+export const newSetStatus = (status,newPutStatus) => ({type: NEW_SET_STATUS,status,newPutStatus});
 
 
 export const setProfThunk = (userId) => (dispatch)=>{
@@ -172,12 +173,12 @@ export const newGetStatusThunk = (userId) => (dispatch) => {
     })
 }
 
- export const newPutStatusThunk = (status) => (dispatch)=> {
+ export const newPutStatusThunk = (status,newPutStatus) => (dispatch)=> {
 
      newApiStatus.newPutStatus (status).then(response => {
           if (response.data.resultCode === 0){
 
-              dispatch(newSetStatus(status))
+              dispatch(newSetStatus(status,newPutStatus))
           }
      })
 

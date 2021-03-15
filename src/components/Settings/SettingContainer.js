@@ -78,8 +78,8 @@ import {connect} from "react-redux";
            updateNewText: (newTextMes) => {
                dispatch(updateNewTextAC(newTextMes))
            },
-           addNewMessage: () =>{
-               dispatch(addNewMessageAC())
+           addNewMessage: (newMessage) =>{
+               dispatch(addNewMessageAC(newMessage))
 
            }
        }
@@ -90,4 +90,3 @@ const SettingContainer = connect(mapStateToProps,mapDispatchToProps)(Setting)
 
 export default  SettingContainer
 
-//

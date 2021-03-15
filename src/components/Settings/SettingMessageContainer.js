@@ -44,8 +44,8 @@ import {connect} from "react-redux";
                 changeText: (textNew) => {
                     dispatch(newPostMesTextAC(textNew))
                 },
-                addText: () => {
-                    dispatch(addNewPostAC())
+                addText: (newPostMesText) => {
+                    dispatch(addNewPostAC(newPostMesText))
                 }
             }
     }

@@ -118,8 +118,8 @@ const mapDispatchToProps = (dispatch) =>{
         newGetStatusThunk: (userId) => {
             dispatch(newGetStatusThunk(userId))
         },
-        newPutStatusThunk: (status) => {
-            dispatch(newPutStatusThunk(status))
+        newPutStatusThunk: (status,newPutStatus) => {
+            dispatch(newPutStatusThunk(status,newPutStatus))
         }
     }
 }
