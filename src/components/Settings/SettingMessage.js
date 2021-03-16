@@ -3,6 +3,8 @@ import classes from './Setting.module.css';
 import {addNewPostAC, newPostMesTextAC} from "./Set_reducers/setMesreducer";
 import {createRef} from "react";
 import {Field, reduxForm} from "redux-form";
+import {maxLength, minLength, required} from "../News/NewSetFormValidators";
+import {Textarea} from "../News/FormControl";
 // import {addNewPostAC, newPostMesTextAC} from "./State";
 
 
@@ -48,15 +50,21 @@ const SettingMessage = (props) => {
 
     }
 
+const maxLength30 = maxLength(30);
+const minLength3 =  minLength(3);
+
 const SetMessageForm = (props) =>{
+
     const {handleSubmit} = props
+
     return(
         <form onSubmit={handleSubmit}>
             <div>
-                <Field  name={'newPostMesText'} component={'textarea'} placeholder={'add post'} />
+                <Field  name={'newPostMesText'} component={Textarea} placeholder={'add post2'}
+                        validate={[required,minLength3,maxLength30]} />
             </div>
             <div>
-                <button className={classes.button} >Add Post</button>
+                 <button  className={classes.button} >Add Post</button>
             </div>
 
         </form>

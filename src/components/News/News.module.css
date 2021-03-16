@@ -26,3 +26,15 @@
     border-right: 1px solid #960f0f;
 }
 
+      /* ERROR */
+
+.spanError {
+    padding: 5px;
+    color: red;
+}
+.divError textarea,
+.divError input  {
+    border: 2px solid red;
+
+}
+

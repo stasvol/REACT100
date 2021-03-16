@@ -1,5 +1,7 @@
 import React from "react"
 import {Field, reduxForm} from "redux-form";
+import {maxLength, minLength, required} from "./NewSetFormValidators";
+import {Input, Textarea} from "./FormControl";
 
 
 
@@ -51,7 +53,7 @@ class NewsStatus extends React.Component {
                 </div>
                      :
                 <div>
-                    <NewsStatusFormredux onSubmit={this.deActiveEditMod.bind(this)}/>
+                    <NewsStatusFormRedux onSubmit={this.deActiveEditMod.bind(this)}/>
                     {/*<input onChange={this.updateChangeStatus} autoFocus={true}*/}
                     {/*       onBlur={this.deActiveEditMod.bind(this)} value={this.state.status }/>*/}
                 </div>
@@ -61,16 +63,23 @@ class NewsStatus extends React.Component {
     }
 }
 
+const maxLength30 = maxLength(30);
+const minLength3 =  minLength(3);
+
 const NewsStatusForm = (props) =>{
 
+
+
     const {handleSubmit} = props
+
     return(
         <form  onSubmit={handleSubmit}>
-            <Field name={'newPutStatus'} component={'input'} placeholder={''} />
+            <Field name={'newPutStatus'} component={Input} placeholder={'add status'}
+                  validate={[required,maxLength30,minLength3]} />
         </form>
     )
 }
-const NewsStatusFormredux = reduxForm({ form:'newsForm'})(NewsStatusForm)
+const NewsStatusFormRedux = reduxForm({ form:'newsForm'})(NewsStatusForm)
 
 
 export default NewsStatus
