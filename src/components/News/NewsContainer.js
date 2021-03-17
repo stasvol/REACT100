@@ -18,6 +18,15 @@ import {newAuthMeApi, newProfileApi} from "../Settings/SetApiAxios";
 import {withSetComponent} from "../Settings/HocSetting/hocWithSet";
 import {compose} from "redux";
 import NewsStatus from "./newsStatus";
+import {
+    newCountUsersSet,
+    newCurrentPageSet, newIdAuth,
+    newIsLoad,
+    newIsSetAuth, newLogin,
+    newPageSizeSet,
+    newProf, newSetDisableBut, newStatus,
+    newUsers, newUsersReselector
+} from "./selectorNew";
 
 
 class NewsContainer extends React.Component {
@@ -32,10 +41,16 @@ class NewsContainer extends React.Component {
         //       }
         //
         //     })
-        this.props.newAuthThunk(this.props.id,this.props.email,this.props.login)
+        this.props.newAuthThunk(this.props.userId,this.props.email,this.props.login)
 
         let userId = this.props.match.params.userId
-        if (!userId){ userId = 2}
+        if (!userId){
+            userId = this.props.idAuth
+            if (!userId) {
+                this.props.history.push("/News")
+            }
+        }
+
 
           this.props.setProfThunk(userId)
 
@@ -68,16 +83,28 @@ class NewsContainer extends React.Component {
 const mapStateToProps = (state) => {
 
     return {
-        users: state.users.users,
-        countUsersSet: state.users.countUsersSet ,
-        pageSizeSet: state.users.pageSizeSet ,
-        currentPageSet: state.users.currentPageSet,
-        isLoad: state.users.isLoad,
-        prof: state.users.prof,
-        isSetAuth:state.setAuth.isSetAuth,
-        login: state.setAuth.login,
-        setDisableBut:state.users.setDisableBut,
-        status:state.users.status
+        users: newUsers(state),
+        countUsersSet: newCountUsersSet(state) ,
+        pageSizeSet: newPageSizeSet(state) ,
+        currentPageSet: newCurrentPageSet(state),
+        isLoad: newIsLoad(state),
+        prof: newProf(state),
+        isSetAuth:newIsSetAuth(state),
+        login: newLogin(state),
+        setDisableBut:newSetDisableBut(state),
+        status:newStatus(state),
+        idAuth:newIdAuth(state)
+        // users: state.users.users,
+        // countUsersSet: state.users.countUsersSet ,
+        // pageSizeSet: state.users.pageSizeSet ,
+        // currentPageSet: state.users.currentPageSet,
+        // isLoad: state.users.isLoad,
+        // prof: state.users.prof,
+        // isSetAuth:state.setAuth.isSetAuth,
+        // login: state.setAuth.login,
+        // setDisableBut:state.users.setDisableBut,
+        // status:state.users.status,
+        // idAuth:state.setAuth.id
     }
 }
 const mapDispatchToProps = (dispatch) =>{
