@@ -15,5 +15,5 @@ export const newIdAuth = state => state.setAuth.id;
 
 // export const newUsersReselector = createSelector(newUsers,newIsLoad,
 //     (users,isLoad)=>{
-//     return  users.filter(key=>true)
+//     return  users.filter(users=>true)
 //     })

@@ -153,6 +153,7 @@ export const  updateStatus = (status) => {
              }
 
              if (response.data.resultCode === 1) {
+
                 throw new Error('Something went wrong.');
 
              }

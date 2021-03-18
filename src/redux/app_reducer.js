@@ -21,7 +21,7 @@ const appReducer = (state = initialState, action) => {
         case INITIALISED_SUCCESS:
 
             return {
-                // ...state,
+                ...state,
                 initialized: true
 
 
