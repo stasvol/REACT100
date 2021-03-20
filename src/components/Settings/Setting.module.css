@@ -22,7 +22,7 @@
 .pag:last-child {
     border-right: 1px solid black;
 }
-.active {
+ .active {
     font-weight: bold;
     color: #960f0f;
     border: 1px solid #960f0f;

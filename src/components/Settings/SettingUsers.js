@@ -4,9 +4,10 @@ import  axios from "axios";
 import Photo from './../../Photo/Images/avatar.png'
 import Loading from "./Loading";
 import {NavLink} from "react-router-dom";
+import SetPage from  "./SetPage"
 
 
-const SettingUsers = (props) => {
+const SettingUsers = ({...props}) => {
 
 
 //           if (props.users.users.length === 0) {
@@ -79,13 +80,13 @@ const SettingUsers = (props) => {
 //
 //
 // }
-    const countPagesSet = Math.ceil((props.countUsersSet / props.pageSizeSet )/100)
-
-    const pagesSet =[];
-
-    for ( let i=1; i <= countPagesSet; i++ ) {
-        pagesSet.push(i)
-    }
+//     const countPagesSet = Math.ceil((props.countUsersSet / props.pageSizeSet )/100)
+//
+//     const pagesSet =[];
+//
+//     for ( let i=1; i <= countPagesSet; i++ ) {
+//         pagesSet.push(i)
+//     }
 
 
 
@@ -95,15 +96,18 @@ const SettingUsers = (props) => {
             {/*<Loading/>*/}
             {/*<button onClick={setAddUserButton}>ADD USERS</button>*/}
             <h3>USERS</h3>
-            <div className={classes.marg}>
-                {
-                    pagesSet.map((p,i) =>{
-                        return  <span onClick={(e)=>{props.onCurPageSet(p)}} key={i} className={ props.currentPageSet === p
-                            ?  classes.active
-                            : classes.pag}>{p}</span>
-                    })
-                }
-            </div>
+            <SetPage countUsersSet={props.countUsersSet} pageSizeSet={props.pageSizeSet}
+                     countPagesSet={props.countPagesSet} onCurPageSet={props.onCurPageSet} />
+            {/*<div className={classes.marg}>*/}
+            {/*    {*/}
+            {/*           pagesSet.map((p,i) =>{*/}
+            {/*            return  <span onClick={(e)=>{props.onCurPageSet(p)}} key={i} className={ props.currentPageSet === p*/}
+            {/*                ?  classes.active*/}
+            {/*                : classes.pag}>{p}</span>*/}
+            {/*        })*/}
+            {/*    }*/}
+
+            {/*</div>*/}
             {/*<div className={classes.marg}>*/}
             {/*    <span className={`${classes.pag} ${classes.active}`}>1</span>*/}
             {/*    <span className={classes.pag}>2</span>*/}

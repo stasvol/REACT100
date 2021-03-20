@@ -1,5 +1,6 @@
 const ADD_NEW_MESSAGE = 'ADD_NEW_MESSAGE';
 const UPDATE_NEW_TEXT = 'UPDATE_NEW_TEXT';
+const DELETE_MESSAGE = 'DELETE_MESSAGE'
 
 let initialState = {
     message: [
@@ -33,6 +34,11 @@ let initialState = {
                    ...state,
                    newMessage: action.newTextMes
                }
+           case DELETE_MESSAGE:
+               return{
+                   ...state,
+                   message: state.message.filter(mes => mes.id !== action.userId  )
+               }
 
                // state.newMessage = action.newTextMes
                // return state
@@ -60,6 +66,7 @@ let initialState = {
  }
 
 export const addNewMessageAC = (newMessage) => ({ type:  ADD_NEW_MESSAGE,newMessage  });
+export const deleteMessageAC = (userId) => ({type:DELETE_MESSAGE,userId});
 
 export const updateNewTextAC = (newTextMes) =>{
     return  { type: UPDATE_NEW_TEXT ,newTextMes:newTextMes}
