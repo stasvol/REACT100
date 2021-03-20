@@ -1,4 +1,5 @@
 import {newApiStatus, newAuthMeApi, newDelUnfollow, newPostFollow, newProfileApi} from "../SetApiAxios";
+import {changeDataRedux} from "./newFunctionReduxer";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -35,27 +36,34 @@ let initialState = {
 
                return {
                    ...state,
-                   users: [...state.users].map(u => {
-                       if (u.id === action.userId) {
-                          return {...u, followed: true}
-                       }
-                       return u
-                   })
+                   users: changeDataRedux(state.users,action.userId,'id',{followed: true})
                }
-
-
-               // return  state
+               // return {
+               //     ...state,
+               //     users: [...state.users].map(u => {
+               //         if (u.id === action.userId) {
+               //            return {...u, followed: true}
+               //         }
+               //         return u
+               //     })
+               // }
+              // return  state
 
            case UNFOLLOW:
+
                return {
                    ...state,
-                   users: [...state.users].map(u => {
-                       if (u.id === action.userId) {
-                           return {...u, followed: false}
-                       }
-                       return  u
-                   })
+                   users: changeDataRedux(state.users,action.userId,'id',{followed: false})
                }
+               // return {
+               //     ...state,
+               //     users: [...state.users].map(u => {
+               //         if (u.id === action.userId) {
+               //             return {...u, followed: false}
+               //         }
+               //         return  u
+               //     })
+               // }
 
            case SETTING_USER:
                return  {
@@ -139,29 +147,46 @@ export const setProfThunk = (userId) => (dispatch)=>{
     })
 }
 
-export const setFollowThunk = (userId) =>(dispatch) => {
+const setFollowUnfollow = async (dispatch,userId,methodApi,actionCreator) => {
+    dispatch(setLoadDisableButAcCr(true,userId))
 
-     dispatch(setLoadDisableButAcCr(true,userId))
+    const response = await methodApi(userId)
+    // .then(response => {
+    if (response.data.resultCode===0){
+        dispatch(actionCreator(userId))
+    }
+    dispatch(setLoadDisableButAcCr(false,userId))
+    // })
 
-    newPostFollow(userId).then(response => {
-
-            if (response.data.resultCode===0){
-                dispatch(followAcCr(userId))
-            }
-            dispatch(setLoadDisableButAcCr(false,userId))
-        })
 }
-export const setUnfollowThunk =(userId) => (dispatch)=> {
 
-     dispatch(setLoadDisableButAcCr(true,userId))
-
-    newDelUnfollow(userId).then(response => {
-
-            if (response.data.resultCode===0){
-                dispatch(unfollowAcCr(userId))
-            }
-            dispatch(setLoadDisableButAcCr(false,userId))
-        })
+export const setFollowThunk = (userId) => async (dispatch) => {
+    // const methodApi = newPostFollow
+    // const actionCreator = followAcCr
+    await setFollowUnfollow(dispatch,userId,newPostFollow,followAcCr)
+     // dispatch(setLoadDisableButAcCr(true,userId))
+     //
+     //  const response = await methodApi(userId)
+     //    // .then(response => {
+     //       if (response.data.resultCode===0){
+     //            dispatch(actionCreator(userId))
+     //        }
+     //        dispatch(setLoadDisableButAcCr(false,userId))
+     //    // })
+}
+export const setUnfollowThunk =(userId) => async (dispatch)=> {
+    // const methodApi = newDelUnfollow
+    // const actionCreator = unfollowAcCr
+    await setFollowUnfollow(dispatch,userId,newDelUnfollow,unfollowAcCr)
+     // dispatch(setLoadDisableButAcCr(true,userId))
+     //
+     //     const response = await methodApi(userId)
+     //    // .then(response => {
+     //     if (response.data.resultCode===0){
+     //            dispatch(actionCreator(userId))
+     //        }
+     //        dispatch(setLoadDisableButAcCr(false,userId))
+     //    // })
 }
 
 export const newGetStatusThunk = (userId) => (dispatch) => {

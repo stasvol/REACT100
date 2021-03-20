@@ -97,7 +97,7 @@ const SettingUsers = ({...props}) => {
             {/*<button onClick={setAddUserButton}>ADD USERS</button>*/}
             <h3>USERS</h3>
             <SetPage countUsersSet={props.countUsersSet} pageSizeSet={props.pageSizeSet}
-                     countPagesSet={props.countPagesSet} onCurPageSet={props.onCurPageSet} />
+                     countPagesSet={props.countPagesSet} onCurPageSet={props.onCurPageSet} currentPageSet={props.currentPageSet} />
             {/*<div className={classes.marg}>*/}
             {/*    {*/}
             {/*           pagesSet.map((p,i) =>{*/}

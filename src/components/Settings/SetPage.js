@@ -2,7 +2,7 @@ import React from 'react'
 import classes from "./Setting.module.css";
 
 
-const SetPage = ({countUsersSet, pageSizeSet,currentPageSet,onCurPageSet, ...props}) => {
+const SetPage = ({countUsersSet, pageSizeSet,currentPageSet,onCurPageSet, ...props }) => {
 
     const countPagesSet = Math.ceil((countUsersSet / pageSizeSet) / 100)
     const pagesSet = [];

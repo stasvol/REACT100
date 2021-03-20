@@ -8,7 +8,7 @@ import {newDelUnfollow, newPostFollow} from "../Settings/SetApiAxios";
 import {setFollowThunk} from "../Settings/Set_reducers/setUserReducer";
 import NewsStatus from "./newsStatus";
 
-const News = (props) => {
+const News = ({...props}) => {
 
    const onCurPageSet =(currentPageSet)=>{
         props.SetCurPage(currentPageSet)
@@ -27,7 +27,7 @@ const News = (props) => {
 
 
             {
-                pagesSet.map((p,i)=>{
+                 pagesSet.map((p,i)=>{
                     return <span onClick={(e) => {onCurPageSet(p)}} key={i}
                                  className={props.currentPageSet === p  ? classes.active : classes.pag } >{p}</span>
 
