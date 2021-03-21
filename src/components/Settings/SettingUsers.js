@@ -4,7 +4,7 @@ import  axios from "axios";
 import Photo from './../../Photo/Images/avatar.png'
 import Loading from "./Loading";
 import {NavLink} from "react-router-dom";
-import SetPage from  "./SetPage"
+import SetPage from "./SetPagePaginator"
 
 
 const SettingUsers = ({...props}) => {
@@ -97,7 +97,8 @@ const SettingUsers = ({...props}) => {
             {/*<button onClick={setAddUserButton}>ADD USERS</button>*/}
             <h3>USERS</h3>
             <SetPage countUsersSet={props.countUsersSet} pageSizeSet={props.pageSizeSet}
-                     countPagesSet={props.countPagesSet} onCurPageSet={props.onCurPageSet} currentPageSet={props.currentPageSet} />
+                     countPagesSet={props.countPagesSet} onCurPageSet={props.onCurPageSet}
+                     currentPageSet={props.currentPageSet}  />
             {/*<div className={classes.marg}>*/}
             {/*    {*/}
             {/*           pagesSet.map((p,i) =>{*/}
