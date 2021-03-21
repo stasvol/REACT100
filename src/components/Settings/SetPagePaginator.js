@@ -23,7 +23,7 @@ const SetPage = ({countUsersSet, pageSizeSet,currentPageSet,onCurPageSet,pagesPa
             <div className={classes.marg}>
 
                 {pageNumber > 1 &&
-                <button onClick={() => setPageNumber(pageNumber - 1)}>forward</button>}
+                <button onClick={() => setPageNumber(pageNumber - 1)}>back</button>}
 
                 {
                     pagesSet
@@ -38,9 +38,7 @@ const SetPage = ({countUsersSet, pageSizeSet,currentPageSet,onCurPageSet,pagesPa
                         })
                 }
                 {pagesPartCount > pageNumber &&
-                <button onClick={() => {
-                    setPageNumber(pageNumber + 1)
-                }}>back</button>}
+                <button onClick={() => {setPageNumber(pageNumber + 1)}}>forward</button>}
             </div>
         )
     }
