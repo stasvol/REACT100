@@ -9,7 +9,8 @@ const SETTING_USER_TOTAL_COUNT = 'SETTING_USER_TOTAL_COUNT';
 const IS_LOAD = 'IS_LOAD';
 const PROF = 'PROF';
 const SET_DISABLE_BUTTON = 'SET_DISABLE_BUTTON';
-const NEW_SET_STATUS = 'NEW_SET_STATUS'
+const NEW_SET_STATUS = 'NEW_SET_STATUS';
+const SHOW_PHOTO_SUCCESS = 'SHOW_PHOTO_SUCCESS';
 
 let initialState = {
 
@@ -25,7 +26,8 @@ let initialState = {
      isLoad: false,
      prof: null,
      setDisableBut: [],
-     status:  ''
+     status:  '',
+
 }
 
 
@@ -112,6 +114,15 @@ let initialState = {
                    newPutStatus: action.newPutStatus,
                }
 
+           case SHOW_PHOTO_SUCCESS:
+
+               return {
+                   ...state,
+                   prof: {...state.prof, photos: action.photos}
+
+
+               }
+
 
 
            default:
@@ -139,6 +150,9 @@ export const setProfAcCr = (prof)  => ({type: PROF, prof});
 export const setLoadDisableButAcCr = (isLoad,userId) => ({type:SET_DISABLE_BUTTON,isLoad,userId});
 
 export const newSetStatus = (status,newPutStatus) => ({type: NEW_SET_STATUS,status,newPutStatus});
+
+export const  showPhotoSuccess = (photos) => ({type: SHOW_PHOTO_SUCCESS, photos})
+
 
 
 export const setProfThunk = (userId) => (dispatch)=>{
@@ -208,6 +222,18 @@ export const newGetStatusThunk = (userId) => (dispatch) => {
      })
 
  }
+
+export const showPhoto = (file) => async (dispatch)=> {
+
+     const response =  await
+      newApiStatus.showPutPhoto (file)
+          // .then(response => {
+        if (response.data.resultCode === 0){
+            dispatch(showPhotoSuccess(response.data.photos))
+        }
+    // })
+
+}
 
 
  export default SetUserReducer

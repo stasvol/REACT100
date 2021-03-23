@@ -91,6 +91,7 @@ const profReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profile: {...state.profile,   photos: action.photos }
+
             }
 
         default:

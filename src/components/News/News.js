@@ -6,6 +6,7 @@ import {NavLink} from "react-router-dom";
 import axios from "axios";
 import {newDelUnfollow, newPostFollow} from "../Settings/SetApiAxios";
 import {setFollowThunk} from "../Settings/Set_reducers/setUserReducer";
+import userGirl from './../../Photo/Images/user2.png'
 import NewsStatus from "./newsStatus";
 
 const News = ({...props}) => {
@@ -18,6 +19,13 @@ const News = ({...props}) => {
     const pagesSet =[]
     for (let i=1; i<=countPagesSet; i++)
         pagesSet.push(i)
+
+    const addPhoto = (e) => {
+
+        if (e.target.files.length) {
+            props.showPhoto(e.target.files[0])
+        }
+    }
 
     return (
 
@@ -44,6 +52,9 @@ const News = ({...props}) => {
             </div>
 
             <br/>
+            { props.isOwnerNew &&
+                <input type={'file'} onChange={addPhoto}/>
+            }
 
             {
 
@@ -53,7 +64,7 @@ const News = ({...props}) => {
                            {/*<NavLink to={'/Profile/'+u.id}>*/}
                             <img className={classes.kot} src={u.photos.small ? u.photos.small : kot} alt={'image'}/>
                            {/*</NavLink>*/}
-                            < img src={props.prof.photos.small} alt="image"/>
+                            <img src={props.prof.photos.small || userGirl } alt="image" className={classes.kot}/>
                         </div>
                         {
                             u.followed

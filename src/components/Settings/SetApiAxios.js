@@ -101,9 +101,32 @@ export const newApiStatus ={
 
        newPutStatus (status) {
          return setApiAxios.put(`Profile/status`,{status:status})
-       }
+       },
+
+      showPutPhoto(photoFile)  {
+
+           const formData = new FormData
+          formData.append("image", photoFile)
+
+          return setApiAxios.put(`Profile/photo`, formData,{
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              }
+          })
+      }
 
 }
+// savePhoto(photoFile) {
+//     const formData = new FormData();
+//     formData.append("image", photoFile);
+//
+//     return addAxios.put(`Profile/photo`, formData,
+//         {
+//             headers: {
+//                 'Content-Type': 'multipart/form-data'
+//             }
+//         })
+// },
 // getStatus(userId) {
 //     return addAxios.get(`Profile/status/` + userId)
 // },

@@ -3,12 +3,12 @@ import classes from './News.module.css';
 import News from "./News";
 import {connect} from "react-redux";
 import {
-    currentPageSetAcCr,newPutStatus,
+    currentPageSetAcCr, newPutStatus,
     followAcCr, newPutStatusThunk, newSetStatus, newGetStatusThunk, setFollowThunk,
     setLoadDisableButAcCr,
     setProfAcCr, setProfThunk,
     settingUserAcCr, setUnfollowThunk, Unfoll0wThunk,
-    unfollowAcCr
+    unfollowAcCr, showPhoto
 }
     from "../Settings/Set_reducers/setUserReducer";
 import axios from "axios";
@@ -72,7 +72,10 @@ class NewsContainer extends React.Component {
           // if (!this.props.isSetAuth) return <Redirect to={'/Login'}/>
         return (
             <div>
-                <News {...this.props} prof={this.props.prof} status={this.props.status} newPutStatusThunk={this.props.newPutStatusThunk} />
+                <News {...this.props} prof={this.props.prof} status={this.props.status}
+                      newPutStatusThunk={this.props.newPutStatusThunk}
+                       isOwnerNew={!!this.props.match.params.userId}
+                      showPhoto={this.props.showPhoto} />
 
             </div>
         )
@@ -93,7 +96,8 @@ const mapStateToProps = (state) => {
         login: newLogin(state),
         setDisableBut:newSetDisableBut(state),
         status:newStatus(state),
-        idAuth:newIdAuth(state)
+        idAuth:newIdAuth(state),
+        // profile: state.profPage.profile
         // users: state.users.users,
         // countUsersSet: state.users.countUsersSet ,
         // pageSizeSet: state.users.pageSizeSet ,
@@ -147,6 +151,9 @@ const mapDispatchToProps = (dispatch) =>{
         },
         newPutStatusThunk: (status,newPutStatus) => {
             dispatch(newPutStatusThunk(status,newPutStatus))
+        },
+        showPhoto:(file) => {
+          dispatch(showPhoto(file))
         }
     }
 }
