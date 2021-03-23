@@ -31,8 +31,24 @@ import {
 
 class NewsContainer extends React.Component {
 
+     methodMontUpdate () {
+         this.props.newAuthThunk(this.props.userId,this.props.email,this.props.login)
+
+         let userId = this.props.match.params.userId
+         if (!userId){
+             userId = this.props.idAuth
+             if (!userId) {
+                 this.props.history.push("/News")
+             }
+         }
+
+         this.props.setProfThunk(userId)
+         this.props.newGetStatusThunk(userId)
+     }
+
     componentDidMount() {
 
+        this.methodMontUpdate()
         // axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true })
         // newAuthMeApi().then(data => {
         //           if (data.resultCode===0){
@@ -41,20 +57,18 @@ class NewsContainer extends React.Component {
         //       }
         //
         //     })
-        this.props.newAuthThunk(this.props.userId,this.props.email,this.props.login)
-
-        let userId = this.props.match.params.userId
-        if (!userId){
-            userId = this.props.idAuth
-            if (!userId) {
-                this.props.history.push("/News")
-            }
-        }
-
-
-          this.props.setProfThunk(userId)
-
-          this.props.newGetStatusThunk(userId)
+        // this.props.newAuthThunk(this.props.userId,this.props.email,this.props.login)
+        //
+        // let userId = this.props.match.params.userId
+        // if (!userId){
+        //     userId = this.props.idAuth
+        //     if (!userId) {
+        //         this.props.history.push("/News")
+        //     }
+        // }
+        //
+        // this.props.setProfThunk(userId)
+        // this.props.newGetStatusThunk(userId)
         // newProfileApi(userId).then(response => {
         //           this.props.setProf(response.data)
         //        })
@@ -64,6 +78,12 @@ class NewsContainer extends React.Component {
         //     this.props.setProf(response.data)
         //
         // })
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+       if (this.props.match.params.userId !== prevProps.match.params.userId){
+           this.methodMontUpdate()
+       }
+
     }
 
 
