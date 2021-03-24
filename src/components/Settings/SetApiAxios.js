@@ -113,7 +113,11 @@ export const newApiStatus ={
                   'Content-Type': 'multipart/form-data'
               }
           })
-      }
+      },
+
+      savePutContacts(prof) {
+        return setApiAxios.put(`Profile`,prof)
+    }
 
 }
 // savePhoto(photoFile) {

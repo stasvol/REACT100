@@ -8,7 +8,7 @@ import {
     setLoadDisableButAcCr,
     setProfAcCr, setProfThunk,
     settingUserAcCr, setUnfollowThunk, Unfoll0wThunk,
-    unfollowAcCr, showPhoto
+    unfollowAcCr, showPhoto, saveContacts
 }
     from "../Settings/Set_reducers/setUserReducer";
 import axios from "axios";
@@ -95,7 +95,7 @@ class NewsContainer extends React.Component {
                 <News {...this.props} prof={this.props.prof} status={this.props.status}
                       newPutStatusThunk={this.props.newPutStatusThunk}
                        isOwnerNew={!!this.props.match.params.userId}
-                      showPhoto={this.props.showPhoto} />
+                      showPhoto={this.props.showPhoto} saveContacts={this.props.saveContacts} />
 
             </div>
         )
@@ -174,6 +174,9 @@ const mapDispatchToProps = (dispatch) =>{
         },
         showPhoto:(file) => {
           dispatch(showPhoto(file))
+        },
+        saveContacts:(prof) => {
+            dispatch(saveContacts(prof))
         }
     }
 }

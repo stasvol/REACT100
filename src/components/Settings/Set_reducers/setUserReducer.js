@@ -1,5 +1,6 @@
 import {newApiStatus, newAuthMeApi, newDelUnfollow, newPostFollow, newProfileApi} from "../SetApiAxios";
 import {changeDataRedux} from "./newFunctionReduxer";
+import {stopSubmit} from "redux-form";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -233,6 +234,20 @@ export const showPhoto = (file) => async (dispatch)=> {
         }
     // })
 
+}
+export const saveContacts = (prof) => async (dispatch,getState)=> {
+
+    const userId = getState().setAuth.id
+
+    const response =  await
+        newApiStatus.savePutContacts(prof)
+    // .then(response => {
+    if (response.data.resultCode === 0){
+        dispatch(setProfThunk(userId))
+    } else {
+       dispatch(stopSubmit('contactForm',{_error: response.data.messages}))
+    }
+    // })
 }
 
 

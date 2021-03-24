@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './News.module.css';
 import kot from './../../Photo/Images/kot.png'
 import photo from "../../Photo/Images/user.png";
@@ -8,16 +8,19 @@ import {newDelUnfollow, newPostFollow} from "../Settings/SetApiAxios";
 import {setFollowThunk} from "../Settings/Set_reducers/setUserReducer";
 import userGirl from './../../Photo/Images/user2.png'
 import NewsStatus from "./newsStatus";
+import ContactNewForm from "./ContactNewForm"
 
 const News = ({...props}) => {
 
-   const onCurPageSet =(currentPageSet)=>{
+    const [editMod, setEditMod] = useState(false)
+
+    const onCurPageSet = (currentPageSet) => {
         props.SetCurPage(currentPageSet)
     }
 
-    const countPagesSet = Math.ceil((props.countUsersSet/props.pageSizeSet)/150)
-    const pagesSet =[]
-    for (let i=1; i<=countPagesSet; i++)
+    const countPagesSet = Math.ceil((props.countUsersSet / props.pageSizeSet) / 150)
+    const pagesSet = []
+    for (let i = 1; i <= countPagesSet; i++)
         pagesSet.push(i)
 
     const addPhoto = (e) => {
@@ -27,33 +30,44 @@ const News = ({...props}) => {
         }
     }
 
+    const onSubmit = (formData) => {
+        props.saveContacts(formData)
+        setEditMod(false)
+       console.log(formData)
+    }
+
+
     return (
 
         <div className={''}>
 
-            { props.isSetAuth ? props.login :  <NavLink to={'/Login'}><button>LOGIN</button></NavLink> }
+            {props.isSetAuth ? props.login : <NavLink to={'/Login'}>
+                <button>LOGIN</button>
+            </NavLink>}
 
 
             {
-                 pagesSet.map((p,i)=>{
-                    return <span onClick={(e) => {onCurPageSet(p)}} key={i}
-                                 className={props.currentPageSet === p  ? classes.active : classes.pag } >{p}</span>
+                pagesSet.map((p, i) => {
+                        return <span onClick={(e) => {
+                            onCurPageSet(p)
+                        }} key={i}
+                                     className={props.currentPageSet === p ? classes.active : classes.pag}>{p}</span>
 
-                }
+                    }
                 )
             }
 
 
-           <h3>News about Users</h3>
+            <h3>News about Users</h3>
 
             <div>
                 <span><b>STATUS :</b></span>
-                <NewsStatus  status={ props.status} newPutStatusThunk={props.newPutStatusThunk}/>
+                <NewsStatus status={props.status} newPutStatusThunk={props.newPutStatusThunk}/>
             </div>
 
             <br/>
-            { props.isOwnerNew &&
-                <input type={'file'} onChange={addPhoto}/>
+            {props.isOwnerNew &&
+            <input type={'file'} onChange={addPhoto}/>
             }
 
             {
@@ -61,15 +75,15 @@ const News = ({...props}) => {
                 props.users.map((u, i) => {
                     return <div key={i}>
                         <div>
-                           {/*<NavLink to={'/Profile/'+u.id}>*/}
+                            {/*<NavLink to={'/Profile/'+u.id}>*/}
                             <img className={classes.kot} src={u.photos.small ? u.photos.small : kot} alt={'image'}/>
-                           {/*</NavLink>*/}
-                            <img src={props.prof.photos.small || userGirl } alt="image" className={classes.kot}/>
+                            {/*</NavLink>*/}
+                            <img src={props.prof.photos.small || userGirl} alt="image" className={classes.kot}/>
                         </div>
                         {
                             u.followed
 
-                                ?  <button disabled={props.setDisableBut.some(id => id === u.id)} onClick={()=>{
+                                ? <button disabled={props.setDisableBut.some(id => id === u.id)} onClick={() => {
                                     // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
                                     //     {
                                     //     withCredentials: true,
@@ -87,9 +101,9 @@ const News = ({...props}) => {
                                     //         props.setLoadDisableBut(false,u.id)
                                     //     })
                                     props.setUnfollowThunk(u.id)
-                                      }}>Unfollow</button>
+                                }}>Unfollow</button>
 
-                                :  <button disabled={props.setDisableBut.some(id => id === u.id)}  onClick={()=> {
+                                : <button disabled={props.setDisableBut.some(id => id === u.id)} onClick={() => {
                                     // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},
                                     //     {
                                     //         withCredentials: true,
@@ -111,14 +125,14 @@ const News = ({...props}) => {
                                     //         }
                                     //         props.setLoadDisableBut(false,u.id)
                                     //     })
-                                     props.setFollowThunk(u.id)
+                                    props.setFollowThunk(u.id)
 
-                                    } }>Follow</button>
+                                }}>Follow</button>
 
                         }
 
                         <div>
-                            <span >name: {u.fullName}</span>
+                            <span>name: {u.fullName}</span>
                         </div>
                         <div>
                             <span>status: {u.status}</span>
@@ -126,28 +140,46 @@ const News = ({...props}) => {
                         <div>
                             <span>about me: {u.aboutMe}</span>
                         </div>
-
-
-                            <div>
-                                <span>lookingForAJob: {u.lookingForAJob}</span>
-                            </div>
-                            <div>
-                                <span>lookingForAJobDescription: {u.lookingForAJobDescription}</span>
-                            </div>
-                            <div>
-                                <span>contacts: {u.contacts}</span>
-                            </div>
-                            <div>
-                                <span>github: {u.github}</span>
-                            </div>
                         <div>
-                            <span>VK: {u.vk}</span>
+                            <span>lookingForAJob: {u.lookingForAJob ? "Yes" : "No"}</span>
+                        </div>
+                        <div>
+                            <span>lookingForAJobDescription: {u.lookingForAJobDescription}</span>
                         </div>
 
+                        {/*<div>*/}
+                        {/*    <span><b>Contacts :</b> {props.users.contacts}</span>*/}
+                        {/*</div>*/}
+                        {/*/!*<div>*!/*/}
+                        {/*/!*    <div><b>Contacts:</b> {Object.keys(u.contacts).map(key => {*!/*/}
+                        {/*/!*         return  <Contacts key={key} contactTitle={key} contactValue={u.contacts[key]} />*!/*/}
+                        {/*/!*    })}</div>*!/*/}
+                        {/*/!*</div>*!/*/}
+                        {/*<div>*/}
+                        {/*    <span>github: {props.users.github}</span>*/}
+                        {/*</div>*/}
+                        {/*<div>*/}
+                        {/*    <span>VK: {props.users.vk}</span>*/}
+                        {/*</div>*/}
+                        {/*<div>*/}
+                        {/*    <span>Facebook: {props.users.facebook}</span>*/}
+                        {/*</div>*/}
+                        {/*<div>*/}
+                        {/*    <span>Instagram: {props.users.instagram}</span>*/}
+                        {/*</div>*/}
+                        {/*<div>*/}
+                        {/*    <span>Twitter: {props.users.twitter}</span>*/}
+                        {/*</div>*/}
+
+                        { editMod
+                            ? <ContactNewForm initialValues={props.prof} users={props.users} onSubmit={onSubmit} />
+                            : <ContactUserNew editContactNew={()=>{setEditMod(true)}} prof={props.prof}
+                                              users={props.users}  isOwnerNew={props.isOwnerNew}/>
+                        }
+                        {/*<ContactUserNew users={props.users}/>*/}
 
                     </div>
                 })
-
                 // userId: required(integer)
                 // lookingForAJob: required(boolean)
                 // lookingForAJobDescription: required(string)
@@ -161,12 +193,66 @@ const News = ({...props}) => {
                 // website: required(string)
                 // youtube: required(string)
                 // mainLink: required(string)
-
             }
-
 
         </div>
     )
+
 }
+const ContactUserNew = ({isOwnerNew,editContactNew,prof, ...props}) =>{
+
+    return(
+        <div>
+            { isOwnerNew && <button onClick={ editContactNew }>EDIT</button> }
+            <div>
+
+                <span><b>Name :</b> {props.users.fullName}</span>
+            </div>
+            <div>
+
+                <span><b>About Me :</b> {props.users.aboutMe}</span>
+            </div>
+            <div>
+
+                <span><b>LookingForAJobDescription :</b> {props.users.LookingForAJobDescription}</span>
+            </div>
+
+            <div>
+
+                <span><b>Contacts :</b> {props.users.contacts}</span>
+                </div>
+            {/*<div>*/}
+            {/*    <div><b>Contacts:</b> {Object.keys(props.users.contacts).map(key => {*/}
+            {/*         return  <Contacts key={key} contactTitle={key} contactValue={props.users.contacts[key]} />*/}
+            {/*    })}</div>*/}
+            {/*</div>*/}
+                <div>
+                <span>github: {props.users.github}</span>
+                </div>
+                <div>
+                <span>VK: {props.users.vk}</span>
+                </div>
+                <div>
+                <span>Facebook: {props.users.facebook}</span>
+                </div>
+                <div>
+                <span>Instagram: {props.users.instagram}</span>
+                </div>
+                <div>
+                <span>Twitter: {props.users.twitter}</span>
+                </div>
+
+              {/*<Contacts {...props}/>*/}
+        </div>
+    )
+
+}
+
+
+const Contacts = ({contactTitle, contactValue}) => {
+    return <div><b>{contactTitle}</b> : {contactValue}  </div>
+
+}
+
 
 export default News

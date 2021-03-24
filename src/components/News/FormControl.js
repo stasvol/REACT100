@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './News.module.css'
+import {Field} from "redux-form";
 
  export  const FormControl = ({input,meta,children, ...props})=>{
 
@@ -45,3 +46,11 @@ export const Input = (props) => {
     const {input,meta,children, ...restProps} = props
     return <FormControl {...props}><input {...input} /></FormControl>
 }
+
+export const createField = (placeholder,name,validators,component,props={},text="") => (
+    <div>
+        <Field placeholder={placeholder}  validate={validators} name={name}
+               component={component} {...props} /> {text}
+    </div>
+
+)

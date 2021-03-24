@@ -128,6 +128,7 @@ const SettingUsers = ({...props}) => {
                            </NavLink>
                             {/*< img src={props.prof.photos.small} alt="image"/>*/}
                         </div>
+
                         <div>
                             <span><b>{user.fullName}</b></span>
                             <div>{new Date().toLocaleDateString()}</div>
@@ -149,16 +150,17 @@ const SettingUsers = ({...props}) => {
                         </div>
                     </div>
 
+
                 })
             }
 
 
             {/*{addSetingUser}*/}
+
         </div>
     )
 
 }
-
 
 
 export default  SettingUsers
