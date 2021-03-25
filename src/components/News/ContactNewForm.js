@@ -8,7 +8,11 @@ const ContactNewForm = ({handleSubmit,error,...props}) =>{
 
     return(
         <form onSubmit={handleSubmit}>
+
         <div>
+
+
+
             {  <button onClick={ ()=>{}}>SAVE</button> }
             { error &&  <div>ERROR: {error}</div>}
                <div>
@@ -16,7 +20,7 @@ const ContactNewForm = ({handleSubmit,error,...props}) =>{
                        <Field name={'fullName'}  component={Input} placeholder={'add data'}
                                               validate={[required]}/>
 
-                       {/*{ createField( "Full name", "contacts", [require], Input,...props )}</span>*/}
+                       {/*{ createField( "Full name", "aboutMe", [require], Input)}*/}
                </div>
 
             <div>

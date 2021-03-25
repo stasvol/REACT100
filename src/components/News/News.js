@@ -32,6 +32,9 @@ const News = ({...props}) => {
 
     const onSubmit = (formData) => {
         props.saveContacts(formData)
+            // .then( () => {
+            //     setEditMod(false)
+            // })
         setEditMod(false)
        console.log(formData)
     }
@@ -131,21 +134,21 @@ const News = ({...props}) => {
 
                         }
 
-                        <div>
-                            <span>name: {u.fullName}</span>
-                        </div>
-                        <div>
-                            <span>status: {u.status}</span>
-                        </div>
-                        <div>
-                            <span>about me: {u.aboutMe}</span>
-                        </div>
-                        <div>
-                            <span>lookingForAJob: {u.lookingForAJob ? "Yes" : "No"}</span>
-                        </div>
-                        <div>
-                            <span>lookingForAJobDescription: {u.lookingForAJobDescription}</span>
-                        </div>
+                        {/*<div>*/}
+                        {/*    <span>name: {u.fullName}</span>*/}
+                        {/*</div>*/}
+                        {/*<div>*/}
+                        {/*    <span>status: {u.status}</span>*/}
+                        {/*</div>*/}
+                        {/*<div>*/}
+                        {/*    <span>about me: {u.aboutMe}</span>*/}
+                        {/*</div>*/}
+                        {/*<div>*/}
+                        {/*    <span>lookingForAJob: {u.lookingForAJob ? "Yes" : "No"}</span>*/}
+                        {/*</div>*/}
+                        {/*<div>*/}
+                        {/*    <span>lookingForAJobDescription: {u.lookingForAJobDescription}</span>*/}
+                        {/*</div>*/}
 
                         {/*<div>*/}
                         {/*    <span><b>Contacts :</b> {props.users.contacts}</span>*/}
@@ -203,7 +206,9 @@ const ContactUserNew = ({isOwnerNew,editContactNew,prof, ...props}) =>{
 
     return(
         <div>
+
             { isOwnerNew && <button onClick={ editContactNew }>EDIT</button> }
+
             <div>
 
                 <span><b>Name :</b> {props.users.fullName}</span>

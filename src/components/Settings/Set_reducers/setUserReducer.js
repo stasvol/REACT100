@@ -246,9 +246,10 @@ export const saveContacts = (prof) => async (dispatch,getState)=> {
         dispatch(setProfThunk(userId))
     } else {
        dispatch(stopSubmit('contactForm',{_error: response.data.messages}))
+        // return Promise.reject(response.data.messages)
     }
     // })
 }
 
 
- export default SetUserReducer
+export default SetUserReducer
