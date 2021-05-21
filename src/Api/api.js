@@ -105,7 +105,6 @@ export const loginApi = {
             })
     }
 }
-
 export const securityApi = {
 
     getCaptchaUrl()
