@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 // import UserContainer from "./UserContainer";
 // import {NavLink} from "react-router-dom";
 // import {userApi} from "../../Api/api";
-import Paginator from "./Paginator";
+import Paginator from "../pagination/Paginator";
 import User from "./user";
 
 const UsersF = ({currentPage,onChangePage,totalUsersCount,pageSize,users,...props}) => {

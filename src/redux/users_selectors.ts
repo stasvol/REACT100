@@ -1,20 +1,21 @@
+import {rootReducersType} from "./reduxStore";
 
-export const getUsersSelector = (state:any) => {
+export const getUsersSelector = (state:rootReducersType) => {
     return state.usersPage.users
 }
-export const pageSizeSelector = (state:any) =>{
+export const pageSizeSelector = (state:rootReducersType) =>{
     return state.usersPage.pageSize
 }
-export const totalUsersCountSelector = (state:any) =>{
+export const totalUsersCountSelector = (state:rootReducersType) =>{
     return state.usersPage.totalUsersCount
 }
-export  const currentPageSelector = (state:any) =>{
+export  const currentPageSelector = (state:rootReducersType) =>{
     return state.usersPage.currentPage
 }
-export const isLoadingSelector = (state:any) =>{
+export const isLoadingSelector = (state:rootReducersType) =>{
     return state.usersPage.isLoading
 }
-export const disableButtonSector = (state:any) =>{
+export const disableButtonSector = (state:rootReducersType) =>{
     return state.usersPage.disableButton
 }
 

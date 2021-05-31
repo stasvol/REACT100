@@ -1,9 +1,19 @@
-import React from "react";
+import React, {ChangeEvent, ChangeEventHandler} from "react";
 import classes from './ProfilInfo.module.css';
 import Preloader from "../../common/preloader/preloader";
 import smail from "../../../Photo/Images/smail.png"
 
-class ProfilStatus extends React.Component {
+interface propsType {
+    status:string,
+    updateStatus:(newStatus:string)=>void
+}
+
+interface stateType {
+    editMode: boolean,
+    status: string
+}
+
+class ProfilStatus extends React.Component<propsType, stateType> {
 
      state = {
          editMode: false,
@@ -30,13 +40,13 @@ class ProfilStatus extends React.Component {
         this.props.updateStatus(this.state.status);
      }
 
-    changeStatus = (e) => {
+    changeStatus = (e:ChangeEvent<HTMLInputElement>) => {
          this.setState({
               status: e.target.value
          })
 
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps:propsType, prevState:stateType, snapshot:any) {
 
       if (prevProps.status !== this.props.status ) {
           this.setState({

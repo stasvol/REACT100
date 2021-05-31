@@ -81,7 +81,7 @@ class App extends Component {
                             {/*// addPost={props.addPost}*/}
                             {/*// addChangeText={props.addChangeTe} />}/>*/}
 
-                            <Route path={'/User'} render={withLazySuspense(() => <UserContainer/>)}/>
+                            <Route path={'/User'} render={withLazySuspense(() => <UserContainer title={"Пользователи"}/>)}/>
 
 
                             <Route path={'/Music/vk'} render={() => <div>vk</div>}/>

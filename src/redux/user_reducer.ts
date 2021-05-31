@@ -18,7 +18,8 @@ export type usersType={
     photos:PhotosType
     followed:boolean
 }
-type disableButtonType={
+export type disableButtonType={
+    disableButton?:boolean
     userId:number
 }
 
@@ -166,7 +167,7 @@ export const togglePreloader = (isLoading:boolean):togglePreloaderActionType => 
 
 type disableButtonFolActionType={
     type:typeof DISABLE_BUTTON_FOL,
-    disableButton?:boolean,
+    disableButton:boolean,
     userId:number
 }
 export const disableButtonFol = (disableButton:boolean, userId:number):disableButtonFolActionType => ({type: DISABLE_BUTTON_FOL, disableButton, userId});

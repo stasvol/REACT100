@@ -3,11 +3,20 @@ import classes from "./pagination.module.css";
 import {useState} from "react";
 
 
-const Paginator = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumberSizes=10}) => {
+interface propsType {
+    currentPage:number,
+    onChangePage:(pageNumber:number)=>void,
+    totalUsersCount:number,
+    pageSize:number,
+    pageNumberSizes:number
+
+}
+
+const Paginator: React.FC<propsType> = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumberSizes=10}) => {
 
 
     let pageCount = Math.ceil((totalUsersCount/pageSize))
-    let  pages = [];
+    let  pages:Array<number> = [];
     for (let i=1;  i <= pageCount; i++ ){
         pages.push(i);
     }

@@ -5,11 +5,21 @@ import classes from "./user.module.css";
 import UserContainer from "./UserContainer";
 import {NavLink} from "react-router-dom";
 import {userApi} from "../../Api/api";
-import Paginator from "./Paginator";
+import Paginator from "../pagination/Paginator";
+import {disableButtonType, usersType} from '../../redux/user_reducer';
+import {PhotosType} from "../../redux/prof_reducer";
 
-const User = ({user,disableButton,unFollowThunkCreator,FollowThunkCreator}) => {
+interface propsType{
 
+    user: usersType,
+    disableButton: Array <disableButtonType>,
+    unFollowThunkCreator:(userId:number)=>void,
+    FollowThunkCreator:(userId:number)=>void,
+}
 
+const User: React.FC<propsType> = ({user,disableButton,unFollowThunkCreator,FollowThunkCreator}) => {
+    // @ts-ignore
+    // @ts-ignore
     return (
 
         <div>
@@ -24,7 +34,9 @@ const User = ({user,disableButton,unFollowThunkCreator,FollowThunkCreator}) => {
                     </div>
                     <div>
                         {user.followed
-                            ? <button disabled={disableButton.some(id => id === user.id)} onClick={() => {
+                            ? <button
+                                // disabled={disableButton.some((id)  => id === user.id)}
+                                      onClick={() => {
 
                                 unFollowThunkCreator(user.id)
                         //      props.disableButtonFol(true, user.id)
@@ -38,7 +50,9 @@ const User = ({user,disableButton,unFollowThunkCreator,FollowThunkCreator}) => {
 
                             }}>UnFollow</button>
 
-                            : <button disabled={disableButton.some(id => id === user.id)} onClick={() => {
+                            : <button
+                                // disabled={disableButton.some((id )=> id === user.id)}
+                                onClick={() => {
 
                                 FollowThunkCreator(user.id)
                            //      props.disableButtonFol(true, user.id)

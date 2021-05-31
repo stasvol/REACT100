@@ -1,8 +1,18 @@
 import React from 'react';
 import {connect, Provider} from 'react-redux';
 import {
-    disableButtonFol, follow, FollowThunkCreator, getUsersThunkCreator, setCurrentPage, setTotalUsersCount,
-    setUsers, togglePreloader, unfollow, unFollowThunkCreator,
+    disableButtonFol,
+    disableButtonType,
+    follow,
+    FollowThunkCreator,
+    getUsersThunkCreator,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    togglePreloader,
+    unfollow,
+    unFollowThunkCreator,
+    usersType,
 } from "../../redux/user_reducer";
 import * as axios from 'axios';
 import UsersF from './UserF';
@@ -16,9 +26,49 @@ import {
     pageSizeSelector,
     totalUsersCountSelector,
 } from "../../redux/users_selectors";
+import { rootReducersType } from '../../redux/reduxStore';
 
 
-class UsersApiContainer extends React.Component {
+// interface PropsType {
+//     getUsersThunkCreator:(currentPage:number,pageSize:number)=>void
+//     currentPage:number,
+//     pageSize: number,
+//     isLoading: boolean,
+//     totalUsersCount:number,
+//     users:Array<usersType>,
+//     follow:()=>void,
+//     unfollow:()=>void,
+//     disableButtonFol:()=>void,
+//     disableButton:()=>void,
+//     unFollowThunkCreator:()=>void,
+//     FollowThunkCreator:()=>void
+// }
+type mapStatePropsType = {
+    users: Array<usersType>,
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number,
+    isLoading: boolean,
+    disableButton: Array<disableButtonType>
+}
+type matDispatchPropsType = {
+    follow:(userId:number)=>void,
+    unfollow:(userId:number)=>void,
+    setUsers:(users: usersType)=>void,
+    setCurrentPage:(currentPage:number)=>void,
+    setTotalUsersCount:(totalCount:number)=>void,
+    togglePreloader:(isLoading:boolean)=>void,
+    disableButtonFol:(disableButton:boolean, userId:number)=>void,
+    getUsersThunkCreator:(pageNumber:number, pageSize:number)=>void,
+    FollowThunkCreator:()=>void,
+    unFollowThunkCreator:()=>void
+}
+type ownPropsType ={
+  title:string
+}
+type PropsType = mapStatePropsType & matDispatchPropsType & ownPropsType
+
+class UsersApiContainer extends React.Component <PropsType> {
 
     componentDidMount() {
 
@@ -33,9 +83,9 @@ class UsersApiContainer extends React.Component {
         //     });
     }
 
-    onChangePage = (pageNumber) => {
-
-        this.props.getUsersThunkCreator(pageNumber)
+    onChangePage = (pageNumber:number) => {
+         const {pageSize}= this.props
+        this.props.getUsersThunkCreator(pageNumber, pageSize)
         // this.props.setCurrentPage(pageNumber);
         // this.props.togglePreloader(true);
         //
@@ -46,7 +96,6 @@ class UsersApiContainer extends React.Component {
         //         this.props.setUsers(data.items);
         //
         //     });
-
     }
 
 
@@ -54,6 +103,7 @@ class UsersApiContainer extends React.Component {
 
         return (
             <>
+                <h2>{this.props.title}</h2>
                 {this.props.isLoading ? <Preloader/> : null}
                 <UsersF onChangePage={this.onChangePage} currentPage={this.props.currentPage}
                         totalUsersCount={this.props.totalUsersCount} pageSize={this.props.pageSize}
@@ -66,7 +116,7 @@ class UsersApiContainer extends React.Component {
 
     }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:rootReducersType):mapStatePropsType => {
     return {
         users: getUsersSelector(state),
         pageSize: pageSizeSelector(state),
@@ -76,8 +126,6 @@ const mapStateToProps = (state) => {
         disableButton: disableButtonSector(state)
     }
 }
-
-
 // const mapStateToProps = (state) => {
 //     return {
 //         users: state.usersPage.users,
@@ -88,7 +136,6 @@ const mapStateToProps = (state) => {
 //         disableButton: state.usersPage.disableButton
 //     }
 // }
-
 // const mapDispatchToProps = (dispatch) =>{
 //     return {
 //       follow:(userId) => {
@@ -112,7 +159,6 @@ const mapStateToProps = (state) => {
 //
 //     }
 // }
-
 // const mapDispatchToProps = (dispatch) => {
 //     return {
 //         getUsers: (currentPage, pageSize) => {
@@ -120,16 +166,14 @@ const mapStateToProps = (state) => {
 //         }
 //     }
 // }
-
-
 // const UserContainer = withAuthRedirect( connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage,
 //     setTotalUsersCount, togglePreloader,disableButtonFol,
 //     getUsersThunkCreator, FollowThunkCreator, unFollowThunkCreator  })) (UsersApiContainer);
-
 // export default UserContainer
+
 export default compose(
     withAuthRedirect,
-    connect          (mapStateToProps, {follow, unfollow, setUsers,
+    connect        (mapStateToProps, {follow, unfollow, setUsers,
                       setCurrentPage, setTotalUsersCount, togglePreloader,disableButtonFol,
                       getUsersThunkCreator, FollowThunkCreator, unFollowThunkCreator  }))
 (UsersApiContainer);
