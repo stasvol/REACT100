@@ -5,16 +5,16 @@ import {authThunkCreator} from "./auth_reducer";
 
 const INITIALISED_SUCCESS = 'INITIALISED SUCCESS';
 
+export type initialStateAppType  = {
+    initialized: boolean
+}
 
 let initialState = {
-
     initialized: false,
-
-
 }
 
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action:initializedSuccessActionType):initialStateAppType => {
 
     switch (action.type) {
 
@@ -33,10 +33,13 @@ const appReducer = (state = initialState, action) => {
     }
 }
 // data
-export const initializedSuccess = () => ({type: INITIALISED_SUCCESS});
+export type initializedSuccessActionType ={
+    type: typeof INITIALISED_SUCCESS
+}
+export const initializedSuccess =():initializedSuccessActionType => ({type: INITIALISED_SUCCESS});
 
 
-export const initializeApp = () => (dispatch) => {
+export const initializeApp = () => (dispatch:Function) => {
 
     let promise = dispatch(authThunkCreator());
     // dispatch(AC1())

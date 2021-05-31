@@ -1,5 +1,13 @@
 const SITE_BAR = 'SITE BAR';
 
+type initialStateSbarType= typeof initialState
+
+type siteBarNavType={
+    id:number,
+    name:string,
+    img?:string
+}
+
 let initialState = {
 
     siteBarNav: [
@@ -18,12 +26,12 @@ let initialState = {
             name: 'Ivan',
             img: 'https://i.pinimg.com/236x/4d/fa/04/4dfa04c4070771935150bad24ac02cbf.jpg'
         },
-    ],
+    ] as Array<siteBarNavType>,
 
 
 }
 
-const siteBarReducer = (state = initialState, action) => {
+const siteBarReducer = (state = initialState, action:siteBarActionCreatorType):initialStateSbarType => {
 
     switch (action.type) {
         case SITE_BAR:
@@ -43,8 +51,10 @@ const siteBarReducer = (state = initialState, action) => {
     }
 
 }
-
-
-export const siteBarActionCreator = (userId) => ({type: SITE_BAR, userId});
+type siteBarActionCreatorType={
+    type: typeof SITE_BAR,
+    userId:number
+}
+export const siteBarActionCreator = (userId:number):siteBarActionCreatorType => ({type: SITE_BAR, userId});
 
 export default siteBarReducer

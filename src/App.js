@@ -89,8 +89,8 @@ class App extends Component {
 
                             <Route path={'/Login'} render={() => <Login/>}/>
 
-                            <Route  path={'/News/:userId?'} render={() => <NewsContainer/>}/>
-                            <Route path={'/Setting'} render={() => <SettingContainer />}/>
+                            {/*<Route  path={'/News/:userId?'} render={() => <NewsContainer/>}/>*/}
+                            {/*<Route path={'/Setting'} render={() => <SettingContainer />}/>*/}
                                                                              {/*newMessage={Store.getState().newMessage}*/}
                                                                              {/*newPostMesText={Store.getState().newPostMesText}*/}
                                  {/*addNewMessage={Store.addNewMessage.bind(Store)}*/}

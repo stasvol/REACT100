@@ -61,7 +61,7 @@ const User = ({user,disableButton,unFollowThunkCreator,FollowThunkCreator}) => {
                     <div>{"user.location.city"}</div>
 
                 </div>)
-            }
+
         </div>
     )
 

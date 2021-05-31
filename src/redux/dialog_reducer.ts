@@ -2,7 +2,19 @@ const ADD_MESSAGE = 'ADD MESSAGE';
 // const ADD_CHANGE_NEW_MESSAGE = 'ADD CHANGE NEW MESSAGE';
 const DELETE_MESSAGE = 'DELETE MESSAGE';
 
-let initialState = {
+export type initialStateDialogType = typeof initialState
+type DialogDataType={
+    id:number,
+    name:string,
+    img:string
+}
+type MessageUserData={
+    id:number,
+    message:string
+}
+
+
+let initialState  = {
     DialogData: [
 
         {id: 1, name: 'Artur', img: 'https://avatarko.ru/img/kartinka/1/monstr_kot.jpg'},
@@ -15,7 +27,7 @@ let initialState = {
         {id: 8, name: 'Vova', img: 'https://www.meme-arsenal.com/memes/e0d6c17f7cdbf397eaa821e56e2c1b51.jpg'},
         {id: 9, name: 'Vovan', img: 'https://i.pinimg.com/originals/5b/1a/9a/5b1a9ab141ba1ade4ab06c8215059225.jpg'},
 
-    ],
+    ] as Array<DialogDataType>,
     MessageUserData: [
         {id: 1, message: 'Vse klas'},
         {id: 2, message: 'Super'},
@@ -23,7 +35,7 @@ let initialState = {
         {id: 4, message: 'VOOOO !!!'},
         {id: 5, message: 'YO-YO-YO-YO'},
         {id: 6, message: 'YO-MO-YO'},
-    ],
+    ] as Array<MessageUserData>,
 
     // newMessageText: 'Hi',
 
@@ -31,7 +43,7 @@ let initialState = {
 }
 
 
-const dialogReducer = (state = initialState, action) => {
+const dialogReducer = (state = initialState, action:any):initialStateDialogType => {
 
     switch (action.type) {
 
@@ -57,7 +69,7 @@ const dialogReducer = (state = initialState, action) => {
                     id: 7,
                     message: action.newMessageText
                 }],
-                newMessageText: ''
+                // newMessageText: ''
             }
             
         case DELETE_MESSAGE:
@@ -82,9 +94,17 @@ const dialogReducer = (state = initialState, action) => {
 }
 
 // export  const addMessage =() =>({ type: ADD_MESSAGE  });
-export const addMessage = (newMessageText) => ({type: ADD_MESSAGE, newMessageText});
+type addMessageActionType={
+    type:typeof ADD_MESSAGE,
+    newMessageText: string
+}
+export const addMessage = (newMessageText:string):addMessageActionType => ({type: ADD_MESSAGE, newMessageText});
 // export const addChangeNewMessage = (messageText) => ({type: ADD_CHANGE_NEW_MESSAGE, newMessageText: messageText});
-export const deleteMessage = (id) => ({type:DELETE_MESSAGE,id});
+type deleteMessageActionType ={
+    type: typeof DELETE_MESSAGE,
+    id:number
+}
+export const deleteMessage = (id:number):deleteMessageActionType => ({type:DELETE_MESSAGE,id});
 
 
 export default dialogReducer
