@@ -2,9 +2,15 @@ import React from 'react';
 import classes from './MyPost.module.css';
 import Post from "./Post/Post";
 import MyPostForm from "./MyPostForm";
+import {PostDataType} from "../../../redux/prof_reducer";
 
+type propsType ={
+    PostData:Array<PostDataType>,
+    addPost:(newText:string)=>void,
+    post:string
+}
 
-const MyPost = (props) => {
+const MyPost:React.FC<propsType>  = (props) => {
     // console.log('RENDER')
     let PostUser = props.PostData.map(p => <Post like={p.like} message={p.message} id={p.id} key={p.id}/>);
 
@@ -26,9 +32,9 @@ const MyPost = (props) => {
     //     console.log(newPost)
     // }
 
-    const onSubmit = (value) => {
-
+    const onSubmit = (value:any) => {
         props.addPost(value.newText)
+        value.newText = " "
     }
 
     return (

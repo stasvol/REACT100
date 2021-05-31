@@ -11,7 +11,7 @@ const DELETE_POST = 'DELETE POST'
 const SAVE_PHOTO_SUCCESS = 'SAVE PHOTO SUCCESS'
 
 
-type PostDataType ={
+export type PostDataType ={
     id: number,
     like: number,
     message: string,
