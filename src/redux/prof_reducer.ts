@@ -81,7 +81,7 @@ const profReducer = (state = initialState, action:any):initialStateProfType => {
              return {
                  ...state,
                  PostData:[...state.PostData,newPost],
-                 newText: ''
+                 // newText: ''
              }
 
 
