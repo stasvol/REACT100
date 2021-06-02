@@ -1,5 +1,7 @@
-import thunk from "redux-thunk";
+import thunk, {ThunkAction} from "redux-thunk";
 import {authThunkCreator} from "./auth_reducer";
+import {Dispatch} from "redux";
+import {rootReducersType} from "./reduxStore";
 // import {loginApi, loginUser, userApi} from "../Api/api";
 // import {stopSubmit} from "redux-form";
 
@@ -38,8 +40,12 @@ export type initializedSuccessActionType ={
 }
 export const initializedSuccess =():initializedSuccessActionType => ({type: INITIALISED_SUCCESS});
 
+type dispatchType = Dispatch<initializedSuccessActionType>
+type getStateType = () => rootReducersType
+type thunkType = ThunkAction<Promise<void>, rootReducersType, unknown, initializedSuccessActionType>
 
-export const initializeApp = () => (dispatch:Function) => {
+export const initializeApp = ():thunkType =>
+    async(dispatch) => {
 
     let promise = dispatch(authThunkCreator());
     // dispatch(AC1())
@@ -47,9 +53,10 @@ export const initializeApp = () => (dispatch:Function) => {
     //  promise.then(() =>{
     //      dispatch(initializedSuccess() );
     //  })
-    Promise.all([promise]).then(() => {
+        await Promise.all([promise])
+        // .then(() => {
         dispatch(initializedSuccess())
-    })
+    // })
 
 
 }

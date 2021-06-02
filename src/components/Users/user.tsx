@@ -18,8 +18,7 @@ interface propsType{
 }
 
 const User: React.FC<propsType> = ({user,disableButton,unFollowThunkCreator,FollowThunkCreator}) => {
-    // @ts-ignore
-    // @ts-ignore
+
     return (
 
         <div>
@@ -28,17 +27,18 @@ const User: React.FC<propsType> = ({user,disableButton,unFollowThunkCreator,Foll
                         {/*<img src={user.photoUrl} className={classes.photo}/>*/}
 
                         <NavLink to={'/Profile/' + user.id}>
-                        <img src={user.photos.small != null ? user.photos.small : photo} alt={'image'} className={classes.photo}/>
+                            {/*<img src={photo}/>*/}
+                        <img src={ user.photos && user.photos.small !== null ? user.photos.small : photo } alt={'image'} className={classes.photo}/>
                         </NavLink>
 
                     </div>
                     <div>
                         {user.followed
                             ? <button
+                                   // @ts-ignore
                                 // disabled={disableButton.some((id)  => id === user.id)}
                                       onClick={() => {
-
-                                unFollowThunkCreator(user.id)
+                                          unFollowThunkCreator(user.id)
                         //      props.disableButtonFol(true, user.id)
                         // userApi.deleteUser(user.id).then(data => {
                         //
@@ -47,14 +47,13 @@ const User: React.FC<propsType> = ({user,disableButton,unFollowThunkCreator,Foll
                         //                 }
                         //     props.disableButtonFol(false,user.id)
                         //             });
-
-                            }}>UnFollow</button>
+                                      }}>UnFollow</button>
 
                             : <button
+                                // @ts-ignore
                                 // disabled={disableButton.some((id )=> id === user.id)}
                                 onClick={() => {
-
-                                FollowThunkCreator(user.id)
+                                    FollowThunkCreator(user.id)
                            //      props.disableButtonFol(true, user.id)
                            //
                            // userApi.postUser(user.id).then(data => {
@@ -71,10 +70,11 @@ const User: React.FC<propsType> = ({user,disableButton,unFollowThunkCreator,Foll
                     </div>
                     <div>{user.name}</div>
                     <div>{user.status}</div>
-                    <div>{"user.location.country"}</div>
-                    <div>{"user.location.city"}</div>
+                    {/*<div>{"user.location.country"}</div>*/}
+                    {/*<div>{"user.location.city"}</div>*/}
 
-                </div>)
+                </div>
+                 {/*)*/}
 
         </div>
     )

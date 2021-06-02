@@ -1,7 +1,11 @@
 import {profileApi, userApi as addAxios} from "../Api/api";
-import {stopSubmit} from "redux-form";
+import {FormAction, stopSubmit} from "redux-form";
 import classes from "../Error/error.module.css";
 import React from "react";
+import {Dispatch} from "redux";
+import {rootReducersType} from "./reduxStore";
+import {log} from "util";
+import {ThunkAction} from "redux-thunk";
 
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
@@ -36,8 +40,8 @@ export type  contactsType= {
     mainLink: string|null
 }
 export type PhotosType={
-    small: string|null
-    large: string|null
+    small: string | null
+    large: string | null
 }
 export type initialStateProfType = typeof initialState
 
@@ -56,7 +60,7 @@ let initialState = {
 
 }
 
-const profReducer = (state = initialState, action:any):initialStateProfType => {
+const profReducer = (state = initialState, action:actionCreatorProfType):initialStateProfType => {
 
     switch (action.type) {
 
@@ -129,6 +133,9 @@ const profReducer = (state = initialState, action:any):initialStateProfType => {
             return state;
     }
 }
+type actionCreatorProfType = addPostActionType | addChangeActionType | setUsersProfileActionType
+    | setStatusActionType | deletePostActionType | savePhotoSuccessActionType
+
 type addPostActionType={
     type: typeof ADD_POST,
     newText:string
@@ -137,9 +144,10 @@ export const addPost = (newText:string):addPostActionType => ({type: ADD_POST, n
 
 type addChangeActionType={
     type:typeof ADD_CHANGE_TEXT,
-    newPost:string
+    newPost:string,
+    newText:string
 }
-export const addChangeText = (newPost:string):addChangeActionType => ({type: ADD_CHANGE_TEXT,  newPost});
+export const addChangeText = (newPost:string,newText:string):addChangeActionType => ({type: ADD_CHANGE_TEXT,  newPost,newText});
 
 type setUsersProfileActionType={
     type:typeof SET_USERS_PROFILE,
@@ -163,14 +171,17 @@ type savePhotoSuccessActionType={
    type: typeof  SAVE_PHOTO_SUCCESS,
     photos:PhotosType
 }
-
 export const savePhotoSuccess = (photos:PhotosType):savePhotoSuccessActionType => ({type:SAVE_PHOTO_SUCCESS, photos});
 
 
-export const  profileThunkCreator = (userId:number) => {
+type dispatchType = Dispatch<actionCreatorProfType>
+type getStateType = () => rootReducersType
+type thunkType = ThunkAction<Promise<void>, rootReducersType, unknown, actionCreatorProfType>
 
-    return  async (dispatch:Function) =>  {
+export const  profileThunkCreator = (userId: number | null) :ThunkAction<Promise<void>, rootReducersType, unknown, actionCreatorProfType>  => {
 
+    return  async (dispatch, getState)=>  {
+        console.log(getState)
         // let userId = this.props.match.params.userId;
         // if (!userId){
         //     userId=2;
@@ -187,7 +198,7 @@ export const  profileThunkCreator = (userId:number) => {
 }
 export const  getStatus = (userId:number) => {
 
-    return async (dispatch:Function) =>  {
+    return async (dispatch:dispatchType) =>  {
 
         const response = await profileApi.getStatus(userId)
             // .then(response => {
@@ -196,9 +207,10 @@ export const  getStatus = (userId:number) => {
         // })
     }
 }
+
 export const  updateStatus = (status:string) => {
 
-    return async (dispatch:Function) =>  {
+    return async (dispatch:dispatchType) =>  {
 
         const response = await profileApi.updateStatus(status)
             // .then(response => {
@@ -211,6 +223,10 @@ export const  updateStatus = (status:string) => {
              if (response.data.resultCode === 1) {
 
                 throw new Error('Something went wrong.');
+
+
+
+
 
              }
          } catch (error){
@@ -230,7 +246,7 @@ export const  updateStatus = (status:string) => {
 }
 export const  savePhoto = (file:any) => {
 
-    return async (dispatch:Function) =>  {
+    return async (dispatch:dispatchType) =>  {
 
         const response = await profileApi.savePhoto(file)
         // .then(response => {
@@ -243,7 +259,11 @@ export const  savePhoto = (file:any) => {
     }
 }
 
-export const  editProfile = (profile:profileType) =>async (dispatch:Function,getState:Function) =>  {
+export const  editProfile = (profile:profileType)
+
+    :ThunkAction<Promise<void>, rootReducersType, unknown, addPostActionType | addChangeActionType | setUsersProfileActionType
+    | setStatusActionType | deletePostActionType | savePhotoSuccessActionType | FormAction> =>
+    async (dispatch,getState) =>  {
 
        const userId = getState().auth.id
 
@@ -254,6 +274,7 @@ export const  editProfile = (profile:profileType) =>async (dispatch:Function,get
 
             dispatch(profileThunkCreator(userId));
         }else {
+            // actionCreatorProfType -> FormAction
             dispatch(stopSubmit('editProfile', {_error: response.data.messages}));
             return Promise.reject(response.data.messages)
         }

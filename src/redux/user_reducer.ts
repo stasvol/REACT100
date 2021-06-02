@@ -1,6 +1,9 @@
 import {userApi} from "../Api/api";
 import {updateObjectInArray} from "../Utility/object_helper";
 import { PhotosType } from "./prof_reducer";
+import {AnyAction, Dispatch} from "redux";
+import {rootReducersType} from "./reduxStore";
+import {ThunkAction} from "redux-thunk";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -12,15 +15,16 @@ const DISABLE_BUTTON_FOL = 'DISABLE BUTTON FOL';
 const DELETE_USER = 'DELETE USER'
 
 export type usersType={
+    users:[]
     id: number
     name: string
     status: string
-    photos:PhotosType
+    photos: PhotosType
     followed:boolean
 }
 export type disableButtonType={
     disableButton?:boolean
-    userId:number
+    userId: number
 }
 
 type initialStateUserType= typeof initialState
@@ -50,11 +54,12 @@ let initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isLoading: true,
+    // photos: null,
     disableButton: [] as Array<disableButtonType> // array userId
 }
 
 
-const userReducer = (state = initialState, action:any):initialStateUserType => {
+const userReducer = (state = initialState, action:AnyAction):initialStateUserType => {
 
     switch (action.type) {
 
@@ -89,6 +94,7 @@ const userReducer = (state = initialState, action:any):initialStateUserType => {
         case SET_USERS:
             return {
                 ...state,
+
                 users: [...action.users]
             }
 
@@ -111,7 +117,9 @@ const userReducer = (state = initialState, action:any):initialStateUserType => {
             }
 
         case  DISABLE_BUTTON_FOL:
-            return {
+
+            // @ts-ignore
+            return <initialStateUserType>{
                 ...state,
                 disableButton: action.disableButton
                     ? [...state.disableButton, action.userId]
@@ -129,6 +137,10 @@ const userReducer = (state = initialState, action:any):initialStateUserType => {
             return state;
     }
 }
+
+type actionCreatorUsersType = followActionType | unfollowActionType | usersActionType | currentPageActionType |
+    totalCountActionType | togglePreloaderActionType | disableButtonFolActionType | deleteUsersActionType
+
 type followActionType={
     type:typeof FOLLOW,
     userId:number
@@ -180,9 +192,14 @@ export const deleteUsers = (userId:number):deleteUsersActionType => ({type: DELE
 
 //    THUNK
 
-export const getUsersThunkCreator = (currentPage:number, pageSize:number) => {
+type dispatchType = Dispatch<actionCreatorUsersType>
+type getStateType = () => rootReducersType
+type thunkType = ThunkAction<Promise<void>, rootReducersType, unknown, actionCreatorUsersType>
 
-    return async (dispatch:Function) => {
+
+export const getUsersThunkCreator = (currentPage:number, pageSize:number):thunkType => {
+
+    return async (dispatch) => {
 
         dispatch(togglePreloader(true));
         dispatch(setCurrentPage(currentPage))
@@ -198,7 +215,8 @@ export const getUsersThunkCreator = (currentPage:number, pageSize:number) => {
 }
 
 
-   const followUnfollowFlow = async(dispatch:Function, userId:number, ApiMethod:any,ActionCreator:any) => {
+   const followUnfollowFlow = async(dispatch:dispatchType,userId:number, ApiMethod:any,
+                                    ActionCreator:(userId:number)=> followActionType | unfollowActionType) => {
 
        dispatch(disableButtonFol(true, userId))
        const data = await ApiMethod(userId)
@@ -211,9 +229,9 @@ export const getUsersThunkCreator = (currentPage:number, pageSize:number) => {
 }
 
 
-export const FollowThunkCreator = (userId:number) => {
+export const FollowThunkCreator = (userId:number):thunkType => {
 
-    return async (dispatch:Function) => {
+    return async (dispatch) => {
         // const ApiMethod = userApi.postUser.bind(userId)
         // const ActionCreator = follow;
         followUnfollowFlow(dispatch, userId, userApi.postUser.bind(userId), follow)
@@ -228,9 +246,9 @@ export const FollowThunkCreator = (userId:number) => {
         // });
     }
 }
-export const unFollowThunkCreator = (userId:number) => {
+export const unFollowThunkCreator = (userId:number):thunkType => {
 
-    return async (dispatch:Function) => {
+    return async (dispatch) => {
         const ApiMethod = userApi.deleteUser.bind(userId)
         const ActionCreator = unfollow
         followUnfollowFlow(dispatch, userId, ApiMethod, ActionCreator)

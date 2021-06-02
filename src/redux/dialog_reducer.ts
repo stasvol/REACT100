@@ -39,11 +39,10 @@ let initialState  = {
 
     // newMessageText: 'Hi',
 
-
 }
 
 
-const dialogReducer = (state = initialState, action:any):initialStateDialogType => {
+const dialogReducer = (state = initialState, action:actionCreatorDialogType):initialStateDialogType => {
 
     switch (action.type) {
 
@@ -92,7 +91,7 @@ const dialogReducer = (state = initialState, action:any):initialStateDialogType 
             return state
     }
 }
-
+type actionCreatorDialogType= addMessageActionType | deleteMessageActionType
 // export  const addMessage =() =>({ type: ADD_MESSAGE  });
 type addMessageActionType={
     type:typeof ADD_MESSAGE,
@@ -100,6 +99,7 @@ type addMessageActionType={
 }
 export const addMessage = (newMessageText:string):addMessageActionType => ({type: ADD_MESSAGE, newMessageText});
 // export const addChangeNewMessage = (messageText) => ({type: ADD_CHANGE_NEW_MESSAGE, newMessageText: messageText});
+
 type deleteMessageActionType ={
     type: typeof DELETE_MESSAGE,
     id:number
