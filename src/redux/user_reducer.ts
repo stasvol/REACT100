@@ -214,8 +214,7 @@ export const getUsersThunkCreator = (currentPage:number, pageSize:number):thunkT
     }
 }
 
-
-   const followUnfollowFlow = async(dispatch:dispatchType,userId:number, ApiMethod:any,
+const followUnfollowFlow = async(dispatch:dispatchType,userId:number, ApiMethod:any,
                                     ActionCreator:(userId:number)=> followActionType | unfollowActionType) => {
 
        dispatch(disableButtonFol(true, userId))
@@ -235,7 +234,6 @@ export const FollowThunkCreator = (userId:number):thunkType => {
         // const ApiMethod = userApi.postUser.bind(userId)
         // const ActionCreator = follow;
         followUnfollowFlow(dispatch, userId, userApi.postUser.bind(userId), follow)
-
         // dispatch(disableButtonFol(true, userId))
         // const data = await ApiMethod
         // // .then(data => {
@@ -246,13 +244,13 @@ export const FollowThunkCreator = (userId:number):thunkType => {
         // });
     }
 }
+
 export const unFollowThunkCreator = (userId:number):thunkType => {
 
     return async (dispatch) => {
         const ApiMethod = userApi.deleteUser.bind(userId)
         const ActionCreator = unfollow
         followUnfollowFlow(dispatch, userId, ApiMethod, ActionCreator)
-
         // dispatch(disableButtonFol(true, userId))
         // const data = await ApiMethod
         // // .then(data => {
@@ -260,7 +258,6 @@ export const unFollowThunkCreator = (userId:number):thunkType => {
         //     dispatch(ActionCreator(userId))
         // }
         // dispatch(disableButtonFol(false, userId))
-
         // });
     }
 }

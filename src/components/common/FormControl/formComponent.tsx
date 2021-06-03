@@ -1,38 +1,50 @@
 import React from 'react';
 import classes from "./FormControl.module.css";
-import {Field} from "redux-form";
+import {Field, WrappedFieldProps} from "redux-form";
+import {validatorType} from "../../../Utility/ValidateForm/validator";
 
-  const FormComponent = ({input, meta,  child, ...props }) => {
 
-     const hasError = meta.touched &&  meta.error;
+// interface formComponentPropsType{
+//     meta:{
+//         touched: boolean,
+//         error: string
+//     },
+//     children: React.ReactNode
+// }
+
+  const FormComponent:React.FC<WrappedFieldProps> = ({input, meta:{touched,error},children}) => {
+
+     const hasError = touched &&  error;
 
     return(
-        <div className={ hasError ? classes.error : null} >
+        <div className={ hasError ? classes.error : ""} >
 
             <div >
-                {props.children}
+                {children}
             {/*<textarea  {...input} {...props} />*/}
             </div>
 
-            { meta.touched &&  meta.error && <span className={classes.span}>{meta.error}</span> }
+            { touched &&  error && <span className={classes.span}>{error}</span> }
 
         </div>
     )
 }
-export const Textarea =(props) =>{
+export const Textarea:React.FC<WrappedFieldProps> =(props) =>{
     // const {input} = props
-    const {input, meta, child, ...restProps } = props
+    const {input, meta, children, ...restProps } = props
     return <FormComponent {...props} ><textarea {...input} /> </FormComponent>
 }
 
-export const Input =(props) =>{
+export const Input:React.FC<WrappedFieldProps> =(props) =>{
     // const {input} = props
-    const {input, meta, child, ...restProps } = props
+    const {input, meta, children, ...restProps } = props
     return <FormComponent {...props}><input {...input} {...restProps} /> </FormComponent>
 }
 
 
-export const createField = (placeholder,name,validators,component,props={},text="") => (
+export const createField = (placeholder:string, name:string, validators:Array<validatorType>,
+                            component:string|React.FC|React.Component,
+                            props={},text="") => (
       <div>
           <Field placeholder={placeholder}  validate={validators} name={name}
                   component={component} {...props} /> {text}
