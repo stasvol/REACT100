@@ -19,7 +19,7 @@ export enum resultCodeEnum {
     error = 1,
 }
 
-export enum resultCodeEnum {
+export enum resultCodeCaptchaEnum {
     captchaRequire = 10
 }
 

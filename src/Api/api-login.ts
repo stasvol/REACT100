@@ -1,4 +1,4 @@
-import {addAxios, resultCodeEnum,ResponseType} from "./api";
+import {addAxios, resultCodeEnum, ResponseType, resultCodeCaptchaEnum} from "./api";
 
 
 
@@ -39,7 +39,7 @@ export const loginApi = {
 
     login(email:string, password:string, rememberMe = false,captcha:null|string =null) {
 
-        return addAxios.post<ResponseType<loginResponseDataType>>(`auth/login`, {email, password, rememberMe,captcha})
+        return addAxios.post<ResponseType<loginResponseDataType, resultCodeEnum | resultCodeCaptchaEnum>>(`auth/login`, {email, password, rememberMe,captcha})
             .then(response => {
                 return response.data
             })
