@@ -103,8 +103,8 @@ const dialogReducer = (state = initialState, action:actionCreatorDialogType):ini
 type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
 // export type InferActionTypes<T extends { [key: string]: (...arg:any)=> any[] } > = ReturnType<InferValueTypes<T>>
 //type actionCreatorDialogType = InferActionTypes<typeof dialogAction>
-type InferActionTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
-type actionCreatorDialogType = InferActionTypes
+type ActionsTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
+type actionCreatorDialogType = ActionsTypes
 
  export const dialogAction = {
       addMessage : (newMessageText:string) => ({type: ADD_MESSAGE, newMessageText} as const),

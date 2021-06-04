@@ -1,4 +1,4 @@
-import {userApi} from "../Api/api";
+import {userApi} from "../Api/api-users";
 import {updateObjectInArray} from "../Utility/object_helper";
 import { PhotosType } from "./prof_reducer";
 import {AnyAction, Dispatch} from "redux";
@@ -15,7 +15,6 @@ const DISABLE_BUTTON_FOL = 'DISABLE BUTTON FOL';
 const DELETE_USER = 'DELETE USER'
 
 export type usersType={
-    users:[]
     id: number
     name: string
     status: string

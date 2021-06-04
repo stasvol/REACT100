@@ -17,7 +17,6 @@ import {
 import * as axios from 'axios';
 import UsersF from './UserF';
 import Preloader from "../common/preloader/preloader";
-import {userApi} from "../../Api/api";
 import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
 import {compose} from "redux";
 import {

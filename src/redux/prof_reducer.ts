@@ -1,4 +1,4 @@
-import {profileApi, userApi as addAxios} from "../Api/api";
+import {profileApi} from "../Api/api-profile";
 import {FormAction, stopSubmit} from "redux-form";
 import classes from "../Error/error.module.css";
 import React from "react";
