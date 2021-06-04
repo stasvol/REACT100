@@ -35,7 +35,7 @@ const Dialogs = (props) => {
     const onSubmit =(value) =>{
         // alert(value.newMessageText)
         props.addMessage(value.newMessageText)
-
+        value.newMessageText = ""
     }
 
     return (

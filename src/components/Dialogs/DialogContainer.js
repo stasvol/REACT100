@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {addChangeNewMessage, addMessage,} from '../../redux/dialog_reducer';
+import {addChangeNewMessage, addMessage, dialogAction,} from '../../redux/dialog_reducer';
 import Dialogs from "./Dialog";
 import MyContext from "../../MyContext";
 import {connect} from "react-redux";
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
         // },
 
         addMessage: (newMessageText) => {
-            dispatch(addMessage(newMessageText))
+            dispatch(dialogAction.addMessage(newMessageText))
         }
     }
 }

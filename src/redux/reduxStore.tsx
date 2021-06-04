@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
-import dialogReducer from "./dialog_reducer";
+import dialogReducer, {dialogAction} from "./dialog_reducer";
 import postReducer from "./prof_reducer";
 import siteBarReducer from "./sitebar_reducer";
 import userReducer from "./user_reducer";
@@ -29,7 +29,10 @@ let reducers = combineReducers({
 type reducersType = typeof reducers
 export type rootReducersType = ReturnType<reducersType>
 
-
+// import * as actions from 'action-creators';
+// type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
+// // export type InferActionTypes<T extends { [key: string]: (...arg:any)=> any[] } > = ReturnType<InferValueTypes<T>>
+// export type InferActionTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
 
      // @ts-ignore
 const composeEnhancers  = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&

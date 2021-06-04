@@ -23,7 +23,12 @@ export type formDataType={
     captchaUrl: string|null
 
 }
-export type loginTypeKeys = Extract< keyof formDataType ,string >
+export type formLoginTypeKeys = Extract< keyof formDataType ,string >
+
+// COSMPAEM BCE BMECTE
+// import * as actions from 'action-creators';
+// type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
+// type ActionTypes = ReturnType<InferValueTypes<typeof actions>;
 
 // export type formDataOwnPropsType={
 //     captchaUrl:string

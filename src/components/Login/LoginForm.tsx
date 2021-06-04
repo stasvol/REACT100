@@ -4,7 +4,7 @@ import classes from './Login.module.css';
 import {Input} from "../common/FormControl/formComponent";
 import {maxLength, minLength, required} from "../../Utility/ValidateForm/validator";
 import {InjectedFormProps,} from 'redux-form';
-import {formDataType, loginTypeKeys} from "./login";
+import {formDataType, formLoginTypeKeys} from "./login";
 
 
 const maxLength20 = maxLength(20);

@@ -1,3 +1,5 @@
+// import { InferActionTypes} from "./reduxStore";
+
 const ADD_MESSAGE = 'ADD MESSAGE';
 // const ADD_CHANGE_NEW_MESSAGE = 'ADD CHANGE NEW MESSAGE';
 const DELETE_MESSAGE = 'DELETE MESSAGE';
@@ -36,10 +38,13 @@ let initialState  = {
         {id: 5, message: 'YO-YO-YO-YO'},
         {id: 6, message: 'YO-MO-YO'},
     ] as Array<MessageUserData>,
-
-    // newMessageText: 'Hi',
-
+    newMessageText: 'Hi',
 }
+// COSMPAEM BCE BMECTE
+// import * as actions from 'action-creators';
+// type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
+// type ActionTypes = ReturnType<InferValueTypes<typeof actions>;
+
 
 
 const dialogReducer = (state = initialState, action:actionCreatorDialogType):initialStateDialogType => {
@@ -91,20 +96,34 @@ const dialogReducer = (state = initialState, action:actionCreatorDialogType):ini
             return state
     }
 }
-type actionCreatorDialogType= addMessageActionType | deleteMessageActionType
-// export  const addMessage =() =>({ type: ADD_MESSAGE  });
-type addMessageActionType={
-    type:typeof ADD_MESSAGE,
-    newMessageText: string
-}
-export const addMessage = (newMessageText:string):addMessageActionType => ({type: ADD_MESSAGE, newMessageText});
-// export const addChangeNewMessage = (messageText) => ({type: ADD_CHANGE_NEW_MESSAGE, newMessageText: messageText});
+//              COSMPAEM  BCE  BMECTE -> ACTIONS
+// import * as actions from 'action-creators';
+// type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
+// type ActionTypes = ReturnType<InferValueTypes<typeof actions>;
+type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
+// export type InferActionTypes<T extends { [key: string]: (...arg:any)=> any[] } > = ReturnType<InferValueTypes<T>>
+//type actionCreatorDialogType = InferActionTypes<typeof dialogAction>
+type InferActionTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
+type actionCreatorDialogType = InferActionTypes
 
-type deleteMessageActionType ={
-    type: typeof DELETE_MESSAGE,
-    id:number
+ export const dialogAction = {
+      addMessage : (newMessageText:string) => ({type: ADD_MESSAGE, newMessageText} as const),
+      deleteMessage : (id:number)  => ({type:DELETE_MESSAGE,id} as const)
 }
-export const deleteMessage = (id:number):deleteMessageActionType => ({type:DELETE_MESSAGE,id});
+// type actionCreatorDialogType= addMessageActionType | deleteMessageActionType
+// // export  const addMessage =() =>({ type: ADD_MESSAGE  });
+// type addMessageActionType={
+//     type:typeof ADD_MESSAGE,
+//     newMessageText: string
+// }
+// export const addMessage = (newMessageText:string):addMessageActionType => ({type: ADD_MESSAGE, newMessageText});
+// // export const addChangeNewMessage = (messageText) => ({type: ADD_CHANGE_NEW_MESSAGE, newMessageText: messageText});
+//
+// type deleteMessageActionType ={
+//     type: typeof DELETE_MESSAGE,
+//     id:number
+// }
+// export const deleteMessage = (id:number):deleteMessageActionType => ({type:DELETE_MESSAGE,id});
 
 
 export default dialogReducer
