@@ -118,8 +118,8 @@ export const loginPost = (email: string, password: string, rememberMe: boolean, 
 
 export const getCaptchaUrl = ():thunkType => async (dispatch ) => {
 
-    const response = await securityApi.getCaptchaUrl()
-    const captchaUrl = response.data.url
+    const data = await securityApi.getCaptchaUrl()
+    const captchaUrl = data.url
 
     dispatch(setCaptchaUrlSuccess(captchaUrl));
 }

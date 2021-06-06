@@ -1,12 +1,19 @@
-import React from "react";
+
 import profReducer, {addPost, deletePost} from "./prof_reducer";
 
 let state = {
+
     PostData: [
-        {id: 1, like: '20', message: 'Super'},
-        {id: 2, like: '3', message: 'Kliovo'},
-        {id: 3, like: '9', message: 'Class'},
-    ]
+        {id: 1, like: 20, message: 'Super'},
+        {id: 2, like: 3, message: 'Kliovo'},
+        {id: 3, like: 9, message: 'Class'},
+    ] ,
+
+    newText: 'Hello',
+    profile: null,
+    status: '',
+
+
 }
 
 test('add new post', () => {

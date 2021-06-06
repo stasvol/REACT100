@@ -1,12 +1,10 @@
-import React, {Component} from 'react';
-import {addChangeNewMessage, addMessage, dialogAction,} from '../../redux/dialog_reducer';
-import Dialogs from "./Dialog";
-import MyContext from "../../MyContext";
+import React  from 'react';
+import { dialogAction,} from '../../redux/dialog_reducer';
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
 import Dialog from "./Dialog";
 import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
-import {compose} from "redux";
+import {compose, Dispatch} from "redux";
+import {rootReducersType} from "../../redux/reduxStore";
 
 
 //       HOC
@@ -18,7 +16,7 @@ import {compose} from "redux";
 // }
 // let AuthRedirectComponent = withAuthRedirect(Dialog);
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:rootReducersType) => {
 
     return {
         state: state.dialogPage,
@@ -26,13 +24,13 @@ const mapStateToProps = (state) => {
 
     }
 }
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch:Dispatch) => {
     return {
         // addChangeNewMessage: (messageText) => {
         //     dispatch(addChangeNewMessage(messageText))
         // },
 
-        addMessage: (newMessageText) => {
+        addMessage: (newMessageText:string) => {
             dispatch(dialogAction.addMessage(newMessageText))
         }
     }

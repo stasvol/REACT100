@@ -30,7 +30,7 @@ export type getUsersItemsType = {
     error: string | null
 }
 // TYPE LOGIN
-export type ResponseType<D = {}, RC = resultCodeEnum> = {
+export type ApiResponseType<D = {}, RC = resultCodeEnum> = {
     data: D,
     resultCode: RC
     messages: Array<string>

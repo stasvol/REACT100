@@ -40,8 +40,12 @@ export type  contactsType= {
     mainLink: string|null
 }
 export type PhotosType={
-    small: string | null
-    large: string | null
+
+        small: string | null
+        large: string | null
+}
+export type responsePhotosType={
+    photos: PhotosType
 }
 export type initialStateProfType = typeof initialState
 
@@ -186,12 +190,12 @@ export const  profileThunkCreator = (userId: number | null) :ThunkAction<Promise
         // if (!userId){
         //     userId=2;
         // }
-       const response = await profileApi.getProfile(userId)
+       const data = await profileApi.getProfile(userId)
             // axios.get(`https://social-network.samuraijs.com/api/1.0/Profile/`+userId)
 
             // .then(response => {
 
-                dispatch(setUsersProfile(response.data));
+                dispatch(setUsersProfile(data));
 
             // })
     }
@@ -200,10 +204,10 @@ export const  getStatus = (userId:number) => {
 
     return async (dispatch:dispatchType) =>  {
 
-        const response = await profileApi.getStatus(userId)
+        const data = await profileApi.getStatus(userId)
             // .then(response => {
 
-                dispatch(setStatus(response.data));
+                dispatch(setStatus(data));
         // })
     }
 }
@@ -212,15 +216,15 @@ export const  updateStatus = (status:string) => {
 
     return async (dispatch:dispatchType) =>  {
 
-        const response = await profileApi.updateStatus(status)
+        const data = await profileApi.updateStatus(status)
             // .then(response => {
          try {
-             if (response.data.resultCode === 0){
+             if (data.resultCode === 0){
 
                  dispatch(setStatus(status));
              }
 
-             if (response.data.resultCode === 1) {
+             if (data.resultCode === 1) {
 
                 throw new Error('Something went wrong.');
 
@@ -244,16 +248,16 @@ export const  updateStatus = (status:string) => {
         // })
     }
 }
-export const  savePhoto = (file:any) => {
+export const  savePhoto = (file:File):thunkType => {
 
     return async (dispatch:dispatchType) =>  {
 
-        const response = await profileApi.savePhoto(file)
+        const data = await profileApi.savePhoto(file)
         // .then(response => {
 
-        if (response.data.resultCode === 0){
+        if (data.resultCode === 0){
 
-            dispatch(savePhotoSuccess(response.data.data.photos));
+            dispatch(savePhotoSuccess(data.data.photos));
         }
 
     }

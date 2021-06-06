@@ -1,15 +1,20 @@
-import React, {Component} from 'react';
-import  { Redirect } from 'react-router-dom'
+import React from 'react';
 import classes from './Dialog.module.css';
-import {NavLink} from "react-router-dom";
 import DialogUser from './DialogUser/DialogUser';
 import MessageUser from './MessageUser/MessageUser';
-import {addNewMessageActionCreator, handleChangeDialogActionCreator} from '../../redux/dialog_reducer';
+import {initialStateDialogType} from '../../redux/dialog_reducer';
 import DialogForm from "./Dialog.Form";
 
 
+export type propsType ={
+    state: initialStateDialogType,
+    addMessage:(newMessage:string)=>void
+}
+export type newMessageTextType={
+    newMessageText:string
+}
 
-const Dialogs = (props) => {
+const Dialogs:React.FC<propsType> = (props) => {
     // let state = props.store.getState().dialogPage
 
     let DialogUserData = props.state.DialogData.map((obj,i) => <DialogUser name={obj.name} id={obj.id} img={obj.img} key={i}/>);
@@ -32,7 +37,7 @@ const Dialogs = (props) => {
     // }
          // if (!props.isAuth) return <Redirect to={'/Login'} />
 
-    const onSubmit =(value) =>{
+    const onSubmit =(value:newMessageTextType) =>{
         // alert(value.newMessageText)
         props.addMessage(value.newMessageText)
         value.newMessageText = ""

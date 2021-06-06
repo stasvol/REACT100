@@ -31,7 +31,7 @@ type initialStateUserType= typeof initialState
 
 
 let initialState = {
-    // Users: [  {
+    // users: [  {
     //     id: 1, photoUrl: 'https://download-cs.net/steam/avatars/3424.jpg',
     //     followed: true, fullName: 'Anna', status: 'I am a boss', location: {country: 'Ukraine', city: 'Kiev'}
     // },
