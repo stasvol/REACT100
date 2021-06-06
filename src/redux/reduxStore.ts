@@ -4,7 +4,7 @@ import postReducer from "./prof_reducer";
 import siteBarReducer from "./sitebar_reducer";
 import userReducer from "./user_reducer";
 import authReducer  from "./auth_reducer";
-import  thunkMiddleware from "redux-thunk";
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import { reducer as formReducer } from 'redux-form'
 import appReducer from './app_reducer'
 import SetReducer from "../components/Settings/Set_reducers/setReducer";
@@ -34,7 +34,7 @@ type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
 // export type InferActionTypes<T extends { [key: string]: (...arg:any)=> any[] } > = ReturnType<InferValueTypes<T>>
 export type InferActionTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
 //  THUNK
-// type baseThunkType <A extends Action, R=Promise<void>> = thunkActions<R, rootReducersType, unknown, A>
+export type baseThunkType <A extends Action, R=Promise<void>> = ThunkAction<R, rootReducersType, unknown, A>
 
      // @ts-ignore
 const composeEnhancers  = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&

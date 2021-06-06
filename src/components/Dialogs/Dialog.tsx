@@ -6,7 +6,7 @@ import {initialStateDialogType} from '../../redux/dialog_reducer';
 import DialogForm from "./Dialog.Form";
 
 
-export type propsType ={
+export type propsDialogType ={
     state: initialStateDialogType,
     addMessage:(newMessage:string)=>void
 }
@@ -14,7 +14,7 @@ export type newMessageTextType={
     newMessageText:string
 }
 
-const Dialogs:React.FC<propsType> = (props) => {
+const Dialogs:React.FC<propsDialogType> = (props) => {
     // let state = props.store.getState().dialogPage
 
     let DialogUserData = props.state.DialogData.map((obj,i) => <DialogUser name={obj.name} id={obj.id} img={obj.img} key={i}/>);
