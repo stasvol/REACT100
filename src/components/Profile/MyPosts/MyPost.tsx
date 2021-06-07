@@ -8,7 +8,6 @@ type propsType ={
     PostData:Array<PostDataType>,
     addPost:(newText:string)=>void,
     post:string,
-
 }
 
 const MyPost:React.FC<propsType >  = (props) => {

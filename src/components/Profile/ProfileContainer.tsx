@@ -1,16 +1,33 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Profile from "./Profile";
 import {
     getStatus, profileThunkCreator, savePhoto,
-    setUsersProfile, updateStatus, saveProfile, editProfile
+    setUsersProfile, updateStatus, editProfile, profileType, PostDataType
 } from "../../redux/prof_reducer";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom"
+import {RouteComponentProps, withRouter} from "react-router-dom"
 import {compose} from "redux";
 import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
+import {rootReducersType} from "../../redux/reduxStore";
 
+interface ProfileContainerType {
+    profile:profileType,
+    status:string,
+    updateStatus:(statusNew:string)=>void,
+    isOwner:boolean,
+    savePhoto:(file:File)=>void,
+    editProfile:(profile:profileType)=>Promise<profileType>,
+    PostData:Array<PostDataType>,
+    newText: string,
+    getUsers:(userId:string|undefined)=>void,
+    getStatus:(userId:string|undefined)=>void,
+    authorisedUserId:string|undefined
+}
+type RouteParams ={
+    userId:string|undefined
+}
 
-class ProfileContainer extends React.Component{
+class ProfileContainer extends React.Component <ProfileContainerType & RouteComponentProps<RouteParams>>{
 
      userUpdateProfile () {
          let userId = this.props.match.params.userId;
@@ -18,9 +35,9 @@ class ProfileContainer extends React.Component{
          if (!userId){
 
              userId = this.props.authorisedUserId
-             if (!userId) {
-                 userId = this.props.history.push('/login')
-             }
+             // if (!userId) {
+             //     userId = this.props.history.push('/login')
+             // }
          }
          this.props.getUsers(userId)
          this.props.getStatus(userId);
@@ -56,7 +73,7 @@ class ProfileContainer extends React.Component{
         // //
         // // })
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps:RouteComponentProps<RouteParams>, prevState:ProfileContainerType) {
 
        if (this.props.match.params.userId !== prevProps.match.params.userId){
               this.userUpdateProfile()
@@ -105,14 +122,12 @@ class ProfileContainer extends React.Component{
 // });
 // AuthRedirectComponent = connect(mapStateToPropsRedirect) (AuthRedirectComponent)
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state:rootReducersType) => ({
     state: state.profPage,
     profile: state.profPage.profile,
     status: state.profPage.status,
     authorisedUserId: state.auth.id,
     isAuth: state.auth.isAuth,
-
-
 
 });
 

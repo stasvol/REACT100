@@ -1,10 +1,10 @@
 import React from 'react';
-import {addChangeText, addPost} from '../../../redux/prof_reducer';
+import { addPost} from '../../../redux/prof_reducer';
 import MyPost from "./MyPost";
 import {connect} from "react-redux";
 import {rootReducersType} from "../../../redux/reduxStore";
 import {Dispatch} from "redux";
-import {propsPostFormType} from "./MyPostForm";
+
 
 
 // type mapStateProps = {
