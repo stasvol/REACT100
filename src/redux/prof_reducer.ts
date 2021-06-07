@@ -28,6 +28,7 @@ export type profileType ={
     contacts?:contactsType
     photos?:PhotosType
 
+
 }
 export type  contactsType= {
     github: string|null
@@ -40,7 +41,6 @@ export type  contactsType= {
     mainLink: string|null
 }
 export type PhotosType={
-
         small: string | null
         large: string | null
 }

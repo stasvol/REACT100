@@ -22,6 +22,7 @@ import {compose} from "redux";
 import {
     currentPageSelector, disableButtonSector,
     getUsersSelector, isLoadingSelector,
+    pageNumberSizesSelector,
     pageSizeSelector,
     totalUsersCountSelector,
 } from "../../redux/users_selectors";
@@ -49,6 +50,8 @@ type mapStatePropsType = {
     currentPage: number,
     isLoading: boolean,
     disableButton: Array<disableButtonType>
+    pageNumberSizes: number,
+
 }
 type matDispatchPropsType = {
     follow:(userId:number)=>void,
@@ -102,13 +105,13 @@ class UsersApiContainer extends React.Component <PropsType> {
 
         return (
             <>
-                <h2>{this.props.title}</h2>
+                {/*<h2>{this.props.title}</h2>*/}
                 {this.props.isLoading ? <Preloader/> : null}
                 <UsersF onChangePage={this.onChangePage} currentPage={this.props.currentPage}
                         totalUsersCount={this.props.totalUsersCount} pageSize={this.props.pageSize}
                         users={this.props.users} follow={this.props.follow} unfollow={this.props.unfollow}
                         disableButtonFol={this.props.disableButtonFol} disableButton={this.props.disableButton}
-                        FollowThunkCreator={this.props.FollowThunkCreator}
+                        FollowThunkCreator={this.props.FollowThunkCreator} pageNumberSizes={this.props.pageNumberSizes}
                         unFollowThunkCreator={this.props.unFollowThunkCreator} />
             </>
         )
@@ -116,13 +119,16 @@ class UsersApiContainer extends React.Component <PropsType> {
     }
 }
 const mapStateToProps = (state:rootReducersType):mapStatePropsType => {
+
     return {
         users: getUsersSelector(state),
         pageSize: pageSizeSelector(state),
         totalUsersCount: totalUsersCountSelector(state),
         currentPage: currentPageSelector(state),
         isLoading: isLoadingSelector(state),
-        disableButton: disableButtonSector(state)
+        disableButton: disableButtonSector(state),
+        pageNumberSizes: pageNumberSizesSelector(state)
+
     }
 }
 // const mapStateToProps = (state) => {
@@ -170,7 +176,7 @@ const mapStateToProps = (state:rootReducersType):mapStatePropsType => {
 //     getUsersThunkCreator, FollowThunkCreator, unFollowThunkCreator  })) (UsersApiContainer);
 // export default UserContainer
 
-export default compose(
+export default compose<React.ComponentType>(
     withAuthRedirect,
     connect        (mapStateToProps, {follow, unfollow, setUsers,
                       setCurrentPage, setTotalUsersCount, togglePreloader,disableButtonFol,

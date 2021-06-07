@@ -1,10 +1,11 @@
 import  React  from 'react';
-import {Field, FormProps, reduxForm, SubmitHandler} from 'redux-form'
+import {Field,  reduxForm } from 'redux-form'
 import classes from './Login.module.css';
 import {Input} from "../common/FormControl/formComponent";
 import {maxLength, minLength, required} from "../../Utility/ValidateForm/validator";
 import {InjectedFormProps,} from 'redux-form';
-import {formDataType, formLoginTypeKeys} from "./login";
+import {formDataType} from "./login";
+
 
 
 const maxLength20 = maxLength(20);
@@ -19,6 +20,7 @@ const minLength2 = minLength(2);
 // }
 // <propsType & InjectedFormProps<{}, propsType>>
 
+export type formLoginTypeKeys = Extract< keyof formDataType ,string >
 
 export type formDataOwnPropsType = {
     captchaUrl:string | null

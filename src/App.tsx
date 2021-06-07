@@ -19,7 +19,7 @@ import {withRouter} from 'react-router-dom';
 import {compose} from "redux";
 import {initializeApp} from "./redux/app_reducer";
 import Preloader from "./components/common/preloader/preloader";
-import store from "./redux/reduxStore";
+import store, {rootReducersType} from "./redux/reduxStore";
 import {withLazySuspense} from "./Hoc/withLazySuspense";
 import Error from "./Error/error";
 // import state from './components/Settings/State'
@@ -28,16 +28,20 @@ import Store from './components/Settings/State'
 import SettingContainer from "./components/Settings/SettingContainer";
 import NewsContainer from "./components/News/NewsContainer";
 
-const DialogContainer = React.lazy(() => import("./components/Dialogs/DialogContainer"));
-const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
-const UserContainer = React.lazy(() => import("./components/Users/UserContainer"));
+const DialogContainer = React.lazy(() => import ("./components/Dialogs/DialogContainer"));
+const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
+const UserContainer = React.lazy(() => import ("./components/Users/UserContainer"));
+
+type mapStateType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: ()=> void
+}
 
 
+class App extends Component <mapStateType & DispatchPropsType> {
 
-class App extends Component {
 
-
-    componentDidMount(props) {
+    componentDidMount() {
         this.props.initializeApp()
         // this.props.authThunkCreator (this.props.id, this.props.email, this.props.login,this.props.isAuth)
         // userApi.loginUser().then(data => {
@@ -81,7 +85,7 @@ class App extends Component {
                             {/*// addPost={props.addPost}*/}
                             {/*// addChangeText={props.addChangeTe} />}/>*/}
 
-                            <Route path={'/User'} render={withLazySuspense(() => <UserContainer title={"Пользователи"}/>)}/>
+                            <Route path={'/User'} render={withLazySuspense(() => <UserContainer />)}/>
 
 
                             <Route path={'/Music/vk'} render={() => <div>vk</div>}/>
@@ -113,7 +117,7 @@ class App extends Component {
     }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state:rootReducersType) => ({
     // auth: state.auth,
     // isAuth: state.auth.isAuth,
     initialized: state.app.initialized,
@@ -121,19 +125,19 @@ let mapStateToProps = (state) => ({
 
 });
 
-const AppContainer = compose(
+const AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App);
 // withRouter (connect ( mapStateToProps,{authThunkCreator}) (App));
 // export default App;
 
-let MyApp = (props) => {
+let MyApp:React.FC = () => {
     return <React.StrictMode>
         {/*<HashRouter>*/}
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 {/*<MyContext.Provider value={store}>*/}
-                <AppContainer state={store.getState()}/>
+                <AppContainer />
                 {/*addChangeText={store.addChangeText.bind(store)}*/}
                 {/*addMessage={store.addMessage.bind(store)} addChangeNewMessage={store.addChangeNewMessage.bind(store)}  */}
                 {/*</MyContext.Provider>*/}

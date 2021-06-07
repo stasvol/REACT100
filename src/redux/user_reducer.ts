@@ -26,10 +26,6 @@ export type disableButtonType={
     userId: number
 }
 
-type initialStateUserType= typeof initialState
-
-
-
 let initialState = {
     // users: [  {
     //     id: 1, photoUrl: 'https://download-cs.net/steam/avatars/3424.jpg',
@@ -53,10 +49,10 @@ let initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isLoading: true,
-    // photos: null,
+    pageNumberSizes: 10,
     disableButton: [] as Array<disableButtonType> // array userId
 }
-
+type initialStateUserType= typeof initialState
 
 const userReducer = (state = initialState, action:AnyAction):initialStateUserType => {
 

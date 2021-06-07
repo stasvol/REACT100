@@ -18,4 +18,7 @@ export const isLoadingSelector = (state:rootReducersType) =>{
 export const disableButtonSector = (state:rootReducersType) =>{
     return state.usersPage.disableButton
 }
+export const pageNumberSizesSelector = (state:rootReducersType) =>{
+    return state.usersPage.pageNumberSizes
+}
 

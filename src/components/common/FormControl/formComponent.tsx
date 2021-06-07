@@ -2,6 +2,7 @@ import React from 'react';
 import classes from "./FormControl.module.css";
 import {Field, WrappedFieldProps} from "redux-form";
 import {validatorType} from "../../../Utility/ValidateForm/validator";
+import {newMessageTextType} from "../../Dialogs/Dialog";
 
 
 // interface formComponentPropsType{
@@ -41,11 +42,12 @@ export const Input:React.FC<WrappedFieldProps> =(props) =>{
     return <FormComponent {...props}><input {...input} {...restProps} /> </FormComponent>
 }
 
+export type GetStringKeys <T> = Extract< keyof T ,string >
 
 export function createField <formKeysType extends string> (placeholder:string,
                                                            name:formKeysType,
                                                            validators:Array<validatorType>,
-                            component:string|React.FC|React.Component|React.FC<WrappedFieldProps>,
+                            component:React.FC|React.Component|React.FC<WrappedFieldProps>,
                             props={},text="") {
          return  <div>
         <Field placeholder={placeholder} validate={validators} name={name}

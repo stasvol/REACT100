@@ -1,14 +1,21 @@
-import React, {Component} from 'react'
-// import * as axios from "axios";
-// import photo from "../../Photo/Images/user.png";
-// import classes from "./user.module.css";
-// import UserContainer from "./UserContainer";
-// import {NavLink} from "react-router-dom";
-// import {userApi} from "../../Api/api";
+import React from 'react'
 import Paginator from "../pagination/Paginator";
 import User from "./user";
+import {disableButtonType, usersType} from "../../redux/user_reducer";
 
-const UsersF = ({currentPage,onChangePage,totalUsersCount,pageSize,users,...props}) => {
+// interface propsType{
+//     currentPage:number,
+//     onChangePage:(pageNumber:number)=>void,
+//     totalUsersCount:number,
+//     pageSize:number,
+//     pageNumberSizes:number,
+//     users: Array<usersType>
+//     disableButton:any
+//     unFollowThunkCreator:()=>void
+//     FollowThunkCreator:()=>void
+// }
+
+const UsersF = ({currentPage,onChangePage,totalUsersCount,pageSize,pageNumberSizes,users,...props}) => {
 
 // let addUsers = () => {
 //     if (props.users.length === 0) {
@@ -49,13 +56,14 @@ const UsersF = ({currentPage,onChangePage,totalUsersCount,pageSize,users,...prop
     return (
 
         <div>
-             <Paginator currentPage={currentPage} onChangePage={onChangePage}
+             <Paginator currentPage={currentPage} onChangePage={onChangePage} pageNumberSizes={pageNumberSizes}
                         totalUsersCount={totalUsersCount} pageSize={pageSize}/>
 
             {/*<button onClick={this.addUsers}>ADD USERS</button>*/}
 
             {
                     users.map((user,i) => <User key={i} user={user}
+
                                                 disableButton={props.disableButton}
                                                 unFollowThunkCreator={props.unFollowThunkCreator}
                                                 FollowThunkCreator={props.FollowThunkCreator}/>

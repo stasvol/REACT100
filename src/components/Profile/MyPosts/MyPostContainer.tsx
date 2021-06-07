@@ -1,12 +1,18 @@
 import React from 'react';
-import classes from './MyPost.module.css';
-import Post from "./Post/Post";
-import {addChangeText, addNewPostActionCreator, addPost, handleChangeActionCreator} from '../../../redux/prof_reducer';
+import {addChangeText, addPost} from '../../../redux/prof_reducer';
 import MyPost from "./MyPost";
-// import MyContext from "../../../MyContext";
 import {connect} from "react-redux";
+import {rootReducersType} from "../../../redux/reduxStore";
+import {Dispatch} from "redux";
+import {propsPostFormType} from "./MyPostForm";
 
 
+// type mapStateProps = {
+//     newText:string
+// }
+// type dispatchProps = {
+//     addPost:(newText:string)=>void
+// }
 // const MyPostContainer1 = (props) => {
 //     // let newPostText = React.createRef();
 //
@@ -52,7 +58,7 @@ import {connect} from "react-redux";
 //
 // export default MyPostContainer1
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state:rootReducersType) =>{
     return{
         state: state.profPage.PostData,
         newText:  state.profPage.newText,
@@ -60,15 +66,14 @@ const mapStateToProps = (state) =>{
     }
 }
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch:Dispatch) => {
     return{
-        addChangeText: (newPost) =>{
-            dispatch(addChangeText(newPost));
-        },
+        // addChangeText: (newPost) =>{
+        //     dispatch(addChangeText(newPost));
+        // },
 
-        addPost: (newText) =>{
-            let action = addPost(newText);
-            dispatch(action);
+        addPost: (newText:string) =>{
+            dispatch(addPost(newText));
         }
     }
 }

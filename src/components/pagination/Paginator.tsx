@@ -3,7 +3,7 @@ import classes from "./pagination.module.css";
 import {useState} from "react";
 
 
-interface propsType {
+export interface propsPaginatorType {
     currentPage:number,
     onChangePage:(pageNumber:number)=>void,
     totalUsersCount:number,
@@ -12,7 +12,7 @@ interface propsType {
 
 }
 
-const Paginator: React.FC<propsType> = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumberSizes=10}) => {
+const Paginator: React.FC<propsPaginatorType> = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumberSizes=10}) => {
 
 
     let pageCount = Math.ceil((totalUsersCount/pageSize))
