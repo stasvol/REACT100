@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
-import classes from './Header.module.css';
+import React from 'react';
 import Header from "./Header";
-import {authThunkCreator, loginOut, setAuthUserData} from "../../redux/auth_reducer";
+import { loginOut} from "../../redux/auth_reducer";
 import {connect} from "react-redux";
-import * as axios from "axios";
-import {userApi} from "../../Api/api";
+
 
 
 class HeaderContainer extends React.Component {

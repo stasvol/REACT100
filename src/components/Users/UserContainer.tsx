@@ -68,9 +68,9 @@ type matDispatchPropsType = {
 type ownPropsType ={
   title:string
 }
-type PropsType = mapStatePropsType & matDispatchPropsType & ownPropsType
+export type PropsTypeUserContainer = mapStatePropsType & matDispatchPropsType & ownPropsType
 
-class UsersApiContainer extends React.Component <PropsType> {
+class UsersApiContainer extends React.Component <PropsTypeUserContainer> {
 
     componentDidMount() {
 
@@ -107,12 +107,16 @@ class UsersApiContainer extends React.Component <PropsType> {
             <>
                 {/*<h2>{this.props.title}</h2>*/}
                 {this.props.isLoading ? <Preloader/> : null}
+
                 <UsersF onChangePage={this.onChangePage} currentPage={this.props.currentPage}
                         totalUsersCount={this.props.totalUsersCount} pageSize={this.props.pageSize}
                         users={this.props.users} follow={this.props.follow} unfollow={this.props.unfollow}
                         disableButtonFol={this.props.disableButtonFol} disableButton={this.props.disableButton}
                         FollowThunkCreator={this.props.FollowThunkCreator} pageNumberSizes={this.props.pageNumberSizes}
-                        unFollowThunkCreator={this.props.unFollowThunkCreator} />
+                        unFollowThunkCreator={this.props.unFollowThunkCreator}
+                        getUsersThunkCreator={this.props.getUsersThunkCreator} isLoading={this.props.isLoading}
+                        setCurrentPage={this.props.setCurrentPage} setTotalUsersCount={this.props.setTotalUsersCount}
+                        setUsers={this.props.setUsers} title={this.props.title} togglePreloader={this.props.togglePreloader}/>
             </>
         )
 

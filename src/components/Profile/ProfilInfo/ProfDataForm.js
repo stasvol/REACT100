@@ -1,5 +1,5 @@
 import React from 'react'
-import  {reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import classes from "./ProfilInfo.module.css";
 import smail from "../../../Photo/Images/smail.png";
 import {createField, Input, Textarea} from "../../common/FormControl/formComponent";

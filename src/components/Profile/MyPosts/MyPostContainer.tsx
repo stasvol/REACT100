@@ -1,5 +1,5 @@
 import React from 'react';
-import { addPost} from '../../../redux/prof_reducer';
+import {addChangeText, addPost} from '../../../redux/prof_reducer';
 import MyPost from "./MyPost";
 import {connect} from "react-redux";
 import {rootReducersType} from "../../../redux/reduxStore";
@@ -68,12 +68,13 @@ const mapStateToProps = (state:rootReducersType) =>{
 
 const mapDispatchToProps = (dispatch:Dispatch) => {
     return{
-        // addChangeText: (newPost) =>{
-        //     dispatch(addChangeText(newPost));
-        // },
+        addChangeText: (newPost:string,newText:string) =>{
+            dispatch(addChangeText(newPost,newText));
+        },
 
         addPost: (newText:string) =>{
-            dispatch(addPost(newText));
+            let action = addPost(newText);
+            dispatch(action);
         }
     }
 }

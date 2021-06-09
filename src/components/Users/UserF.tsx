@@ -2,20 +2,21 @@ import React from 'react'
 import Paginator from "../pagination/Paginator";
 import User from "./user";
 import {disableButtonType, usersType} from "../../redux/user_reducer";
+import {PropsTypeUserContainer} from "./UserContainer";
 
-// interface propsType{
-//     currentPage:number,
-//     onChangePage:(pageNumber:number)=>void,
-//     totalUsersCount:number,
-//     pageSize:number,
-//     pageNumberSizes:number,
-//     users: Array<usersType>
-//     disableButton:any
-//     unFollowThunkCreator:()=>void
-//     FollowThunkCreator:()=>void
-// }
+interface propsType{
+    currentPage:number,
+    onChangePage:(pageNumber:number)=>void,
+    totalUsersCount:number,
+    pageSize:number,
+    pageNumberSizes:number,
+    users: Array<usersType>
+    disableButton:any
+    unFollowThunkCreator:()=>void
+    FollowThunkCreator:()=>void
+}
 
-const UsersF = ({currentPage,onChangePage,totalUsersCount,pageSize,pageNumberSizes,users,...props}) => {
+const UsersF:React.FC<PropsTypeUserContainer & propsType> = ({currentPage,onChangePage,totalUsersCount,pageSize,pageNumberSizes,users,...props}) => {
 
 // let addUsers = () => {
 //     if (props.users.length === 0) {

@@ -1,4 +1,4 @@
-import React, {Component, Suspense} from 'react';
+import React, {Component, ComponentType, LazyExoticComponent, Suspense} from 'react';
 import './App.css';
 import Header from './components/Header/Header'
 import {BrowserRouter, HashRouter, Switch, Route, Redirect} from "react-router-dom";
@@ -27,10 +27,19 @@ import Error from "./Error/error";
 import Store from './components/Settings/State'
 import SettingContainer from "./components/Settings/SettingContainer";
 import NewsContainer from "./components/News/NewsContainer";
+import { profileType } from './redux/prof_reducer';
+// import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import  ProfileContainer from './components/Profile/ProfileContainer';
+
 
 const DialogContainer = React.lazy(() => import ("./components/Dialogs/DialogContainer"));
-const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
+// const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
+// const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer").then(({ProfileContainer}) =>({default:ProfileContainer})));
+// const ScreensProductList = lazy(() =>
+//     import('./screens/Products/List')
+//         .then(({ ScreensProductList }) => ({ default: ScreensProductList })),
 const UserContainer = React.lazy(() => import ("./components/Users/UserContainer"));
+
 
 type mapStateType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -73,7 +82,8 @@ class App extends Component <mapStateType & DispatchPropsType> {
                         <Switch>
                             <Route exact path={'/'} render={() => <Redirect to={'/Profile'} />}/>
                             <Route path={'/Dialogs'} render={() => <DialogContainer />}/>
-                            <Route path={'/Profile/:userId?'} render={() => <ProfileContainer/>}/>
+                                                                            {/*@ts-ignore*/}
+                            <Route path={'/Profile/:userId?'} render={() => <ProfileContainer />}/>
 
 
 

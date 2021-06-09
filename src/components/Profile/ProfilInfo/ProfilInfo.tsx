@@ -28,7 +28,7 @@ const ProfInfo:React.FC <profInfoType> = ({...props}) => {
         return <Preloader/>
     }
     const onPhotoChange = (e:ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files?.length) {
+        if (e.target.files && e.target.files.length) {
             props.savePhoto(e.target.files[0])
         }
     }
