@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React from 'react';
 import classes from './Nav.module.css';
 import {NavLink} from "react-router-dom";
 import SiteBar from './SiteBar/SiteBar'
+import {initialStateType} from "../../redux/sitebar_reducer";
 
 
 
-const Navbar = (props) => {
+const Navbar:React.FC<initialStateType> = (props) => {
 
-    let Friends = props.state.siteBarNav.map( (obj, i) => {
-        return <SiteBar id={obj.id} name={obj.name} img={obj.img }   changeClick={props.changeClick}  key={i}/>
+    let Friends = props.siteBarNav.map( (obj, i) => {
+        return <SiteBar id={obj.id} name={obj.name} img={obj.img }    key={i}/>
     })
 
 

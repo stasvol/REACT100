@@ -1,11 +1,13 @@
 import React from 'react';
 import { create } from "react-test-renderer";
 import ProfilStatus from "./ProfilStatus";
+import {PostDataType, profileType} from "../../../redux/prof_reducer";
 
 
 describe("ProfilStatus component", () => {
 
     test("status from props should be in the status ", () => {
+
         const component = create(<ProfilStatus status="I'M GOOL !!!" />);
         const instance = component.getInstance();
         expect(instance.state.status).toBe("I'M GOOL !!!");

@@ -6,7 +6,7 @@ import {siteBarNavType} from "../../../redux/sitebar_reducer";
 
 const SiteBar:React.FC<siteBarNavType> = (props) => {
 
-    const changeClick = () => {
+    const changeClick = (): void => {
         alert('HELLO FRIEND - ' + props.name);
         // let action = handleChangeActionCreator();
         // props.dispatch(action)

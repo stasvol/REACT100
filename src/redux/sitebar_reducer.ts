@@ -7,8 +7,9 @@ export type siteBarNavType={
     name:string,
     img:string,
 }
+export type initialStateType = typeof initialState
 
-let initialState = {
+ let initialState = {
 
     siteBarNav: [
         {
@@ -35,6 +36,7 @@ const siteBarReducer = (state = initialState, action:siteBarActionCreatorType):i
 
     switch (action.type) {
         case SITE_BAR:
+            let siteBar = state.siteBarNav
             let friend = {
                 id: 4,
                 name: 'FRiEND',
@@ -42,7 +44,7 @@ const siteBarReducer = (state = initialState, action:siteBarActionCreatorType):i
             }
             return {
                 ...state,
-                siteBarNav: [...state.siteBarNav, friend]
+                siteBarNav: [...siteBar, friend]
             }
         // state.siteBarNav.push(friend);
 
