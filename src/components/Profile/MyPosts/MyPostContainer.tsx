@@ -7,12 +7,12 @@ import {Dispatch} from "redux";
 
 
 
-// type mapStateProps = {
-//     newText:string
-// }
-// type dispatchProps = {
-//     addPost:(newText:string)=>void
-// }
+type mapStateProps = {
+    newText:string
+}
+type dispatchProps = {
+    addPost:(newText:string)=>void
+}
 // const MyPostContainer1 = (props) => {
 //     // let newPostText = React.createRef();
 //
@@ -79,7 +79,7 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
     }
 }
 
-const MyPostContainer = connect(mapStateToProps,mapDispatchToProps) (MyPost);
+const MyPostContainer = connect<mapStateProps, dispatchProps, {}, rootReducersType >(mapStateToProps,mapDispatchToProps) (MyPost);
 
 
 export default MyPostContainer

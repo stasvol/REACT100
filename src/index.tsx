@@ -1,15 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './redux/reduxStore'
-import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
 import MyApp from "./App";
-import {subscribe} from "./components/Settings/State";
-import Store from './components/Settings/State'
-// import MyContext, {Provider} from "./MyContext";
+
 
 
 // const rerenderEntireTree = (state) => {

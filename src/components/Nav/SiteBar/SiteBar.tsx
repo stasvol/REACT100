@@ -1,8 +1,10 @@
 import React from 'react';
 import classes from './SiteBar.module.css';
-import {handleChangeActionCreator} from "../../../redux/prof_reducer";
+import {siteBarNavType} from "../../../redux/sitebar_reducer";
 
-const SiteBar = (props) => {
+
+
+const SiteBar:React.FC<siteBarNavType> = (props) => {
 
     const changeClick = () => {
         alert('HELLO FRIEND - ' + props.name);
@@ -15,7 +17,7 @@ const SiteBar = (props) => {
 
     return (
         <div className={classes.block}>
-            <img onClick={changeClick} className={classes.imgAvat} src={props.img} alt={props.id}/>
+            <img onClick={changeClick} className={classes.imgAvat} src={props.img} alt={"image"}/>
             <span className={classes.text}>{props.name}</span>
         </div>
     )

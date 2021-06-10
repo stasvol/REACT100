@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './MyPost.module.css';
 import Post  from "./Post/Post";
-import MyPostForm from "./MyPostForm";
+import MyPostForm, { propsPostFormType } from "./MyPostForm";
 import {PostDataType} from "../../../redux/prof_reducer";
 
 type propsType ={
@@ -32,7 +32,7 @@ const MyPost:React.FC<propsType >  = (props) => {
     //     console.log(newPost)
     // }
 
-    const onSubmit = (value:any) => {
+    const onSubmit = (value:propsPostFormType) => {
         props.addPost(value.newText)
         value.newText = " "
     }

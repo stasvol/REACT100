@@ -1,7 +1,7 @@
 import React from 'react'
 import Paginator from "../pagination/Paginator";
 import User from "./user";
-import {disableButtonType, usersType} from "../../redux/user_reducer";
+import { usersType} from "../../redux/user_reducer";
 import {PropsTypeUserContainer} from "./UserContainer";
 
 interface propsType{

@@ -1,20 +1,11 @@
-import React, {Component, ComponentType, LazyExoticComponent, Suspense} from 'react';
+import React, {Component, Suspense} from 'react';
 import './App.css';
-import Header from './components/Header/Header'
 import {BrowserRouter, HashRouter, Switch, Route, Redirect} from "react-router-dom";
 import Music from './components/Music/Music';
-import News from './components/News/News';
-import Setting from './components/Settings/Setting';
 import NavContainer from "./components/Nav/NavContainer";
-// import { Switch } from "react-router"
-// import UserContainer from "./components/Users/UserContainer";
-// import DialogContainer from "./components/Dialogs/DialogContainer";
-// import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/login";
-import {withAuthRedirect} from "./Hoc/withAuthRedirect";
 import {connect, Provider} from "react-redux";
-import {authThunkCreator, loginOut, setAuthUserData} from "./redux/auth_reducer";
 import {withRouter} from 'react-router-dom';
 import {compose} from "redux";
 import {initializeApp} from "./redux/app_reducer";
@@ -22,18 +13,12 @@ import Preloader from "./components/common/preloader/preloader";
 import store, {rootReducersType} from "./redux/reduxStore";
 import {withLazySuspense} from "./Hoc/withLazySuspense";
 import Error from "./Error/error";
-// import state from './components/Settings/State'
-// import {addNewMessage,addNewText,updateNewText} from "./components/Settings/State"
-import Store from './components/Settings/State'
-import SettingContainer from "./components/Settings/SettingContainer";
-import NewsContainer from "./components/News/NewsContainer";
-import { profileType } from './redux/prof_reducer';
-// import {ProfileContainer} from "./components/Profile/ProfileContainer";
-import  ProfileContainer from './components/Profile/ProfileContainer';
+
+
 
 
 const DialogContainer = React.lazy(() => import ("./components/Dialogs/DialogContainer"));
-// const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
+const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
 // const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer").then(({ProfileContainer}) =>({default:ProfileContainer})));
 // const ScreensProductList = lazy(() =>
 //     import('./screens/Products/List')
@@ -82,7 +67,7 @@ class App extends Component <mapStateType & DispatchPropsType> {
                         <Switch>
                             <Route exact path={'/'} render={() => <Redirect to={'/Profile'} />}/>
                             <Route path={'/Dialogs'} render={() => <DialogContainer />}/>
-                                                                            {/*@ts-ignore*/}
+
                             <Route path={'/Profile/:userId?'} render={() => <ProfileContainer />}/>
 
 

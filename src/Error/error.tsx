@@ -1,10 +1,11 @@
 import React from "react";
 import classes from "./error.module.css"
 
-const Error = (props) =>{
+const Error:React.FC = () =>{
 
     return  <div className={classes.modul}>
-             <span>404 NOT FOUND</span> <br/>
+             <span>404 NOT FOUND</span>
+             <br/>
              <span>'Something went wrong'</span>
             </div>
 }

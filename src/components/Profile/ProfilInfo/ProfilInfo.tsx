@@ -6,7 +6,7 @@ import kot from "../../../Photo/Images/kot.png"
 import ProfilStatusHook from "./ProfilStatusWithHook";
 import {useState} from "react";
 import ProfDataForm from "./ProfDataForm";
-import {PhotosType, profileType, responsePhotosType} from "../../../redux/prof_reducer";
+import {contactsType, PhotosType, profileType, responsePhotosType} from "../../../redux/prof_reducer";
 import { ChangeEvent } from "react";
 import {InjectedFormProps} from "redux-form";
 
@@ -67,7 +67,7 @@ const ProfInfo:React.FC <profInfoType> = ({...props}) => {
 
             {editMode
                 ? <ProfDataForm {...props} onSubmit={onSubmit}  initialValues={props.profile}  />
-                : <ProfData goToEditMode={()=>{setEditMode( true) }}  {...props}  isOwner={props.isOwner}  />
+                : <ProfData goToEditMode={()=>{setEditMode( true) }} profile={props.profile}   isOwner={props.isOwner}  />
             }
 
             {/*<div>*/}
@@ -101,28 +101,38 @@ const ProfInfo:React.FC <profInfoType> = ({...props}) => {
 }
 
 type propsContactType={
-    contactTitle:string,
-    contactValue:string
+    contactTitle:string|null,
+    contactValue:string|null
 }
 
 const Contact:React.FC<propsContactType> = ({contactTitle, contactValue}) => {
     return <div><b>{contactTitle}</b> : {contactValue} </div>
 }
 
-const ProfData = ({...props}) => {
-    return <div>
-                  {props.isOwner  &&  <button onClick={props.goToEditMode}>Edit</button>}
+interface profDataType{
+    isOwner: boolean,
+    profile:profileType,
+    goToEditMode:()=>void,
+}
 
-                    <div><b>FullName</b> : {props.profile.fullName}</div>
-                    <div><b>About Me</b> : {props.profile.aboutMe} </div>
-                    <div><b>LookingForAJob</b> : {props.profile.lookingForAJob ? 'Yes' : 'No'}
+const ProfData:React.FC<profDataType> = ({profile,isOwner,goToEditMode}) => {
+
+    return <div>
+                  {isOwner  &&  <button onClick={goToEditMode}>Edit</button>}
+
+                    <div><b>FullName</b> : {profile.fullName}</div>
+                    <div><b>About Me</b> : {profile.aboutMe} </div>
+                    <div><b>LookingForAJob</b> : {profile.lookingForAJob ? 'Yes' : 'No'}
                         <img className={classes.smail} src={smail} alt={'image'}/>
                     </div>
-                 {props.profile.lookingForAJob &&
-                 <div><b>My professional skills</b> : {props.profile.lookingForAJobDescription}</div>
+                 {profile.lookingForAJob &&
+                 <div><b>My professional skills</b> : {profile.lookingForAJobDescription}</div>
                  }
-                 <h4><b>Contacts</b> : </h4> {Object.keys(props.profile.contacts).map(key => {
-                 return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]}/>
+                 <h4><b>Contacts</b> : </h4>
+                   {profile.contacts && Object
+                       .keys(profile.contacts)
+                       .map((key) => {
+                 return profile.contacts && profile.contacts[key as keyof contactsType] && <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof contactsType]}/>
                 })}
 
                           {/*<div> Facebook : {props.profile.contacts.facebook}</div>*/}

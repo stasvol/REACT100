@@ -1,11 +1,19 @@
 import React from 'react';
-import Header from "./Header";
+import Header, {dispatchType, mapStateType} from "./Header";
 import { loginOut} from "../../redux/auth_reducer";
 import {connect} from "react-redux";
+import {rootReducersType} from "../../redux/reduxStore";
+
+// export type mapStateType={
+//     isAuth: boolean,
+//     login: string
+// }
+// export type dispatchType={
+//     loginOut:()=>void
+// }
 
 
-
-class HeaderContainer extends React.Component {
+class HeaderContainer extends React.Component<mapStateType & dispatchType> {
 
     // componentDidMount(props) {
     //      this.props.authThunkCreator (this.props.id, this.props.email, this.props.login,this.props.isAuth)
@@ -26,10 +34,10 @@ class HeaderContainer extends React.Component {
         )
     }
 }
-let mapStateToProps = (state) => ({
-    auth: state.auth,
+let mapStateToProps = (state:rootReducersType) => ({
+    // auth: state.auth,
     isAuth: state.auth.isAuth,
     login: state.auth.login
 });
 
-export default connect ( mapStateToProps,{loginOut}) (HeaderContainer);
+export default connect <mapStateType , dispatchType, {}, rootReducersType>( mapStateToProps,{loginOut}) (HeaderContainer);

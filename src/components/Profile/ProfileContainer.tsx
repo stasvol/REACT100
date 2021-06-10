@@ -11,38 +11,60 @@ import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
 import {rootReducersType} from "../../redux/reduxStore";
 
 
-interface ProfileContainerType {
+// interface ProfileContainerType {
+//     profile:profileType,
+//     status:string,
+//     updateStatus:(statusNew:string)=>void,
+//     isOwner:boolean,
+//     savePhoto:(file:File)=>void,
+//     editProfile:(profile:profileType)=>Promise<profileType>,
+//     PostData:Array<PostDataType>,
+//     newText: string,
+//     getUsers:(userId:string|undefined)=>void,
+//     getStatus:(userId:string|undefined)=>void,
+//     authorisedUserId:string|undefined
+// }
+
+type mapStatePropsTYpe = ReturnType<typeof mapStateToProps>
+
+type dispatchPropsTYpe ={
     profile:profileType,
-    status:string,
-    updateStatus:(statusNew:string)=>void,
-    isOwner:boolean,
-    savePhoto:(file:File)=>void,
+    setUsersProfile: (profile:profileType)=>void,
+    getUsers: (userId:number|string|undefined)=>void,
+    getStatus: (userId:number|string|undefined)=>void,
+    updateStatus: (status:string)=>void,
+    savePhoto: (file:File)=>void,
     editProfile:(profile:profileType)=>Promise<profileType>,
-    PostData:Array<PostDataType>,
     newText: string,
-    getUsers:(userId:string|undefined)=>void,
-    getStatus:(userId:string|undefined)=>void,
-    authorisedUserId:string|undefined
+    PostData:Array<PostDataType>
 }
+
 type RouteParams ={
     userId:string|undefined
 }
 
+type prevPropsType=mapStatePropsTYpe & dispatchPropsTYpe & RouteComponentProps<RouteParams>
 
-class ProfileContainer extends React.Component<ProfileContainerType & RouteComponentProps<RouteParams>>{
+class ProfileContainer extends React.Component<mapStatePropsTYpe & dispatchPropsTYpe & RouteComponentProps<RouteParams>>{
 
      userUpdateProfile () {
-         let userId = this.props.match.params.userId;
+
+         let userId:number|null|string|undefined = this.props.match.params.userId;
 
          if (!userId){
 
              userId = this.props.authorisedUserId
-             // if (!userId) {
-             //     userId = this.props.history.push('/login')
-             // }
+
+             if (!userId) {
+                 userId = +this.props.history.push('/login')
+             }
          }
-         this.props.getUsers(userId)
-         this.props.getStatus(userId);
+         if (userId) {
+             this.props.getUsers(userId)
+             this.props.getStatus(userId);
+         }else {
+             console.error('ID should exists')
+         }
     }
 
     componentDidMount() {
@@ -75,7 +97,7 @@ class ProfileContainer extends React.Component<ProfileContainerType & RouteCompo
         // //
         // // })
     }
-    componentDidUpdate(prevProps:RouteComponentProps<RouteParams>) {
+    componentDidUpdate(prevProps:prevPropsType,prevState:prevPropsType) {
 
        if (this.props.match.params.userId !== prevProps.match.params.userId){
               this.userUpdateProfile()
@@ -136,7 +158,7 @@ let mapStateToProps = (state:rootReducersType) => ({
 
 
 // export default connect (mapStateToProps, {setUsersProfile,profileThunkCreator}) (WithRouterProfileContainer);
-export default compose(
+export default compose<React.ComponentType>(
     connect (mapStateToProps, {setUsersProfile,
         getUsers: profileThunkCreator,getStatus,updateStatus,savePhoto, editProfile }),
     withRouter,

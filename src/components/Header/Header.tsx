@@ -3,7 +3,21 @@ import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import photo from "../../Photo/Images/kot.png";
 
-const Header = (props) =>{
+// export type headerPropsType={
+//     isAuth:boolean,
+//     login:string,
+//     loginOut:()=> void
+// }
+
+ export type mapStateType={
+    isAuth: boolean,
+    login: string|null
+}
+export type dispatchType={
+    loginOut:()=>void
+}
+
+const Header:React.FC <mapStateType & dispatchType> = (props) =>{
     return(
 
         <header className={classes.header}>

@@ -1,10 +1,7 @@
 import {profileApi} from "../Api/api-profile";
 import {FormAction, stopSubmit} from "redux-form";
-import classes from "../Error/error.module.css";
-import React from "react";
 import {Dispatch} from "redux";
 import {rootReducersType} from "./reduxStore";
-import {log} from "util";
 import {ThunkAction} from "redux-thunk";
 
 const ADD_POST = 'ADD POST';
@@ -27,7 +24,7 @@ export type profileType ={
     fullName?: string|null
     contacts?:contactsType
     photos?:PhotosType
-
+    aboutMe?:string
 
 }
 export type  contactsType= {
@@ -58,7 +55,7 @@ let initialState = {
     ] as Array<PostDataType> ,
 
     newText: 'Hello',
-    profile: null as profileType|null,
+    profile: null as profileType|null,  //   {} as profileType,
     status: '',
 
 

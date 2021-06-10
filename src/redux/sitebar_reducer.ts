@@ -2,10 +2,10 @@ const SITE_BAR = 'SITE BAR';
 
 type initialStateSbarType= typeof initialState
 
-type siteBarNavType={
+export type siteBarNavType={
     id:number,
     name:string,
-    img?:string
+    img:string,
 }
 
 let initialState = {
