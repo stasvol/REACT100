@@ -1,16 +1,16 @@
 import React from 'react';
 import classes from './MyPost.module.css';
-import Post  from "./Post/Post";
-import MyPostForm, { propsPostFormType } from "./MyPostForm";
+import Post from "./Post/Post";
+import MyPostForm, {propsPostFormType} from "./MyPostForm";
 import {PostDataType} from "../../../redux/prof_reducer";
 
-type propsType ={
-    PostData:Array<PostDataType>,
-    addPost:(newText:string)=>void,
-    post:string,
+type propsType = {
+    PostData: Array<PostDataType>,
+    addPost: (newText: string) => void,
+    post: string,
 }
 
-const MyPost:React.FC<propsType >  = (props) => {
+const MyPost: React.FC<propsType> = (props) => {
     // console.log('RENDER')
     let PostUser = props.PostData.map(p => <Post like={p.like} message={p.message} id={p.id} key={p.id}/>);
 
@@ -32,7 +32,7 @@ const MyPost:React.FC<propsType >  = (props) => {
     //     console.log(newPost)
     // }
 
-    const onSubmit = (value:propsPostFormType) => {
+    const onSubmit = (value: propsPostFormType) => {
         props.addPost(value.newText)
         value.newText = " "
     }
@@ -60,9 +60,9 @@ const MyPost:React.FC<propsType >  = (props) => {
 
 }
 
-export default React.memo (MyPost);
+export default React.memo(MyPost);
 
-  //       CLASS COMPONENT - OPTIMISATION => "shouldComponentUpdate" end "PureComponent"
+//       CLASS COMPONENT - OPTIMISATION => "shouldComponentUpdate" end "PureComponent"
 
 // class MyPost extends PureComponent {                      // OPTIMISATION - noy RENDER
 //

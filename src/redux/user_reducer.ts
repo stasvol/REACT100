@@ -26,7 +26,7 @@ export type disableButtonType={
     userId: number
 }
 
-let initialState = {
+export let initialState = {
     // users: [  {
     //     id: 1, photoUrl: 'https://download-cs.net/steam/avatars/3424.jpg',
     //     followed: true, fullName: 'Anna', status: 'I am a boss', location: {country: 'Ukraine', city: 'Kiev'}
@@ -52,7 +52,7 @@ let initialState = {
     pageNumberSizes: 10,
     disableButton: [] as Array<disableButtonType> // array userId
 }
-type initialStateUserType= typeof initialState
+export type initialStateUserType= typeof initialState
 
 const userReducer = (state = initialState, action:AnyAction):initialStateUserType => {
 
