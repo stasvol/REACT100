@@ -4,6 +4,7 @@ import { PhotosType } from "./prof_reducer";
 import {AnyAction, Dispatch} from "redux";
 import {rootReducersType} from "./reduxStore";
 import {ThunkAction} from "redux-thunk";
+import {ApiResponseType} from "../Api/api";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -13,6 +14,7 @@ const SET_TOTAL_COUNT = 'SET TOTAL COUNT';
 const TOGGLE_PRELOADER = 'TOGGLE PRELOADER';
 const DISABLE_BUTTON_FOL = 'DISABLE BUTTON FOL';
 const DELETE_USER = 'DELETE USER'
+const SET_FILTER = 'SET FILTER'
 
 export type usersType={
     id: number
@@ -50,9 +52,14 @@ export let initialState = {
     currentPage: 1,
     isLoading: true,
     pageNumberSizes: 10,
-    disableButton: [] as Array<disableButtonType> // array userId
+    disableButton: [] as Array<disableButtonType> ,// array userId
+    filter:{
+        term: "",
+        friend: null as null|boolean
+    }
 }
 export type initialStateUserType= typeof initialState
+export type filterType = typeof initialState.filter
 
 const userReducer = (state = initialState, action:AnyAction):initialStateUserType => {
 
@@ -127,6 +134,12 @@ const userReducer = (state = initialState, action:AnyAction):initialStateUserTyp
                 users: [...state.users].filter(u => u.id !== action.userId)
             }
 
+        case  SET_FILTER:
+            return {
+                ...state,
+                filter: action.payload
+            }
+
 
         default:
             return state;
@@ -134,7 +147,7 @@ const userReducer = (state = initialState, action:AnyAction):initialStateUserTyp
 }
 
 type actionCreatorUsersType = followActionType | unfollowActionType | usersActionType | currentPageActionType |
-    totalCountActionType | togglePreloaderActionType | disableButtonFolActionType | deleteUsersActionType
+    totalCountActionType | togglePreloaderActionType | disableButtonFolActionType | deleteUsersActionType | setFilterType
 
 type followActionType={
     type:typeof FOLLOW,
@@ -159,6 +172,15 @@ type currentPageActionType={
     currentPage:number
 }
 export const setCurrentPage = (currentPage:number):currentPageActionType => ({type: SET_CURRENT_PAGE, currentPage: currentPage});
+
+type setFilterType={
+    type:typeof SET_FILTER,
+    payload:{
+        term:string,
+        friend:null|boolean
+    }
+}
+export const setFilter = (filter:filterType):setFilterType => ({type: SET_FILTER, payload: filter });
 
 type totalCountActionType={
     type:typeof SET_TOTAL_COUNT,
@@ -192,14 +214,15 @@ type getStateType = () => rootReducersType
 type thunkType = ThunkAction<Promise<void>, rootReducersType, unknown, actionCreatorUsersType>
 
 
-export const getUsersThunkCreator = (currentPage:number, pageSize:number):thunkType => {
+export const getUsersThunkCreator = (currentPage:number, pageSize:number,filter:filterType):thunkType => {
 
     return async (dispatch) => {
 
         dispatch(togglePreloader(true));
         dispatch(setCurrentPage(currentPage))
+        dispatch(setFilter(filter))
         //response
-        const data = await userApi.getUserPage(currentPage, pageSize)
+        const data = await userApi.getUserPage(currentPage, pageSize,filter.term,filter.friend)
         // .then(data => {
 
         dispatch(togglePreloader(false));
@@ -209,7 +232,8 @@ export const getUsersThunkCreator = (currentPage:number, pageSize:number):thunkT
     }
 }
 
-const followUnfollowFlow = async(dispatch:dispatchType,userId:number, ApiMethod:any,
+const followUnfollowFlow = async(dispatch:dispatchType,userId:number,
+                                    ApiMethod:(userId:number)=>Promise<ApiResponseType>,
                                     ActionCreator:(userId:number)=> followActionType | unfollowActionType) => {
 
        dispatch(disableButtonFol(true, userId))
@@ -228,7 +252,7 @@ export const FollowThunkCreator = (userId:number):thunkType => {
     return async (dispatch) => {
         // const ApiMethod = userApi.postUser.bind(userId)
         // const ActionCreator = follow;
-        followUnfollowFlow(dispatch, userId, userApi.postUser.bind(userId), follow)
+       await followUnfollowFlow(dispatch, userId, userApi.postUser.bind(userId), follow)
         // dispatch(disableButtonFol(true, userId))
         // const data = await ApiMethod
         // // .then(data => {
@@ -245,7 +269,7 @@ export const unFollowThunkCreator = (userId:number):thunkType => {
     return async (dispatch) => {
         const ApiMethod = userApi.deleteUser.bind(userId)
         const ActionCreator = unfollow
-        followUnfollowFlow(dispatch, userId, ApiMethod, ActionCreator)
+        await followUnfollowFlow(dispatch, userId, ApiMethod, ActionCreator)
         // dispatch(disableButtonFol(true, userId))
         // const data = await ApiMethod
         // // .then(data => {

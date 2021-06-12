@@ -21,4 +21,7 @@ export const disableButtonSector = (state:rootReducersType) =>{
 export const pageNumberSizesSelector = (state:rootReducersType) =>{
     return state.usersPage.pageNumberSizes
 }
+export const setFilterSelector = (state:rootReducersType) =>{
+    return state.usersPage.filter
+}
 

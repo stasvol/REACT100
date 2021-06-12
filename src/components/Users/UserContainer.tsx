@@ -2,7 +2,7 @@ import React from 'react';
 import {connect, Provider} from 'react-redux';
 import {
     disableButtonFol,
-    disableButtonType,
+    disableButtonType, filterType,
     follow,
     FollowThunkCreator,
     getUsersThunkCreator,
@@ -24,6 +24,7 @@ import {
     getUsersSelector, isLoadingSelector,
     pageNumberSizesSelector,
     pageSizeSelector,
+    setFilterSelector,
     totalUsersCountSelector,
 } from "../../redux/users_selectors";
 import { rootReducersType } from '../../redux/reduxStore';
@@ -51,7 +52,7 @@ type mapStatePropsType = {
     isLoading: boolean,
     disableButton: Array<disableButtonType>
     pageNumberSizes: number,
-
+    filter:filterType
 }
 type matDispatchPropsType = {
     follow:(userId:number)=>void,
@@ -61,7 +62,7 @@ type matDispatchPropsType = {
     setTotalUsersCount:(totalCount:number)=>void,
     togglePreloader:(isLoading:boolean)=>void,
     disableButtonFol:(disableButton:boolean, userId:number)=>void,
-    getUsersThunkCreator:(pageNumber:number, pageSize:number)=>void,
+    getUsersThunkCreator:(pageNumber:number, pageSize:number, filter:filterType)=>void,
     FollowThunkCreator:()=>void,
     unFollowThunkCreator:()=>void
 }
@@ -74,7 +75,7 @@ class UsersApiContainer extends React.Component <PropsTypeUserContainer> {
 
     componentDidMount() {
 
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize,this.props.filter )
         // this.props.togglePreloader(true);
         //
         // userApi.getUserPage(this.props.currentPage, this.props.pageSize).then(data => {
@@ -86,8 +87,8 @@ class UsersApiContainer extends React.Component <PropsTypeUserContainer> {
     }
 
     onChangePage = (pageNumber:number) => {
-         const {pageSize}= this.props
-        this.props.getUsersThunkCreator(pageNumber, pageSize)
+         const {pageSize,filter}= this.props
+        this.props.getUsersThunkCreator(pageNumber, pageSize,filter)
         // this.props.setCurrentPage(pageNumber);
         // this.props.togglePreloader(true);
         //
@@ -98,6 +99,12 @@ class UsersApiContainer extends React.Component <PropsTypeUserContainer> {
         //         this.props.setUsers(data.items);
         //
         //     });
+    }
+
+    onFilterChange =(filter:filterType)=>{
+        const {pageSize,currentPage}= this.props
+        this.props.getUsersThunkCreator(1, pageSize,filter)
+
     }
 
 
@@ -116,7 +123,8 @@ class UsersApiContainer extends React.Component <PropsTypeUserContainer> {
                         unFollowThunkCreator={this.props.unFollowThunkCreator}
                         getUsersThunkCreator={this.props.getUsersThunkCreator} isLoading={this.props.isLoading}
                         setCurrentPage={this.props.setCurrentPage} setTotalUsersCount={this.props.setTotalUsersCount}
-                        setUsers={this.props.setUsers} title={this.props.title} togglePreloader={this.props.togglePreloader}/>
+                        setUsers={this.props.setUsers} title={this.props.title} togglePreloader={this.props.togglePreloader}
+                        onFilterChange={this.onFilterChange} filter={this.props.filter}/>
             </>
         )
 
@@ -131,7 +139,8 @@ const mapStateToProps = (state:rootReducersType):mapStatePropsType => {
         currentPage: currentPageSelector(state),
         isLoading: isLoadingSelector(state),
         disableButton: disableButtonSector(state),
-        pageNumberSizes: pageNumberSizesSelector(state)
+        pageNumberSizes: pageNumberSizesSelector(state),
+        filter: setFilterSelector(state)
 
     }
 }

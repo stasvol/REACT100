@@ -1,8 +1,9 @@
 import React from 'react'
 import Paginator from "../pagination/Paginator";
 import User from "./user";
-import { usersType} from "../../redux/user_reducer";
+import {filterType, usersType} from "../../redux/user_reducer";
 import {PropsTypeUserContainer} from "./UserContainer";
+import UsersSearchForm from "./UsersSearchForm";
 
 interface propsType{
     currentPage:number,
@@ -14,6 +15,7 @@ interface propsType{
     disableButton:any
     unFollowThunkCreator:()=>void
     FollowThunkCreator:()=>void
+    onFilterChange:(filter:filterType)=>void
 }
 
 const UsersF:React.FC<PropsTypeUserContainer & propsType> = ({currentPage,onChangePage,totalUsersCount,pageSize,pageNumberSizes,users,...props}) => {
@@ -57,6 +59,7 @@ const UsersF:React.FC<PropsTypeUserContainer & propsType> = ({currentPage,onChan
     return (
 
         <div>
+            <UsersSearchForm onFilterChange={props.onFilterChange}/>
              <Paginator currentPage={currentPage} onChangePage={onChangePage} pageNumberSizes={pageNumberSizes}
                         totalUsersCount={totalUsersCount} pageSize={pageSize}/>
 
@@ -120,8 +123,8 @@ const UsersF:React.FC<PropsTypeUserContainer & propsType> = ({currentPage,onChan
             }
         </div>
     )
-
-
 }
 
+
 export default UsersF
+
