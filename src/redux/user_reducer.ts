@@ -24,8 +24,8 @@ export type usersType={
     followed:boolean
 }
 export type disableButtonType={
-    disableButton?:boolean
-    userId: number
+    disableButton?:boolean|number
+    // userId: number
 }
 
 export let initialState = {
@@ -196,10 +196,10 @@ export const togglePreloader = (isLoading:boolean):togglePreloaderActionType => 
 
 type disableButtonFolActionType={
     type:typeof DISABLE_BUTTON_FOL,
-    disableButton:boolean,
+    disableButton:boolean|number,
     userId:number
 }
-export const disableButtonFol = (disableButton:boolean, userId:number):disableButtonFolActionType => ({type: DISABLE_BUTTON_FOL, disableButton, userId});
+export const disableButtonFol = (disableButton:boolean|number, userId:number):disableButtonFolActionType => ({type: DISABLE_BUTTON_FOL, disableButton, userId});
 
 type deleteUsersActionType={
     type:typeof DELETE_USER,

@@ -1,24 +1,30 @@
 import React from 'react'
 import Paginator from "../pagination/Paginator";
 import User from "./user";
-import {filterType, usersType} from "../../redux/user_reducer";
+import {
+    disableButtonType,
+    filterType,
+    usersType
+} from "../../redux/user_reducer";
 import {PropsTypeUserContainer} from "./UserContainer";
 import UsersSearchForm from "./UsersSearchForm";
 
+
+
 interface propsType{
-    currentPage:number,
+    // currentPage:number,
     onChangePage:(pageNumber:number)=>void,
-    totalUsersCount:number,
-    pageSize:number,
-    pageNumberSizes:number,
+    // totalUsersCount:number,
+    // pageSize:number,
+    // pageNumberSizes:number,
     users: Array<usersType>
-    disableButton:any
+    disableButton:disableButtonType
     unFollowThunkCreator:()=>void
     FollowThunkCreator:()=>void
     onFilterChange:(filter:filterType)=>void
 }
 
-const UsersF:React.FC<PropsTypeUserContainer & propsType> = ({currentPage,onChangePage,totalUsersCount,pageSize,pageNumberSizes,users,...props}) => {
+const UsersF:React.FC<PropsTypeUserContainer & propsType> = ({users,...props}) => {
 
 // let addUsers = () => {
 //     if (props.users.length === 0) {
@@ -49,19 +55,22 @@ const UsersF:React.FC<PropsTypeUserContainer & propsType> = ({currentPage,onChan
 //             followed: true, fullName: 'Sweta ',status: 'I am a boss',location: {country: 'Ukraine', city: 'Rivne'}
 //         }
 // ]);
-
     // let pageCount = Math.ceil((props.totalUsersCount/props.pageSize)/100)
     // let  pages = [];
     // for (let i=1;  i <= pageCount; i++ ){
     //     pages.push(i);
     // }
 
+
+
+
+
     return (
 
         <div>
             <UsersSearchForm onFilterChange={props.onFilterChange}/>
-             <Paginator currentPage={currentPage} onChangePage={onChangePage} pageNumberSizes={pageNumberSizes}
-                        totalUsersCount={totalUsersCount} pageSize={pageSize}/>
+             <Paginator currentPage={props.currentPage} onChangePage={props.onChangePage} pageNumberSizes={props.pageNumberSizes}
+                        totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}/>
 
             {/*<button onClick={this.addUsers}>ADD USERS</button>*/}
 

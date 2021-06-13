@@ -31,7 +31,7 @@ const User: React.FC<propsType> = ({user,disableButton,unFollowThunkCreator,Foll
                     <div>
                         {user.followed
                             ? <button
-                                   // @ts-ignore
+
                                 disabled={disableButton.some((id)  => id === user.id)}
                                       onClick={() => {
                                           unFollowThunkCreator(user.id)
@@ -46,7 +46,7 @@ const User: React.FC<propsType> = ({user,disableButton,unFollowThunkCreator,Foll
                                       }}>UnFollow</button>
 
                             : <button
-                                // @ts-ignore
+
                                 disabled={disableButton.some((id )=> id === user.id)}
                                 onClick={() => {
                                     FollowThunkCreator(user.id)

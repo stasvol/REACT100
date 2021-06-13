@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect, Provider} from 'react-redux';
+import {connect, Provider, useSelector} from 'react-redux';
 import {
     disableButtonFol,
     disableButtonType, filterType,
@@ -71,7 +71,30 @@ type ownPropsType ={
 }
 export type PropsTypeUserContainer = mapStatePropsType & matDispatchPropsType & ownPropsType
 
-class UsersApiContainer extends React.Component <PropsTypeUserContainer> {
+// type UsersPageType={
+//
+// }
+// const UsersPage:React.FC <UsersPageType>=(props)=>{
+//     return (
+//         <>
+//             {/*<h2>{this.props.title}</h2>*/}
+//             {this.props.isLoading ? <Preloader/> : null}
+//
+//             <UsersF onChangePage={onChangePage} currentPage={props.currentPage}
+//                     totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
+//                     users={props.users} follow={props.follow} unfollow={props.unfollow}
+//                     disableButtonFol={this.props.disableButtonFol} disableButton={props.disableButton}
+//                     FollowThunkCreator={this.props.FollowThunkCreator} pageNumberSizes={props.pageNumberSizes}
+//                     unFollowThunkCreator={this.props.unFollowThunkCreator}
+//                     getUsersThunkCreator={this.props.getUsersThunkCreator} isLoading={props.isLoading}
+//                     setCurrentPage={this.props.setCurrentPage} setTotalUsersCount={props.setTotalUsersCount}
+//                     setUsers={this.props.setUsers} title={this.props.title} togglePreloader={this.props.togglePreloader}
+//                     onFilterChange={this.onFilterChange} filter={this.props.filter}/>
+//         </>
+//     )
+//
+// }
+class UsersContainer extends React.Component <PropsTypeUserContainer> {
 
     componentDidMount() {
 
@@ -194,4 +217,4 @@ export default compose<React.ComponentType>(
     connect        (mapStateToProps, {follow, unfollow, setUsers,
                       setCurrentPage, setTotalUsersCount, togglePreloader,disableButtonFol,
                       getUsersThunkCreator, FollowThunkCreator, unFollowThunkCreator  }))
-(UsersApiContainer);
+(UsersContainer);
