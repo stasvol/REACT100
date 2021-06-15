@@ -97,7 +97,6 @@
 // class UsersContainer extends React.Component <PropsTypeUserContainer> {
 //
 //     componentDidMount() {
-//
 //         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize,this.props.filter )
 //         // this.props.togglePreloader(true);
 //         //
@@ -294,13 +293,11 @@ import {UsersF} from "./UserF";
 //   title:string
 // }
 // export type PropsTypeUserContainer = mapStatePropsType & matDispatchPropsType & ownPropsType
-type propsType = {
-    isLoading: boolean
-}
 
-const UsersContainer: React.FC<propsType> = (props) => {
 
-    const isLoading = useSelector(isLoadingSelector)
+const UsersContainer: React.FC = () => {
+
+    const isLoading:boolean = useSelector(isLoadingSelector)
     return (
         <>
             {/*<h2>{this.props.title}</h2>*/}

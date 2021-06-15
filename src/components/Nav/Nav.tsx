@@ -8,7 +8,7 @@ import {initialStateType} from "../../redux/sitebar_reducer";
 
 const Navbar:React.FC<initialStateType> = (props) => {
 
-    let Friends = props.siteBarNav.map( (obj, i) => {
+   let Friends = props.siteBarNav.map( (obj, i) => {
         return <SiteBar id={obj.id} name={obj.name} img={obj.img }    key={i}/>
     })
 

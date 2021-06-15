@@ -65,16 +65,14 @@
 //
 //     const history = useHistory()
 //
-//     // useEffect(()=>{
-//     //
-//     //     setTimeout(()=>{
-//     //         history.push({
-//     //             pathname:'/user',
-//     //             search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
-//     //         })
-//     //     }, 1000)
-//     //
-//     // },[filter.term,filter.friend])
+//     // https://social-network.samuraijs.com/api/1.0/users?page=1&count=5%20%20%20%20%20%20%20%20&term=
+//
+//     useEffect(()=>{
+//         history.push({
+//             pathname:'/user',
+//             search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+//         })
+//     },[filter.term,filter.friend])
 //
 //
 //     return (
@@ -171,7 +169,9 @@ import {
     pageSizeSelector, setFilterSelector,
     totalUsersCountSelector
 } from "../../redux/users_selectors";
-import {useHistory} from "react-router";
+import {useHistory, useLocation} from "react-router";
+import * as querystring from "querystring";
+import { ParsedUrlQuery } from 'querystring';
 
 
 // export interface propsType{
@@ -187,6 +187,9 @@ import {useHistory} from "react-router";
 //     onFilterChange:(filter:filterType)=>void
 //     disableButton: Array<disableButtonType>
 // }
+
+type queryType = { term?: string; friend?: string; page?: string }
+type parsedType = { term: string; friend: string; page: string }
 
 export const UsersF: React.FC = ({...props}) => {
 
@@ -224,6 +227,7 @@ export const UsersF: React.FC = ({...props}) => {
     // for (let i=1;  i <= pageCount; i++ ){
     //     pages.push(i);
     // }
+
     const users = useSelector(getUsersSelector)
     const currentPage = useSelector(currentPageSelector)
     const totalUsersCount = useSelector(totalUsersCountSelector)
@@ -234,20 +238,36 @@ export const UsersF: React.FC = ({...props}) => {
 
     const dispatch = useDispatch()
     const history = useHistory()
+    const location = useLocation()
 
-    // useEffect(()=>{
-    //
-    //         history.push({
-    //             pathname:'/user',
-    //             search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
-    //         })
-    //
-    //
-    // },[])
+
 
     useEffect(() => {
-        dispatch(getUsersThunkCreator(currentPage, pageSize, filter))
+
+        const parsed: ParsedUrlQuery = querystring.parse(location.search.substr(1))
+        let actualPage = currentPage
+        let actualFilter = filter
+
+        if (!!parsed.page) actualPage = Number(parsed.page)
+       if (!!parsed.term) actualFilter = {...actualFilter, term:parsed.term  as string }
+       if (!!parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === 'null'? null : parsed.friend === 'true' ? true : false}
+
+        dispatch(getUsersThunkCreator(actualPage, pageSize, actualFilter))
+
     }, [])
+
+    useEffect(() => {
+        const query: queryType ={}
+        if (!! filter.term) query.term = filter.term
+        if (filter.friend !== null) query.friend = String(filter.friend)
+        if (currentPage !==1 ) query.page = String(currentPage)
+        // if (location.pathname !== '/user' || location.search !== query) {}
+        history.push({
+            pathname: '/user',
+            search: querystring.stringify(query)
+            // `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+        })
+    }, [filter, currentPage])
 
     const onChangePage = (pageNumber: number) => {
         // const {pageSize,filter}= props
@@ -267,12 +287,12 @@ export const UsersF: React.FC = ({...props}) => {
         dispatch(unfollow(userId))
     }
 
-    const unFollowThunkCreator = (userId: number) => {
+    const unFollowThunk = (userId: number) => {
         dispatch(unFollowThunkCreator(userId))
     }
 
 
-    const FollowThunkCreator = (userId: number) => {
+    const FollowThunk = (userId: number) => {
         dispatch(FollowThunkCreator(userId))
     }
 
@@ -290,8 +310,8 @@ export const UsersF: React.FC = ({...props}) => {
                 users.map((user, i) => <User key={i} user={user}
 
                                              disableButton={disableButton}
-                                             unFollowThunkCreator={unFollowThunkCreator}
-                                             FollowThunkCreator={FollowThunkCreator}/>
+                                             unFollowThunkCreator={unFollowThunk}
+                                             FollowThunkCreator={FollowThunk}/>
                 )
                 //         <div key={i}>
                 //     <div>
