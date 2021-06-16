@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter, HashRouter, Switch, Route, Redirect, NavLink} from "react-router-dom";
 import Music from './components/Music/Music';
 import NavContainer from "./components/Nav/NavContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
+
 import Login from "./components/Login/login";
 import {connect, Provider} from "react-redux";
 import {withRouter} from 'react-router-dom';
@@ -18,6 +18,7 @@ import {Avatar, Col, Image, Row} from 'antd';
 import SiteBar from './components/Nav/SiteBar/SiteBar'
 
 
+
 const DialogContainer = React.lazy(() => import ("./components/Dialogs/DialogContainer"));
 const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
 // const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer").then(({ProfileContainer}) =>({default:ProfileContainer})));
@@ -27,6 +28,7 @@ const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileC
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import classes from "./components/Nav/Nav.module.css";
+import MyHeader from "./components/Header/Header";
 
 
 const { SubMenu } = Menu;
@@ -52,8 +54,8 @@ class App extends Component <mapStateType & DispatchPropsType> {
         //            this.props.setAuthUserData(id, email, login);
         //        }
         // });
-
     }
+
 
     render() {
 
@@ -64,24 +66,24 @@ class App extends Component <mapStateType & DispatchPropsType> {
         return (
     <BrowserRouter>
             <Layout>
-                <Header className="header">
-                    <div className="logo" />
-                    <Row>
-                        <Col span={22}>
-                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-                                <Menu.Item key="1"><NavLink to={'/Profile'} activeClassName={classes.active}>MY PROFILE</NavLink></Menu.Item>
-                                <Menu.Item key="2"><NavLink to={'/User'} activeClassName={classes.active}>DEVELOPERS</NavLink></Menu.Item>
-                                <Menu.Item key="3"><NavLink to={'/Dialogs'} activeClassName={classes.active}>DIALOGS</NavLink></Menu.Item>
-                            </Menu>
-                        </Col>
-                        <Col span={2}>
-                            <Avatar src={<Image src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}/>
-                        </Col>
 
-                    </Row>
+                {/*<Header className="header">*/}
+                {/*    <div className="logo" />*/}
+                {/*    <Row>*/}
+                {/*        <Col span={22}>*/}
+                {/*            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>*/}
+                {/*                <Menu.Item key="1"><NavLink to={'/Profile'} activeClassName={classes.active}>MY PROFILE</NavLink></Menu.Item>*/}
+                {/*                <Menu.Item key="2"><NavLink to={'/User'} activeClassName={classes.active}>DEVELOPERS</NavLink></Menu.Item>*/}
+                {/*                <Menu.Item key="3"><NavLink to={'/Dialogs'} activeClassName={classes.active}>DIALOGS</NavLink></Menu.Item>*/}
+                {/*            </Menu>*/}
+                {/*        </Col>*/}
+                {/*        <Col span={2}>*/}
+                {/*            <Avatar src={<Image src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}/>*/}
+                {/*        </Col>*/}
 
-
-                </Header>
+                {/*    </Row>*/}
+                {/*</Header>*/}
+                <MyHeader/>
                 <Content style={{ padding: '0 50px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item><NavLink to={'/Profile'} activeClassName={classes.active}>MY PROFILE</NavLink></Breadcrumb.Item>
@@ -112,7 +114,7 @@ class App extends Component <mapStateType & DispatchPropsType> {
                                     <Menu.Item key="9"><NavLink to={'/News'} activeClassName={classes.active}>News</NavLink></Menu.Item>
                                     <Menu.Item key="10"><NavLink to={'/Setting'} activeClassName={classes.active}>Settings</NavLink></Menu.Item>
                                     <Menu.Item key="11">option11</Menu.Item>
-                                    <Menu.Item key="12"><h2 className={classes.header}>FRIEND</h2></Menu.Item>
+                                    <Menu.Item key="12"><NavLink to={'/Friend'} className={classes.header}>Friend</NavLink></Menu.Item>
 
                                 </SubMenu>
                             </Menu>
@@ -135,7 +137,7 @@ class App extends Component <mapStateType & DispatchPropsType> {
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                <Footer style={{ textAlign: 'center' }}>App ©2021 Created by Artur</Footer>
             </Layout>
         </BrowserRouter>
 
