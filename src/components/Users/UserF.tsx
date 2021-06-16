@@ -57,9 +57,9 @@
 // //         }
 // // ]);
 //     // let pageCount = Math.ceil((props.totalUsersCount/props.pageSize)/100)
-//     // let  pages = [];
+//     // let  chatPages = [];
 //     // for (let i=1;  i <= pageCount; i++ ){
-//     //     pages.push(i);
+//     //     chatPages.push(i);
 //     // }
 //
 //
@@ -223,9 +223,9 @@ export const UsersF: React.FC = ({...props}) => {
 //         }
 // ]);
     // let pageCount = Math.ceil((props.totalUsersCount/props.pageSize)/100)
-    // let  pages = [];
+    // let  chatPages = [];
     // for (let i=1;  i <= pageCount; i++ ){
-    //     pages.push(i);
+    //     chatPages.push(i);
     // }
 
     const users = useSelector(getUsersSelector)

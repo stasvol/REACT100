@@ -7,9 +7,9 @@
 //
 //
 //     let pageCount = Math.ceil((totalUsersCount/pageSize)/100)
-//     let  pages = [];
+//     let  chatPages = [];
 //     for (let i=1;  i <= pageCount; i++ ){
-//         pages.push(i);
+//         chatPages.push(i);
 //     }
 //     const portionCount = Math.ceil(pageCount/portionSize);
 //     const [portionNumber, setPortionNumber] = useState(1);
@@ -21,7 +21,7 @@
 //             {portionNumber > 1 &&
 //                 <button onClick={() =>{setPortionNumber(portionNumber-1)}}>PREV</button> }
 //
-//             {pages
+//             {chatPages
 //                 .filter(p =>p >= leftPortionPageNumber && p <= rightPortionPageNumber)
 //                 .map((p) => {
 //                     return <span className={ ({
@@ -40,7 +40,7 @@
 //         </div>
 //
 //             // <div className={classes.pagesNum}>
-//             //     { pages.map((p ,i) => {
+//             //     { chatPages.map((p ,i) => {
 //             //
 //             //         return  <span key={i} className={ currentPage === p  ?  classes.active : classes.pageNum }
 //             //                       onClick={(e) =>{onChangePage(p)}}> {p} </span>}) }

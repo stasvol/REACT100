@@ -66,16 +66,16 @@
 //     render() {
 //
 //          let pageCount = Math.ceil((this.props.totalUsersCount/this.props.pageSize)/200)
-//          let  pages = [];
+//          let  chatPages = [];
 //          for (let i=1;  i <= pageCount; i++ ){
-//                  pages.push(i);
+//                  chatPages.push(i);
 //          }
 //
 //         return (
 //
 //             <div>
 //                 <div className={classes.pagesNum}>
-//                     { pages.map(p => {
+//                     { chatPages.map(p => {
 //
 //                       return  <span className={ this.props.currentPage === p  && classes.pagin}
 //                       onClick={(e) =>{this.onChangePage(p)}}> {p} </span>}) }

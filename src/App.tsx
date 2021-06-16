@@ -21,6 +21,7 @@ import SiteBar from './components/Nav/SiteBar/SiteBar'
 
 const DialogContainer = React.lazy(() => import ("./components/Dialogs/DialogContainer"));
 const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
+const ChatPage = React.lazy(() => import ('./chatPages/chat/chat'));
 // const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer").then(({ProfileContainer}) =>({default:ProfileContainer})));
 // const ScreensProductList = lazy(() =>
 //     import('./screens/Products/List')
@@ -29,6 +30,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import classes from "./components/Nav/Nav.module.css";
 import MyHeader from "./components/Header/Header";
+// import  Chat  from './chatPages/chat/chat';
 
 
 const { SubMenu } = Menu;
@@ -88,7 +90,7 @@ class App extends Component <mapStateType & DispatchPropsType> {
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item><NavLink to={'/Profile'} activeClassName={classes.active}>MY PROFILE</NavLink></Breadcrumb.Item>
                         <Breadcrumb.Item><NavLink to={'/User'} activeClassName={classes.active}>DEVELOPERS</NavLink></Breadcrumb.Item>
-                        {/*<Breadcrumb.Item>App</Breadcrumb.Item>*/}
+                        <Breadcrumb.Item><NavLink to={'/chat'} activeClassName={classes.active}>CHAT</NavLink></Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
                         <Sider className="site-layout-background" width={200}>
@@ -110,10 +112,10 @@ class App extends Component <mapStateType & DispatchPropsType> {
                                     <Menu.Item key="7">option7</Menu.Item>
                                     <Menu.Item key="8">option8</Menu.Item>
                                 </SubMenu>
-                                <SubMenu key="sub3" icon={<NotificationOutlined />} title="OPTIONS">
+                                <SubMenu key="sub3" icon={<NotificationOutlined />} title="CHAT">
+                                    <Menu.Item key="11"><NavLink to={'/chat'} activeClassName={classes.active}>Chat</NavLink></Menu.Item>
                                     <Menu.Item key="9"><NavLink to={'/News'} activeClassName={classes.active}>News</NavLink></Menu.Item>
                                     <Menu.Item key="10"><NavLink to={'/Setting'} activeClassName={classes.active}>Settings</NavLink></Menu.Item>
-                                    <Menu.Item key="11">option11</Menu.Item>
                                     <Menu.Item key="12"><NavLink to={'/Friend'} className={classes.header}>Friend</NavLink></Menu.Item>
 
                                 </SubMenu>
@@ -130,8 +132,9 @@ class App extends Component <mapStateType & DispatchPropsType> {
                                                 <Route path={'/Music/vk'} render={() => <div>vk</div>}/>
                                                 <Route exact path={'/Music'} render={() => <Music/>}/>
                                                 <Route path={'/Login'} render={() => <Login/>}/>
+                                                <Route path={'/chat'} render={() => <ChatPage/>}/>
 
-                                               <Route path={'*'} render={() => <Error/>}/>
+                                                <Route path={'*'} render={() => <Error/>}/>
                                          </Switch>
                                         </Suspense>
                         </Content>
@@ -146,7 +149,7 @@ class App extends Component <mapStateType & DispatchPropsType> {
             //     <HeaderContainer/>
             //     <NavContainer/>
             //     {/*<Navbar state={props.state.siteBar} />*/}
-            //     <div className={'app-pages'}>
+            //     <div className={'app-chatPages'}>
             //
             //         <Suspense fallback={<div>Loading...</div>}>
             //             <Switch>

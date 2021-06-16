@@ -41,7 +41,7 @@ const MyHeader:React.FC = (props) =>{
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1"><NavLink to={'/Profile'} activeClassName={classes.active}>MY PROFILE</NavLink></Menu.Item>
                         <Menu.Item key="2"><NavLink to={'/User'} activeClassName={classes.active}>DEVELOPERS</NavLink></Menu.Item>
-                        <Menu.Item key="3"><NavLink to={'/Dialogs'} activeClassName={classes.active}>DIALOGS</NavLink></Menu.Item>
+                        <Menu.Item key="3"><NavLink to={'/chat'} activeClassName={classes.active}>CHAT</NavLink></Menu.Item>
                     </Menu>
                 </Col>
 
@@ -77,5 +77,4 @@ const MyHeader:React.FC = (props) =>{
         // </header>
     )
 }
-
 export default MyHeader
