@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {Avatar, Button, Col, Input, Row} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import {chatMessageType} from "../../Api/api-chat";
@@ -62,26 +62,26 @@ const Chat:React.FC =()=> {
         }
     },[])
     return <div>
-        {status === null
 
-            ? <span>ERROR  APP</span>
-            :
+        {status === null && <span>ERROR  APP</span>}
+
             <>
             <Messages/>
             <AddMessageForm />
             </>
-        }
+
     </div>
 }
 
 const Messages:React.FC =()=> {
 
     // const [messages, setMessage] = useState<chatMessageType[]>([])
+    const messageRef = useRef<HTMLDivElement>(null)
   const messages = useSelector((state:rootReducersType) => {
 
       return state.chat.messages;
 });
-    console.log(messages)
+
 
     // useEffect(()=>{
     //    let messagesHandler= (e:MessageEvent)=>{
@@ -98,6 +98,7 @@ const Messages:React.FC =()=> {
         {
             messages.map((m,i)=> <Message key={i} message={m}/>)
         }
+        <div ref={messageRef}> </div>
     </div>
 }
 
@@ -152,8 +153,7 @@ const AddMessageForm:React.FC =()=> {
           <TextArea  onChange={(e)=>{setMessage(e.target.value)}} value={message}/>
             </Col>
             <Col>
-        <Button disabled={status === 'ready' +
-        ''} onClick={sendMessageHandler}>Send</Button>
+        <Button disabled={status !== 'ready' } onClick={sendMessageHandler}>Send</Button>
             </Col>
     </div>
 }
