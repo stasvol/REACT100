@@ -11,6 +11,7 @@ import SetReducer from "../components/Settings/Set_reducers/setReducer";
 import SetMesReducer from "../components/Settings/Set_reducers/setMesreducer";
 import SetUserReducer from "../components/Settings/Set_reducers/setUserReducer";
 import SetAuthReducer from "../components/Settings/Set_reducers/setAuthReducer";
+import chatReducer from "./chat_reducer";
 
 let reducers = combineReducers({
     dialogPage: dialogReducer,
@@ -23,7 +24,8 @@ let reducers = combineReducers({
     message: SetReducer,
     posts: SetMesReducer,
     users: SetUserReducer,
-    setAuth:SetAuthReducer
+    setAuth:SetAuthReducer,
+    chat: chatReducer
 })
 
 type reducersType = typeof reducers
