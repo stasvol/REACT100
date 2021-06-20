@@ -6,11 +6,14 @@ import {chatApi, chatMessageType, statusType} from "../Api/api-chat";
 const SET_MESSAGE = 'SET MESSAGE';
 const SET_STATUS =  'SET STATUS '
 
+type ChatState = {
+    messages: chatMessageType[];
+    status: statusType;
+}
 
-
-let initialState  = {
- messages: [] as chatMessageType [],
- status: 'pending' as statusType
+let initialState: ChatState  = {
+ messages: [],         //as chatMessageType [],
+ status: 'pending'     //as statusType
 }
 
 
@@ -22,8 +25,8 @@ const chatReducer = (state = initialState, action: any) => {
 
             return {
                 ...state,
-                messages:[ ...state.messages, ...action.payload]
-
+                messages:[ ...state.messages, ...action.payload].filter((m,i,array) => i >= array.length - 100)
+                             // payload..messages.map((m: chatMessageType)  => ({...m, id: uuid()}))
             }
         case SET_STATUS:
 

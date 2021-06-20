@@ -96,7 +96,7 @@ class App extends Component <mapStateType & DispatchPropsType> {
                         <Sider className="site-layout-background" width={200}>
                             <Menu
                                 mode="inline"
-                                defaultSelectedKeys={['1']}
+                                // defaultSelectedKeys={['1']}
                                 // defaultOpenKeys={['sub1']}
                                 style={{ height: '100%' }}
                             >

@@ -1,15 +1,16 @@
-
-export type chatMessageType ={
+export type chatMessageType = chatMessageApiType & {id:string|number}
+export type chatMessageApiType ={
     message: string
     photo:  string
     userId: number
     userName: string
 }
-type subscribeType = (message: chatMessageType[]) => void
-type eventNamesType = 'messages-received' |  'status - changed'
+
+ type subscribeType = (message: chatMessageType[]) => void
+ type eventNamesType = 'messages-received' |  'status - changed'
 export type statusType = 'pending'|'ready'|'error'
-type messagesReceivedSubscribeType = (messages:chatMessageType[]) => void
-type statusChangedSubscribeType = (status:statusType) => void
+export type messagesReceivedSubscribeType = (messages:chatMessageType[]) => void
+export type statusChangedSubscribeType = (status:statusType) => void
 
 
 let subscribers = {
@@ -53,11 +54,11 @@ let webSoc: WebSocket;
 const closeHandler =()=>{
     console.log("CLOSE")
     changeSubscribeStatus('pending')
-    setTimeout(createWS,3000)
+    setTimeout(createWS,5000)
 }
 
 const messagesHandler= (e:MessageEvent)=>{
-    console.log(2, JSON.parse(e.data))
+
     const newMessage = JSON.parse(e.data)
    subscribers['messages-received'].forEach(s => s(newMessage))
 }

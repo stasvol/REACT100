@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {InjectedFormProps, reduxForm} from "redux-form";
 import classes from "./ProfilInfo.module.css";
 import smail from "../../../Photo/Images/smail.png";
@@ -6,9 +6,10 @@ import {createField, GetStringKeys, Input, Textarea} from "../../common/FormCont
 import {profileType} from "../../../redux/prof_reducer";
 import {formDataType} from "../../Login/login";
 import {formDataOwnPropsType} from "../../Login/LoginForm";
+import {profInfoType} from "./ProfilInfo";
 
 interface profDataFormType{
-    profile:profileType
+    profile:profileType,
 }
 type profileTypeKeys= GetStringKeys<profileType>
 
@@ -16,46 +17,50 @@ const ProfDataForm:React.FC<InjectedFormProps<profileType, profDataFormType> & p
 
         const { handleSubmit } = props;
 
+
+
         return  <form  onSubmit={handleSubmit}>
 
             <button type={"submit"}>Save</button>
 
-            { props.error
+
+            {props.error
                 ?  <div className={classes.formError}>
-                    {props.error}
+            {props.error}
                 </div>
                 :  ''
             }
 
-            <div><b>FullName</b> : {createField<profileTypeKeys>( "FullName",
+                <div><b>FullName</b> : {createField<profileTypeKeys>( "FullName",
                 "fullName", [],  Input)}</div>
-                {/*{props.profile.fullName}</div>*/}
+            {/*{props.profile.fullName}</div>*/}
 
-            <div><b>LookingForAJob</b> : {createField<profileTypeKeys>( "", "lookingForAJob",
+                <div><b>LookingForAJob</b> : {createField<profileTypeKeys>( "", "lookingForAJob",
                 [],  Input,{type:"checkbox"})}
-        {/*        {props.profile.lookingForAJob ? 'Yes' : 'No'}*/}
-        {/*        <img className={classes.smail} src={smail} alt={'image'}/>*/}
-            </div>
-        {/*    {props.profile.lookingForAJob &&*/}
-            <div><b>My professional skills</b> : {createField<profileTypeKeys>( "My professional skills", "lookingForAJobDescription",
+            {/*        {props.profile.lookingForAJob ? 'Yes' : 'No'}*/}
+            {/*        <img className={classes.smail} src={smail} alt={'image'}/>*/}
+                </div>
+            {/*    {props.profile.lookingForAJob &&*/}
+                <div><b>My professional skills</b> : {createField<profileTypeKeys>( "My professional skills", "lookingForAJobDescription",
                 [],  Textarea)}
-        {/*        {props.profile.lookingForAJobDescription}</div>{/*    }*/}
-            </div>
-            <div><b>About Me</b> : {createField<profileTypeKeys>( "About Me", "aboutMe", [],  Textarea)}
-                {/*        {props.profile.aboutMe}</div>*/}
-            </div>
-            <div>
-            <h4><b>Contacts</b> : </h4>
-                {props.profile.contacts && Object
-                    .keys(props.profile.contacts)
-                    .map(key => {
-              return <div key={key}>
-                   <i>{key} : </i>
-                  {createField(key,"contacts."+ key, [],  Input)}
-              </div>
+            {/*        {props.profile.lookingForAJobDescription}</div>{/*    }*/}
+                </div>
+                <div><b>About Me</b> : {createField<profileTypeKeys>( "About Me", "aboutMe", [],  Textarea)}
+            {/*        {props.profile.aboutMe}</div>*/}
+                </div>
+                <div>
+                <h4><b>Contacts</b> : </h4>
+            {props.profile.contacts && Object
+                .keys(props.profile.contacts)
+                .map(key => {
+                return <div key={key}>
+                <i>{key} : </i>
+            {createField(key,"contacts."+ key, [],  Input)}
+                </div>
             })}
             {/*return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]}/>})}*/}
-            </div>
+
+                </div>
 
         </form>
 

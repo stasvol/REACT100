@@ -1,22 +1,20 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState,} from 'react'
 import {Avatar, Button, Col, Input, Row} from "antd";
-import TextArea from "antd/es/input/TextArea";
+
+// import TextArea from "antd/es/input/TextArea";
 import {chatMessageType} from "../../Api/api-chat";
 import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessageListening, stopMessageListening} from '../../redux/chat_reducer';
 import {rootReducersType} from "../../redux/reduxStore";
 
 
-
-
-
- const ChatPage:React.FC =()=>{
+const ChatPage: React.FC = () => {
     return <div>
         <Chat/>
     </div>
 }
 
-const Chat:React.FC =()=> {
+const Chat: React.FC = () => {
     // const [ws, setWs] = useState<WebSocket | null>(null)
     //
     // useEffect(()=>{
@@ -54,35 +52,29 @@ const Chat:React.FC =()=> {
     //     <AddMessageForm ws={ ws }/>
     // </div>
     const dispatch = useDispatch()
-    const status = useSelector((state:rootReducersType) => state.chat.status)
-    useEffect(()=>{
-        dispatch(startMessageListening ())
+    const status = useSelector((state: rootReducersType) => state.chat.status)
+
+    useEffect(() => {
+        dispatch(startMessageListening())
         return () => {
             dispatch(stopMessageListening())
         }
-    },[])
+    }, [])
     return <div>
 
         {status === null && <span>ERROR  APP</span>}
 
-            <>
+        <>
             <Messages/>
-            <AddMessageForm />
-            </>
+            <AddMessageForm/>
+        </>
 
     </div>
 }
 
-const Messages:React.FC =()=> {
+const Messages: React.FC = () => {
 
     // const [messages, setMessage] = useState<chatMessageType[]>([])
-    const messageRef = useRef<HTMLDivElement>(null)
-  const messages = useSelector((state:rootReducersType) => {
-
-      return state.chat.messages;
-});
-
-
     // useEffect(()=>{
     //    let messagesHandler= (e:MessageEvent)=>{
     //        setMessage(prevMessages => [...prevMessages,...JSON.parse(e.data)])
@@ -94,15 +86,44 @@ const Messages:React.FC =()=> {
     //     }
     // },[ws])
 
-    return <div style={{height:300, overflowY:"auto"}}>
+    const messageRef = useRef<HTMLDivElement>(null)
+    const [isAutoScroll, setIsAutoScroll] = useState(true)
+
+    const messages: chatMessageType[] = useSelector((state: rootReducersType) => {
+
+        return state.chat.messages;
+    });
+
+   const scrollHandler =(e:React.UIEvent<HTMLDivElement,UIEvent>)=>{
+
+       const element = e.currentTarget
+       // if (element.scrollHeight - element.scrollTop === element.clientHeight ) {}
+       if (Math.abs((element.scrollHeight - element.scrollTop) - element.clientHeight ) < 100){
+           console.log('scrolled')
+           !isAutoScroll && setIsAutoScroll(true)
+       }else {
+           isAutoScroll  &&  setIsAutoScroll(false)
+       }
+   }
+
+    useEffect(() => {
+        if (isAutoScroll) {
+            messageRef.current && messageRef.current.scrollIntoView({behavior: 'smooth'})
+        }
+
+    }, [messages])
+
+
+    return <div style={{height: 300, overflowY: "auto"}} onScroll={scrollHandler}>
         {
-            messages.map((m,i)=> <Message key={i} message={m}/>)
+
+             messages.map((m: chatMessageType,i) => <Message key={i} message={m}/>)
         }
         <div ref={messageRef}> </div>
     </div>
 }
 
-const Message:React.FC<{message:chatMessageType}> =({message})=> {
+const Message: React.FC<{ message: chatMessageType }> = React.memo(({message}) => {
 
     // const message= null
     //     {
@@ -112,18 +133,18 @@ const Message:React.FC<{message:chatMessageType}> =({message})=> {
     // }
     return <div>
         <Avatar src={message.photo}/>
-         <b>{message.userName}</b>
-         <br/>
+        <b>{message.userName}</b>
+        <br/>
         <i>{message.message}</i>
         <hr/>
     </div>
-}
+})
 
-const AddMessageForm:React.FC =()=> {
+const AddMessageForm: React.FC = () => {
     const [message, setMessage] = useState('')
     // const [readyStatus, setReadyStatus] = useState<'pending'|'ready'>('pending')
     const dispatch = useDispatch()
-    const status = useSelector((state:rootReducersType)=>{
+    const status = useSelector((state: rootReducersType) => {
         return state.chat.status
     })
     // useEffect(()=>{
@@ -139,7 +160,7 @@ const AddMessageForm:React.FC =()=> {
     //
     // },[ws])
 
-    const sendMessageHandler =()=> {
+    const sendMessageHandler = () => {
 
         if (!message) {
             return
@@ -149,12 +170,15 @@ const AddMessageForm:React.FC =()=> {
         setMessage('')
     }
     return <div>
-            <Col>
-          <TextArea  onChange={(e)=>{setMessage(e.target.value)}} value={message}/>
-            </Col>
-            <Col>
-        <Button disabled={status !== 'ready' } onClick={sendMessageHandler}>Send</Button>
-            </Col>
+        <Col>
+
+            <Input.TextArea onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => {
+                setMessage(e.target.value)
+            }} value={message}/>
+        </Col>
+        <Col>
+            <Button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</Button>
+        </Col>
     </div>
 }
 

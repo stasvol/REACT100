@@ -10,7 +10,7 @@ import {contactsType, PhotosType, profileType, responsePhotosType} from "../../.
 import { ChangeEvent } from "react";
 import {InjectedFormProps} from "redux-form";
 
-interface profInfoType {
+export interface profInfoType {
     profile:profileType,
     status: string,
     updateStatus:(status:string)=>void,
