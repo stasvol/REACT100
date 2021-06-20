@@ -117,7 +117,7 @@ const Messages: React.FC = () => {
     return <div style={{height: 300, overflowY: "auto"}} onScroll={scrollHandler}>
         {
 
-             messages.map((m: chatMessageType,i) => <Message key={i} message={m}/>)
+             messages.map((m: chatMessageType,i) => <Message key={m.id} message={m}/>)
         }
         <div ref={messageRef}> </div>
     </div>
