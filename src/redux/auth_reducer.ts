@@ -1,7 +1,7 @@
 import {ThunkAction} from "redux-thunk";
-import {resultCodeCaptchaEnum, resultCodeEnum} from "../Api/api";
-import {loginApi} from "../Api/api-login";
-import {securityApi} from "../Api/api-security";
+import {resultCodeCaptchaEnum, resultCodeEnum} from "../api/api";
+import {loginApi} from "../api/api-login";
+import {securityApi} from "../api/api-security";
 import {FormAction, stopSubmit} from "redux-form";
 import {rootReducersType} from "./reduxStore";
 import {Dispatch} from "redux";
@@ -108,7 +108,7 @@ export const loginPost = (email: string, password: string, rememberMe: boolean, 
             dispatch(getCaptchaUrl())
         }
         // let action = stopSubmit('login', {email: 'Email is wrong'});
-        let messages = data.messages ? data.messages : 'Some Error';
+        let messages = data.messages ? data.messages : 'Some error';
         // let action = stopSubmit('login', {_error: messages});
         // dispatch(action);
         dispatch(stopSubmit('login', {_error: messages}));

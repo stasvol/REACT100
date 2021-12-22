@@ -1,0 +1,30 @@
+
+.bg {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    background: #f1f1e5;
+}
+
+.textarea {
+    margin: 20px 0 10px 0;
+}
+
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #eedd8f;
+    margin: 20px 0 0 100px;
+}
+
+.active {
+    position: relative;
+    margin-top: 10px;
+}
+
+.dialog {
+    min-width: 50px;
+}
+.message{
+    text-transform: uppercase;
+}

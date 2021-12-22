@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {chatApi, chatMessageType, statusType} from "../Api/api-chat";
+import {chatApi, chatMessageType, statusType} from "../api/api-chat";
 
 
 const SET_MESSAGE = 'SET MESSAGE';

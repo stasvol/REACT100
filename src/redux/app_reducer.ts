@@ -2,7 +2,7 @@ import thunk, {ThunkAction} from "redux-thunk";
 import {authThunkCreator} from "./auth_reducer";
 import {Dispatch} from "redux";
 import {rootReducersType} from "./reduxStore";
-// import {loginApi, loginUser, userApi} from "../Api/api";
+// import {loginApi, loginUser, userApi} from "../api/api";
 // import {stopSubmit} from "redux-form";
 
 const INITIALISED_SUCCESS = 'INITIALISED SUCCESS';
@@ -82,7 +82,7 @@ export const initializeApp = ():thunkType =>
 //                 dispatch(authThunkCreator(email, password, rememberMe));
 //             } else {
 //                 // let action = stopSubmit('login', {email: 'Email is wrong'});
-//                 let messages = data.messages ? data.messages : 'Some Error';
+//                 let messages = data.messages ? data.messages : 'Some error';
 //                 // let action = stopSubmit('login', {_error: messages});
 //                 // dispatch(action);
 //                 dispatch(stopSubmit('login', {_error: messages}));

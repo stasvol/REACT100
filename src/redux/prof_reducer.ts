@@ -1,4 +1,4 @@
-import {profileApi} from "../Api/api-profile";
+import {profileApi} from "../api/api-profile";
 import {FormAction, stopSubmit} from "redux-form";
 import {Dispatch} from "redux";
 import {rootReducersType} from "./reduxStore";

@@ -1,5 +1,6 @@
 import React from "react";
-import preloader from "../../../Photo/Images/760.svg";
+
+import preloader from "../../../photo/images/760.svg";
 
 
 const Preloader:React.FC = () =>{

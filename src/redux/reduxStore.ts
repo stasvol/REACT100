@@ -1,17 +1,14 @@
 import {Action, applyMiddleware, combineReducers, compose, createStore} from "redux";
-import dialogReducer, {dialogAction} from "./dialog_reducer";
-import postReducer from "./prof_reducer";
-import siteBarReducer from "./sitebar_reducer";
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
+import { reducer as formReducer } from 'redux-form';
+
+import appReducer from './app_reducer';
+import chatReducer from "./chat_reducer";
 import userReducer from "./user_reducer";
 import authReducer  from "./auth_reducer";
-import thunkMiddleware, {ThunkAction} from "redux-thunk";
-import { reducer as formReducer } from 'redux-form'
-import appReducer from './app_reducer'
-import SetReducer from "../components/Settings/Set_reducers/setReducer";
-import SetMesReducer from "../components/Settings/Set_reducers/setMesreducer";
-import SetUserReducer from "../components/Settings/Set_reducers/setUserReducer";
-import SetAuthReducer from "../components/Settings/Set_reducers/setAuthReducer";
-import chatReducer from "./chat_reducer";
+import siteBarReducer from "./sitebar_reducer";
+import dialogReducer, {dialogAction} from "./dialog_reducer";
+import postReducer from "./prof_reducer";
 
 let reducers = combineReducers({
     dialogPage: dialogReducer,
@@ -21,10 +18,6 @@ let reducers = combineReducers({
     auth: authReducer,
     form: formReducer,
     app: appReducer,
-    message: SetReducer,
-    posts: SetMesReducer,
-    users: SetUserReducer,
-    setAuth:SetAuthReducer,
     chat: chatReducer
 })
 

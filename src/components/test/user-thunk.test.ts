@@ -6,10 +6,10 @@ import {
     unfollow,
     unFollowThunkCreator
 } from "../../redux/user_reducer";
-import {userApi} from "../../Api/api-users";
-import {ApiResponseType, resultCodeEnum} from "../../Api/api";
+import {userApi} from "../../api/api-users";
+import {ApiResponseType, resultCodeEnum} from "../../api/api";
 
-jest.mock("../../Api/api-users")
+jest.mock("../../api/api-users")
 
 const userApiMock = userApi as jest.Mocked<typeof userApi>
 const dispatchMock = jest.fn()

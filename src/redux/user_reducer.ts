@@ -1,10 +1,10 @@
-import {userApi} from "../Api/api-users";
-import {updateObjectInArray} from "../Utility/object_helper";
+import {userApi} from "../api/api-users";
+import {updateObjectInArray} from "../utility/object_helper";
 import { PhotosType } from "./prof_reducer";
 import {AnyAction, Dispatch} from "redux";
 import {rootReducersType} from "./reduxStore";
 import {ThunkAction} from "redux-thunk";
-import {ApiResponseType} from "../Api/api";
+import {ApiResponseType} from "../api/api";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
