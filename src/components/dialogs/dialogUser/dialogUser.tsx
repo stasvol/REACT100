@@ -9,16 +9,16 @@ type propsType ={
     name: string
 }
 
-const DialogUser:React.FC<propsType> = (props) => {
+const DialogUser:React.FC<propsType> = ({id,img,name}) => {
 
-    let path = '/dialogs/1' + props.id
+    let path = '/dialogs/1' + id
 
     return (
         <>
-            <img className={classes.imgAvatar} src={props.img} alt={props.name} />
+            <img className={classes.imgAvatar} src={img} alt={name} />
             <ul className={classes.dialogUser}>
                 <li className={`${classes.user} `}>
-                    <NavLink to={path} activeClassName={classes.active}>{props.name}</NavLink>
+                    <NavLink to={path} activeClassName={classes.active}>{name}</NavLink>
                 </li>
             </ul>
         </>

@@ -10,3 +10,6 @@
     text-align: center;
     background: #f63d3d;
 }
+.head {
+    text-transform: uppercase;
+}

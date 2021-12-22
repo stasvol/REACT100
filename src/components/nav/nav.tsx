@@ -1,20 +1,12 @@
 import React from 'react';
-import classes from './nav.module.css';
 import {NavLink} from "react-router-dom";
+
 import SiteBar from './siteBar/siteBar'
 import {initialStateType} from "../../redux/sitebar_reducer";
 
+import classes from './nav.module.css';
 
-
-const Navbar:React.FC<initialStateType> = (props) => {
-
-   let Friends = props.siteBarNav.map( (obj, i) => {
-        return <SiteBar id={obj.id} name={obj.name} img={obj.img }    key={i}/>
-    })
-
-
-
-    return  (
+const Navbar:React.FC<initialStateType> = ({siteBarNav}) => (
 
         <nav className={classes.nav}>
             <ul>
@@ -32,13 +24,10 @@ const Navbar:React.FC<initialStateType> = (props) => {
                     <NavLink to={'/Setting'} activeClassName={classes.active}>Settings</NavLink></li>
                 <li className={classes.item}><h2 className={classes.header}>FRIEND</h2></li>
             </ul>
-            {Friends}
+            {
+                siteBarNav.map( ({id,name,img}) => <SiteBar id={id} name={name} img={img} key={id}/>)
+            }
         </nav>
+)
 
-    )
-}
-
-
-
-
-export default Navbar
+export default Navbar;

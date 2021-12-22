@@ -19,11 +19,8 @@ let DialogForm:React.FC<InjectedFormProps<newMessageTextType, propsType> & props
                  {createField<newMessageTextTypeKeys>( 'add message', 'newMessageText', [required,maxLength30,minLength2],  Textarea)}
              </div>
              <button  className={classes.btn}>Add Message</button>
-
          </form>
-
      )
-
 }
 
  const DialogReduxForm = reduxForm<newMessageTextType, propsType> ({

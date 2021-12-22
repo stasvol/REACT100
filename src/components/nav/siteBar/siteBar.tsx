@@ -1,27 +1,21 @@
 import React from 'react';
-import classes from './siteBar.module.css';
+
 import {siteBarNavType} from "../../../redux/sitebar_reducer";
 
+import classes from './siteBar.module.css';
 
-
-const SiteBar:React.FC<siteBarNavType> = (props) => {
+const SiteBar:React.FC<siteBarNavType> = ({name,img}) => {
 
     const changeClick = (): void => {
-        alert('HELLO FRIEND - ' + props.name);
-        // let action = handleChangeActionCreator();
-        // props.dispatch(action)
-        // props.store.dispatch(handleChangeActionCreator());
-        // props.changeClick(props.id);
-
+        alert('HELLO FRIEND - ' + name);
     }
 
     return (
         <div className={classes.block}>
-            <img onClick={changeClick} className={classes.imgAvat} src={props.img} alt={"image"}/>
-            <span className={classes.text}>{props.name}</span>
+            <img onClick={changeClick} className={classes.imgAvat} src={img} alt={"image"}/>
+            <span className={classes.text}>{name}</span>
         </div>
     )
 }
-
 
 export default SiteBar

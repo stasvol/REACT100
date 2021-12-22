@@ -2,18 +2,21 @@
     grid-area: n;
     background: #990199;
 }
+
  .item{
      list-style-type: none;
      font-size: 1.5em;
      padding: 1em;
  }
+
  .item a {
     margin: 20px;
-    color: white;
+    color: #FFF;
     cursor: pointer;
 }
+
   .item  .active {
-    color: silver;
+    color: #C0C0C0FF;
   }
 
  .header {

@@ -1,17 +1,12 @@
-/*.header {*/
-/*    color: gold;*/
-/*    text-align: center;*/
-/*    margin: 50px;*/
-/*}*/
 .imgAvat{
     width: 85px;
     height: 85px;
-    /*margin: 5px ;*/
     border-radius: 50%;
     float: left;
     margin-bottom: 30px;
     margin-left: 8px;
 }
+
 .text {
     position: relative;
     top:90px;

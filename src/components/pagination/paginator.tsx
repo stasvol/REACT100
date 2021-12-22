@@ -45,23 +45,8 @@ const Paginator: React.FC<propsPaginatorType> = ({currentPage,onChangePage,total
                 <button onClick={() => {setPageNumber(pageNumber + 1)}}>NEXT</button>
                                           : null
             }
-
-
-
-
         </div>
     )
-
-    //  return  (
-    //          <div className={classes.pagesNum}>
-    //             { chatPages.map((p ,i) => {
-    //
-    //                 return  <span key={i} className={ currentPage === p  ?  classes.active : classes.pageNum }
-    //                               onClick={(e) =>{onChangePage(p)}}> {p} </span>}) }
-    //
-    //         </div>
-    // )
-
 }
 
 export default Paginator

@@ -8,7 +8,7 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 import {initializeApp} from "./redux/app_reducer";
 import store, {rootReducersType} from "./redux/reduxStore";
 import Music from './components/music/music';
-import Login from "./components/login/login";
+import Login from "./components/login/loginContainer";
 import Preloader from "./components/common/preloader/preloader";
 import   UserContainer from "./components/users/UserContainer"
 import MyHeader from "./components/header/header";

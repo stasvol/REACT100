@@ -36,7 +36,7 @@ const Dialogs:React.FC<propsDialogType> = (props) => {
 
                 <div className={classes.active}><i className={classes.message}>Messages  :</i>
                     { props.state.MessageUserData
-                        .map(({message,id}, i) => <MessageUser message={message} id={id} key={i}/>)
+                        .map(({message,id}) => <MessageUser message={message} id={id} key={id}/>)
 
                     }
                 </div>

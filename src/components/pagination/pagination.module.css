@@ -8,22 +8,20 @@
     font-size: 20px;
     padding: 10px;
 }
+
 .paginator{
-
     margin: 10px;
-
 }
+
 .pageNumber{
     padding: 2px;
     border: 1px solid #e2d6d6;
-    /*border-right: 0 ;*/
     cursor: pointer;
 }
+
  .selectedPage  {
     font-weight: bold;
      border: 2px solid black;
      padding: 2px;
      color: #960f0f;
-
-
-}
+ }

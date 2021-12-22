@@ -4,7 +4,7 @@ import classes from "./profilInfo.module.css";
 import smail from "../../../photo/images/smail.png";
 import {createField, GetStringKeys, Input, Textarea} from "../../common/formControl/formComponent";
 import {profileType} from "../../../redux/prof_reducer";
-import {formDataType} from "../../login/login";
+import {formDataType} from "../../login/loginContainer";
 import {formDataOwnPropsType} from "../../login/loginForm";
 import {profInfoType} from "./profilInfo";
 

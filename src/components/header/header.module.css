@@ -2,10 +2,21 @@
     grid-area: h;
     background: aqua;
 }
+
 .header > img {
     width: 50px;
 }
+
 .log {
     float: right;
     margin: 10px;
 }
+
+.span {
+    color: white;
+}
+
+.button {
+    text-transform: uppercase;
+}
+
