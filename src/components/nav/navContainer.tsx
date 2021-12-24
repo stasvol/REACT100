@@ -3,12 +3,9 @@ import {Dispatch} from "redux";
 import {connect} from 'react-redux';
 
 import Nav from "./nav";
-import {siteBarActionCreator, siteBarNavType} from "../../redux/sitebar_reducer";
+import {siteBarActionCreator} from "../../redux/sitebar_reducer";
 import {rootReducersType} from "../../redux/reduxStore";
 
-// export type mapStateType={
-//     siteBarNav: siteBarNavType
-// }
 export type dispatchType ={
     siteBarActionCreator:(userId:number) => void
 }

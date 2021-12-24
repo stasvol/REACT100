@@ -1,7 +1,6 @@
-import React from 'react'
-import classes from "./pagination.module.css";
-import {useState} from "react";
+import React, {useState} from 'react'
 
+import classes from "./pagination.module.css";
 
 export interface propsPaginatorType {
     currentPage:number,
@@ -12,7 +11,11 @@ export interface propsPaginatorType {
 
 }
 
-const Paginator: React.FC<propsPaginatorType> = ({currentPage,onChangePage,totalUsersCount,pageSize, pageNumberSizes=10}) => {
+const Paginator: React.FC<propsPaginatorType> = ({currentPage,
+                                                     onChangePage,
+                                                     totalUsersCount,
+                                                     pageSize,
+                                                     pageNumberSizes=10}) => {
 
 
     let pageCount = Math.ceil((totalUsersCount/pageSize))
@@ -24,26 +27,26 @@ const Paginator: React.FC<propsPaginatorType> = ({currentPage,onChangePage,total
     const [pageNumber, setPageNumber] = useState(1);
     const leftPortionPageNumber = (pageNumber-1) * pageNumberSizes + 1;
     const rightPortionPageNumber = pageNumber * pageNumberSizes;
+    const handlePagePlus = () => {setPageNumber(pageNumber + 1)}
+    const handlePageMinus = () => {setPageNumber(pageNumber - 1)}
+    const pagesData = pages.filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
 
     return (
         <div className={classes.paginator}>
             {pageNumber > 1 &&
-                <button onClick={() =>{setPageNumber(pageNumber-1)}}>PREV</button> }
+                <button className={classes.button} onClick={handlePageMinus}>Prev</button> }
 
-            {pages
-                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                .map((p) => {
-                    return <span className={  currentPage === p ? classes.selectedPage : classes.pageNumber }
-                    // [classes.selectedPage] : currentPage === p},
-                    //     classes.pageNumber) }
-                              key={p}
-                              onClick={(e) => {
-                                  onChangePage(p);
-                              }} >{p}</span>
+            {pagesData
+                .map((page) => {
+                    const handleClick = () => {onChangePage(page)}
+                    return <span className={  currentPage === page ? classes.selectedPage : classes.pageNumber }
+                              key={page}
+                              onClick={handleClick} >{page}</span>
                     })}
-            { pageCountSize > pageNumber  ?
-                <button onClick={() => {setPageNumber(pageNumber + 1)}}>NEXT</button>
-                                          : null
+            { pageCountSize > pageNumber
+                ?
+                <button className={classes.button} onClick={handlePagePlus}>Next</button>
+                : null
             }
         </div>
     )

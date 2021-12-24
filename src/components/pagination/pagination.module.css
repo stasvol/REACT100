@@ -25,3 +25,7 @@
      padding: 2px;
      color: #960f0f;
  }
+
+ .button {
+     text-transform: uppercase;
+ }

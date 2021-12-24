@@ -10,7 +10,7 @@ import store, {rootReducersType} from "./redux/reduxStore";
 import Music from './components/music/music';
 import Login from "./components/login/loginContainer";
 import Preloader from "./components/common/preloader/preloader";
-import   UserContainer from "./components/users/UserContainer"
+import   UserContainer from "./components/users/UserComponent"
 import MyHeader from "./components/header/header";
 import Error from "./error/error";
 
@@ -166,7 +166,7 @@ class App extends Component <mapStateType & DispatchPropsType> {
             //                 {/*// addPost={props.addPost}*/}
             //                 {/*// addChangeText={props.addChangeTe} />}/>*/}
             //
-            //                 <Route path={'/User'} render={() => <UserContainer />}/>
+            //                 <Route path={'/User'} render={() => <UsersContainer />}/>
             //
             //
             //                 <Route path={'/music/vk'} render={() => <div>vk</div>}/>
