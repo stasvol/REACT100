@@ -6,7 +6,7 @@ import {
     totalUsersCountSelector
 } from "../redux/users_selectors";
 import {useHistory, useLocation} from "react-router";
-import {useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ParsedUrlQuery} from "querystring";
 import querystring from "querystring";
 import {filterType, FollowThunkCreator, getUsersThunkCreator, unFollowThunkCreator} from "../redux/user_reducer";
@@ -14,7 +14,8 @@ import {filterType, FollowThunkCreator, getUsersThunkCreator, unFollowThunkCreat
 type queryType = { term?: string; friend?: string; page?: string }
 type parsedType = { term: string; friend: string; page: string }
 
-export const useUsersContainer = () => {
+export const useUsersContainer = (initState=1) => {
+    const [pageNumber, setPageNumber] = useState(initState);
     const users = useSelector(getUsersSelector)
     const currentPage = useSelector(currentPageSelector)
     const totalUsersCount = useSelector(totalUsersCountSelector)
@@ -27,18 +28,28 @@ export const useUsersContainer = () => {
     const history = useHistory()
     const location = useLocation()
 
+    let pageCount = Math.ceil((totalUsersCount/pageSize))
+    let  pages:Array<number> = [];
+    for (let i=1;  i <= pageCount; i++ ){
+        pages.push(i);
+    }
+    const pageCountSize = Math.ceil(pageCount/pageNumberSizes); //   /10 = pageNumberSizes
+    const leftPortionPageNumber = (pageNumber-1) * pageNumberSizes + 1;
+    const rightPortionPageNumber = pageNumber * pageNumberSizes;
+    const handlePagePlus = () => {setPageNumber(pageNumber + 1)}
+    const handlePageMinus = () => {setPageNumber(pageNumber - 1)}
+    const pagesData = pages.filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
+
     useEffect(() => {
         const parsed: ParsedUrlQuery = querystring.parse(location.search.substr(1))
         let actualPage = currentPage
         let actualFilter = filter
-
         if (!!parsed.page) actualPage = Number(parsed.page)
         if (!!parsed.term) actualFilter = {...actualFilter, term:parsed.term  as string }
         if (!!parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === 'null'? null : parsed.friend === 'true' ? true : false}
 
         dispatch(getUsersThunkCreator(actualPage, pageSize, actualFilter))
-
-    }, [])
+    }, [pageSize])
 
     useEffect(() => {
         const query: queryType ={}
@@ -51,30 +62,32 @@ export const useUsersContainer = () => {
         })
     }, [filter, currentPage])
 
-    const onChangePage = (pageNumber: number) => {
+    const onChangePage = useCallback((pageNumber: number) => {
         dispatch(getUsersThunkCreator(pageNumber, pageSize, filter))
-    }
+    },[pageSize, filter]);
 
-    const onFilterChange = (filter: filterType) => {
+    const onFilterChange = useCallback((filter: filterType)=> {
         dispatch(getUsersThunkCreator(1, pageSize, filter))
+    },[pageSize, filter]);
 
-    }
-    const follow = (userId: number) => {
+    const follow = useCallback((userId: number) => {
         dispatch(follow(userId))
-    }
+    },[dispatch]);
 
-    const unfollow = (userId: number) => {
+    const unfollow = useCallback((userId: number) => {
         dispatch(unfollow(userId))
-    }
+    },[dispatch],);
 
-    const unFollowThunk = (userId: number) => {
+    const unFollowThunk = useCallback( (userId: number) => {
         dispatch(unFollowThunkCreator(userId))
-    }
+    },[unFollowThunkCreator]);
 
 
-    const FollowThunk = (userId: number) => {
+    const FollowThunk = useCallback((userId: number) => {
         dispatch(FollowThunkCreator(userId))
-    }
+    },[FollowThunkCreator]);
+
     return {users, currentPage, pageSize, totalUsersCount, pageNumberSizes, disableButton,
-        onChangePage, onFilterChange, unFollowThunk, FollowThunk }
+        onChangePage, onFilterChange, unFollowThunk, FollowThunk, pageCountSize, handlePagePlus,
+        handlePageMinus, pagesData, pageNumber }
 }

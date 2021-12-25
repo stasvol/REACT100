@@ -1,7 +1,7 @@
 import React from 'react'
 import {Suspense} from 'react'
 
-export function withLazySuspense  <WCP>(WrappedComponent:React.ComponentType <WCP>) {
+export function withLazySuspense <WCP>(WrappedComponent:React.ComponentType <WCP>) {
 
     return ( (props:WCP) => {
 
@@ -11,5 +11,4 @@ export function withLazySuspense  <WCP>(WrappedComponent:React.ComponentType <WC
 
         }
     )
-
 }

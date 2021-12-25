@@ -3,9 +3,7 @@ import React from 'react';
 import {useUsersContainer} from "../../hock/useUsersContainer";
 import Paginator from "../pagination/paginator";
 import User from "./user";
-import UsersSearchForm from "./UsersSearchForm";
-
-
+import UsersSearchForm from "./usersSearchForm";
 
 const UsersContainer: React.FC = () => {
 

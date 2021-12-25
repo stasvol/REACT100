@@ -13,35 +13,36 @@ interface propsType {
     FollowThunkCreator: (userId: number) => void,
 }
 
-const User: React.FC<propsType> = ({user, disableButton, unFollowThunkCreator, FollowThunkCreator}) => {
-  const disable = disableButton.some((id) => id === user.id)
+const User: React.FC<propsType> = ({user:{id,photos,followed,name,status},
+                                   disableButton, unFollowThunkCreator, FollowThunkCreator}) => {
+  const disable = disableButton.some((userId) => userId === id)
   return  (
 
         <div>
             <div>
                 <div>
-                    <NavLink to={'/profile/' + user.id}>
-                        <img src={user.photos && user.photos.small !== null ? user.photos.small : photo} alt={'image'}
+                    <NavLink to={'/profile/' + id}>
+                        <img src={photos && photos.small !== null ? photos.small : photo} alt={'image'}
                              className={classes.photo}/>
                     </NavLink>
                 </div>
                 <div>
-                    {user.followed
+                    {followed
                         ? <button
                             disabled={disable}
                             onClick={() => {
-                                unFollowThunkCreator(user.id)
+                                unFollowThunkCreator(id)
                             }}>UnFollow</button>
 
                         : <button
                             disabled={disable}
                             onClick={() => {
-                                FollowThunkCreator(user.id)
+                                FollowThunkCreator(id)
                             }}>Follow</button>
                     }
                 </div>
-                <div>{user.name}</div>
-                <div>{user.status}</div>
+                <div>{name}</div>
+                <div>{status}</div>
             </div>
         </div>
     )

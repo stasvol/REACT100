@@ -61,48 +61,6 @@ export const initializeApp = ():thunkType =>
 
 }
 
-//     authThunkCreator = (id, email, login,isAuth) => {
-//
-//     return   (dispatch ) => {
-//
-//         loginApi.loginUser().then(data => {
-//             if (data.resultCode === 0) {
-//                 let {id, email, login} = data.data
-//                 dispatch(setAuthUserData(id, email, login,true));
-//             }
-//         });
-//     }
-// }
-
-// export  const loginPost = (email, password, rememberMe) => (dispatch ) => {
-//
-//         loginApi.login(email, password, rememberMe).then(data => {
-//
-//             if (data.resultCode === 0) {
-//                 dispatch(authThunkCreator(email, password, rememberMe));
-//             } else {
-//                 // let action = stopSubmit('login', {email: 'Email is wrong'});
-//                 let messages = data.messages ? data.messages : 'Some error';
-//                 // let action = stopSubmit('login', {_error: messages});
-//                 // dispatch(action);
-//                 dispatch(stopSubmit('login', {_error: messages}));
-//             }
-//         });
-// }
-//
-// export  const loginOut = (email, password, rememberMe,isAuth) => {
-//
-//     return   (dispatch ) => {
-//         loginApi.logOut().then(data => {
-//
-//             if (data.resultCode === 0) {
-//                 dispatch(setAuthUserData(null, null, null,false));
-//             }
-//         });
-//     }
-// }
-
-
 export default appReducer
 
 

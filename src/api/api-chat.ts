@@ -1,3 +1,5 @@
+import React from "react";
+
 export type chatMessageType = chatMessageApiType & {id:string|number}
 export type chatMessageApiType ={
     message: string
