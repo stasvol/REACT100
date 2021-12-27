@@ -1,11 +1,10 @@
 import React from 'react';
+import {Dispatch} from "redux";
+import {connect} from "react-redux";
+
+import {rootReducersType} from "../../../redux/reduxStore";
 import {addChangeText, addPost} from '../../../redux/prof_reducer';
 import MyPost from "./myPost";
-import {connect} from "react-redux";
-import {rootReducersType} from "../../../redux/reduxStore";
-import {Dispatch} from "redux";
-
-
 
 type mapStateProps = {
     newText:string
@@ -13,50 +12,6 @@ type mapStateProps = {
 type dispatchProps = {
     addPost:(newText:string)=>void
 }
-// const MyPostContainer1 = (props) => {
-//     // let newPostText = React.createRef();
-//
-//     // const addNewPost = () => {
-//     //     // let newPost = newPostText.current.value;
-//     //     // props.addPost();
-//     //     // newPostText.current.value = '';
-//     //     // props.addChangeText('')
-//     //     let action = addNewPostActionCreator();
-//     //     props.store.dispatch(action);
-//     // }
-//     //
-//     // const handleChange = (newPost) => {
-//     //     // let newPost = newPostText.current.value;
-//     //     // props.addChangeText(newPost)
-//     //     props.store.dispatch(handleChangeActionCreator(newPost));
-//     // }
-//
-//
-//     return (
-//         <MyContext.Consumer>
-//             {
-//                 (store) => {
-//                     const addNewPost = () => {
-//                         let action = addNewPostActionCreator();
-//                         store.dispatch(action);
-//                     }
-//                     const handleChange = (newPost) => {
-//                         store.dispatch(handleChangeActionCreator(newPost));
-//                     }
-//                     return (
-//
-//                         <MyPost addChangeText={handleChange} addPost={addNewPost} PostData={props.PostData}
-//                                 newText={props.newText} post={'MY POSTS'}/>
-//                     )
-//                 }
-//             }
-//         </MyContext.Consumer>
-//     )
-//
-// }
-//
-//
-// export default MyPostContainer1
 
 const mapStateToProps = (state:rootReducersType) =>{
     return{
@@ -80,6 +35,5 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
 }
 
 const MyPostContainer = connect<mapStateProps, dispatchProps, {}, rootReducersType >(mapStateToProps,mapDispatchToProps) (MyPost);
-
 
 export default MyPostContainer

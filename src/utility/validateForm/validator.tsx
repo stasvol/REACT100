@@ -8,4 +8,11 @@ export const  maxLength = (max:number):validatorType => value => (value && value
 
 export const  minLength = (min:number):validatorType => value => (value && value.length < min  ?  `Min length is ${min} symbol`: undefined)
 
+export const maxLength30 =  maxLength(30);
 
+export const minLength2 =  minLength(2);
+
+export const usersSearchFormValidate= () => {
+    const errors = {};
+    return errors;
+}

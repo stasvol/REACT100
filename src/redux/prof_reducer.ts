@@ -47,7 +47,6 @@ export type responsePhotosType={
 export type initialStateProfType = typeof initialState
 
 let initialState = {
-
     PostData: [
         {id: 1, like: 20, message: 'Super'},
         {id: 2, like: 3, message: 'Kliovo'},

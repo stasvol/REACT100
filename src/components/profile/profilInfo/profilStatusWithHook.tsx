@@ -1,6 +1,6 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent,useState,useEffect} from "react";
+
 import classes from './profilInfo.module.css';
-import {useState,useEffect} from "react";
 
 interface profileStatusHookType{
     status:string,
@@ -43,7 +43,7 @@ const  ProfilStatusHook:React.FC<profileStatusHookType> = (props) =>{
                 {!editMode
                     ?
                     <div className={classes.status}>
-                        <span onDoubleClick={activeEditMode} ><i>STATUS :</i>  {props.status} </span>
+                        <span onDoubleClick={activeEditMode} ><i>Status :</i>  {props.status} </span>
                     </div>
 
                     :

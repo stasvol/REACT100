@@ -2,7 +2,7 @@ import React from 'react'
 import { InjectedFormProps, reduxForm } from 'redux-form';
 
 import { required} from "../../utility/validateForm/validator";
-import {maxLength30,minLength2} from '../../utility/validateForm/validateForm'
+import {maxLength30,minLength2} from '../../utility/validateForm/validator'
 import {createField, Textarea} from "../common/formControl/formComponent";
 import { newMessageTextType } from './dialog';
 

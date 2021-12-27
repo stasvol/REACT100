@@ -1,14 +1,17 @@
 .head {
     text-align: center;
+    text-transform: uppercase;
 }
 
 .img {
     float: left;
     margin-right: 20px;
 }
+
 .content {
    text-align:justify;
 }
+
 .block {
     padding: 20px;
 }

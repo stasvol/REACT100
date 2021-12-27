@@ -2,7 +2,7 @@ import  React  from 'react';
 import {Field,  reduxForm, InjectedFormProps } from 'redux-form'
 
 import {required} from "../../utility/validateForm/validator";
-import {maxLength30, minLength2} from '../../utility/validateForm/validateForm'
+import {maxLength30, minLength2} from '../../utility/validateForm/validator'
 import {Input} from "../common/formControl/formComponent";
 import {formDataType} from "./loginContainer";
 

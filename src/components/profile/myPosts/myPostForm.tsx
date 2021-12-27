@@ -1,13 +1,10 @@
 import React from 'react'
-import {Field, InjectedFormProps, reduxForm} from 'redux-form';
-import classes from "./myPost.module.css";
-import {required, maxLength, minLength} from "../../../utility/validateForm/validator";
-import {createField, Textarea} from "../../common/formControl/formComponent";
-import {newMessageTextTypeKeys} from "../../dialogs/dialog.Form";
-import {newMessageTextType} from "../../dialogs/dialog";
+import {InjectedFormProps, reduxForm} from 'redux-form';
 
-const maxLength20 =  maxLength(20);
-const minLength2 =  minLength(2);
+import {required, maxLength30, minLength2} from "../../../utility/validateForm/validator";
+import {createField, Textarea} from "../../common/formControl/formComponent";
+
+import classes from "./myPost.module.css";
 
 export type propsPostFormType = {
     newText:string
@@ -15,19 +12,14 @@ export type propsPostFormType = {
 
  type newTextTypeKeys = Extract< keyof propsPostFormType ,string >
 
-let MyPostForm:React.FC<InjectedFormProps<propsPostFormType> > = (props) => {
-    const { handleSubmit } = props;
-    return(
+let MyPostForm:React.FC<InjectedFormProps<propsPostFormType> > = ({handleSubmit}) => (
     <form onSubmit={handleSubmit}>
         <div className={classes.block}>
-            {/*<label htmlFor="post">post</label>*/}
-            {createField<newTextTypeKeys>( 'add post', 'newText', [required,maxLength20,minLength2],  Textarea)}
-            {/*<Field name={'newText'} component={Textarea} placeholder={'add post'} validate={[required,maxLength20,minLength2 ]}/>*/}
+            {createField<newTextTypeKeys>( 'add post', 'newText', [required,maxLength30,minLength2],  Textarea)}
         </div>
           <button  className={classes.btn}>Add post</button>
     </form>
     )
-}
 
 const MyPostReduxForm = reduxForm<propsPostFormType>({
     form: 'postMessage'

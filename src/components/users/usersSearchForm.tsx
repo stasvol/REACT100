@@ -2,7 +2,7 @@ import React from "react";
 import {Field, Form, Formik} from "formik";
 
 import {Friend, useSearchForm} from "../../hock/useSearchForm";
-import {usersSearchFormValidate} from '../../utility/validateForm/validateForm'
+import {usersSearchFormValidate} from '../../utility/validateForm/validator'
 import {filterType} from "../../redux/user_reducer";
 
 type propsTYpe={
