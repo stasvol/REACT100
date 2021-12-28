@@ -10,7 +10,7 @@ interface profDataFormType {
     profile: profileType,
 }
 
-type profileTypeKeys = GetStringKeys<profileType>
+export type profileTypeKeys = GetStringKeys<profileType>
 
 const ProfDataForm: React.FC<InjectedFormProps<profileType, profDataFormType> & profDataFormType> =
     ({handleSubmit, error, profile}) => (

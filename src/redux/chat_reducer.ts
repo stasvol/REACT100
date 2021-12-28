@@ -10,6 +10,13 @@ type ChatState = {
     status: statusType;
 }
 
+type actionAllType = typeof action
+
+export const action = {
+    setMessage: (messages: chatMessageType []) => ({type: SET_MESSAGE, payload: messages}),
+    setStatus: (status: statusType) => ({type: SET_STATUS, payload: status})
+}
+
 let initialState: ChatState = {
     messages: [],         //as chatMessageType [],
     status: 'pending'     //as statusType
@@ -34,7 +41,6 @@ const chatReducer = (state = initialState, action: any) => {
                     ...m,
                     id: getID()
                 }))].filter((m, i, array) => i >= array.length - 100)
-                // payload..messages.map((m: chatMessageType)  => ({...m, id: uuid()}))
             }
         case SET_STATUS:
 
@@ -49,19 +55,6 @@ const chatReducer = (state = initialState, action: any) => {
             return state
     }
 }
-// data
-
-type actionAllType = typeof action
-
-export const action = {
-
-    setMessage: (messages: chatMessageType []) => ({type: SET_MESSAGE, payload: messages}),
-    setStatus: (status: statusType) => ({type: SET_STATUS, payload: status})
-}
-
-// type dispatchType = Dispatch<actionCreatorType>
-// type getStateType = () => rootReducersType
-// type thunkType = ThunkAction<Promise<void>, rootReducersType, unknown, actionType>
 
 let _newMessage: ((messages: chatMessageType[]) => void) | null = null
 
@@ -74,6 +67,7 @@ const newMessageHandler = (dispatch: Dispatch) => {
     }
     return _newMessage
 }
+
 let _statusHandler: ((status: statusType) => void) | null = null
 
 const newStatusHandler = (dispatch: Dispatch) => {

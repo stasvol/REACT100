@@ -1,20 +1,17 @@
 import React, { Suspense, useEffect} from 'react';
-import {compose} from "redux";
-import {BrowserRouter,withRouter, Switch, Route, Redirect, NavLink} from "react-router-dom";
-import {connect, Provider} from "react-redux";
+import {BrowserRouter, Switch, Route, Redirect, NavLink} from "react-router-dom";
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
-import {initializeApp} from "./redux/app_reducer";
-import store, {rootReducersType} from "./redux/reduxStore";
 import Music from './components/music/music';
 import Login from "./components/login/loginContainer";
 import Preloader from "./components/common/preloader/preloader";
 import UsersContainer from "./components/users/usersContainer"
 import MyHeader from "./components/header/header";
 import Error from "./error/error";
+import {mapStateType} from "./appContainer";
 
-import classes from "./components/nav/nav.module.css";
+import classes from "./app.module.css";
 import './app.css';
 
 const DialogContainer = React.lazy(() => import ("./components/dialogs/dialogContainer"));
@@ -25,37 +22,34 @@ const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;
 
 
-type mapStateType = ReturnType<typeof mapStateToProps>
+// type mapStateType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
     initializeApp: ()=> void
 }
 
+const App:React.FC <mapStateType & DispatchPropsType>=({initializeApp,initialized})=> {
 
-const App:React.FC <mapStateType & DispatchPropsType>=(props)=> {
-
-
-useEffect( ()=>{
-    props.initializeApp()
+    useEffect( ()=>{
+      initializeApp()
 },[initializeApp])
 
-    if (!props.initialized) return <Preloader/>
+    if (!initialized) return <Preloader/>
 
-
-        return (
+    return (
             <BrowserRouter>
                 <Layout>
                     <MyHeader/>
-                    <Content style={{ padding: '0 50px' }}>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
+                    <Content className={classes.content}>
+                        <Breadcrumb className={classes.breadcrumb}>
                             <Breadcrumb.Item><NavLink to={'/profile'} activeClassName={classes.active}>MY PROFILE</NavLink></Breadcrumb.Item>
                             <Breadcrumb.Item><NavLink to={'/User'} activeClassName={classes.active}>DEVELOPERS</NavLink></Breadcrumb.Item>
                             <Breadcrumb.Item><NavLink to={'/chat'} activeClassName={classes.active}>CHAT</NavLink></Breadcrumb.Item>
                         </Breadcrumb>
-                        <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
-                            <Sider className="site-layout-background" width={200}>
+                        <Layout className={classes.layout}>
+                            <Sider className={classes.sider}>
                                 <Menu
                                     mode="inline"
-                                    style={{ height: '100%' }}
+                                    className={classes.menu}
                                 >
                                     <SubMenu key="sub1" icon={<UserOutlined />} title="MY PROFILE">
                                         <Menu.Item key="1"><NavLink to={'/profile'} activeClassName={classes.active}>Profile</NavLink></Menu.Item>
@@ -78,7 +72,7 @@ useEffect( ()=>{
                                     </SubMenu>
                                 </Menu>
                             </Sider>
-                            <Content style={{ padding: '0 24px', minHeight: 280 }}>
+                            <Content className={classes.contents}>
                                 <Suspense fallback={<div>Loading...</div>}>
                                     <Switch>
 
@@ -97,31 +91,13 @@ useEffect( ()=>{
                             </Content>
                         </Layout>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>App ©2021 Created by Artur</Footer>
+                    <Footer className={classes.footer}>App ©2021 Created by Artur</Footer>
                 </Layout>
             </BrowserRouter>
         )
 }
 
-let mapStateToProps = (state:rootReducersType) => ({
-    auth: state.auth,
-    isAuth: state.auth.isAuth,
-    initialized: state.app.initialized,
+export default App
 
 
-});
 
-const AppContainer = compose<React.ComponentType>(
-    withRouter,
-    connect(mapStateToProps, {initializeApp}))(App);
-
-let MyApp:React.FC = () => {
-    return <React.StrictMode>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <Provider store={store}>
-                <AppContainer />
-            </Provider>
-        </BrowserRouter>
-    </React.StrictMode>
-}
-export default MyApp

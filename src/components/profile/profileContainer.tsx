@@ -56,7 +56,7 @@ const ProfileContainer: React.FC<mapStatePropsTYpe & dispatchPropsTYpe & RouteCo
     useEffect(() => userUpdateProfile(), [props.getUsers,props.getStatus,props.authorisedUserId]);
 
     useEffect(() => {
-        if (props.match.params.userId) userUpdateProfile()
+        if (props.match.params.userId !== props.match.params.userId) userUpdateProfile()
     }, [props.match.params.userId]);
 
     return (

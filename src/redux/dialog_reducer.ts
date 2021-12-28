@@ -1,20 +1,22 @@
-// import { InferActionTypes} from "./reduxStore";
-
 const ADD_MESSAGE = 'ADD MESSAGE';
-// const ADD_CHANGE_NEW_MESSAGE = 'ADD CHANGE NEW MESSAGE';
 const DELETE_MESSAGE = 'DELETE MESSAGE';
 
 export type initialStateDialogType = typeof initialState
+
 type DialogDataType={
     id:number,
     name:string,
     img:string
 }
+
 type MessageUserData={
     id:number,
     message:string
 }
 
+type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
+type ActionsTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
+type actionCreatorDialogType = ActionsTypes
 
 let initialState  = {
     DialogData: [
@@ -40,40 +42,19 @@ let initialState  = {
     ] as Array<MessageUserData>,
     newMessageText: 'Hi',
 }
-// COSMPAEM BCE BMECTE
-// import * as actions from 'action-creators';
-// type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
-// type ActionTypes = ReturnType<InferValueTypes<typeof actions>;
-
-
 
 const dialogReducer = (state = initialState, action:actionCreatorDialogType):initialStateDialogType => {
 
     switch (action.type) {
 
         case ADD_MESSAGE:
-            // let textMessage = {
-            //     id: 7,
-            //     message: state.newMessageText          // (newMessage)-parametr funktion
-            // };
-            //
-            // let copyState = {...state}
-            //
-            // copyState.MessageUserData = [...state.MessageUserData]
-            // copyState.MessageUserData.push(textMessage);
-            //
-            // copyState.newMessageText = '';
-            //
-            // return copyState
 
             return {
                 ...state,
-                // MessageUserData: [...state.MessageUserData,{id: 7,message: state.newMessageText }],
                 MessageUserData: [...state.MessageUserData, {
                     id: 7,
                     message: action.newMessageText
                 }],
-                // newMessageText: ''
             }
             
         case DELETE_MESSAGE:
@@ -82,62 +63,15 @@ const dialogReducer = (state = initialState, action:actionCreatorDialogType):ini
                     MessageUserData: [...state.MessageUserData].filter(m => m.id !== action.id)
                 }
 
-        // case ADD_CHANGE_NEW_MESSAGE:
-        //
-        //     // let copyState = {...state}
-        //     // copyState.newMessageText = action.newMessageText;
-        //     // return copyState
-        //     return {
-        //         ...state,
-        //         newMessageText: action.newMessageText
-        //     }
-
         default:
             return state
     }
 }
-//              COSMPAEM  BCE  BMECTE -> ACTIONS
-// import * as actions from 'action-creators';
-// type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
-// type ActionTypes = ReturnType<InferValueTypes<typeof actions>;
-type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
-// export type InferActionTypes<T extends { [key: string]: (...arg:any)=> any[] } > = ReturnType<InferValueTypes<T>>
-//type actionCreatorDialogType = InferActionTypes<typeof dialogAction>
-type ActionsTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
-type actionCreatorDialogType = ActionsTypes
+
 
  export const dialogAction = {
       addMessage : (newMessageText:string) => ({type: ADD_MESSAGE, newMessageText} as const),
       deleteMessage : (id:number)  => ({type:DELETE_MESSAGE,id} as const)
 }
-// type actionCreatorDialogType= addMessageActionType | deleteMessageActionType
-// // export  const addMessage =() =>({ type: ADD_MESSAGE  });
-// type addMessageActionType={
-//     type:typeof ADD_MESSAGE,
-//     newMessageText: string
-// }
-// export const addMessage = (newMessageText:string):addMessageActionType => ({type: ADD_MESSAGE, newMessageText});
-// // export const addChangeNewMessage = (messageText) => ({type: ADD_CHANGE_NEW_MESSAGE, newMessageText: messageText});
-//
-// type deleteMessageActionType ={
-//     type: typeof DELETE_MESSAGE,
-//     id:number
-// }
-// export const deleteMessage = (id:number):deleteMessageActionType => ({type:DELETE_MESSAGE,id});
-
 
 export default dialogReducer
-
-
-// if (action.type === ADD_MESSAGE) {
-//     let textMessage = {
-//         id: 7,
-//         message: state.newMessageText,          // (newMessage)-parametr funktion
-//     };
-//     state.MessageUserData.push(textMessage);
-//     state.newMessageText = '';                  // addNewMessage('')
-//
-//
-// } else if (action.type === ADD_CHANGE_NEW_MESSAGE) {
-//     state.newMessageText = action.newMessageText;
-// }

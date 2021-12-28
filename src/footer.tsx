@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Footer:React.FC = () => {
-    return(
+const Footer:React.FC = () => (
+
         <div>
-            <form>
+            <form >
                 <input type={'search'}/>
                 <button type={'submit'}>ADD</button>
             </form>
         </div>
     )
-}
+
 export default Footer

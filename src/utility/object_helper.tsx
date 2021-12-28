@@ -1,12 +1,3 @@
-import React from "react";
-import { usersType } from "../redux/user_reducer";
-
-// type updateObjectInArrayType={
-//     items:any,
-//     itemId:any,
-//     objPropertyName:any,
-//     newObjProps:any
-// }
 
 export const updateObjectInArray = (items:any,itemId:any,objPropertyName:any,newObjProps:any) => {
 

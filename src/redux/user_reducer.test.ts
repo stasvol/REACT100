@@ -31,6 +31,7 @@ const state  = {
 }
 test('deleted  post id and  length  increment in post ',() =>{
     const action = deleteUsers(1);
+    //@ts-ignore
     const newUsers = userReducer(state,action);
    expect(newUsers.users.length).toBe(3);
 })

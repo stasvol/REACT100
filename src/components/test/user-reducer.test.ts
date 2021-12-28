@@ -3,6 +3,7 @@ import userReducer, {follow, initialStateUserType, unfollow} from "../../redux/u
 let  state: initialStateUserType;
 
 beforeEach(()=>{
+//@ts-ignore
    state = {
       users: [
          {id:0,  name:'Anna',followed: false, photos:{small:null,large:null}, status:'status 0'},

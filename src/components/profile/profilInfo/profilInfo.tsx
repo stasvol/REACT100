@@ -1,10 +1,11 @@
-import React,{useState, ChangeEvent } from "react";
+import React from "react";
 
 import Preloader from "../../common/preloader/preloader";
-import ProfilStatusHook from "./profilStatusWithHook";
+import {useProfInfo} from "../../../hock/useProfInfo";
 import { profileType } from "../../../redux/prof_reducer";
 import ProfDataForm from "./profDataForm";
 import ProfData from "./profData";
+import StatusContainer from "./statusContainer";
 
 import kot from "../../../photo/images/kot.png"
 import classes from './profilInfo.module.css';
@@ -19,25 +20,12 @@ export interface profInfoType {
 }
 
 
-const ProfInfo:React.FC <profInfoType> = ({...props}) => {
+const ProfInfo:React.FC <profInfoType> =
+    ({savePhoto, editProfile, status, updateStatus, isOwner, ...props}) => {
 
-    const [editMode, setEditMode] = useState(false);
+        const {editMode, setEditMode, onPhotoChange, onSubmit} = useProfInfo(savePhoto,editProfile)
+        if (!props.profile) return <Preloader/>
 
-    if (!props.profile) return <Preloader/>
-
-    const onPhotoChange = (e:ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
-            props.savePhoto(e.target.files[0])
-        }
-    }
-
-    const onSubmit = (formData:profileType) => {
-        props.editProfile(formData).then(
-            () =>{
-                setEditMode(false);
-            }
-        )
-    }
 
     return (
         <div>
@@ -47,20 +35,21 @@ const ProfInfo:React.FC <profInfoType> = ({...props}) => {
             </div>
             <div className={classes.contact}>
                 <div>
-                    <ProfilStatusHook status={props.status} updateStatus={props.updateStatus}/>
+                    <StatusContainer status={status} updateStatus={updateStatus}/>
                 </div>
                 <div>
                     {/*@ts-ignore*/}
                     <img src={props.profile.photos.small || kot} className={classes.image} alt={'image'}/>
 
-                    {props.isOwner && <input type={"file"} onChange={onPhotoChange}/>}
+                    {isOwner && <input type={"file"} onChange={onPhotoChange}/>}
 
                 </div>
 
 
                 {editMode
+
                     ? <ProfDataForm {...props} onSubmit={onSubmit}  initialValues={props.profile}  />
-                    : <ProfData goToEditMode={()=>{setEditMode( true) }} profile={props.profile}   isOwner={props.isOwner}  />
+                    : <ProfData goToEditMode={()=>{setEditMode( true) }} profile={props.profile} isOwner={isOwner}  />
                 }
             </div>
         </div>

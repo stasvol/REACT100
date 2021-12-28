@@ -1,4 +1,3 @@
-import React from 'react';
 
 export type validatorType = (value:string)=> string | undefined
 

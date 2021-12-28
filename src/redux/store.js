@@ -2,12 +2,6 @@ import dialogReducer from './dialog_reducer';
 import postReducer from './prof_reducer';
 import siteBarReducer from './sitebar_reducer';
 
-// const ADD_POST = 'ADD POST';
-// const ADD_CHANGE_TEXT ='ADD CHANGE TEXT';
-// const ADD_MESSAGE = 'ADD MESSAGE';
-// const ADD_CHANGE_NEW_MESSAGE = 'ADD CHANGE NEW MESSAGE';
-
-
 let store = {
 
     _state: {
@@ -92,13 +86,12 @@ let store = {
     },
 
 
-       subscribe(observer) {                         //observer pattern наблюдатель
+       subscribe(observer) {
         this._subscriber = observer;
 
      },
-    //  Method   DISPATCH
 
-    dispatch(action) {// action -> object: type:'' +  data( newText, ... )
+    dispatch(action) {
 
         this._state.dialogPage = dialogReducer(this._state.dialogPage, action);
         this._state.postPage = postReducer(this._state.postPage, action);
@@ -110,130 +103,6 @@ let store = {
 
 }
 
-
 export default store
 
-window.store = store;
-// __________________________________________________________________________________________________________________
-//
-//  Create  ActionCreator   REDUCE;
-//
-// dispatch(action) {
-//     if(action.type===ADD_POST){
-//         let newPost = {
-//             id: 4,
-//             like: '0',
-//             message: this._state.postPage.newText    // (message)-parametr funktion
-//         };
-//         this._state.postPage.PostData.push(newPost);
-//         this._state.postPage.newText = '';
-//
-//         this._subscriber(this._state);
-//
-//     } else if (action.type=== ADD_CHANGE_TEXT ) {
-//         this._state.postPage.newText = action.newText
-//
-//         this._subscriber(this._state);
-//
-//     }else if (action.type=== ADD_MESSAGE) {
-//         let textMessage = {
-//             id: 7,
-//             message: this._state.dialogPage.newMessageText,          // (newMessage)-parametr funktion
-//         };
-//         this._state.dialogPage.MessageUserData.push(textMessage);
-//         this._state.dialogPage.newMessageText = '';                  // addNewMessage('')
-//
-//         this._subscriber(this._state);
-//     } else  if (action.type=== ADD_CHANGE_NEW_MESSAGE ) {
-//         this._state.dialogPage.newMessageText = action.newMessageText;
-//
-//         this._subscriber(this._state);
-//     }
-// }
-// export  const addNewPostActionCreator =() => ({ type: ADD_POST  });
-//
-// export  const handleChangeActionCreator =(newPost) => ({ type:ADD_CHANGE_TEXT, newText:newPost });
-//
-// export  const addNewMessageActionCreator =() =>({ type: ADD_MESSAGE });
-//
-// export  const handleChangeDialogActionCreator =(messageText) =>
-//     ({type: ADD_CHANGE_NEW_MESSAGE, newMessageText: messageText});
-//
-//
-// ___________________________________________________________________________________________________________________
 
-//  In object =store= add medchod  DISPATCH
-//
-// addPost() {          // (message)-parametr funktion
-//     let newPost = {
-//         id: 4,
-//         like: '0',
-//         message: this._state.postPage.newText    // (message)-parametr funktion
-//     };
-//     this._state.postPage.PostData.push(newPost);
-//     this._state.postPage.newText = '';
-//     this._subscriber(this._state);
-// },
-//
-// addChangeText(newText) {
-//     this._state.postPage.newText = newText
-//
-//     this._subscriber(this._state);
-// },
-//
-// addMessage() {                                                    // (newMessage)-parametr funktion
-//     let textMessage = {
-//         id: 7,
-//         message: this._state.dialogPage.newMessageText,          // (newMessage)-parametr funktion
-//     };
-//     this._state.dialogPage.MessageUserData.push(textMessage);
-//     this._state.dialogPage.newMessageText = '';                  // addNewMessage('')
-//
-//     this._subscriber(this._state);
-// },
-//
-// addChangeNewMessage(newMessageText) {
-//     this._state.dialogPage.newMessageText = newMessageText;
-//
-//     this._subscriber(this._state);
-// },
-//
-// _____________________________________________________________________________________________________________________
-
-// function components функции до object =store=
-//
-// export const addPost = () => {               // (message)-parametr funktion
-//     let newPost = {
-//         id: 4,
-//         like: '0',
-//         message: state.postPage.newText    // (message)-parametr funktion
-//     };
-//     state.postPage.PostData.push(newPost);
-//     state.postPage.newText = '';
-//     rerenderEntireTree(state);
-// }
-//
-// export const addChangeText = (newText) =>{
-//     state.postPage.newText = newText
-//     rerenderEntireTree(state);
-// }
-//
-//
-// export const addMessage = () =>{                // (newMessage)-parametr funktion
-//     let textMessage ={
-//         id: 7,
-//         message: state.dialogPage.newMessageText,   // (newMessage)-parametr funktion
-//     };
-//     state.dialogPage.MessageUserData.push(textMessage);
-//     state.dialogPage.newMessageText = '';
-//     // addNewMessage('')
-//     rerenderEntireTree(state);
-// }
-//
-// export  const addChangeNewMessage = (newMessageText) =>{
-//     state.dialogPage.newMessageText = newMessageText;
-//     rerenderEntireTree(state);
-// }
-//
-// export const Subscribe = (observer) =>{  //observer pattern наблюдатель
-//     rerenderEntireTree = observer;

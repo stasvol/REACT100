@@ -21,10 +21,10 @@ let reducers = combineReducers({
     chat: chatReducer
 })
 
-type reducersType = typeof reducers
+export type reducersType = typeof reducers
+
 export type rootReducersType = ReturnType<reducersType>
 
-// import * as actions from 'action-creators';
 type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
 // export type InferActionTypes<T extends { [key: string]: (...arg:any)=> any[] } > = ReturnType<InferValueTypes<T>>
 export type InferActionTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
@@ -37,9 +37,5 @@ const composeEnhancers  = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) || compose;
 
 const store = createStore(reducers, composeEnhancers( applyMiddleware(thunkMiddleware)));
-     // const store = createStore(reducers, /* preloadedState, */ compose(
-// let store = createStore(reducers, applyMiddleware(thunkMiddleware));
-// @ts-ignore
-window._store_ = store;
 
 export default store

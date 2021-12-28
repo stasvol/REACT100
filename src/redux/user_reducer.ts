@@ -1,9 +1,9 @@
+import {AnyAction, Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
 import {userApi} from "../api/api-users";
 import {updateObjectInArray} from "../utility/object_helper";
 import { PhotosType } from "./prof_reducer";
-import {AnyAction, Dispatch} from "redux";
 import {rootReducersType} from "./reduxStore";
-import {ThunkAction} from "redux-thunk";
 import {ApiResponseType} from "../api/api";
 
 const FOLLOW = 'FOLLOW';
@@ -23,29 +23,20 @@ export type usersType={
     photos: PhotosType
     followed:boolean
 }
+
 export type disableButtonType={
     disableButton?:boolean|number
-    // userId: number
+}
+
+type actionCreatorUsersType = followActionType | unfollowActionType | usersActionType | currentPageActionType |
+    totalCountActionType | togglePreloaderActionType | disableButtonFolActionType | deleteUsersActionType | setFilterType
+
+type followActionType={
+    type:typeof FOLLOW,
+    userId:number
 }
 
 export let initialState = {
-    // users: [  {
-    //     id: 1, photoUrl: 'https://download-cs.net/steam/avatars/3424.jpg',
-    //     followed: true, fullName: 'Anna', status: 'I am a boss', location: {country: 'Ukraine', city: 'Kiev'}
-    // },
-    // {
-    //     id: 2, photoUrl: 'https://cs16planet.ru/steam-avatars/images/avatar2960.jpg',
-    //     followed: false, fullName: 'Ivan', status: 'I am a boss', location: {country: 'Ukraine', city: 'Lvov'}
-    // },
-    // {
-    //     id: 3, photoUrl: 'https://download-cs.net/steam/avatars/3426.jpg',
-    //     followed: false, fullName: 'Vovan', status: 'I am a boss', location: {country: 'Ukraine', city: 'Odessa'}
-    // },
-    // {
-    //     id: 4,
-    //     photoUrl: 'https://2ch.hk/sex/thumb/6329995/15866325175470s.jpg',
-    //     followed: true, fullName: 'Sweta ',status: 'I am a boss',location: {country: 'Ukraine', city: 'Rivne'}
-    // }  ],
     users: [] as Array<usersType>,
     pageSize: 5,
     totalUsersCount: 0,
@@ -58,8 +49,57 @@ export let initialState = {
         friend: null as null|boolean
     }
 }
+
 export type initialStateUserType= typeof initialState
 export type filterType = typeof initialState.filter
+
+type unfollowActionType={
+    type:typeof UNFOLLOW,
+    userId:number
+}
+
+type usersActionType={
+    type:typeof SET_USERS,
+    users:usersType
+}
+
+type currentPageActionType={
+    type:typeof SET_CURRENT_PAGE,
+    currentPage:number
+}
+
+type setFilterType={
+    type:typeof SET_FILTER,
+    payload:{
+        term:string,
+        friend:null|boolean
+    }
+}
+
+type totalCountActionType={
+    type:typeof SET_TOTAL_COUNT,
+    totalCount:number
+}
+
+type togglePreloaderActionType={
+    type:typeof TOGGLE_PRELOADER,
+    isLoading:boolean
+}
+
+type disableButtonFolActionType={
+    type:typeof DISABLE_BUTTON_FOL,
+    disableButton:boolean|number,
+    userId:number
+}
+
+type deleteUsersActionType={
+    type:typeof DELETE_USER,
+    userId:number
+}
+
+type dispatchType = Dispatch<actionCreatorUsersType>
+type getStateType = () => rootReducersType
+type thunkType = ThunkAction<Promise<void>, rootReducersType, unknown, actionCreatorUsersType>
 
 const userReducer = (state = initialState, action:AnyAction):initialStateUserType => {
 
@@ -120,7 +160,6 @@ const userReducer = (state = initialState, action:AnyAction):initialStateUserTyp
 
         case  DISABLE_BUTTON_FOL:
 
-            // @ts-ignore
             return <initialStateUserType>{
                 ...state,
                 disableButton: action.disableButton
@@ -146,73 +185,23 @@ const userReducer = (state = initialState, action:AnyAction):initialStateUserTyp
     }
 }
 
-type actionCreatorUsersType = followActionType | unfollowActionType | usersActionType | currentPageActionType |
-    totalCountActionType | togglePreloaderActionType | disableButtonFolActionType | deleteUsersActionType | setFilterType
-
-type followActionType={
-    type:typeof FOLLOW,
-    userId:number
-}
 export const follow = (userId:number):followActionType => ({type: FOLLOW, userId});
 
-type unfollowActionType={
-    type:typeof UNFOLLOW,
-    userId:number
-}
 export const unfollow = (userId:number):unfollowActionType => ({type: UNFOLLOW, userId});
 
-type usersActionType={
-    type:typeof SET_USERS,
-    users:usersType
-}
 export const setUsers = (users:usersType):usersActionType => ({type: SET_USERS, users});
 
-type currentPageActionType={
-    type:typeof SET_CURRENT_PAGE,
-    currentPage:number
-}
 export const setCurrentPage = (currentPage:number):currentPageActionType => ({type: SET_CURRENT_PAGE, currentPage: currentPage});
 
-type setFilterType={
-    type:typeof SET_FILTER,
-    payload:{
-        term:string,
-        friend:null|boolean
-    }
-}
 export const setFilter = (filter:filterType):setFilterType => ({type: SET_FILTER, payload: filter });
 
-type totalCountActionType={
-    type:typeof SET_TOTAL_COUNT,
-    totalCount:number
-}
 export const setTotalUsersCount = (totalCount:number):totalCountActionType => ({type: SET_TOTAL_COUNT, totalCount});
 
-type togglePreloaderActionType={
-    type:typeof TOGGLE_PRELOADER,
-    isLoading:boolean
-}
 export const togglePreloader = (isLoading:boolean):togglePreloaderActionType => ({type: TOGGLE_PRELOADER, isLoading});
 
-type disableButtonFolActionType={
-    type:typeof DISABLE_BUTTON_FOL,
-    disableButton:boolean|number,
-    userId:number
-}
 export const disableButtonFol = (disableButton:boolean|number, userId:number):disableButtonFolActionType => ({type: DISABLE_BUTTON_FOL, disableButton, userId});
 
-type deleteUsersActionType={
-    type:typeof DELETE_USER,
-    userId:number
-}
 export const deleteUsers = (userId:number):deleteUsersActionType => ({type: DELETE_USER, userId});
-
-//    THUNK
-
-type dispatchType = Dispatch<actionCreatorUsersType>
-type getStateType = () => rootReducersType
-type thunkType = ThunkAction<Promise<void>, rootReducersType, unknown, actionCreatorUsersType>
-
 
 export const getUsersThunkCreator = (currentPage:number, pageSize:number,filter:filterType):thunkType => {
 
@@ -221,14 +210,11 @@ export const getUsersThunkCreator = (currentPage:number, pageSize:number,filter:
         dispatch(togglePreloader(true));
         dispatch(setCurrentPage(currentPage))
         dispatch(setFilter(filter))
-        //response
         const data = await userApi.getUserPage(currentPage, pageSize,filter.term,filter.friend)
-        // .then(data => {
 
         dispatch(togglePreloader(false));
         dispatch(setUsers(data.items));
         dispatch(setTotalUsersCount(data.totalCount));
-        // });
     }
 }
 
@@ -238,7 +224,6 @@ const followUnfollowFlow = async(dispatch:dispatchType,userId:number,
 
        dispatch(disableButtonFol(true, userId))
        const data = await ApiMethod(userId)
-       // .then(data => {
        if (data.resultCode === 0) {
            dispatch(ActionCreator(userId))
        }
@@ -246,21 +231,10 @@ const followUnfollowFlow = async(dispatch:dispatchType,userId:number,
 
 }
 
-
 export const FollowThunkCreator = (userId:number):thunkType => {
 
     return async (dispatch) => {
-        // const ApiMethod = userApi.postUser.bind(userId)
-        // const ActionCreator = follow;
        await followUnfollowFlow(dispatch, userId, userApi.postUser.bind(userId), follow)
-        // dispatch(disableButtonFol(true, userId))
-        // const data = await ApiMethod
-        // // .then(data => {
-        // if (data.resultCode === 0) {
-        //     dispatch(ActionCreator(userId))
-        // }
-        // dispatch(disableButtonFol(false, userId))
-        // });
     }
 }
 
@@ -270,14 +244,6 @@ export const unFollowThunkCreator = (userId:number):thunkType => {
         const ApiMethod = userApi.deleteUser.bind(userId)
         const ActionCreator = unfollow
         await followUnfollowFlow(dispatch, userId, ApiMethod, ActionCreator)
-        // dispatch(disableButtonFol(true, userId))
-        // const data = await ApiMethod
-        // // .then(data => {
-        // if (data.resultCode === 0) {
-        //     dispatch(ActionCreator(userId))
-        // }
-        // dispatch(disableButtonFol(false, userId))
-        // });
     }
 }
 
