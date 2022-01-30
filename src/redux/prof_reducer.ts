@@ -5,6 +5,7 @@ import {ThunkAction} from "redux-thunk";
 import {rootReducersType} from "./reduxStore";
 
 import {profileApi} from "../api/api-profile";
+import {message} from "antd";
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
 const SET_USERS_PROFILE = 'SET USERS PROFILE';
@@ -210,8 +211,8 @@ export const  updateStatus = (status:string) => {
 
              }
          } catch (error){
-
-            alert(`${error.name} : ${error.message} `)
+            throw  new Error('Something went wrong !!!')
+            // alert(`${error.name} : ${error.message} `)
         }
     }
 }
