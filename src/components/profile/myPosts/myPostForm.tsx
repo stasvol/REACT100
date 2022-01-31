@@ -15,7 +15,7 @@ export type propsPostFormType = {
 let MyPostForm:React.FC<InjectedFormProps<propsPostFormType> > = ({handleSubmit}) => (
     <form onSubmit={handleSubmit}>
         <div className={classes.block}>
-            {createField<newTextTypeKeys>( 'add post', 'newText', [required,maxLength30,minLength2],  Textarea)}
+            {createField <newTextTypeKeys>( 'add post', 'newText', [required,maxLength30,minLength2],  Textarea)}
         </div>
           <button  className={classes.btn}>Add post</button>
     </form>
