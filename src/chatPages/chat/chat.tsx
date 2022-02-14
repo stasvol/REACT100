@@ -1,22 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-import {useChat} from "../../hock/useChat";
-import Messages from "./messages";
-import AddMessageForm from "./addMessageForm";
-
+import { useChat } from '../../hock/useChat';
+import Messages from './messages';
+import AddMessageForm from './addMessageForm';
 
 const Chat: React.FC = () => {
-    const [status] = useChat()
+  const [status] = useChat();
 
-    return(
+  return (
     <>
-        {status === null && <span>ERROR  APP</span>}
-        <Messages/>
-        <AddMessageForm/>
+      {status === null && <span>ERROR APP</span>}
+      <Messages />
+      <AddMessageForm />
     </>
-    )
-}
+  );
+};
 
-export default Chat
-
-
+export default Chat;

@@ -1,58 +1,72 @@
-import  React  from 'react';
-import {Field,  reduxForm, InjectedFormProps } from 'redux-form'
+import React from 'react';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 
-import {required} from "../../utility/validateForm/validator";
-import {maxLength30, minLength2} from '../../utility/validateForm/validator'
-import {Input} from "../common/formControl/formComponent";
-import {formDataType} from "./loginContainer";
+import { required, maxLength30, minLength2 } from '../../utility/validateForm/validator';
+import { Input } from '../common/formControl/formComponent';
+import { FormDataType } from './loginContainer';
 
 import classes from './login.module.css';
 
-export type formDataOwnPropsType = {
-    captchaUrl:string | null
-}
+export type FormDataOwnPropsType = {
+  captchaUrl: string | null;
+};
 
-const LoginForm:React.FC<InjectedFormProps<formDataType, formDataOwnPropsType> & formDataOwnPropsType > = ({handleSubmit, captchaUrl , error})=>{
+const LoginForm: React.FC<
+InjectedFormProps<FormDataType, FormDataOwnPropsType> & FormDataOwnPropsType
+> = ({ handleSubmit, captchaUrl, error }) => {
+  return (
+    <form className={classes.formClass} onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="email">Email</label>
+        <Field
+          component={Input}
+          id="email"
+          name="Email"
+          placeholder="email"
+          type="email"
+          validate={[required, maxLength30, minLength2]}
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password</label>
+        <Field
+          component={Input}
+          id="password"
+          name="Password"
+          placeholder="Password"
+          type="password"
+          validate={[required, maxLength30, minLength2]}
+        />
+      </div>
+      <div>
+        <label htmlFor="checkbox">Remember me</label>
+        <Field
+          component={Input}
+          id="checkbox"
+          name="RememberMe"
+          type="checkbox"
+          validate={[required]}
+        />
+      </div>
 
-    return (
-        <form onSubmit={handleSubmit} className={classes.formClass}>
-            <div>
-                <label htmlFor="Email">Email</label>
-                <Field  name="Email" component={Input} type="email" placeholder={"email"}
-                       validate={[required, maxLength30, minLength2]}/>
-            </div>
-            <div>
-                <label htmlFor="Password">Password</label>
-                <Field name="Password" component={Input} type="password" placeholder={"Password"}
-                       validate={[required, maxLength30, minLength2]}/>
-            </div>
-            <div>
-                <label htmlFor="Checkbox">Remember me</label>
-                <Field name="RememberMe" component={Input} type="checkbox" validate={[required]} />
-            </div>
+      {captchaUrl && <img alt="error" src={captchaUrl} />}
+      {captchaUrl && (
+        <Field
+          component={Input}
+          name="captcha"
+          placeholder="Symbol from image"
+          validate={[required]}
+        />
+      )}
 
-            {captchaUrl && <img src={captchaUrl} alt={'error'}/>}
-            {captchaUrl && <Field name="captcha" component={Input}
-                                  placeholder={'Symbol from image'} validate={[required]}/>}
+      {error ? <div className={classes.formError}>{error}</div> : ''}
+      <button type="submit">LOGIN</button>
+    </form>
+  );
+};
 
-            {error
-                ? <div className={classes.formError}>
-                    {error}
-                </div>
-                : ''
-            }
-            <button type="submit">LOGIN</button>
-        </form>
-    )
-}
+const LoginReduxForm = reduxForm<FormDataType, FormDataOwnPropsType>({
+  form: 'login',
+})(LoginForm);
 
-const  LoginReduxForm =  reduxForm <formDataType, formDataOwnPropsType> ({
-    form: 'login'
-}
-) (LoginForm)
-
-export default LoginReduxForm
-
-
-
-
+export default LoginReduxForm;

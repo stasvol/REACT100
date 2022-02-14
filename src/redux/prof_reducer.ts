@@ -1,252 +1,262 @@
-import {Dispatch} from "redux";
-import {FormAction, stopSubmit} from "redux-form";
-import {ThunkAction} from "redux-thunk";
+import { Dispatch } from 'redux';
+import { FormAction, stopSubmit } from 'redux-form';
+import { ThunkAction } from 'redux-thunk';
 
-import {rootReducersType} from "./reduxStore";
+import { RootReducersType } from './reduxStore';
 
-import {profileApi} from "../api/api-profile";
-import {message} from "antd";
+import { profileApi } from '../api/api-profile';
+
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
 const SET_USERS_PROFILE = 'SET USERS PROFILE';
-const SET_STATUS =  'SET STATUS';
-const DELETE_POST = 'DELETE POST'
-const SAVE_PHOTO_SUCCESS = 'SAVE PHOTO SUCCESS'
+const SET_STATUS = 'SET STATUS';
+const DELETE_POST = 'DELETE POST';
+const SAVE_PHOTO_SUCCESS = 'SAVE PHOTO SUCCESS';
 
+export type PostDataType = {
+  id: number | string | undefined;
+  like: number;
+  message: string;
+};
+export type ProfileType = {
+  userId?: number | string | null;
+  lookingForAJob?: boolean;
+  lookingForAJobDescription?: string | null;
+  fullName?: string | null;
+  contacts?: ContactsType;
+  photos?: PhotosType;
+  aboutMe?: string;
+};
+export type ContactsType = {
+  github: string | null;
+  vk: string | null;
+  facebook: string | null;
+  instagram: string | null;
+  twitter: string | null;
+  website: string | null;
+  youtube: string | null;
+  mainLink: string | null;
+};
+export type PhotosType = {
+  small: string | null;
+  large: string | null;
+};
+export type ResponsePhotosType = {
+  photos: PhotosType;
+};
 
-export type PostDataType ={
-    id: number,
-    like: number,
-    message: string,
-}
-export type profileType ={
-    userId?: number|null
-    lookingForAJob?: boolean
-    lookingForAJobDescription?: string|null
-    fullName?: string|null
-    contacts?:contactsType
-    photos?:PhotosType
-    aboutMe?:string
+export type InitialStateProfType = typeof initialState;
+type DispatchType = Dispatch<ActionCreatorProfType>;
+// type GetStateType = () => RootReducersType;
+type ThunkType = ThunkAction<Promise<void>, RootReducersType, unknown, ActionCreatorProfType>;
 
-}
-export type  contactsType= {
-    github: string|null
-    vk: string|null
-    facebook: string|null
-    instagram: string|null
-    twitter: string|null
-    website: string|null
-    youtube: string|null
-    mainLink: string|null
-}
-export type PhotosType={
-        small: string | null
-        large: string | null
-}
-export type responsePhotosType={
-    photos: PhotosType
-}
+type SavePhotoSuccessActionType = {
+  type: typeof SAVE_PHOTO_SUCCESS;
+  photos: PhotosType;
+};
 
-export type initialStateProfType = typeof initialState
-type dispatchType = Dispatch<actionCreatorProfType>
-type getStateType = () => rootReducersType
-type thunkType = ThunkAction<Promise<void>, rootReducersType, unknown, actionCreatorProfType>
+type ActionCreatorProfType =
+  | AddPostActionType
+  | AddChangeActionType
+  | SetUsersProfileActionType
+  | SetStatusActionType
+  | DeletePostActionType
+  | SavePhotoSuccessActionType;
 
-type savePhotoSuccessActionType={
-    type: typeof  SAVE_PHOTO_SUCCESS,
-    photos:PhotosType
-}
+type AddPostActionType = {
+  type: typeof ADD_POST;
+  newText: string;
+};
 
-type actionCreatorProfType = addPostActionType | addChangeActionType | setUsersProfileActionType
-    | setStatusActionType | deletePostActionType | savePhotoSuccessActionType
+type AddChangeActionType = {
+  type: typeof ADD_CHANGE_TEXT;
+  newPost: string;
+  newText: string;
+};
 
-type addPostActionType={
-    type: typeof ADD_POST,
-    newText:string
-}
+type SetUsersProfileActionType = {
+  type: typeof SET_USERS_PROFILE;
+  profile: ProfileType;
+};
 
-type addChangeActionType={
-    type:typeof ADD_CHANGE_TEXT,
-    newPost:string,
-    newText:string
-}
+type SetStatusActionType = {
+  type: typeof SET_STATUS;
+  status: string;
+};
 
-type setUsersProfileActionType={
-    type:typeof SET_USERS_PROFILE,
-    profile:profileType
-}
-
-type setStatusActionType={
-    type: typeof SET_STATUS,
-    status:string
-}
-
-type deletePostActionType={
-    type:typeof DELETE_POST,
-    postId:number
-}
+type DeletePostActionType = {
+  type: typeof DELETE_POST;
+  postId: number;
+};
 
 let initialState = {
-    PostData: [
-        {id: 1, like: 20, message: 'Super'},
-        {id: 2, like: 3, message: 'Kliovo'},
-        {id: 3, like: 9, message: 'Class'},
-    ] as Array<PostDataType> ,
+  PostData: [
+    { id: 1, like: 20, message: 'Super' },
+    { id: 2, like: 3, message: 'Kliovo' },
+    { id: 3, like: 9, message: 'Class' },
+  ] as Array<PostDataType>,
 
-    newText: 'Hello',
-    profile: null as profileType|null,  //   {} as profileType,
-    status: '',
+  newText: 'Hello',
+  profile: null as ProfileType | null, //   {} as profileType,
+  status: '',
+};
 
+// eslint-disable-next-line @typescript-eslint/default-param-last
+const profReducer = (state = initialState, action: ActionCreatorProfType): InitialStateProfType => {
+  let newPost;
+  switch (action.type) {
+    case ADD_POST:
+      newPost = {
+        id: 4,
+        like: 0,
+        message: action.newText,
+      };
+      return {
+        ...state,
+        PostData: [...state.PostData, newPost],
+      };
 
-}
+    case ADD_CHANGE_TEXT:
+      return {
+        ...state,
+        newText: action.newText,
+      };
 
-const profReducer = (state = initialState, action:actionCreatorProfType):initialStateProfType => {
+    case SET_USERS_PROFILE:
+      return {
+        ...state,
+        profile: action.profile,
+      };
 
-    switch (action.type) {
+    case SET_STATUS:
+      return {
+        ...state,
+        status: action.status,
+      };
 
-        case ADD_POST:
-            let newPost = {
-                id: 4,
-                like: 0,
-                message: action.newText
-            };
-             return {
-                 ...state,
-                 PostData:[...state.PostData,newPost],
-             }
+    case DELETE_POST:
+      return {
+        ...state,
+        PostData: state.PostData.filter(({ id }) => id !== action.postId),
+      };
 
+    case SAVE_PHOTO_SUCCESS:
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.photos },
+      };
 
+    default:
+      return state;
+  }
+};
 
-             case ADD_CHANGE_TEXT:
+export const addPost = (newText: string): AddPostActionType => ({ type: ADD_POST, newText });
 
-            return{
-                ...state,
-                newText: action.newText
-            }
+export const addChangeText = (newPost: string, newText: string): AddChangeActionType => ({
+  type: ADD_CHANGE_TEXT,
+  newPost,
+  newText,
+});
 
-        case SET_USERS_PROFILE:
-            return {
-                ...state,
-                profile: action.profile
+export const setUsersProfile = (profile: ProfileType): SetUsersProfileActionType => ({
+  type: SET_USERS_PROFILE,
+  profile,
+});
 
-            }
+export const setStatus = (status: string): SetStatusActionType => ({ type: SET_STATUS, status });
 
-        case SET_STATUS :
-            return {
-                ...state,
-                status: action.status
-            }
+export const deletePost = (postId: number): DeletePostActionType => ({ type: DELETE_POST, postId });
 
-        case DELETE_POST:
+export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessActionType => ({
+  type: SAVE_PHOTO_SUCCESS,
+  photos,
+});
 
-            return {
-                ...state,
-                PostData: state.PostData.filter(({ id }) => id !== action.postId)
-            }
+export const profileThunkCreator = (
+  userId: number | null | undefined,
+): ThunkAction<Promise<void>, RootReducersType, unknown, ActionCreatorProfType> => {
+  return async dispatch => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const data = await profileApi.getProfile(userId);
 
-        case SAVE_PHOTO_SUCCESS:
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    dispatch(setUsersProfile(data));
+  };
+};
 
-            return {
-                ...state,
-                profile: {...state.profile,   photos: action.photos }
+export const getStatus = (userId: number | string): ((dispatch: DispatchType) => Promise<void>) => {
+  return async (dispatch: DispatchType): Promise<void> => {
+    const data = await profileApi.getStatus(userId);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    dispatch(setStatus(data));
+  };
+};
 
-            }
+export const updateStatus = (status: string) => {
+  return async (dispatch: DispatchType): Promise<void> => {
+    const data = await profileApi.updateStatus(status);
 
-        default:
-            return state;
+    try {
+      if (data.resultCode === 0) {
+        dispatch(setStatus(status));
+      }
+
+      if (data.resultCode === 1) {
+        throw new Error('Something went wrong.');
+      }
+    } catch (error) {
+      throw new Error('Something went wrong !!!');
+      // alert(`${error.name} : ${error.message} `)
     }
-}
+  };
+};
 
-export const addPost = (newText:string):addPostActionType => ({type: ADD_POST, newText});
+export const savePhoto = (file: File): ThunkType => {
+  return async (dispatch: DispatchType) => {
+    const data = await profileApi.savePhoto(file);
 
-export const addChangeText = (newPost:string,newText:string):addChangeActionType => ({type: ADD_CHANGE_TEXT,  newPost,newText});
-
-export  const setUsersProfile = (profile:profileType):setUsersProfileActionType  => ({type: SET_USERS_PROFILE,profile});
-
-export const setStatus = (status:string):setStatusActionType  => ({type:SET_STATUS, status});
-
-export const deletePost = (postId:number):deletePostActionType => ({type:DELETE_POST, postId});
-
-export const savePhotoSuccess = (photos:PhotosType):savePhotoSuccessActionType => ({type:SAVE_PHOTO_SUCCESS, photos});
-
-
-
-
-export const  profileThunkCreator = (userId: number | null) :ThunkAction<Promise<void>, rootReducersType, unknown, actionCreatorProfType>  => {
-
-    return  async (dispatch, getState)=>  {
-
-       const data = await profileApi.getProfile(userId)
-
-                dispatch(setUsersProfile(data));
-
+    if (data.resultCode === 0) {
+      dispatch(savePhotoSuccess(data.data.photos));
     }
-}
+  };
+};
 
-export const  getStatus = (userId:number) => {
+export const editProfile =
+  (
+    profile: ProfileType,
+  ): ThunkAction<
+  Promise<void>,
+  RootReducersType,
+  unknown,
+  | AddPostActionType
+  | AddChangeActionType
+  | SetUsersProfileActionType
+  | SetStatusActionType
+  | DeletePostActionType
+  | SavePhotoSuccessActionType
+  | FormAction
+  > =>
+  // eslint-disable-next-line consistent-return
+    async (dispatch, getState) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+      const userId = getState().auth?.id;
 
-    return async (dispatch:dispatchType) =>  {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const response = await profileApi.editProfile(profile);
 
-        const data = await profileApi.getStatus(userId)
-        dispatch(setStatus(data));
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      if (response.data.resultCode === 0) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        dispatch(profileThunkCreator(userId));
+      } else {
+      // eslint-disable-next-line max-len
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+        dispatch(stopSubmit('editProfile', { _error: response.data.messages }));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        return Promise.reject(response.data.messages);
+      }
+    };
 
-    }
-}
-
-export const  updateStatus = (status:string) => {
-
-    return async (dispatch:dispatchType) =>  {
-
-        const data = await profileApi.updateStatus(status)
-
-         try {
-             if (data.resultCode === 0){
-
-                 dispatch(setStatus(status));
-             }
-
-             if (data.resultCode === 1) {
-
-                throw new Error('Something went wrong.');
-
-             }
-         } catch (error){
-            throw  new Error('Something went wrong !!!')
-            // alert(`${error.name} : ${error.message} `)
-        }
-    }
-}
-
-export const  savePhoto = (file:File):thunkType => {
-
-    return async (dispatch:dispatchType) =>  {
-
-        const data = await profileApi.savePhoto(file)
-
-        if (data.resultCode === 0){
-
-            dispatch(savePhotoSuccess(data.data.photos));
-        }
-
-    }
-}
-
-export const  editProfile = (profile:profileType)
-
-    :ThunkAction<Promise<void>, rootReducersType, unknown, addPostActionType | addChangeActionType | setUsersProfileActionType
-    | setStatusActionType | deletePostActionType | savePhotoSuccessActionType | FormAction> =>
-    async (dispatch,getState) =>  {
-
-       const userId = getState().auth.id
-
-    const response = await profileApi.editProfile(profile)
-
-        if (response.data.resultCode === 0){
-            dispatch(profileThunkCreator(userId));
-        }else {
-            dispatch(stopSubmit('editProfile', {_error: response.data.messages}));
-            return Promise.reject(response.data.messages)
-        }
-}
-
-export default profReducer
+export default profReducer;

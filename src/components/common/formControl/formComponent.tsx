@@ -1,48 +1,68 @@
 import React from 'react';
-import {Field, WrappedFieldProps} from "redux-form";
+import { Field, WrappedFieldProps } from 'redux-form';
 
-import {validatorType} from "../../../utility/validateForm/validator";
+import { ValidatorType } from '../../../utility/validateForm/validator';
 
-import classes from "./FormControl.module.css";
+import classes from './FormControl.module.css';
 
-const FormComponent: React.FC<WrappedFieldProps> =
-    ({meta: {touched, error}, children}) => {
-        const hasError = touched && error;
+const FormComponent: React.FC<WrappedFieldProps> = ({ meta: { touched, error }, children }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const hasError = touched && error;
 
-        return (
-            <div className={hasError ? classes.error : ""}>
-                <div>
-                    {children}
-                </div>
-                {touched && error && <span className={classes.span}>{error}</span>}
-            </div>
-        )
-    }
+  return (
+    <div className={hasError ? classes.error : ''}>
+      <div>{children}</div>
+      {touched && error && <span className={classes.span}>{error}</span>}
+    </div>
+  );
+};
 
-export const Textarea: React.FC<WrappedFieldProps> = (props) => {
-    const {input, meta, children, ...restProps} = props
-    return <FormComponent {...props} ><textarea {...input} {...restProps} /> </FormComponent>
-}
+// eslint-disable-next-line react/no-multi-comp
+export const Textarea: React.FC<WrappedFieldProps> = props => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { input, meta, children, ...restProps } = props;
+  return (
+    <FormComponent {...props}>
+      <textarea {...input} {...restProps} />{' '}
+    </FormComponent>
+  );
+};
 
-export const Input: React.FC<WrappedFieldProps> = (props) => {
-    const {input, meta, children, ...restProps} = props
-    return <FormComponent {...props}><input {...input} {...restProps} /> </FormComponent>
-}
+// eslint-disable-next-line react/no-multi-comp
+export const Input: React.FC<WrappedFieldProps> = props => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { input, meta, children, ...restProps } = props;
+  return (
+    <FormComponent {...props}>
+      <input {...input} {...restProps} />{' '}
+    </FormComponent>
+  );
+};
 
-export type GetStringKeys<T> = Extract<keyof T, string>
+export type GetStringKeys<T> = Extract<keyof T, string>;
 
-export const createField = <formKeysType extends string>(placeholder: string,
-                                                         name: formKeysType,
-                                                         validators: Array<validatorType>,
-                                                         component: React.FC | React.Component | React.FC<WrappedFieldProps>,
-                                                         props = {}, text = "") => {
-    return (
-        <div>
-            <Field placeholder={placeholder} validate={validators} name={name}
-                   component={component} {...props} /> {text}
-        </div>
-    )
-}
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const createField = <FormKeysType extends string>(
+  placeholder: string,
+  name: FormKeysType,
+  validators: Array<ValidatorType>,
+  component: React.FC | React.Component | React.FC<WrappedFieldProps>,
+  props = {},
+  text = '',
+): JSX.Element => {
+  return (
+    <div>
+      <Field
+        component={component}
+        name={name}
+        placeholder={placeholder}
+        validate={validators}
+        {...props}
+      />{' '}
+      {text}
+    </div>
+  );
+};
 
 // meta: { touched, error, warning }
 
@@ -78,4 +98,3 @@ export const createField = <formKeysType extends string>(placeholder: string,
 //         </div>
 //     )
 // }
-

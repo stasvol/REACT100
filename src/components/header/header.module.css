@@ -1,22 +1,21 @@
 .header {
-    grid-area: h;
-    background: aqua;
+  background: #0ff;
+  grid-area: h;
 }
 
 .header > img {
-    width: 50px;
+  width: 50px;
 }
 
 .log {
-    float: right;
-    margin: 10px;
+  float: right;
+  margin: 10px;
 }
 
 .span {
-    color: white;
+  color: #fff;
 }
 
 .button {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
-

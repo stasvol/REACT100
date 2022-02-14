@@ -1,46 +1,60 @@
 import React from 'react';
 
-import classes from "./pagination.module.css";
-import {useUsersContainer} from "../../hock/useUsersContainer";
+import classes from './pagination.module.css';
+import { useUsersContainer } from '../../hock/useUsersContainer';
+import { CurrentPageActionType, TotalCountActionType } from '../../redux/user_reducer';
 
-export interface propsPaginatorType {
-    currentPage:number,
-    onChangePage:(pageNumber:number)=>void,
-    totalUsersCount:number,
-    pageSize:number,
-    pageNumberSizes:number
-
+export interface PropsPaginatorType {
+  currentPage: number | CurrentPageActionType;
+  onChangePage: (pageNumber: number) => void;
+  totalUsersCount: number | TotalCountActionType;
+  pageSize: number | { pageNumberSizes: number };
+  pageNumberSizes: number | { pageNumberSizes: number };
 }
 
-const Paginator: React.FC<propsPaginatorType> = () => {
-
-const {pageCountSize,
+const Paginator: React.FC<PropsPaginatorType> = () => {
+  const {
+    pageCountSize,
     handlePagePlus,
     handlePageMinus,
     pagesData,
     currentPage,
     onChangePage,
-    pageNumber} = useUsersContainer()
+    pageNumber,
+  } = useUsersContainer();
 
-    return (
-        <div className={classes.paginator}>
-            {pageNumber > 1 &&
-                <button className={classes.button} onClick={handlePageMinus}>Prev</button> }
+  return (
+    <div className={classes.paginator}>
+      {pageNumber > 1 && (
+        <button className={classes.button} onClick={handlePageMinus}>
+          Prev
+        </button>
+      )}
 
-            {pagesData
-                .map((page) => {
-                    const handleClick = () => {onChangePage(page)}
-                    return <span className={  currentPage === page ? classes.selectedPage : classes.pageNumber }
-                              key={page}
-                              onClick={handleClick} >{page}</span>
-                    })}
-            { pageCountSize > pageNumber
-                ?
-                <button className={classes.button} onClick={handlePagePlus}>Next</button>
-                : null
-            }
-        </div>
-    )
-}
+      {pagesData.map(page => {
+        const handleClick = (): void => {
+          onChangePage(page);
+        };
 
-export default Paginator
+        return (
+          <span
+            key={page}
+            // eslint-disable-next-line
+            // @ts-ignore
+            className={currentPage === page ? classes.selectedPage : classes.pageNumber}
+            onClick={handleClick}
+          >
+            {page}
+          </span>
+        );
+      })}
+      {pageCountSize > pageNumber ? (
+        <button className={classes.button} onClick={handlePagePlus}>
+          Next
+        </button>
+      ) : null}
+    </div>
+  );
+};
+
+export default Paginator;

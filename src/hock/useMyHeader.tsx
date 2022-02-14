@@ -1,17 +1,16 @@
-import {useDispatch, useSelector} from "react-redux";
-import {rootReducersType} from "../redux/reduxStore";
-import {loginSelector} from "../redux/auth-selector";
-import {loginOut} from "../redux/auth_reducer";
-import {useCallback} from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useCallback } from 'react';
+import { loginSelector } from '../redux/auth-selector';
+import { loginOut } from '../redux/auth_reducer';
 
-export const useMyHeader = () => {
-    const isAuth = useSelector(({auth}: rootReducersType) => auth.isAuth)
-    const login = useSelector(loginSelector)
-    const dispatch = useDispatch()
+export const useMyHeader = (): { isAuth: boolean; logOutUser: () => void; login: string } => {
+  const isAuth = useSelector((state: { auth: { isAuth: boolean } }) => state.auth.isAuth);
+  const login = useSelector(loginSelector);
+  const dispatch = useDispatch();
 
-    const logOutUser = useCallback(() => {
-        dispatch(loginOut())
-    },[loginOut]);
+  const logOutUser = useCallback(() => {
+    dispatch(loginOut());
+  }, [dispatch]);
 
-    return {isAuth,login,logOutUser}
-}
+  return { isAuth, login, logOutUser };
+};

@@ -1,23 +1,26 @@
-import React, {ChangeEvent, useState} from "react";
+import React, { ChangeEvent, useState } from 'react';
 
-import {profileType} from "../redux/prof_reducer";
+import { ProfileType } from '../redux/prof_reducer';
 
-export const useProfInfo = (savePhoto:(file: File)=> void, editProfile:(profile:profileType)=>Promise<profileType>) => {
-
-    const [editMode, setEditMode] = useState(false);
-
-    const onPhotoChange = (e:ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
-            savePhoto(e.target.files[0])
-        }
+export const useProfInfo = (
+  savePhoto: (file: File) => void,
+  editProfile: (profile: ProfileType) => Promise<ProfileType>,
+): {
+    setEditMode: (value: ((prevState: boolean) => boolean) | boolean) => void;
+    onPhotoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onSubmit: (formData: ProfileType) => void;
+    editMode: boolean;
+  } => {
+  const [editMode, setEditMode] = useState(false);
+  const onPhotoChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.files && e.target.files.length) {
+      savePhoto(e.target.files[0]);
     }
-
-    const onSubmit = (formData:profileType) => {
-        editProfile(formData).then(
-            () =>{
-                setEditMode(false);
-            }
-        )
-    }
-    return {editMode, setEditMode, onPhotoChange, onSubmit}
-}
+  };
+  const onSubmit = (formData: ProfileType): void => {
+    editProfile(formData).then(() => {
+      setEditMode(false);
+    });
+  };
+  return { editMode, setEditMode, onPhotoChange, onSubmit };
+};

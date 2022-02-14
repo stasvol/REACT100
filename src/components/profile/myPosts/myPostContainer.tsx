@@ -1,39 +1,53 @@
-import React from 'react';
-import {Dispatch} from "redux";
-import {connect} from "react-redux";
+// import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
-import {rootReducersType} from "../../../redux/reduxStore";
-import {addChangeText, addPost} from '../../../redux/prof_reducer';
-import MyPost from "./myPost";
+// import { RootReducersType } from '../../../redux/reduxStore';
+import { addChangeText, addPost, PostDataType } from '../../../redux/prof_reducer';
+import MyPost from './myPost';
 
-type mapStateProps = {
-    newText:string
-}
-type dispatchProps = {
-    addPost:(newText:string)=>void
-}
+// type MapStateProps = {
+//   newText: string;
+// };
+// type DispatchProps = {
+//   addPost: (newText: string) => void;
+// };
 
-const mapStateToProps = (state:rootReducersType) =>{
-    return{
-        state: state.profPage.PostData,
-        newText:  state.profPage.newText,
-        post:'MY POSTS'
-    }
-}
+const mapStateToProps = (state: {
+  profPage: { PostData: PostDataType; newText: string };
+  post: string;
+}): { post: string; newText: string; PostData: PostDataType } => {
+  return {
+    PostData: state.profPage.PostData,
+    newText: state.profPage.newText,
+    post: 'MY POSTS',
+  };
+};
 
-const mapDispatchToProps = (dispatch:Dispatch) => {
-    return{
-        addChangeText: (newPost:string,newText:string) =>{
-            dispatch(addChangeText(newPost,newText));
-        },
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+): {
+    addChangeText: (newPost: string, newText: string) => void;
+    addPost: (newText: string) => void;
+  } => {
+  return {
+    addChangeText: (newPost: string, newText: string) => {
+      dispatch(addChangeText(newPost, newText));
+    },
 
-        addPost: (newText:string) =>{
-            let action = addPost(newText);
-            dispatch(action);
-        }
-    }
-}
+    addPost: (newText: string) => {
+      const action = addPost(newText);
+      dispatch(action);
+    },
+  };
+};
 
-const MyPostContainer = connect<mapStateProps, dispatchProps, {}, rootReducersType >(mapStateToProps,mapDispatchToProps) (MyPost);
+const MyPostContainer = connect(
+  // <MapStateProps, DispatchProps, {}, RootReducersType>(
+  mapStateToProps,
+  mapDispatchToProps,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+)(MyPost);
 
-export default MyPostContainer
+export default MyPostContainer;

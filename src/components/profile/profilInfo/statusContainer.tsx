@@ -1,34 +1,36 @@
-import React from "react";
+import React from 'react';
 
-import {useStatusContainer} from "../../../hock/useStatusContainer";
+// eslint-disable-next-line import/namespace,import/named
+import { useStatusContainer } from '../../../hock/useStatusContainer';
 
 import classes from './profilInfo.module.css';
 
-
-export interface profileStatusHookType{
-    status:string,
-    updateStatus:(status:string)=>void,
+export interface ProfileStatusHookType {
+  status: string;
+  updateStatus: (status: string) => void;
 }
 
-const  StatusContainer:React.FC<profileStatusHookType> = ({status,updateStatus}) =>{
-    const {editMode, statusNew, activeEditMode, deActiveEditMode,changeStatus} = useStatusContainer(status,updateStatus)
+const StatusContainer: React.FC<ProfileStatusHookType> = ({ status, updateStatus }) => {
+  // eslint-disable-next-line no-debugger
+  // debugger;
+  const { editMode, statusNew, activeEditMode, deActiveEditMode, changeStatus } =
+    useStatusContainer(status, updateStatus);
 
-    return (
-            <div>
-                {!editMode
-                    ?
-                    <div className={classes.status}>
-                        <span onDoubleClick={activeEditMode} ><i>Status :</i>  {status} </span>
-                    </div>
+  return (
+    <div>
+      {!editMode ? (
+        <div className={classes.status}>
+          <span onDoubleClick={activeEditMode}>
+            <i>Status :</i> {statusNew}{' '}
+          </span>
+        </div>
+      ) : (
+        <div className={classes.status}>
+          <input onBlur={deActiveEditMode} onChange={changeStatus} type="text" value={statusNew} />
+        </div>
+      )}
+    </div>
+  );
+};
 
-                    :
-                        <div className={classes.status}>
-                            <input  onChange={changeStatus}  onBlur={deActiveEditMode} type={'text'} value={statusNew} />
-                        </div>
-                }
-            </div>
-        )
-
-}
-
-export default StatusContainer
+export default StatusContainer;

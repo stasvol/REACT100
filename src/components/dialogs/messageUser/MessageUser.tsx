@@ -1,20 +1,22 @@
-import React from "react";
+import React from 'react';
 
 import classes from './MessageUser.module.css';
 
-type propsType={
-    message: string,
-    id:number
-}
+type PropsType = {
+  message: string;
+  id: number;
+};
 
-const MessageUser:React.FC<propsType> = (props) => {
-    return (
-        <div>
-            <ul className={classes.messageUser}>
-                <li>{props.message}</li>
-            </ul>
-        </div>
-    )
-}
+const MessageUser: React.FC<PropsType> = message => {
+  // eslint-disable-next-line no-debugger
+  // debugger;
+  return (
+    <div>
+      <ul className={classes.messageUser}>
+        <li>{message}</li>
+      </ul>
+    </div>
+  );
+};
 
-export default  MessageUser
+export default MessageUser;

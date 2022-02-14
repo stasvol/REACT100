@@ -1,45 +1,51 @@
-import {ThunkAction} from "redux-thunk";
+import { ThunkAction } from 'redux-thunk';
 
-import {authThunkCreator} from "./auth_reducer";
-import {rootReducersType} from "./reduxStore";
+import { authThunkCreator } from './auth_reducer';
+import { RootReducersType } from './reduxStore';
 
 const INITIALISED_SUCCESS = 'INITIALISED SUCCESS';
 
-export type initialStateAppType = {
-    initialized: boolean
-}
+export type InitialStateAppType = {
+  initialized: boolean;
+};
 
-export type initializedSuccessActionType = {
-    type: typeof INITIALISED_SUCCESS
-}
-export const initializedSuccess = (): initializedSuccessActionType => ({type: INITIALISED_SUCCESS});
-type thunkType = ThunkAction<Promise<void>, rootReducersType, unknown, initializedSuccessActionType>
+export type InitializedSuccessActionType = {
+  type: typeof INITIALISED_SUCCESS;
+};
+export const initializedSuccess = (): InitializedSuccessActionType => ({
+  type: INITIALISED_SUCCESS,
+});
+type ThunkType = ThunkAction<
+Promise<void>,
+RootReducersType,
+unknown,
+InitializedSuccessActionType
+>;
 
-let initialState = {
-    initialized: false,
-}
+const initialState = {
+  initialized: false,
+};
 
-const appReducer = (state = initialState, action: initializedSuccessActionType): initialStateAppType => {
+// eslint-disable-next-line @typescript-eslint/default-param-last
+const appReducer = (
+  state = initialState,
+  action: InitializedSuccessActionType,
+): InitialStateAppType => {
+  switch (action.type) {
+    case INITIALISED_SUCCESS:
+      return {
+        ...state,
+        initialized: true,
+      };
+    default:
+      return state;
+  }
+};
 
-    switch (action.type) {
-        case INITIALISED_SUCCESS:
-            return {
-                ...state,
-                initialized: true
-            }
-        default:
-            return state
-    }
-}
+export const initializeApp = (): ThunkType => async dispatch => {
+  const promise = dispatch(authThunkCreator());
+  await Promise.all([promise]);
+  dispatch(initializedSuccess());
+};
 
-export const initializeApp = (): thunkType =>
-    async (dispatch) => {
-        let promise = dispatch(authThunkCreator());
-        await Promise.all([promise])
-        dispatch(initializedSuccess())
-    }
-
-export default appReducer
-
-
-
+export default appReducer;

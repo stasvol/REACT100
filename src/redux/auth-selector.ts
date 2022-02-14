@@ -1,11 +1,3 @@
-import {rootReducersType} from "./reduxStore";
+export const isAuthSelector = (auth: { isAuth: boolean }): boolean => auth.isAuth;
 
-
-export const isAuthSelector = (state: rootReducersType)=>{
-    return state.auth.isAuth
-}
-
-export const loginSelector = (state: rootReducersType)=>{
-    return state.auth.login
-}
-
+export const loginSelector = (auth: { login: string }): string => auth.login;

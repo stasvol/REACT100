@@ -1,106 +1,105 @@
-import {Dispatch} from "redux";
-import {chatApi, chatMessageType, statusType} from "../api/api-chat";
-
+import { Dispatch } from 'redux';
+import { chatApi, ChatMessageApiType, StatusType } from '../api/api-chat';
 
 const SET_MESSAGE = 'SET MESSAGE';
-const SET_STATUS = 'SET STATUS '
+const SET_STATUS = 'SET STATUS ';
 
-type ChatState = {
-    messages: chatMessageType[];
-    status: statusType;
-}
+type ChatStateType = {
+  messages: ChatMessageApiType[];
+  status: StatusType;
+};
 
-type actionAllType = typeof action
+const initialState: ChatStateType = {
+  messages: [], // as ChatMessageApiType [],
+  status: 'pending', // as statusType
+};
 
-export const action = {
-    setMessage: (messages: chatMessageType []) => ({type: SET_MESSAGE, payload: messages}),
-    setStatus: (status: statusType) => ({type: SET_STATUS, payload: status})
-}
+type SetMessageType = { type: typeof SET_MESSAGE; messages: ChatMessageApiType[] };
+type SetStatusType = { type: typeof SET_STATUS; status: StatusType };
 
-let initialState: ChatState = {
-    messages: [],         //as chatMessageType [],
-    status: 'pending'     //as statusType
-}
-let getID = () => {
-    // Math.random должен быть уникальным из-за своего алгоритма заполнения.
-    // Преобразуем его в базу 36 (числа + буквы) и берем первые 9 символов
-    // после десятичной дроби.
-    return '_' + Math.random().toString(36).substr(2, 9);
-}
+type ActionChatType = SetMessageType | SetStatusType;
 
+export const actions = {
+  setMessage: (
+    messages: ChatMessageApiType[],
+  ): { messages: ChatMessageApiType[]; type: string } => ({ type: SET_MESSAGE, messages }),
+  setStatus: (status: StatusType): { type: string; status: 'pending' | 'ready' | 'error' } => {
+    return { type: SET_STATUS, status };
+  },
+};
 
-const chatReducer = (state = initialState, action: any) => {
+const getID = (): string => {
+  // Math.random должен быть уникальным из-за своего алгоритма заполнения.
+  // Преобразуем его в базу 36 (числа + буквы) и берем первые 9 символов
+  // после десятичной дроби.
+  return `_${Math.random().toString(36).substr(2, 9)}`;
+};
 
-    switch (action.type) {
+// eslint-disable-next-line @typescript-eslint/default-param-last
+const chatReducer = (state = initialState, action: ActionChatType): ChatStateType => {
+  switch (action.type) {
+    case SET_MESSAGE:
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          ...action.messages.map((m: ChatMessageApiType) => ({
+            ...m,
+            id: getID(),
+          })),
+        ].filter((m, i, array) => i >= array.length - 100),
+      };
+    case SET_STATUS:
+      return {
+        ...state,
+        status: action.status,
+      };
 
-        case SET_MESSAGE:
+    default:
+      return state;
+  }
+};
 
-            return {
-                ...state,
-                messages: [...state.messages, ...action.payload.map((m: chatMessageType) => ({
-                    ...m,
-                    id: getID()
-                }))].filter((m, i, array) => i >= array.length - 100)
-            }
-        case SET_STATUS:
+let newMessage: ((messages: ChatMessageApiType[]) => void) | null = null;
 
-            return {
-                ...state,
-                status: action.payload
+const newMessageHandler = (dispatch: Dispatch): ((messages: ChatMessageApiType[]) => void) => {
+  if (newMessage === null) {
+    newMessage = messages => {
+      dispatch(actions.setMessage(messages));
+    };
+  }
+  return newMessage;
+};
 
-            }
+let statusHandler: ((status: StatusType) => void) | null = null;
 
+const newStatusHandler = (dispatch: Dispatch): ((status: StatusType) => void) => {
+  if (statusHandler === null) {
+    statusHandler = status => {
+      dispatch(actions.setStatus(status));
+    };
+  }
+  return statusHandler;
+};
 
-        default:
-            return state
-    }
-}
+export const startMessageListening =
+  () =>
+    async (dispatch: Dispatch): Promise<void> => {
+      chatApi.start();
+      chatApi.subscribe('messages-received', newMessageHandler(dispatch));
+      chatApi.subscribe('status - changed', newStatusHandler(dispatch));
+    };
 
-let _newMessage: ((messages: chatMessageType[]) => void) | null = null
-
-const newMessageHandler = (dispatch: Dispatch) => {
-
-    if (_newMessage === null) {
-        _newMessage = (messages) => {
-            dispatch(action.setMessage(messages))
-        }
-    }
-    return _newMessage
-}
-
-let _statusHandler: ((status: statusType) => void) | null = null
-
-const newStatusHandler = (dispatch: Dispatch) => {
-
-    if (_statusHandler === null) {
-        _statusHandler = (status) => {
-            dispatch(action.setStatus(status))
-        }
-    }
-    return _statusHandler
-}
-
-export const startMessageListening = () => async (dispatch: Dispatch) => {
-    chatApi.start()
-    chatApi.subscribe('messages-received', newMessageHandler(dispatch))
-    chatApi.subscribe('status - changed', newStatusHandler(dispatch))
-}
-
-export const stopMessageListening = () => async (dispatch: Dispatch) => {
-
-    chatApi.unsubscribe('messages-received', newMessageHandler(dispatch))
-    chatApi.unsubscribe('status - changed', newStatusHandler(dispatch))
+export const stopMessageListening =
+  () =>
+    async (dispatch: Dispatch): Promise<void> => {
+      chatApi.unsubscribe('messages-received', newMessageHandler(dispatch));
+      chatApi.unsubscribe('status - changed', newStatusHandler(dispatch));
     // chatApi.stop()
-}
+    };
 
-export const sendMessage = (message: string) => async (dispatch: Dispatch) => {
+export const sendMessage = (message: string) => async (): Promise<void> => {
+  chatApi.sendMessageWs(message);
+};
 
-    chatApi.sendMessageWs(message)
-
-}
-
-
-export default chatReducer
-
-
-
+export default chatReducer;

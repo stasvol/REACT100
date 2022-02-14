@@ -1,31 +1,30 @@
-
- .active {
-    font-weight: bold;
-     cursor: pointer;
- }
-
-  .pagesNum {
-    font-size: 20px;
-    padding: 10px;
+.active {
+  cursor: pointer;
+  font-weight: bold;
 }
 
-.paginator{
-    margin: 10px;
+.pagesNum {
+  font-size: 20px;
+  padding: 10px;
 }
 
-.pageNumber{
-    padding: 2px;
-    border: 1px solid #e2d6d6;
-    cursor: pointer;
+.paginator {
+  margin: 10px;
 }
 
- .selectedPage  {
-    font-weight: bold;
-     border: 2px solid black;
-     padding: 2px;
-     color: #960f0f;
- }
+.pageNumber {
+  border: 1px solid #e2d6d6;
+  cursor: pointer;
+  padding: 2px;
+}
 
- .button {
-     text-transform: uppercase;
- }
+.selectedPage {
+  border: 2px solid #000;
+  color: #960f0f;
+  font-weight: bold;
+  padding: 2px;
+}
+
+.button {
+  text-transform: uppercase;
+}

@@ -1,28 +1,40 @@
-import {useCallback} from "react";
-import {useSelector} from "react-redux";
+import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
-import {setFilterSelector} from "../redux/users_selectors";
-import {filterType} from "../redux/user_reducer";
-import {useUsersContainer} from "./useUsersContainer";
+import { setFilterSelector } from '../redux/users_selectors';
+import { FilterType, SetFilterType } from '../redux/user_reducer';
+import { useUsersContainer } from './useUsersContainer';
 
+export type Friend = 'true' | 'false' | 'null';
+type FormType = {
+  term: string;
+  friend: Friend;
+};
 
-export type Friend = 'true'|'false'|'null'
-type formType ={
-    term:string,
-    friend: Friend
-}
-export const useSearchForm = () => {
-    const filter = useSelector(setFilterSelector)
-    const {onFilterChange} = useUsersContainer()
+export const useSearchForm = (): {
+  filter: SetFilterType;
+  submit: (
+  values: FormType,
+  { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
+  ) => void;
+} => {
+  // eslint-disable-next-line no-debugger
+  // debugger;
+  const filter = useSelector(setFilterSelector);
+  const { onFilterChange } = useUsersContainer();
 
-    const submit = useCallback((values:formType, {setSubmitting}: {setSubmitting: (isSubmitting: boolean)=>void }) => {
-        const filter:filterType = {
-            term: values.term,
-            friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
-        }
-        onFilterChange(filter)
-        setSubmitting(false);
-    },[filter]);
+  const submit = useCallback(
+    (values: FormType, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const filter: FilterType = {
+        term: values.term,
+        friend: values.friend === 'null' ? null : values.friend === 'true',
+      };
+      onFilterChange(filter);
+      setSubmitting(false);
+    },
+    [onFilterChange],
+  );
 
-    return {filter, submit }
-}
+  return { filter, submit };
+};

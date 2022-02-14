@@ -1,20 +1,24 @@
-import React from "react";
-import {withRouter} from "react-router-dom";
-import {connect} from "react-redux";
-import {compose} from "redux";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
-import {rootReducersType} from "./redux/reduxStore";
-import {initializeApp} from "./redux/app_reducer";
-import App from './app'
+// import { RootReducersType } from './redux/reduxStore';
+import { initializeApp } from './redux/app_reducer';
+import App from './app';
 
-export type mapStateType = ReturnType<typeof mapStateToProps>
+export type MapStateType = ReturnType<typeof mapStateToProps>;
 
-const mapStateToProps = (state:rootReducersType) => ({
-    auth: state.auth,
-    isAuth: state.auth.isAuth,
-    initialized: state.app.initialized,
+const mapStateToProps = (state: {
+  auth: { isAuth: boolean };
+  app: { initialized: boolean };
+}): { isAuth: boolean; auth: { isAuth: boolean }; initialized: boolean } => ({
+  auth: state.auth,
+  isAuth: state.auth.isAuth,
+  initialized: state.app.initialized,
 });
 
-export  const AppContainer = compose<React.ComponentType>(
-    withRouter,
-    connect(mapStateToProps, {initializeApp}))(App);
+export const AppContainer = compose<React.ComponentType>(
+  withRouter,
+  connect(mapStateToProps, { initializeApp }),
+)(App);

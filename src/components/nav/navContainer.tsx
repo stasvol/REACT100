@@ -1,31 +1,32 @@
-import React from 'react'
-import {Dispatch} from "redux";
-import {connect} from 'react-redux';
+// import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
-import Nav from "./nav";
-import {siteBarActionCreator} from "../../redux/sitebar_reducer";
-import {rootReducersType} from "../../redux/reduxStore";
+import Nav from './nav';
+import { siteBarActionCreator, SiteBarNavType } from '../../redux/sitebar_reducer';
 
-export type dispatchType ={
-    siteBarActionCreator:(userId:number) => void
-}
+// export type DispatchType = {
+//   siteBarActionCreator: (userId: number) => void;
+// };
 
-const mapStateToProps = (state:rootReducersType) =>{
-    return {
-        state: state.siteBar,
-        siteBarNav:state.siteBar.siteBarNav
-    }
-}
+const mapStateToProps = (state: {
+  siteBar: { siteBarNav: SiteBarNavType };
+}): { siteBar: { siteBarNav: SiteBarNavType }; siteBarNav: SiteBarNavType } => {
+  return {
+    siteBar: state.siteBar,
+    siteBarNav: state.siteBar.siteBarNav,
+  };
+};
 
-const mapDispatchToProps = (dispatch:Dispatch) => {
-    return {
-        changeClick: (userId:number) => {
-            dispatch(siteBarActionCreator(userId));
-
-        },
-    }
-}
-
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    changeClick: (userId: number) => {
+      dispatch(siteBarActionCreator(userId));
+    },
+  };
+};
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const NavContainer = connect(mapStateToProps, mapDispatchToProps)(Nav);
 
-export default NavContainer
+export default NavContainer;

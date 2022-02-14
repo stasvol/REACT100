@@ -1,25 +1,18 @@
-import React from 'react'
-import {Redirect} from "react-router-dom";
-import {connect} from "react-redux";
+import React, { FC } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect, ConnectedComponent } from 'react-redux';
 
-import {rootReducersType} from "../redux/reduxStore";
-
-let mapStateToPropsRedirect = (state:rootReducersType) => ({
-    isAuth: state.auth.isAuth
-});
-
-type mapStateType={
-    isAuth: boolean
-}
-
-export const withAuthRedirect = (Component:React.ComponentType) => {
-    const AuthRedirectComponent:React.FC <mapStateType>= (props) => {
-            if (!props.isAuth) return <Redirect to={'/login'} />
-            return <Component {...props} />
-        }
-
-    let ConnectedAuthRedirectComponent = connect(mapStateToPropsRedirect) (AuthRedirectComponent)
-
-    return  ConnectedAuthRedirectComponent
-
-}
+type MapStateType = {
+  isAuth: boolean;
+};
+const mapStateToPropsRedirect = (state: { auth: { isAuth: boolean } }): boolean =>
+  state.auth.isAuth;
+export const withAuthRedirect = (
+  Component: React.ComponentType,
+): ConnectedComponent<FC<MapStateType>, Omit<MapStateType, never>> => {
+  const AuthRedirectComponent: React.FC<MapStateType> = (props, isAuth: boolean) => {
+    if (!isAuth) return <Redirect to="/profile" />;
+    return <Component {...props} />;
+  };
+  return connect(mapStateToPropsRedirect)(AuthRedirectComponent);
+};
