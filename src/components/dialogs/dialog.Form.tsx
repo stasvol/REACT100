@@ -13,8 +13,8 @@ export type NewMessageTextTypeKeys = Extract<keyof NewMessageTextType, string>;
 
 const DialogForm: React.FC<
 InjectedFormProps<NewMessageTextType, Record<string, never>> & Record<string, never>
-> = ({ handleSubmit }) => {
-  // const { handleSubmit } = props;
+> = props => {
+  const { handleSubmit } = props;
   return (
     <form onSubmit={handleSubmit}>
       <div className={classes.textarea}>

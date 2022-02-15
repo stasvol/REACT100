@@ -13,8 +13,9 @@ const Messages: React.FC = () => {
 
   return (
     <div className={classes.scroll} onScroll={scrollHandler}>
-      {messages.map((message: ChatMessageApiType) => (
-        <MessageData key={message.userId} message={message} />
+      {messages.map((message: ChatMessageApiType, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <MessageData key={`${message.userId}${i}`} message={message} />
       ))}
       <div ref={messageRef} />
     </div>

@@ -6,7 +6,7 @@ import MyPostForm, { PropsPostFormType } from './myPostForm';
 
 import classes from './myPost.module.css';
 
-type PropsType = {
+export type PropsType = {
   PostData: Array<PostDataType>;
   addPost: (newText: string) => void;
   post: string;

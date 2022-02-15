@@ -7,7 +7,7 @@ type PropsType = {
   id: number;
 };
 
-const MessageUser: React.FC<PropsType> = message => {
+const MessageUser: React.FC<PropsType> = ({ message }) => {
   // eslint-disable-next-line no-debugger
   // debugger;
   return (

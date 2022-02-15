@@ -27,6 +27,7 @@ const Dialogs: React.FC<PropsDialogType> = ({
     props.addMessage(value.newMessageText);
     value.newMessageText = '';
   };
+
   return (
     <div className={classes.bg}>
       <div className={classes.dialog}>

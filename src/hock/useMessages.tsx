@@ -27,7 +27,7 @@ export const useMessages = (
         setIsAutoScroll(false);
       }
     },
-    [isAutoScroll],
+    [isAutoScroll, setIsAutoScroll],
   );
 
   useEffect(() => {

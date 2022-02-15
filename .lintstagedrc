@@ -4,12 +4,12 @@
     "git add"
   ],
   "**/*.+(ts|tsx)": [
-    "eslint --fix --no-verify",
+    "eslint --fix --max-warnings=10",
     "git add"
   ],
   "**/*.+(css)": [
     "prettier --parser css --write",
-    "stylelint --fix --syntax css --max-warnings=0",
+    "stylelint --fix --syntax css --max-warnings=10",
     "git add"
   ]
 }
