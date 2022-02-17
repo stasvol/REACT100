@@ -1,3 +1,3 @@
-export const isAuthSelector = (auth: { isAuth: boolean }): boolean => auth.isAuth;
+export const isAuthSelector = (state: { auth: { isAuth: boolean } }): boolean => state.auth.isAuth;
 
-export const loginSelector = (auth: { login: string }): string => auth.login;
+export const loginSelector = (state: { auth: { login: string } }): string => state.auth.login;

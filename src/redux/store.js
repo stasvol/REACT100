@@ -3,7 +3,7 @@ import postReducer from './prof_reducer';
 import siteBarReducer from './sitebar_reducer';
 
 const store = {
-  _state: {
+  state: {
     dialogPage: {
       DialogData: [
         { id: 1, name: 'Artur', img: 'https://avatarko.ru/img/kartinka/1/monstr_kot.jpg' },
@@ -90,23 +90,24 @@ const store = {
   },
 
   getState() {
-    return this._state;
+    return this.state;
   },
 
-  _subscriber() {
+  subscriber() {
+    // eslint-disable-next-line no-console
     console.log('state  changed');
   },
 
   subscribe(observer) {
-    this._subscriber = observer;
+    this.subscriber = observer;
   },
 
   dispatch(action) {
-    this._state.dialogPage = dialogReducer(this._state.dialogPage, action);
-    this._state.postPage = postReducer(this._state.postPage, action);
-    this._state.siteBar = siteBarReducer(this._state.siteBar, action);
+    this.state.dialogPage = dialogReducer(this.state.dialogPage, action);
+    this.state.postPage = postReducer(this.state.postPage, action);
+    this.state.siteBar = siteBarReducer(this.state.siteBar, action);
 
-    this._subscriber(this._state);
+    this.subscriber(this.state);
   },
 };
 

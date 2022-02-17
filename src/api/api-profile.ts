@@ -5,13 +5,10 @@ import { addAxios, ApiResponseType, ResultCodeEnum } from './api';
 //           PROFILE
 
 export const profileApi = {
-  getProfile(userId: number | null | undefined): Promise<ProfileType> {
-    return (
-      addAxios
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/Profile/${userId}`)
-        .then(res => res.data)
-    );
+  getProfile(userId: number | string | undefined): Promise<ProfileType> {
+    return addAxios
+      .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/Profile/${userId}`)
+      .then(res => res.data);
   },
 
   getStatus(
@@ -37,7 +34,7 @@ export const profileApi = {
       .then(res => res.data);
   },
 
-  editProfile(profile: ProfileType): Promise<any> {
+  editProfile(profile: ProfileType) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return addAxios.put('Profile', profile).then(res => res.data);
   },

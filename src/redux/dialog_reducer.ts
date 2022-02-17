@@ -70,7 +70,6 @@ let initialState = {
   newMessageText: 'Hi',
 };
 
-// eslint-disable-next-line @typescript-eslint/default-param-last
 const dialogReducer = (
   state = initialState,
   action: ActionCreatorDialogType,

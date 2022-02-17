@@ -31,7 +31,6 @@ let initialState = {
   ] as Array<SiteBarNavType>,
 };
 
-// eslint-disable-next-line @typescript-eslint/default-param-last
 const siteBarReducer = (
   state = initialState,
   action: SiteBarActionCreatorType,

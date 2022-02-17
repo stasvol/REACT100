@@ -44,7 +44,6 @@ const initialState: InitialStateAuthType = {
   captchaUrl: null, // if( captchaUrl === null) ? no captcha : url->captchaUrl (captcha no null)
 };
 
-// eslint-disable-next-line @typescript-eslint/default-param-last
 const authReducer = (
   state: InitialStateAuthType = initialState,
   action: ActionCreatorAuthType,

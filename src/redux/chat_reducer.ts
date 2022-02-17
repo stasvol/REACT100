@@ -28,14 +28,13 @@ export const actions = {
   },
 };
 
-const getID = (): string => {
+const getID = (): string | number | undefined => {
   // Math.random должен быть уникальным из-за своего алгоритма заполнения.
   // Преобразуем его в базу 36 (числа + буквы) и берем первые 9 символов
   // после десятичной дроби.
   return `_${Math.random().toString(36).substr(2, 9)}`;
 };
 
-// eslint-disable-next-line @typescript-eslint/default-param-last
 const chatReducer = (state = initialState, action: ActionChatType): ChatStateType => {
   switch (action.type) {
     case SET_MESSAGE:

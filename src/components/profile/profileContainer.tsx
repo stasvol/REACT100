@@ -31,68 +31,76 @@ type DispatchPropsTYpe = {
 };
 
 type RouteParams = {
-  userId: string | undefined | number;
+  userId: string | undefined;
 };
 
-// type prevPropsType=mapStatePropsTYpe & dispatchPropsTYpe & RouteComponentProps<RouteParams>
+type PrevPropsType = MapStatePropsTYpe & DispatchPropsTYpe & RouteComponentProps<RouteParams>;
 
-const ProfileContainer: React.FC<
-MapStatePropsTYpe &
-DispatchPropsTYpe &
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-RouteComponentProps<RouteParams>
-> = ({ match, authorisedUserId, profile, status, getUsers, history, ...props }) => {
-  const userUpdateProfile = useCallback(() => {
-    let { userId } = match.params;
-
-    if (!userId) {
-      userId = authorisedUserId;
+const ProfileContainer: React.FC<PrevPropsType> =
+  // MapStatePropsTYpe &
+  // DispatchPropsTYpe &
+  // RouteComponentProps<RouteParams>
+  ({ match, authorisedUserId, profile, status, getUsers, history, ...props }) => {
+    // eslint-disable-next-line no-debugger
+    // debugger;
+    const userUpdateProfile = useCallback(() => {
+      let { userId } = match.params;
 
       if (!userId) {
-        userId = +history.push('/login');
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        userId = authorisedUserId;
+
+        if (!userId) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          userId = +history.push('/login');
+        }
       }
-    }
-    if (userId) getUsers(userId);
-    getStatus(userId);
-    // } else {
-    //   throw new Error('Error');
-    // }
-  }, [authorisedUserId, getUsers, match.params, history]);
+      if (userId) getUsers(userId);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore+++
+      getStatus(userId);
+      // } else {
+      //   throw new Error('Error');
+      // }
+    }, [authorisedUserId, getUsers, match.params, history]);
 
-  // useEffect(() => userUpdateProfile(), [getUsers, authorisedUserId, userUpdateProfile]);
+    // useEffect(() => userUpdateProfile(), [getUsers, authorisedUserId, userUpdateProfile]);
 
-  useEffect(() => {
-    if (match.params.userId) userUpdateProfile();
-  }, [match.params.userId, userUpdateProfile]);
+    useEffect(() => {
+      if (match.params.userId) userUpdateProfile();
+    }, [match.params.userId, userUpdateProfile]);
 
-  return (
-    <div>
-      <Profile
-        {...props}
-        isOwner={!match.params.userId}
-        profile={profile}
-        savePhoto={savePhoto}
-        status={status}
-        updateStatus={updateStatus}
-      />
-    </div>
-  );
-};
+    return (
+      <div>
+        <Profile
+          {...props}
+          isOwner={!match.params.userId}
+          profile={profile}
+          savePhoto={savePhoto}
+          status={status}
+          updateStatus={updateStatus}
+        />
+      </div>
+    );
+  };
 
-const mapStateToProps = (
-  profPage: { profile: ProfileType; status: string },
-  auth: { id: number | undefined | string; isAuth: boolean },
-): {
-  authorisedUserId: number | undefined | string;
+const mapStateToProps = (state: {
+  profPage: { profile: ProfileType; status: string };
+  auth: { id: number | undefined | string; isAuth: boolean };
+}): {
+  authorisedUserId: number | string | undefined;
   isAuth: boolean;
   profile: ProfileType;
+  state: { profile: ProfileType; status: string };
   status: string;
 } => ({
-  profile: profPage.profile,
-  status: profPage.status,
-  authorisedUserId: auth.id,
-  isAuth: auth.isAuth,
+  state: state.profPage,
+  profile: state.profPage.profile,
+  status: state.profPage.status,
+  authorisedUserId: state.auth.id,
+  isAuth: state.auth.isAuth,
 });
 
 export default compose<React.ComponentType>(

@@ -29,7 +29,7 @@ export type DisableButtonType = {
   disableButton?: boolean | number;
 };
 
-type ActionCreatorUsersType =
+export type ActionCreatorUsersType =
   | FollowActionType
   | UnfollowActionType
   | UsersActionType
@@ -103,7 +103,7 @@ export type DisableButtonFolActionType = {
   userId: number;
 };
 
-type DeleteUsersActionType = {
+export type DeleteUsersActionType = {
   type: typeof DELETE_USER;
   userId: number;
 };
@@ -112,7 +112,6 @@ type DispatchType = Dispatch<ActionCreatorUsersType>;
 // type GetStateType = () => rootReducersType;
 type ThunkType = ThunkAction<Promise<void>, RootReducersType, unknown, ActionCreatorUsersType>;
 
-// eslint-disable-next-line @typescript-eslint/default-param-last
 const userReducer = (
   state = initialState,
   action: AnyAction,
@@ -244,13 +243,8 @@ export const getUsersThunkCreator = (
     // @ts-ignore
     dispatch(setFilter(filter));
     const data = await userApi.getUserPage(currentPage, pageSize, filter?.term, filter?.friend);
-
     dispatch(togglePreloader(false));
-    // eslint-disable-next-line max-len
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-member-access
     dispatch(setUsers(data.items));
-    // eslint-disable-next-line max-len
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-member-access
     dispatch(setTotalUsersCount(data?.totalCount));
   };
 };

@@ -26,7 +26,6 @@ const initialState = {
   initialized: false,
 };
 
-// eslint-disable-next-line @typescript-eslint/default-param-last
 const appReducer = (
   state = initialState,
   action: InitializedSuccessActionType,

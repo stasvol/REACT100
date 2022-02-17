@@ -1,6 +1,6 @@
 import dialogReducer, { dialogAction } from './dialog_reducer';
 
-let state = {
+let state: any = {
   DialogData: [
     { id: 1, name: 'Artur', img: 'https://avatarko.ru/img/kartinka/1/monstr_kot.jpg' },
     {
@@ -38,7 +38,7 @@ let state = {
       id: 9,
       name: 'Vovan',
       img: 'https://i.pinimg.com/originals/5b/1a/9a/5b1a9ab141ba1ade4ab06c8215059225.jpg',
-    },
+    } as { id: number; name: string; img: string },
   ],
   MessageUserData: [
     { id: 1, message: 'Vse klas' },
@@ -47,7 +47,7 @@ let state = {
     { id: 4, message: 'VOOOO !!!' },
     { id: 5, message: 'YO-YO-YO-YO' },
     { id: 6, message: 'YO-MO-YO' },
-  ],
+  ] as unknown as { id: number; message: string },
   newMessageText: 'Hi',
 };
 test('add new message and length decremented', () => {

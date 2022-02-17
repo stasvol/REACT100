@@ -8,8 +8,6 @@ type PropsType = {
 };
 
 const MessageUser: React.FC<PropsType> = ({ message }) => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
   return (
     <div>
       <ul className={classes.messageUser}>

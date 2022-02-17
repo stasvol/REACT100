@@ -25,7 +25,6 @@ export type ReducersType = typeof reducers;
 export type RootReducersType = ReturnType<ReducersType>;
 
 type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
-// eslint-disable-next-line max-len
 export type InferActionTypes<T extends { [key: string]: (...arg: any) => any[] }> = ReturnType<
 InferValueTypes<T>
 >;

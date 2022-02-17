@@ -1,6 +1,6 @@
 import userReducer, { deleteUsers } from './user_reducer';
 
-const state = {
+const state: any = {
   users: [
     {
       id: 1,
@@ -45,7 +45,7 @@ const state = {
 };
 test('deleted  post id and  length  increment in post ', () => {
   const action = deleteUsers(1);
-  //@ts-ignore
-  const newUsers = userReducer(state, action);
+
+  const newUsers: any = userReducer(state, action);
   expect(newUsers.users.length).toBe(3);
 });

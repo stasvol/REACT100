@@ -25,6 +25,8 @@ const Profile: React.FC<PropsProfType> = ({
   editProfile,
   PostData,
 }) => {
+  // eslint-disable-next-line no-debugger
+  // debugger;
   return (
     <div>
       <ProfInfo

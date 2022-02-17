@@ -340,6 +340,9 @@
     "jsx-a11y/label-has-associated-control": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
-    "@typescript-eslint/no-unused-expressions": "off"
+    "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/no-unsafe-member-access": 0,
+    "@typescript-eslint/no-unsafe-argument": 0,
+    "@typescript-eslint/restrict-template-expressions": 0
   }
 }

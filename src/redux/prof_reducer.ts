@@ -19,7 +19,7 @@ export type PostDataType = {
   message: string;
 };
 export type ProfileType = {
-  userId?: number | string | null;
+  userId?: number | string | undefined;
   lookingForAJob?: boolean;
   lookingForAJobDescription?: string | null;
   fullName?: string | null;
@@ -55,7 +55,7 @@ type SavePhotoSuccessActionType = {
   photos: PhotosType;
 };
 
-type ActionCreatorProfType =
+export type ActionCreatorProfType =
   | AddPostActionType
   | AddChangeActionType
   | SetUsersProfileActionType
@@ -101,7 +101,6 @@ let initialState = {
   status: '',
 };
 
-// eslint-disable-next-line @typescript-eslint/default-param-last
 const profReducer = (state = initialState, action: ActionCreatorProfType): InitialStateProfType => {
   let newPost;
   switch (action.type) {
@@ -174,21 +173,17 @@ export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessActionType
 });
 
 export const profileThunkCreator = (
-  userId: number | null | undefined,
+  userId: number | string | undefined,
 ): ThunkAction<Promise<void>, RootReducersType, unknown, ActionCreatorProfType> => {
   return async dispatch => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const data = await profileApi.getProfile(userId);
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     dispatch(setUsersProfile(data));
   };
 };
 
-export const getStatus = (userId: number | string): ((dispatch: DispatchType) => Promise<void>) => {
+export const getStatus = (userId: string | number): ((dispatch: DispatchType) => Promise<void>) => {
   return async (dispatch: DispatchType): Promise<void> => {
-    const data = await profileApi.getStatus(userId);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const data: string = await profileApi.getStatus(userId);
     dispatch(setStatus(data));
   };
 };
@@ -237,26 +232,18 @@ export const editProfile =
   | SavePhotoSuccessActionType
   | FormAction
   > =>
-  // eslint-disable-next-line consistent-return
     async (dispatch, getState) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-      const userId = getState().auth?.id;
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const userId: number | string | undefined = getState().auth?.id;
       const response = await profileApi.editProfile(profile);
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (response.data.resultCode === 0) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         dispatch(profileThunkCreator(userId));
       } else {
-      // eslint-disable-next-line max-len
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
         dispatch(stopSubmit('editProfile', { _error: response.data.messages }));
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         return Promise.reject(response.data.messages);
       }
+      return dispatch(profileThunkCreator(userId));
     };
 
 export default profReducer;
