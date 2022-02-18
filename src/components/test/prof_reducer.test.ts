@@ -1,4 +1,4 @@
-import profReducer, { addPost, deletePost } from './prof_reducer';
+import profReducer, { addPost, deletePost } from '../../redux/prof_reducer';
 
 let state = {
   PostData: [

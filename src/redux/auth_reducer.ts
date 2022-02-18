@@ -11,7 +11,7 @@ const SET_AUTH_USERS_DATA = 'SET AUTH USERS DATA';
 const SET_CAPTCHA_URL_SUCCESS = 'SET CAPTCHA URL SUCCESS';
 
 export type InitialStateAuthType = {
-  id: null | number;
+  id: string | number | undefined;
   email: null | string;
   login: null | string;
   isAuth: boolean;
@@ -21,7 +21,7 @@ export type InitialStateAuthType = {
 type SetAuthUserDataActionType = {
   type: typeof SET_AUTH_USERS_DATA;
   payload: {
-    id: null | number;
+    id: string | number | undefined;
     email: null | string;
     login: null | string;
     isAuth: boolean;
@@ -37,7 +37,7 @@ type ActionCreatorAuthType = SetAuthUserDataActionType | SetCaptchaUrlSuccessAct
 type ThunkType = ThunkAction<Promise<void>, RootReducersType, unknown, ActionCreatorAuthType>;
 
 const initialState: InitialStateAuthType = {
-  id: null,
+  id: undefined,
   email: null,
   login: null,
   isAuth: false,
@@ -67,7 +67,7 @@ const authReducer = (
 };
 
 export const setAuthUserData = (
-  id: number | null,
+  id: string | number | undefined,
   email: string | null,
   login: string | null,
   isAuth: boolean,
@@ -91,6 +91,13 @@ export const authThunkCreator = (): ThunkType => async dispatch => {
   }
 };
 
+export const getCaptchaUrl = (): ThunkType => async dispatch => {
+  const data = await securityApi.getCaptchaUrl();
+  const captchaUrl = data.url;
+
+  dispatch(setCaptchaUrlSuccess(captchaUrl));
+};
+
 export const loginPost =
   (
     email: string,
@@ -109,7 +116,6 @@ export const loginPost =
         dispatch(authThunkCreator());
       } else {
         if (data.resultCode === ResultCodeCaptchaEnum.captchaRequire) {
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
           dispatch(getCaptchaUrl());
         }
         const messages = data.messages ? data.messages : 'Some error';
@@ -117,19 +123,12 @@ export const loginPost =
       }
     };
 
-export const getCaptchaUrl = (): ThunkType => async dispatch => {
-  const data = await securityApi.getCaptchaUrl();
-  const captchaUrl = data.url;
-
-  dispatch(setCaptchaUrlSuccess(captchaUrl));
-};
-
 export const loginOut = (): ThunkType => {
   return async dispatch => {
     const data = await loginApi.logOut();
 
     if (data.resultCode === ResultCodeEnum.success) {
-      dispatch(setAuthUserData(null, null, null, false));
+      dispatch(setAuthUserData(undefined, null, null, false));
     }
   };
 };

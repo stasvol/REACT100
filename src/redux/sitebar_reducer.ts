@@ -35,16 +35,17 @@ const siteBarReducer = (
   state = initialState,
   action: SiteBarActionCreatorType,
 ): InitialStateSBarType => {
+  let siteBar;
+  let friend;
   switch (action.type) {
     case SITE_BAR:
-      // eslint-disable-next-line no-case-declarations
-      const siteBar = state.siteBarNav;
-      // eslint-disable-next-line no-case-declarations
-      const friend = {
+      siteBar = state.siteBarNav;
+      friend = {
         id: 4,
         name: 'FRiEND',
-        // eslint-disable-next-line max-len
-        img: 'https://lh3.googleusercontent.com/proxy/krN8SvINewOOKbbVK5ooDb2G7CzD46uX9l_Mp693MVsNUw402CT53gHtQXW9gvKhJ3zVeZy_IG2h3KRGAgjFwTyBDLUyNK4KWH3uHw',
+        img:
+          'https://lh3.googleusercontent.com/proxy/krN8SvINewOOKbbVK5ooDb2G7CzD46uX9l' +
+          '_Mp693MVsNUw402CT53gHtQXW9gvKhJ3zVeZy_IG2h3KRGAgjFwTyBDLUyNK4KWH3uHw',
       };
       return {
         ...state,

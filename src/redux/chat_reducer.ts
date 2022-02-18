@@ -94,7 +94,7 @@ export const stopMessageListening =
     async (dispatch: Dispatch): Promise<void> => {
       chatApi.unsubscribe('messages-received', newMessageHandler(dispatch));
       chatApi.unsubscribe('status - changed', newStatusHandler(dispatch));
-    // chatApi.stop()
+      chatApi.stop();
     };
 
 export const sendMessage = (message: string) => async (): Promise<void> => {

@@ -30,22 +30,12 @@ InferValueTypes<T>
 >;
 // export type InferActionTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
 //  THUNK
-
 export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<
 R,
 RootReducersType,
 unknown,
 A
 >;
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-// const composeEnhancers =
-//   // @ts-ignore
-//   (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-//     // @ts-ignore
-//     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 })) ||
-//   compose;
-
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export default store;

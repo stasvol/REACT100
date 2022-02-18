@@ -15,6 +15,7 @@ import {
 import {
   CurrentPageActionType,
   DisableButtonFolActionType,
+  // DisableButtonType,
   FilterType,
   FollowThunkCreator,
   getUsersThunkCreator,
@@ -46,8 +47,6 @@ export const useUsersContainer = (
     unFollowThunk: (userId: number) => void;
     FollowThunk: (userId: number) => void;
   } => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
   const [pageNumber, setPageNumber] = useState(initState);
   const users = useSelector(getUsersSelector);
   const currentPage = useSelector(currentPageSelector);
@@ -60,23 +59,14 @@ export const useUsersContainer = (
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const pageCount = Math.ceil(totalUsersCount / pageSize);
+  const pageCount = Math.ceil(+totalUsersCount / +pageSize);
   const pages: Array<number> = [];
   for (let i = 1; i <= pageCount; i++) {
     pages.push(i);
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const pageCountSize = Math.ceil(pageCount / pageNumberSizes); //   /10 = pageNumberSizes
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const leftPortionPageNumber = (pageNumber - 1) * pageNumberSizes + 1;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const rightPortionPageNumber = pageNumber * pageNumberSizes;
+  const pageCountSize = Math.ceil(+pageCount / +pageNumberSizes); //   /10 = pageNumberSizes
+  const leftPortionPageNumber = (+pageNumber - 1) * +pageNumberSizes + 1;
+  const rightPortionPageNumber = pageNumber * +pageNumberSizes;
   const handlePagePlus = (): void => {
     setPageNumber(pageNumber + 1);
   };
@@ -111,7 +101,7 @@ export const useUsersContainer = (
       pathname: '/user',
       search: querystring.stringify(query),
     });
-  }, [filter, currentPage, history]);
+  }, [filter.term, filter.friend, history]);
 
   const onChangePage = useCallback(
     (pageNumbers: number) => {
@@ -121,9 +111,8 @@ export const useUsersContainer = (
   );
 
   const onFilterChange = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    (filter: FilterType) => {
-      dispatch(getUsersThunkCreator(1, pageSize, filter));
+    (filters: FilterType) => {
+      dispatch(getUsersThunkCreator(1, pageSize, filters));
     },
     [dispatch, pageSize],
   );

@@ -1,4 +1,4 @@
-import dialogReducer, { dialogAction } from './dialog_reducer';
+import dialogReducer, { dialogAction } from '../../redux/dialog_reducer';
 
 let state: any = {
   DialogData: [

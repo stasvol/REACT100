@@ -1,4 +1,4 @@
-import userReducer, { deleteUsers } from './user_reducer';
+import userReducer, { deleteUsers } from '../../redux/user_reducer';
 
 const state: any = {
   users: [

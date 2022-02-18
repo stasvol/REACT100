@@ -233,8 +233,6 @@ export const editProfile =
   | FormAction
   > =>
     async (dispatch, getState) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
       const userId: number | string | undefined = getState().auth?.id;
       const response = await profileApi.editProfile(profile);
       if (response.data.resultCode === 0) {
