@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { RootReducersType } from '../redux/reduxStore';
 import { sendMessage } from '../redux/chat_reducer';
 
 export const useFormMessage = (

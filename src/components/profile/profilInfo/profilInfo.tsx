@@ -28,8 +28,6 @@ const ProfInfo: React.FC<ProfInfoType> = ({
   profile,
   ...props
 }) => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
   const { editMode, setEditMode, onPhotoChange, onSubmit } = useProfInfo(savePhoto, editProfile);
   // if (!profile) return <Preloader />;
   return (

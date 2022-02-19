@@ -10,8 +10,6 @@ export const useMessages = (
     messages: ChatMessageApiType[];
     scrollHandler: (e: React.UIEvent<HTMLDivElement, UIEvent>) => void;
   } => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
   const [isAutoScroll, setIsAutoScroll] = useState(initState);
   const messages = useSelector(
     (state: { chat: { messages: ChatMessageApiType[] } }) => state.chat.messages,

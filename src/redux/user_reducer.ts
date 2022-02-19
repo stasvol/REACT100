@@ -27,6 +27,7 @@ export type UsersType = {
 
 export type DisableButtonType = {
   disableButton?: boolean | number;
+  // some(param: (userId: number) => boolean):any ;
 };
 
 export type ActionCreatorUsersType =

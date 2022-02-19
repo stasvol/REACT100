@@ -4,7 +4,6 @@ import { useUsersContainer } from '../../hock/useUsersContainer';
 import Paginator from '../pagination/paginator';
 import User from './user';
 import UsersSearchForm from './usersSearchForm';
-// import { UsersType } from '../../redux/user_reducer';
 
 const UsersContainer: React.FC = () => {
   const {

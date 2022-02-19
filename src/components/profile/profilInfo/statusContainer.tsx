@@ -1,6 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line import/namespace,import/named
 import { useStatusContainer } from '../../../hock/useStatusContainer';
 
 import classes from './profilInfo.module.css';
@@ -11,8 +10,6 @@ export interface ProfileStatusHookType {
 }
 
 const StatusContainer: React.FC<ProfileStatusHookType> = ({ status, updateStatus }) => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
   const { editMode, statusNew, activeEditMode, deActiveEditMode, changeStatus } =
     useStatusContainer(status, updateStatus);
 
@@ -21,7 +18,7 @@ const StatusContainer: React.FC<ProfileStatusHookType> = ({ status, updateStatus
       {!editMode ? (
         <div className={classes.status}>
           <span onDoubleClick={activeEditMode}>
-            <i>Status :</i> {statusNew}{' '}
+            <i>Status :</i> {status}{' '}
           </span>
         </div>
       ) : (

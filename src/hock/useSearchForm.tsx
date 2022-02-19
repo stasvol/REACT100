@@ -18,19 +18,16 @@ export const useSearchForm = (): {
   { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
   ) => void;
 } => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
   const filter = useSelector(setFilterSelector);
   const { onFilterChange } = useUsersContainer();
 
   const submit = useCallback(
     (values: FormType, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const filter: FilterType = {
+      const filters: FilterType = {
         term: values.term,
         friend: values.friend === 'null' ? null : values.friend === 'true',
       };
-      onFilterChange(filter);
+      onFilterChange(filters);
       setSubmitting(false);
     },
     [onFilterChange],

@@ -13,8 +13,6 @@ export type PropsType = {
 };
 
 const MyPost: React.FC<PropsType> = ({ PostData, addPost, post }) => {
-  // // eslint-disable-next-line no-debugger
-  // debugger;
   const onSubmit = (values: PropsPostFormType): void => {
     addPost(values.newText);
     values.newText = '';
