@@ -56,7 +56,7 @@ const siteBarReducer = (
       return state;
   }
 };
-type SiteBarActionCreatorType = {
+export type SiteBarActionCreatorType = {
   type: typeof SITE_BAR;
   userId: number;
 };

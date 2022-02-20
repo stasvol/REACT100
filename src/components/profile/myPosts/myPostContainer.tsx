@@ -1,22 +1,23 @@
-// import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-// import { RootReducersType } from '../../../redux/reduxStore';
 import { addChangeText, addPost, PostDataType } from '../../../redux/prof_reducer';
 import MyPost from './myPost';
 
-// type MapStateProps = {
-//   newText: string;
-// };
-// type DispatchProps = {
-//   addPost: (newText: string) => void;
-// };
+type MapStatePropsType = {
+  newText: string;
+  post: string;
+  PostData: PostDataType;
+};
+type DispatchPropsType = {
+  addPost: (newText: string) => void;
+  addChangeText: (newPost: string, newText: string) => void;
+};
 
 const mapStateToProps = (state: {
   profPage: { PostData: PostDataType; newText: string };
   post: string;
-}): { post: string; newText: string; PostData: PostDataType } => {
+}): MapStatePropsType => {
   return {
     PostData: state.profPage.PostData,
     newText: state.profPage.newText,
@@ -24,12 +25,7 @@ const mapStateToProps = (state: {
   };
 };
 
-const mapDispatchToProps = (
-  dispatch: Dispatch,
-): {
-    addChangeText: (newPost: string, newText: string) => void;
-    addPost: (newText: string) => void;
-  } => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchPropsType => {
   return {
     addChangeText: (newPost: string, newText: string) => {
       dispatch(addChangeText(newPost, newText));
@@ -43,7 +39,7 @@ const mapDispatchToProps = (
 };
 
 const MyPostContainer = connect(
-  // <MapStateProps, DispatchProps, {}, RootReducersType>(
+  // <MapStatePropsType, DispatchPropsTYpe, {}, RootReducersType>(
   mapStateToProps,
   mapDispatchToProps,
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

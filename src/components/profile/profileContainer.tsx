@@ -41,11 +41,9 @@
 //   // DispatchPropsTYpe &
 //   // RouteComponentProps<RouteParams>
 //   ({ match: { params: { userId } }
-//     , authorisedUserId,
-//     profile, status,
+//     , authorisedUserId, profile, status,
 //     getUsers, history,
 //     ...props }) => {
-//     // eslint-disable-next-line no-debugger
 //     const userUpdateProfile = useCallback(() => {
 //       let activUserId: number | string | undefined = +({ userId });
 //
@@ -64,7 +62,7 @@
 //       }
 //     }, [authorisedUserId, userId, history]);
 //
-//     // useEffect(() => userUpdateProfile(), [getUsers, authorisedUserId, userUpdateProfile]);
+//     useEffect(() => userUpdateProfile(), [getUsers, authorisedUserId, userUpdateProfile]);
 //
 //     useEffect(() => {
 //       if (userId) userUpdateProfile();

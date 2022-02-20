@@ -19,15 +19,12 @@ export type NewMessageTextType = {
 const Dialogs: React.FC<PropsDialogType> = ({
   DialogData,
   MessageUserData,
-  ...props
+  addMessage,
 }): JSX.Element => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
   const onSubmit = (value: NewMessageTextType): void => {
-    props.addMessage(value.newMessageText);
+    addMessage(value.newMessageText);
     value.newMessageText = '';
   };
-
   return (
     <div className={classes.bg}>
       <div className={classes.dialog}>

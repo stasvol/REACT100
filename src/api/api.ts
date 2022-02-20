@@ -28,8 +28,8 @@ export type GetUsersItemsType = {
 };
 
 //    TYPE LOGIN
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type ApiResponseType<D = {}, RC = ResultCodeEnum> = {
+
+export type ApiResponseType<D = Record<string, never>, RC = ResultCodeEnum> = {
   data: D;
   resultCode: RC;
   messages: Array<string>;

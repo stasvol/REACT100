@@ -1,13 +1,10 @@
 import React from 'react';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 
-import {
-  createField,
-  GetStringKeys,
-  Input,
-  Textarea,
-} from '../../common/formControl/formComponent';
+import { createField, GetStringKeys } from '../../common/formControl/formComponent';
 import { ProfileType } from '../../../redux/prof_reducer';
+import { Input } from '../../common/formControl/Input';
+import { Textarea } from '../../common/formControl/Textarea';
 
 import classes from './profilInfo.module.css';
 

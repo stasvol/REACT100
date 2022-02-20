@@ -23,8 +23,7 @@ const changeSubscribeStatus = (status: StatusType): void => {
 const closeHandler = (): void => {
   // console.log('CLOSE');
   changeSubscribeStatus('pending');
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  setTimeout(createWS, 5000);
+  // setTimeout(createWS, 5000);
 };
 
 const openHandler = (): void => {

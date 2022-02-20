@@ -12,13 +12,12 @@ export interface ProfileStatusHookType {
 const StatusContainer: React.FC<ProfileStatusHookType> = ({ status, updateStatus }) => {
   const { editMode, statusNew, activeEditMode, deActiveEditMode, changeStatus } =
     useStatusContainer(status, updateStatus);
-
   return (
     <div>
       {!editMode ? (
         <div className={classes.status}>
           <span onDoubleClick={activeEditMode}>
-            <i>Status :</i> {status}{' '}
+            <i>Status :</i> {statusNew}{' '}
           </span>
         </div>
       ) : (

@@ -3,7 +3,8 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 
 import { required, maxLength30, minLength2 } from '../../utility/validateForm/validator';
 
-import { createField, Textarea } from '../common/formControl/formComponent';
+import { createField } from '../common/formControl/formComponent';
+import { Textarea } from '../common/formControl/Textarea';
 import { NewMessageTextType } from './dialog';
 
 import classes from './dialog.module.css';

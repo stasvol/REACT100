@@ -12,7 +12,7 @@ export type PropsProfType = {
   isOwner: boolean;
   savePhoto: (file: File) => void;
   editProfile: (profile: ProfileType) => Promise<ProfileType>;
-  PostData: Array<PostDataType>;
+  PostData: PostDataType[];
   newText: string;
 };
 
@@ -23,8 +23,7 @@ const Profile: React.FC<PropsProfType> = ({
   isOwner,
   savePhoto,
   editProfile,
-  PostData,
-}) => {
+}): JSX.Element => {
   return (
     <div>
       <ProfInfo
@@ -36,9 +35,7 @@ const Profile: React.FC<PropsProfType> = ({
         updateStatus={updateStatus}
       />
       <ProfAvatar />
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-ignore  */}
-      <MyPostContainer PostData={PostData} />
+      <MyPostContainer />
     </div>
   );
 };

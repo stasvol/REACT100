@@ -1,19 +1,17 @@
-// import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import Nav from './nav';
-import { siteBarActionCreator, SiteBarNavType } from '../../redux/sitebar_reducer';
+import { siteBarActionCreator } from '../../redux/sitebar_reducer';
+import { RootReducersType } from '../../redux/reduxStore';
 
-// export type DispatchType = {
-//   siteBarActionCreator: (userId: number) => void;
-// };
+export type DispatchType = {
+  siteBarActionCreator: (userId: number) => void;
+};
 
-const mapStateToProps = (state: {
-  siteBar: { siteBarNav: SiteBarNavType };
-}): { siteBar: { siteBarNav: SiteBarNavType }; siteBarNav: SiteBarNavType } => {
+const mapStateToProps = (state: RootReducersType) => {
   return {
-    siteBar: state.siteBar,
+    state: state.siteBar,
     siteBarNav: state.siteBar.siteBarNav,
   };
 };
@@ -25,8 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
   };
 };
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+
 const NavContainer = connect(mapStateToProps, mapDispatchToProps)(Nav);
 
 export default NavContainer;

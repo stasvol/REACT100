@@ -11,8 +11,7 @@ const Post: React.FC<PostDataType> = ({ message, like }) => {
   return (
     <div>
       <div className={classes.post}>Post: {message}</div>
-      {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-      <img alt="image" className={classes.imgAvat} src={Url} />
+      <img alt="" className={classes.imgAvat} src={Url} />
       <span>Like: </span> {like}
     </div>
   );

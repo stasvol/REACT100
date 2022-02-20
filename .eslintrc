@@ -328,7 +328,7 @@
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
     "@typescript-eslint/no-floating-promises": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
+    "@typescript-eslint/no-unused-vars": ["off", { "args": "none" }],
     "@typescript-eslint/no-non-null-assertion": "error",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
@@ -344,6 +344,6 @@
     "@typescript-eslint/no-unsafe-member-access": 0,
     "@typescript-eslint/no-unsafe-argument": 0,
     "@typescript-eslint/restrict-template-expressions": 0,
-    "@typescript-eslint/no-unsafe-return": "off"
+    "@typescript-eslint/no-unsafe-return": "off",
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import Preloader from '../../common/preloader/preloader';
+import Preloader from '../../common/preloader/preloader';
 import { useProfInfo } from '../../../hock/useProfInfo';
 import { ProfileType } from '../../../redux/prof_reducer';
 import ProfDataForm from './profDataForm';
@@ -29,7 +29,7 @@ const ProfInfo: React.FC<ProfInfoType> = ({
   ...props
 }) => {
   const { editMode, setEditMode, onPhotoChange, onSubmit } = useProfInfo(savePhoto, editProfile);
-  // if (!profile) return <Preloader />;
+  if (!profile) return <Preloader />;
   return (
     <div>
       <div>

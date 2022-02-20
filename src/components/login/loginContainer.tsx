@@ -23,10 +23,7 @@ export type FormDataType = {
   captcha: string | null;
   captchaUrl: string | null;
 };
-// eslint-disable-next-line @typescript-eslint/no-shadow
-const LoginContainer: React.FC<PropsType> = ({ loginPost, isAuth, captchaUrl }) => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
+const LoginContainer: React.FC<PropsType> = ({ isAuth, captchaUrl }) => {
   const onSubmit = (formData: FormDataType) => {
     loginPost(formData.email, formData.password, formData.rememberMe, formData.captcha);
   };

@@ -5,10 +5,11 @@ import { ValidatorType } from '../../../utility/validateForm/validator';
 
 import classes from './FormControl.module.css';
 
-const FormComponent: React.FC<WrappedFieldProps> = ({ meta: { touched, error }, children }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+export const FormComponent: React.FC<WrappedFieldProps> = ({
+  meta: { touched, error },
+  children,
+}) => {
   const hasError = touched && error;
-
   return (
     <div className={hasError ? classes.error : ''}>
       <div>{children}</div>
@@ -17,31 +18,29 @@ const FormComponent: React.FC<WrappedFieldProps> = ({ meta: { touched, error }, 
   );
 };
 
-// eslint-disable-next-line react/no-multi-comp
-export const Textarea: React.FC<WrappedFieldProps> = props => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { input, meta, children, ...restProps } = props;
-  return (
-    <FormComponent {...props}>
-      <textarea {...input} {...restProps} />{' '}
-    </FormComponent>
-  );
-};
-
-// eslint-disable-next-line react/no-multi-comp
-export const Input: React.FC<WrappedFieldProps> = props => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { input, meta, children, ...restProps } = props;
-  return (
-    <FormComponent {...props}>
-      <input {...input} {...restProps} />{' '}
-    </FormComponent>
-  );
-};
+// export const Textarea: React.FC<WrappedFieldProps> = props => {
+//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//   const { input, meta, children, ...restProps } = props;
+//   return (
+//     <FormComponent {...props}>
+//       <textarea {...input} {...restProps} />{' '}
+//     </FormComponent>
+//   );
+// };
+//
+// // eslint-disable-next-line react/no-multi-comp
+// export const Input: React.FC<WrappedFieldProps> = props => {
+//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//   const { input, meta, children, ...restProps } = props;
+//   return (
+//     <FormComponent {...props}>
+//       <input {...input} {...restProps} />{' '}
+//     </FormComponent>
+//   );
+// };
 
 export type GetStringKeys<T> = Extract<keyof T, string>;
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const createField = <FormKeysType extends string>(
   placeholder: string,
   name: FormKeysType,

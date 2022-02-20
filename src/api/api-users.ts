@@ -12,7 +12,6 @@ export const userApi = {
   ): Promise<any | ApiResponseType<Record<string, never>, ResultCodeEnum>> {
     return addAxios
       .get<GetUsersItemsType>(
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       `users?page=${currentPage}&count=${pageSize}
       &term=${term}${friend === null ? '' : `&friend=${friend.toString()}`}`,
     )

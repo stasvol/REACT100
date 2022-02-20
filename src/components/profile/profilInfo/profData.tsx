@@ -11,7 +11,6 @@ interface ProfDataType {
   profile: ProfileType;
   goToEditMode: () => void;
 }
-
 const ProfData: React.FC<ProfDataType> = ({ profile, isOwner, goToEditMode }) => (
   <div>
     {isOwner && <button onClick={goToEditMode}>Edit</button>}

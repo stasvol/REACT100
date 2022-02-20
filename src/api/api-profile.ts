@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/namespace,import/named
 import { ProfileType, ResponsePhotosType } from '../redux/prof_reducer';
 import { addAxios, ApiResponseType, ResultCodeEnum } from './api';
 
@@ -35,7 +34,6 @@ export const profileApi = {
   },
 
   editProfile(profile: ProfileType) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return addAxios.put('Profile', profile).then(res => res.data);
   },
 };
