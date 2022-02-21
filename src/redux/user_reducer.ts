@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 
 import { userApi } from '../api/api-users';
 import { PhotosType } from './prof_reducer';
-import { RootReducersType } from './reduxStore';
+import { BaseThunkType, RootReducersType } from './reduxStore';
 import { ApiResponseType } from '../api/api';
 
 const FOLLOW = 'FOLLOW';
@@ -27,7 +27,7 @@ export type UsersType = {
 
 export type DisableButtonType = {
   disableButton?: boolean | number;
-  // some(param: (userId: number) => boolean):any ;
+  // some(param: (userId: number) => boolean):any;
 };
 
 export type ActionCreatorUsersType =
@@ -236,12 +236,10 @@ export const getUsersThunkCreator = (
   currentPage: CurrentPageActionType | number,
   pageSize: InitialStateUserType,
   filter: FilterType,
-): ThunkType | SetFilterType | ActionCreatorUsersType => {
+): BaseThunkType<any> | FilterType => {
   return async dispatch => {
     dispatch(togglePreloader(true));
     dispatch(setCurrentPage(currentPage));
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(setFilter(filter));
     const data = await userApi.getUserPage(currentPage, pageSize, filter?.term, filter?.friend);
     dispatch(togglePreloader(false));

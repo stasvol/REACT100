@@ -4,7 +4,7 @@ import { compose, Dispatch } from 'redux';
 
 import { withAuthRedirect } from '../../hock/withAuthRedirect';
 import { dialogAction } from '../../redux/dialog_reducer';
-// import { RootReducersType } from '../../redux/reduxStore';
+
 import Dialogs, { PropsDialogType } from './dialog';
 
 const mapStateToProps = (state: { dialogPage: PropsDialogType }) => state.dialogPage;

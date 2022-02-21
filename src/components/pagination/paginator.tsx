@@ -39,9 +39,7 @@ const Paginator: React.FC<PropsPaginatorType> = () => {
         return (
           <span
             key={page}
-            // eslint-disable-next-line
-            // @ts-ignore
-            className={currentPage === page ? classes.selectedPage : classes.pageNumber}
+            className={+currentPage === page ? classes.selectedPage : classes.pageNumber}
             onClick={handleClick}
           >
             {page}

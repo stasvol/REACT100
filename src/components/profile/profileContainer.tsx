@@ -150,47 +150,51 @@ type RouteParams = {
 
 type PrevPropsType = MapStatePropsTYpe & DispatchPropsTYpe & RouteComponentProps<RouteParams>;
 
-const ProfileContainer: React.FC<PrevPropsType> =
-  // MapStatePropsTYpe &
-  // DispatchPropsTYpe &
-  // RouteComponentProps<RouteParams>
-  ({ match, authorisedUserId, profile, status, getUsers, history, ...props }) => {
-    const userUpdateProfile = useCallback(() => {
-      let userId: string | number | undefined = +match.params.userId;
+const ProfileContainer: React.FC<PrevPropsType> = ({
+  match,
+  authorisedUserId,
+  profile,
+  status,
+  getUsers,
+  history,
+  ...props
+}) => {
+  const userUpdateProfile = useCallback(() => {
+    let userId: string | number | undefined = +match.params.userId;
+
+    if (!userId) {
+      userId = authorisedUserId;
 
       if (!userId) {
-        userId = authorisedUserId;
-
-        if (!userId) {
-          userId = +history.push('/login');
-        }
+        userId = +history.push('/login');
       }
+    }
 
-      if (userId) {
-        getUsers(userId);
-        getStatus(userId);
-      } else {
-        throw new Error('Error');
-      }
-    }, [match.params.userId, authorisedUserId, history, getUsers]);
-    // useEffect(() => userUpdateProfile(), [getUsers, authorisedUserId, userUpdateProfile]);
-    useEffect(() => {
-      if (match.params.userId) userUpdateProfile();
-    }, [match.params.userId, userUpdateProfile]);
+    if (userId) {
+      getUsers(userId);
+      getStatus(userId);
+    } else {
+      throw new Error('Error');
+    }
+  }, [match.params.userId, authorisedUserId, history, getUsers]);
+  // useEffect(() => userUpdateProfile(), [getUsers, authorisedUserId, userUpdateProfile]);
+  useEffect(() => {
+    if (match.params.userId) userUpdateProfile();
+  }, [match.params.userId, userUpdateProfile]);
 
-    return (
-      <div>
-        <Profile
-          {...props}
-          isOwner={!match.params.userId}
-          profile={profile}
-          savePhoto={savePhoto}
-          status={status}
-          updateStatus={updateStatus}
-        />
-      </div>
-    );
-  };
+  return (
+    <div>
+      <Profile
+        {...props}
+        isOwner={!match.params.userId}
+        profile={profile}
+        savePhoto={savePhoto}
+        status={status}
+        updateStatus={updateStatus}
+      />
+    </div>
+  );
+};
 
 const mapStateToProps = (state: {
   profPage: { profile: ProfileType; status: string; PostData: PostDataType[] };
