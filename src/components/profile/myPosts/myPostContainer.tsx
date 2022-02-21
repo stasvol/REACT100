@@ -7,7 +7,7 @@ import MyPost from './myPost';
 type MapStatePropsType = {
   newText: string;
   post: string;
-  PostData: PostDataType;
+  PostData: PostDataType[];
 };
 type DispatchPropsType = {
   addPost: (newText: string) => void;
@@ -15,7 +15,7 @@ type DispatchPropsType = {
 };
 
 const mapStateToProps = (state: {
-  profPage: { PostData: PostDataType; newText: string };
+  profPage: { PostData: PostDataType[]; newText: string };
   post: string;
 }): MapStatePropsType => {
   return {
@@ -42,8 +42,6 @@ const MyPostContainer = connect(
   // <MapStatePropsType, DispatchPropsTYpe, {}, RootReducersType>(
   mapStateToProps,
   mapDispatchToProps,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
 )(MyPost);
 
 export default MyPostContainer;

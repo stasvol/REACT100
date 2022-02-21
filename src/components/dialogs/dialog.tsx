@@ -21,7 +21,7 @@ const Dialogs: React.FC<PropsDialogType> = ({
   MessageUserData,
   addMessage,
 }): JSX.Element => {
-  const onSubmit = (value: NewMessageTextType): void => {
+  const handleSubmit = (value: NewMessageTextType): void => {
     addMessage(value.newMessageText);
     value.newMessageText = '';
   };
@@ -33,9 +33,7 @@ const Dialogs: React.FC<PropsDialogType> = ({
         ))}
       </div>
       <div className={classes.messsages}>
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-ignore */}
-        <DialogForm onSubmit={onSubmit} />
+        <DialogForm onSubmit={handleSubmit} />
 
         <div className={classes.active}>
           <i className={classes.message}>Messages :</i>

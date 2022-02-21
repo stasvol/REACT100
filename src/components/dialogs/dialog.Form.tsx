@@ -12,9 +12,7 @@ import classes from './dialog.module.css';
 export type NewMessageTextTypeKeys = Extract<keyof NewMessageTextType, string>;
 // type propsType = Record<string, never>;
 
-const DialogForm: React.FC<
-InjectedFormProps<NewMessageTextType, Record<string, never>> & Record<string, never>
-> = props => {
+const DialogForm: React.FC<InjectedFormProps<NewMessageTextType>> = props => {
   const { handleSubmit } = props;
   return (
     <form onSubmit={handleSubmit}>
@@ -31,7 +29,7 @@ InjectedFormProps<NewMessageTextType, Record<string, never>> & Record<string, ne
   );
 };
 
-const DialogReduxForm = reduxForm<NewMessageTextType, Record<string, never>>({
+const DialogReduxForm = reduxForm<NewMessageTextType>({
   form: 'dialogMessage',
 })(DialogForm);
 
