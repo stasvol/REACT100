@@ -32,9 +32,7 @@ const UsersContainer: React.FC = () => {
       {users.map(user => (
         <User
           key={`${user.id}`}
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          disableButton={disableButton}
+          disableButton={[disableButton]}
           FollowThunkCreator={FollowThunk}
           unFollowThunkCreator={unFollowThunk}
           user={user}

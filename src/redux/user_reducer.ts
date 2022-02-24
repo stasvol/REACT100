@@ -53,7 +53,7 @@ export const initialState = {
   currentPage: 1,
   isLoading: true,
   pageNumberSizes: 10,
-  disableButton: [] as Array<DisableButtonType>, // array userId
+  disableButton: [] as DisableButtonType[], // array userId
   filter: {
     term: '',
     friend: null as null | boolean,

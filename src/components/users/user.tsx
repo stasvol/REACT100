@@ -6,7 +6,7 @@ import { DisableButtonType, UsersType } from '../../redux/user_reducer';
 
 import classes from './user.module.css';
 
-interface PropsType {
+export interface PropsType {
   user: UsersType;
   disableButton: DisableButtonType[];
   unFollowThunkCreator: (userId: number) => void;
