@@ -60,7 +60,7 @@
 //       } else {
 //         throw new Error('Error');
 //       }
-//     }, [authorisedUserId, userId, history]);
+//     }, [authorisedUserId]);
 //
 //     useEffect(() => userUpdateProfile(), [getUsers, authorisedUserId, userUpdateProfile]);
 //
@@ -177,7 +177,7 @@ const ProfileContainer: React.FC<PrevPropsType> = ({
       throw new Error('Error');
     }
   }, [match.params.userId, authorisedUserId, history, getUsers]);
-  // useEffect(() => userUpdateProfile(), [getUsers, authorisedUserId, userUpdateProfile]);
+  useEffect(() => userUpdateProfile(), [getUsers, authorisedUserId, userUpdateProfile]);
   useEffect(() => {
     if (match.params.userId) userUpdateProfile();
   }, [match.params.userId, userUpdateProfile]);
