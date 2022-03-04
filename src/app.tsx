@@ -117,7 +117,7 @@ const App: React.FC<MapStateType & DispatchPropsType> = ({ initializeApp, initia
                   <Route path="/dialogs" render={() => <DialogContainer />} />
                   <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
                   <Route path="/User" render={() => <UsersContainer />} />
-                  <Route path="/music/vk" render={() => <div>vk</div>} />
+                  <Route path="/music/vk" render={() => <div>vk-music</div>} />
                   <Route exact path="/music" render={() => <Music />} />
                   <Route path="/login" render={() => <Login />} />
                   <Route path="/chat" render={() => <ChatPage />} />

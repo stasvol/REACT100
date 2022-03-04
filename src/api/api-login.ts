@@ -7,7 +7,7 @@ export type LogUserResponseDataType = {
 };
 
 export type LoginResponseDataType = {
-  data: { userId: number };
+  data: { userId: number | string | undefined };
 };
 
 //                   LOGIN

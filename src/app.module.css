@@ -26,3 +26,7 @@
 .layout {
   padding: 24px 0;
 }
+
+.active {
+  text-transform: uppercase;
+}

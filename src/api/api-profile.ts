@@ -11,7 +11,7 @@ export const profileApi = {
   },
 
   getStatus(
-    userId: number | string,
+    userId: number | string | undefined,
   ): Promise<any | ApiResponseType<Record<string, never>, ResultCodeEnum>> {
     return addAxios.get<string>(`Profile/status/${userId}`).then(res => res.data);
   },

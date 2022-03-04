@@ -34,7 +34,6 @@ const Dialogs: React.FC<PropsDialogType> = ({
       </div>
       <div className={classes.messsages}>
         <DialogForm onSubmit={handleSubmit} />
-
         <div className={classes.active}>
           <i className={classes.message}>Messages :</i>
           {MessageUserData.map(({ message, id }) => (
