@@ -5,7 +5,10 @@ type PropsContactType = {
   contactValue: string | null;
 };
 
-const Contact: React.FC<PropsContactType> = ({ contactTitle, contactValue }) => (
+const Contact: React.FC<PropsContactType> = ({
+  contactTitle,
+  contactValue,
+}): React.ReactElement => (
   <div>
     <b>{contactTitle}</b> : <i>{contactValue}</i>
   </div>

@@ -8,7 +8,7 @@ import { useUsersContainer } from './useUsersContainer';
 export type Friend = 'true' | 'false' | 'null';
 type FormType = {
   term: string;
-  friend: Friend;
+  friend: string | Friend;
 };
 
 export const useSearchForm = (): {

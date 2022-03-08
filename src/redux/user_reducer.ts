@@ -1,3 +1,4 @@
+import React from 'react';
 import { AnyAction, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
@@ -22,7 +23,7 @@ export type UsersType = {
   status: string;
   photos: PhotosType;
   followed: boolean;
-  map(element: (user: UsersType) => JSX.Element): any;
+  map(element: (user: UsersType) => React.ReactElement): any;
 };
 
 export type DisableButtonType = {
@@ -123,24 +124,26 @@ const userReducer = (
         ...state,
         // users: [...state.users]
         // users: updateObjectInArray(state.users, action.userId, 'id', { followed: true }),
-        users: state.users.map(user => {
-          if (user.id === action.userId) {
-            return { ...user, followed: true };
-          }
-          return user;
-        }),
+        users: state.users.map(
+          user => (user.id === action.userId ? { ...user, followed: true } : user),
+          // if (user.id === action.userId) {
+          //   return { ...user, followed: true };
+          // }
+          // return user;
+        ),
       };
 
     case UNFOLLOW:
       return {
         ...state,
         // users: updateObjectInArray(state.users, action.userId, 'id', { followed: false }),
-        users: state.users.map(user => {
-          if (user.id === action.userId) {
-            return { ...user, followed: false };
-          }
-          return user;
-        }),
+        users: state.users.map(
+          user => (user.id === action.userId ? { ...user, followed: false } : user),
+          // if (user.id === action.userId) {
+          //   return { ...user, followed: false };
+          // }
+          // return user;
+        ),
       };
 
     case SET_USERS:

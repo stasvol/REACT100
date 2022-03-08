@@ -10,8 +10,6 @@ export type LoginResponseDataType = {
   data: { userId: number | string | undefined };
 };
 
-//                   LOGIN
-
 export const loginApi = {
   loginUser(): Promise<ApiResponseType<LogUserResponseDataType>> {
     return addAxios.get<ApiResponseType<LogUserResponseDataType>>('auth/me').then(response => {

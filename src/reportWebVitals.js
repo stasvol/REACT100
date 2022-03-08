@@ -1,7 +1,4 @@
 // import { ReportHandler } from 'web-vitals';
-//
-// // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// // @ts-ignore
 // const reportWebVitals = (onPerfEntry:ReportHandler):ReportHandler => {
 //   if (onPerfEntry && onPerfEntry instanceof Function) {
 //     import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {

@@ -5,16 +5,12 @@ import { Provider } from 'react-redux';
 import store from './redux/reduxStore';
 import { AppContainer } from './appContainer';
 
-const MyApp: React.FC = () => {
-  return (
-    <>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Provider store={store}>
-          <AppContainer />
-        </Provider>
-      </BrowserRouter>
-    </>
-  );
-};
+const MyApp: React.FC = () => (
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  </BrowserRouter>
+);
 
 export default MyApp;

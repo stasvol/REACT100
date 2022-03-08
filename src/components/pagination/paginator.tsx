@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './pagination.module.css';
-import { useUsersContainer } from '../../hock/useUsersContainer';
+import { useUsersContainer } from '../../hook/useUsersContainer';
 import { CurrentPageActionType, TotalCountActionType } from '../../redux/user_reducer';
 
 export interface PropsPaginatorType {
@@ -12,7 +12,7 @@ export interface PropsPaginatorType {
   pageNumberSizes: number | { pageNumberSizes: number };
 }
 
-const Paginator: React.FC<PropsPaginatorType> = () => {
+const Paginator: React.FC<PropsPaginatorType> = (): React.ReactElement => {
   const {
     pageCountSize,
     handlePagePlus,

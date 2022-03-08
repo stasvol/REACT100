@@ -4,7 +4,7 @@ import { SiteBarNavType } from '../../../redux/sitebar_reducer';
 
 import classes from './siteBar.module.css';
 
-const SiteBar: React.FC<SiteBarNavType> = ({ name, img }) => {
+const SiteBar: React.FC<SiteBarNavType> = ({ name, img }): React.ReactElement => {
   const changeClick = (): void => {
     // alert(`HELLO FRIEND - ${name}`);
   };

@@ -11,12 +11,19 @@ export type DialogDataType = {
 };
 
 export type MessageUserDataType = {
+  newMessageText: string;
   id: number;
   message: string;
+  type: string;
 };
 
-type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
-type ActionsTypes = ReturnType<InferValueTypes<typeof dialogAction>>;
+type MessageType = {
+  newMessageText: string;
+  type: string;
+};
+
+// type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
+type ActionsTypes = MessageUserDataType;
 type ActionCreatorDialogType = ActionsTypes;
 
 let initialState = {
@@ -58,7 +65,7 @@ let initialState = {
       name: 'Vovan',
       img: 'https://i.pinimg.com/originals/5b/1a/9a/5b1a9ab141ba1ade4ab06c8215059225.jpg',
     },
-  ] as Array<DialogDataType>,
+  ],
   MessageUserData: [
     { id: 1, message: 'Vse klas' },
     { id: 2, message: 'Super' },
@@ -66,7 +73,7 @@ let initialState = {
     { id: 4, message: 'VOOOO !!!' },
     { id: 5, message: 'YO-YO-YO-YO' },
     { id: 6, message: 'YO-MO-YO' },
-  ] as Array<MessageUserDataType>,
+  ],
   newMessageText: 'Hi',
 };
 
@@ -99,8 +106,8 @@ const dialogReducer = (
 };
 
 export const dialogAction = {
-  addMessage: (newMessageText: string) => ({ type: ADD_MESSAGE, newMessageText } as const),
-  deleteMessage: (id: number) => ({ type: DELETE_MESSAGE, id } as const),
+  addMessage: (newMessageText: string): MessageType => ({ type: ADD_MESSAGE, newMessageText }),
+  deleteMessage: (id: number) => ({ type: DELETE_MESSAGE, id }),
 };
 
 export default dialogReducer;

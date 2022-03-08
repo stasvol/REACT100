@@ -19,6 +19,8 @@ const User: React.FC<PropsType> = ({
   unFollowThunkCreator,
   FollowThunkCreator,
 }) => {
+  const unFollowCreator = () => unFollowThunkCreator(id);
+  const followCreator = () => FollowThunkCreator(id);
   const disable = disableButton?.some(userId => userId === id);
   return (
     <div>
@@ -34,21 +36,11 @@ const User: React.FC<PropsType> = ({
         </div>
         <div>
           {followed ? (
-            <button
-              disabled={disable}
-              onClick={() => {
-                unFollowThunkCreator(id);
-              }}
-            >
+            <button disabled={disable} onClick={unFollowCreator}>
               UnFollow
             </button>
           ) : (
-            <button
-              disabled={disable}
-              onClick={() => {
-                FollowThunkCreator(id);
-              }}
-            >
+            <button disabled={disable} onClick={followCreator}>
               Follow
             </button>
           )}

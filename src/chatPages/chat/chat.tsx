@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { useChat } from '../../hock/useChat';
+import { useChat } from '../../hook/useChat';
 import Messages from './messages';
 import AddMessageForm from './addMessageForm';
 
-const Chat: React.FC = () => {
+const Chat: React.FC = (): React.ReactElement => {
   const [status] = useChat();
 
   return (

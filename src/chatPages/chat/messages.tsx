@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { useMessages } from '../../hock/useMessages';
+import { useMessages } from '../../hook/useMessages';
 import { ChatMessageApiType } from '../../api/api-chat';
 import MessageData from './messageData';
 
 import classes from '../chatPage.module.css';
 
-const Messages: React.FC = () => {
+const Messages: React.FC = (): React.ReactElement => {
   const { messages, messageRef, scrollHandler } = useMessages();
 
   return (

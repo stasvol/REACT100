@@ -5,9 +5,7 @@ import { addAxios, ApiResponseType, ResultCodeEnum } from './api';
 
 export const profileApi = {
   getProfile(userId: number | string | undefined): Promise<ProfileType> {
-    return addAxios
-      .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/Profile/${userId}`)
-      .then(res => res.data);
+    return addAxios.get<ProfileType>(`Profile/${userId}`).then(res => res.data);
   },
 
   getStatus(

@@ -7,12 +7,13 @@ const subscribers = {
   'messages-received': [] as MessagesReceivedSubscriberType[],
   'status - changed': [] as StatusChangedSubscriberType[],
 };
-type EventsValusType = MessagesReceivedSubscriberType | StatusChangedSubscriberType;
+
+type EventsValuesType = MessagesReceivedSubscriberType | StatusChangedSubscriberType;
 
 let webSoc: WebSocket | null = null;
 
 const messagesHandler = (e: MessageEvent<string>): void => {
-  const newMessage = JSON.parse(e.data) as ChatMessageApiType[];
+  const newMessage: ChatMessageApiType[] = JSON.parse(e.data);
   subscribers['messages-received'].forEach(s => s(newMessage));
 };
 
@@ -69,19 +70,19 @@ export const chatApi = {
     webSoc?.close();
   },
 
-  subscribe(eventNames: EventNamesType, callback: EventsValusType): () => void {
+  subscribe(eventNames: EventNamesType, callback: EventsValuesType): () => void {
     subscribers[eventNames].push(
       callback as MessagesReceivedSubscriberType & StatusChangedSubscriberType,
     );
     return () => {
-      subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValusType>).filter(
-        (s: EventsValusType) => s !== callback,
+      subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValuesType>).filter(
+        (s: EventsValuesType) => s !== callback,
       ) as MessagesReceivedSubscriberType[] & StatusChangedSubscriberType[];
     };
   },
-  unsubscribe(eventNames: EventNamesType, callback: EventsValusType): void {
-    subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValusType>).filter(
-      (s: EventsValusType) => s !== callback,
+  unsubscribe(eventNames: EventNamesType, callback: EventsValuesType): void {
+    subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValuesType>).filter(
+      (s: EventsValuesType) => s !== callback,
     ) as MessagesReceivedSubscriberType[] & StatusChangedSubscriberType[];
   },
   sendMessageWs(message: string): void {

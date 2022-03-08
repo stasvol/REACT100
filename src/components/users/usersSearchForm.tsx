@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, Form, Formik } from 'formik';
 
-import { Friend, useSearchForm } from '../../hock/useSearchForm';
+import { useSearchForm } from '../../hook/useSearchForm';
 import { usersSearchFormValidate } from '../../utility/validateForm/validator';
 import { FilterType } from '../../redux/user_reducer';
 
@@ -16,7 +16,7 @@ const UsersSearchForm: React.FC<PropsTYpe> = () => {
     <>
       <Formik
         enableReinitialize
-        initialValues={{ term: filter?.term, friend: String(filter?.friend) as Friend }}
+        initialValues={{ term: filter?.term, friend: String(filter?.friend) }}
         onSubmit={submit}
         validate={usersSearchFormValidate}
       >

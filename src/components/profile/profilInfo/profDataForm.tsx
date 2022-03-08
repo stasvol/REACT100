@@ -3,8 +3,8 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 
 import { createField, GetStringKeys } from '../../common/formControl/formComponent';
 import { ProfileType } from '../../../redux/prof_reducer';
-import { Input } from '../../common/formControl/Input';
-import { Textarea } from '../../common/formControl/Textarea';
+import { Input } from '../../common/formControl/input';
+import { Textarea } from '../../common/formControl/textarea';
 
 import classes from './profilInfo.module.css';
 
@@ -16,7 +16,7 @@ export type ProfileTypeKeys = GetStringKeys<ProfileType>;
 
 const ProfDataForm: React.FC<
 InjectedFormProps<ProfileType, ProfDataFormType> & ProfDataFormType
-> = ({ handleSubmit, error, profile }) => {
+> = ({ handleSubmit, error, profile }): React.ReactElement => {
   return (
     <form onSubmit={handleSubmit}>
       <button type="submit">Save</button>

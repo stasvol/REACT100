@@ -1,22 +1,36 @@
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter, Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
-import Music from './components/music/music';
-import Login from './components/login/loginContainer';
+// import Music from './components/music/music';
+// import Login from './components/login/loginContainer';
 import Preloader from './components/common/preloader/preloader';
-import UsersContainer from './components/users/usersContainer';
+// import UsersContainer from './components/users/usersContainer';
 import MyHeader from './components/header/header';
-import Error from './error/error';
+// import Error from './error/error';
 import { MapStateType } from './appContainer';
+import { LoadingComponent } from './pagesPath/pages_loading';
+import { RedirectComponent } from './pagesPath/pages_redirect';
+// import { DialogComponent } from './pagesPath/papes_dialog';
+// import { ProfileComponent } from './pagesPath/pages_profile';
+// import { ChatComponent } from './pagesPath/pages_chat';
+import { UsersComponent } from './pagesPath/pages_users';
+import { VkMusicComponent } from './pagesPath/pages_vk_music';
+import { MusicComponent } from './pagesPath/pages_music';
+import { LoginComponent } from './pagesPath/pages_login';
+import { ErrorComponent } from './pagesPath/pages_error';
 
 import classes from './app.module.css';
 import './app.css';
 
-const DialogContainer = React.lazy(() => import('./components/dialogs/dialogContainer'));
-const ProfileContainer = React.lazy(() => import('./components/profile/profileContainer'));
-const ChatPage = React.lazy(() => import('./chatPages/chatPage'));
+const DialogComponent = React.lazy(() => import('./pagesPath/papes_dialog'));
+const ProfileComponent = React.lazy(() => import('./pagesPath/pages_profile'));
+const ChatComponent = React.lazy(() => import('./pagesPath/pages_chat'));
+
+// const DialogContainer = React.lazy(() => import('./components/dialogs/dialogContainer'));
+// const ProfileContainer = React.lazy(() => import('./components/profile/profileContainer'));
+// const ChatPage = React.lazy(() => import('./chatPages/chatPage'));
 
 const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;
@@ -111,24 +125,24 @@ const App: React.FC<MapStateType & DispatchPropsType> = ({ initializeApp, initia
               </Menu>
             </Sider>
             <Content className={classes.contents}>
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={LoadingComponent}>
                 <Switch>
-                  <Route exact path="/" render={() => <Redirect to="/profile" />} />
-                  <Route path="/dialogs" render={() => <DialogContainer />} />
-                  <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-                  <Route path="/User" render={() => <UsersContainer />} />
-                  <Route path="/music/vk" render={() => <div>vk-music</div>} />
-                  <Route exact path="/music" render={() => <Music />} />
-                  <Route path="/login" render={() => <Login />} />
-                  <Route path="/chat" render={() => <ChatPage />} />
+                  <Route exact path="/" render={RedirectComponent} />
+                  <Route path="/dialogs" render={DialogComponent} />
+                  <Route path="/profile/:userId?" render={ProfileComponent} />
+                  <Route path="/User" render={UsersComponent} />
+                  <Route path="/music/vk" render={VkMusicComponent} />
+                  <Route exact path="/music" render={MusicComponent} />
+                  <Route path="/login" render={LoginComponent} />
+                  <Route path="/chat" render={ChatComponent} />
 
-                  <Route path="*" render={() => <Error />} />
+                  <Route path="*" render={ErrorComponent} />
                 </Switch>
               </Suspense>
             </Content>
           </Layout>
         </Content>
-        <Footer className={classes.footer}>App ©2021 Created by Artur</Footer>
+        <Footer className={classes.footer}>App &copy;2021 Created by Artur</Footer>
       </Layout>
     </BrowserRouter>
   );

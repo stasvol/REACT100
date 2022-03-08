@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Avatar, Button, Col, Image, Layout, Menu, Row } from 'antd';
 
-import { useMyHeader } from '../../hock/useMyHeader';
+import { useMyHeader } from '../../hook/useMyHeader';
 
 import classes from './header.module.css';
 

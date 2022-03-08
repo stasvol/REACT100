@@ -12,7 +12,7 @@ export type PropsType = {
   post: string;
 };
 
-const MyPost: React.FC<PropsType> = ({ PostData, addPost, post }) => {
+const MyPost: React.FC<PropsType> = ({ PostData, addPost, post }): React.ReactElement => {
   const onSubmit = (values: PropsPostFormType): void => {
     addPost(values.newText);
     values.newText = '';

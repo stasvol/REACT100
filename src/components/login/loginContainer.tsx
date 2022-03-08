@@ -11,6 +11,7 @@ type MapStateType = {
   isAuth: boolean;
   captchaUrl: string | null;
 };
+type MapStateParamsType = { auth: { isAuth: boolean; captchaUrl: string } };
 type MapDispatchType = {
   loginPost: (email: string, password: string, rememberMe: boolean, captcha: string | null) => void;
 };
@@ -23,9 +24,10 @@ export type FormDataType = {
   captcha: string | null;
   captchaUrl: string | null;
 };
-const LoginContainer: React.FC<PropsType> = ({ isAuth, captchaUrl }) => {
+const LoginContainer: React.FC<PropsType> = ({ isAuth, captchaUrl }): React.ReactElement => {
   const onSubmit = (formData: FormDataType) => {
-    loginPost(formData.email, formData.password, formData.rememberMe, formData.captcha);
+    const { email, password, rememberMe, captcha } = formData;
+    loginPost(email, password, rememberMe, captcha);
   };
   if (isAuth) {
     return <Redirect to="/profile" />;
@@ -37,9 +39,7 @@ const LoginContainer: React.FC<PropsType> = ({ isAuth, captchaUrl }) => {
     </div>
   );
 };
-const mapStateToProps = (state: {
-  auth: { isAuth: boolean; captchaUrl: string };
-}): MapStateType => ({
+const mapStateToProps = (state: MapStateParamsType): MapStateType => ({
   isAuth: state.auth.isAuth,
   captchaUrl: state.auth.captchaUrl,
 });

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, Col, Input } from 'antd';
 
-import { useFormMessage } from '../../hock/useFormMessage';
+import { useFormMessage } from '../../hook/useFormMessage';
+
 import classes from '../chatPage.module.css';
 
-const AddMessageForm: React.FC = () => {
+const AddMessageForm: React.FC = (): React.ReactElement => {
   const { message, status, changeClick, sendMessageHandler } = useFormMessage();
 
   return (

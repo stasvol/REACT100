@@ -3,7 +3,7 @@
 // import { connect } from 'react-redux';
 // import { compose } from 'redux';
 //
-// import { withAuthRedirect } from '../../hock/withAuthRedirect';
+// import { withAuthRedirect } from '../../hook/withAuthRedirect';
 // import {
 //   getStatus,
 //   profileThunkCreator,

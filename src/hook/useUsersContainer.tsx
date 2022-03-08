@@ -25,27 +25,25 @@ import {
 } from '../redux/user_reducer';
 
 type QueryType = { term?: string; friend?: string; page?: number };
-// type ParsedType = { term: string; friend: string; page: string };
+type PropsType = {
+  pageCountSize: number;
+  pageNumber: number;
+  handlePageMinus: () => void;
+  pageSize: InitialStateUserType;
+  onFilterChange: (filter: FilterType) => void;
+  handlePagePlus: () => void;
+  users: UsersType;
+  disableButton: DisableButtonFolActionType;
+  totalUsersCount: TotalCountActionType;
+  pageNumberSizes: InitialStateUserType;
+  onChangePage: (pageNumber: number) => void;
+  currentPage: CurrentPageActionType;
+  pagesData: number[];
+  unFollowThunk: (userId: number) => void;
+  FollowThunk: (userId: number) => void;
+};
 
-export const useUsersContainer = (
-  initState = 1,
-): {
-    pageCountSize: number;
-    pageNumber: number;
-    handlePageMinus: () => void;
-    pageSize: InitialStateUserType;
-    onFilterChange: (filter: FilterType) => void;
-    handlePagePlus: () => void;
-    users: UsersType;
-    disableButton: DisableButtonFolActionType;
-    totalUsersCount: TotalCountActionType;
-    pageNumberSizes: InitialStateUserType;
-    onChangePage: (pageNumber: number) => void;
-    currentPage: CurrentPageActionType;
-    pagesData: number[];
-    unFollowThunk: (userId: number) => void;
-    FollowThunk: (userId: number) => void;
-  } => {
+export const useUsersContainer = (initState = 1): PropsType => {
   const [pageNumber, setPageNumber] = useState(initState);
   const users = useSelector(getUsersSelector);
   const currentPage = useSelector(currentPageSelector);

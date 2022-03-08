@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './profAvatar.module.css';
 
-const ProfAvatar: React.FC = () => (
+const ProfAvatar: React.FC = (): React.ReactElement => (
   <div>
     <div>
       <img

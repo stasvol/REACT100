@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useStatusContainer } from '../../../hock/useStatusContainer';
+import { useStatusContainer } from '../../../hook/useStatusContainer';
 
 import classes from './profilInfo.module.css';
 

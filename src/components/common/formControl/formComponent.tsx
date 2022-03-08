@@ -8,7 +8,7 @@ import classes from './FormControl.module.css';
 export const FormComponent: React.FC<WrappedFieldProps> = ({
   meta: { touched, error },
   children,
-}) => {
+}): React.ReactElement => {
   const hasError = touched && error;
   return (
     <div className={hasError ? classes.error : ''}>
@@ -18,29 +18,15 @@ export const FormComponent: React.FC<WrappedFieldProps> = ({
   );
 };
 
-// export const Textarea: React.FC<WrappedFieldProps> = props => {
-//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//   const { input, meta, children, ...restProps } = props;
-//   return (
-//     <FormComponent {...props}>
-//       <textarea {...input} {...restProps} />{' '}
-//     </FormComponent>
-//   );
-// };
-//
-// // eslint-disable-next-line react/no-multi-comp
-// export const Input: React.FC<WrappedFieldProps> = props => {
-//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//   const { input, meta, children, ...restProps } = props;
-//   return (
-//     <FormComponent {...props}>
-//       <input {...input} {...restProps} />{' '}
-//     </FormComponent>
-//   );
-// };
-
 export type GetStringKeys<T> = Extract<keyof T, string>;
-
+// type CreateFieldType = {
+//   placeholder: string,
+//   name: string,
+//   validators: Array<ValidatorType>,
+//   component: React.FC | React.Component | React.FC<WrappedFieldProps>,
+//   props: Record<string, unknown>,
+//   text:string,
+// };
 export const createField = <FormKeysType extends string>(
   placeholder: string,
   name: FormKeysType,
@@ -48,52 +34,17 @@ export const createField = <FormKeysType extends string>(
   component: React.FC | React.Component | React.FC<WrappedFieldProps>,
   props = {},
   text = '',
-): JSX.Element => {
+): React.ReactElement => {
   return (
     <div>
       <Field
+        {...props}
         component={component}
         name={name}
         placeholder={placeholder}
         validate={validators}
-        {...props}
       />{' '}
       {text}
     </div>
   );
 };
-
-// meta: { touched, error, warning }
-
-// export const Input = ({input, meta, ...props }) => {
-//
-//     const hasError = meta.touched &&  meta.error;
-//
-//     return(
-//         <div className={ hasError ? classes.error : null} >
-//
-//             <div >
-//                 <input  {...input} {...props} />
-//             </div>
-//
-//             { meta.touched &&  meta.error && <span className={classes.span}>{meta.error}</span> }
-//
-//         </div>
-//     )
-// }
-// export const Textarea = ({input, meta, ...props }) => {
-//
-//     const hasError = meta.touched &&  meta.error;
-//
-//     return(
-//         <div className={ hasError ? classes.error : null} >
-//
-//             <div >
-//                 <textarea  {...input} {...props} />
-//             </div>
-//
-//             { meta.touched &&  meta.error && <span className={classes.span}>{meta.error}</span> }
-//
-//         </div>
-//     )
-// }

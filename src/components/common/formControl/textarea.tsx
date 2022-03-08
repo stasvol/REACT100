@@ -2,11 +2,11 @@ import React from 'react';
 import { WrappedFieldProps } from 'redux-form';
 import { FormComponent } from './formComponent';
 
-export const Input: React.FC<WrappedFieldProps> = props => {
+export const Textarea: React.FC<WrappedFieldProps> = (props): React.ReactElement => {
   const { input, ...restProps } = props;
   return (
     <FormComponent {...props}>
-      <input {...input} {...restProps} />{' '}
+      <textarea {...input} {...restProps} />{' '}
     </FormComponent>
   );
 };

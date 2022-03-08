@@ -9,7 +9,7 @@ type PropsType = {
   name: string;
 };
 
-const DialogUser: React.FC<PropsType> = ({ id, img, name }) => {
+const DialogUser: React.FC<PropsType> = ({ id, img, name }): React.ReactElement => {
   const path = `/dialogs/1${id}`;
 
   return (

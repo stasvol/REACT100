@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Preloader from '../../common/preloader/preloader';
-import { useProfInfo } from '../../../hock/useProfInfo';
+import { useProfInfo } from '../../../hook/useProfInfo';
 import { ProfileType } from '../../../redux/prof_reducer';
 import ProfDataForm from './profDataForm';
 import ProfData from './profData';
@@ -27,8 +27,10 @@ const ProfInfo: React.FC<ProfInfoType> = ({
   isOwner,
   profile,
   ...props
-}) => {
+}): React.ReactElement => {
   const { editMode, setEditMode, onPhotoChange, onSubmit } = useProfInfo(savePhoto, editProfile);
+  const handleToEditMode = () => setEditMode(true);
+
   if (!profile) return <Preloader />;
   return (
     <div>
@@ -53,13 +55,7 @@ const ProfInfo: React.FC<ProfInfoType> = ({
         {editMode ? (
           <ProfDataForm {...props} onSubmit={onSubmit} profile={profile} />
         ) : (
-          <ProfData
-            goToEditMode={() => {
-              setEditMode(true);
-            }}
-            isOwner={isOwner}
-            profile={profile}
-          />
+          <ProfData goToEditMode={handleToEditMode} isOwner={isOwner} profile={profile} />
         )}
       </div>
     </div>

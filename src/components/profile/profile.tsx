@@ -23,7 +23,7 @@ const Profile: React.FC<PropsProfType> = ({
   isOwner,
   savePhoto,
   editProfile,
-}): JSX.Element => {
+}): React.ReactElement => {
   return (
     <div>
       <ProfInfo

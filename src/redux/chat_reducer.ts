@@ -1,5 +1,7 @@
 import { Dispatch } from 'redux';
+
 import { chatApi, ChatMessageApiType, StatusType } from '../api/api-chat';
+import { userId } from '../utility/getId';
 
 const SET_MESSAGE = 'SET MESSAGE';
 const SET_STATUS = 'SET STATUS ';
@@ -20,6 +22,8 @@ type SetStatusType = { type: typeof SET_STATUS; status: StatusType };
 type ActionChatType = SetMessageType | SetStatusType;
 
 export const actions = {
+  // setMessage: (messages: ChatMessageApiType[],
+  //   userId:{ getID:GetIDType }) => ({ type: SET_MESSAGE, messages, userId }),
   setMessage: (
     messages: ChatMessageApiType[],
   ): { messages: ChatMessageApiType[]; type: string } => ({ type: SET_MESSAGE, messages }),
@@ -27,13 +31,12 @@ export const actions = {
     return { type: SET_STATUS, status };
   },
 };
-
-const getID = (): string | number | undefined => {
-  // Math.random должен быть уникальным из-за своего алгоритма заполнения.
-  // Преобразуем его в базу 36 (числа + буквы) и берем первые 9 символов
-  // после десятичной дроби.
-  return `_${Math.random().toString(36).substr(2, 9)}`;
-};
+// const getID = (): string | number | undefined => {
+//   // Math.random должен быть уникальным из-за своего алгоритма заполнения.
+//   // Преобразуем его в базу 36 (числа + буквы) и берем первые 9 символов
+//   // после десятичной дроби.
+//   return `_${Math.random().toString(36).substr(2, 9)}`;
+// };
 
 const chatReducer = (state = initialState, action: ActionChatType): ChatStateType => {
   switch (action.type) {
@@ -42,9 +45,9 @@ const chatReducer = (state = initialState, action: ActionChatType): ChatStateTyp
         ...state,
         messages: [
           ...state.messages,
-          ...action.messages.map((m: ChatMessageApiType) => ({
-            ...m,
-            id: getID(),
+          ...action.messages.map((message: ChatMessageApiType) => ({
+            ...message,
+            id: userId,
           })),
         ].filter((m, i, array) => i >= array.length - 100),
       };

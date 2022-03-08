@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DialogUser from './dialogUser/dialogUser';
-import MessageUser from './messageUser/MessageUser';
+import MessageUser from './messageUser/messageUser';
 import { DialogDataType, MessageUserDataType } from '../../redux/dialog_reducer';
 import DialogForm from './dialog.Form';
 
@@ -20,7 +20,7 @@ const Dialogs: React.FC<PropsDialogType> = ({
   DialogData,
   MessageUserData,
   addMessage,
-}): JSX.Element => {
+}): React.ReactElement => {
   const handleSubmit = (value: NewMessageTextType): void => {
     addMessage(value.newMessageText);
     value.newMessageText = '';

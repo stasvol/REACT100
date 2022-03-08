@@ -4,15 +4,14 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 import { required, maxLength30, minLength2 } from '../../utility/validateForm/validator';
 
 import { createField } from '../common/formControl/formComponent';
-import { Textarea } from '../common/formControl/Textarea';
+import { Textarea } from '../common/formControl/textarea';
 import { NewMessageTextType } from './dialog';
 
 import classes from './dialog.module.css';
 
 export type NewMessageTextTypeKeys = Extract<keyof NewMessageTextType, string>;
-// type propsType = Record<string, never>;
 
-const DialogForm: React.FC<InjectedFormProps<NewMessageTextType>> = props => {
+const DialogForm: React.FC<InjectedFormProps<NewMessageTextType>> = (props): React.ReactElement => {
   const { handleSubmit } = props;
   return (
     <form onSubmit={handleSubmit}>

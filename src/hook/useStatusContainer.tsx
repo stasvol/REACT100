@@ -13,16 +13,6 @@ export const useStatusContainer = (
   status: string,
   updateStatus: (status: string) => void,
 ): UseStatusContainerType => {
-  // { status, updateStatus,
-  // }: { status: string, updateStatus: (status: string) => void }): {
-  //   editMode: boolean;
-  //   statusNew: string;
-  //   activeEditMode: () => void;
-  //   deActiveEditMode: () => void;
-  //   changeStatus: (e: ChangeEvent<HTMLInputElement>) => void;
-  // } => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
   const [editMode, setEditMode] = useState(false);
   const [statusNew, setStatus] = useState(status);
 

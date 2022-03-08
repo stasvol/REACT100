@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useUsersContainer } from '../../hock/useUsersContainer';
+import { useUsersContainer } from '../../hook/useUsersContainer';
 import Paginator from '../pagination/paginator';
 import User from './user';
 import UsersSearchForm from './usersSearchForm';
