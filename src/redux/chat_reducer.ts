@@ -20,13 +20,15 @@ type SetMessageType = { type: typeof SET_MESSAGE; messages: ChatMessageApiType[]
 type SetStatusType = { type: typeof SET_STATUS; status: StatusType };
 
 type ActionChatType = SetMessageType | SetStatusType;
+type PropsMessagesType = { messages: ChatMessageApiType[]; type: string };
 
 export const actions = {
   // setMessage: (messages: ChatMessageApiType[],
   //   userId:{ getID:GetIDType }) => ({ type: SET_MESSAGE, messages, userId }),
-  setMessage: (
-    messages: ChatMessageApiType[],
-  ): { messages: ChatMessageApiType[]; type: string } => ({ type: SET_MESSAGE, messages }),
+  setMessage: (messages: ChatMessageApiType[]): PropsMessagesType => ({
+    type: SET_MESSAGE,
+    messages,
+  }),
   setStatus: (status: StatusType): { type: string; status: 'pending' | 'ready' | 'error' } => {
     return { type: SET_STATUS, status };
   },

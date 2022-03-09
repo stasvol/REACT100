@@ -11,7 +11,7 @@ import {
   pageSizeSelector,
   setFilterSelector,
   totalUsersCountSelector,
-} from '../redux/users_selectors';
+} from '../selectors/users_selectors';
 import {
   CurrentPageActionType,
   DisableButtonFolActionType,
@@ -58,17 +58,20 @@ export const useUsersContainer = (initState = 1): PropsType => {
   const location = useLocation();
   const pageCount = Math.ceil(+totalUsersCount / +pageSize);
   const pages: Array<number> = [];
-  for (let i = 1; i <= pageCount; i++) {
-    pages.push(i);
-  }
+  // for (let i = 1; i <= pageCount; i++) {
+  //   pages.push(i);
+  // }
+  Array.from({ length: 10 }, (_, index) => index + 1).forEach(page => {
+    pages.push(page);
+  });
   const pageCountSize = Math.ceil(+pageCount / +pageNumberSizes); //   /10 = pageNumberSizes
   const leftPortionPageNumber = (+pageNumber - 1) * +pageNumberSizes + 1;
   const rightPortionPageNumber = pageNumber * +pageNumberSizes;
   const handlePagePlus = (): void => {
-    setPageNumber(pageNumber + 1);
+    setPageNumber(prevPageNumber => prevPageNumber + 1);
   };
   const handlePageMinus = (): void => {
-    setPageNumber(pageNumber - 1);
+    setPageNumber(prevPageNumber => prevPageNumber - 1);
   };
   const pagesData = pages.filter(
     page => page >= leftPortionPageNumber && page <= rightPortionPageNumber,
@@ -79,7 +82,7 @@ export const useUsersContainer = (initState = 1): PropsType => {
     let actualPage: CurrentPageActionType | number = currentPage;
     let actualFilter = filter;
     if (parsed.page) actualPage = Number(parsed.page);
-    if (parsed.term) actualFilter = { ...actualFilter, term: parsed.term as string };
+    if (parsed.term) actualFilter = { ...actualFilter, term: parsed.term.toString() };
     if (parsed.friend) {
       actualFilter = {
         ...actualFilter,

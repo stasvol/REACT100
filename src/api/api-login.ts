@@ -12,9 +12,9 @@ export type LoginResponseDataType = {
 
 export const loginApi = {
   loginUser(): Promise<ApiResponseType<LogUserResponseDataType>> {
-    return addAxios.get<ApiResponseType<LogUserResponseDataType>>('auth/me').then(response => {
-      return response.data;
-    });
+    return addAxios
+      .get<ApiResponseType<LogUserResponseDataType>>('auth/me')
+      .then(response => response.data);
   },
 
   login(
@@ -28,14 +28,10 @@ export const loginApi = {
       'auth/login',
       { email, password, rememberMe, captcha },
     )
-      .then(response => {
-        return response.data;
-      });
+      .then(response => response.data);
   },
 
   logOut(): Promise<ApiResponseType> {
-    return addAxios.delete<ApiResponseType>('auth/login').then(response => {
-      return response.data;
-    });
+    return addAxios.delete<ApiResponseType>('auth/login').then(response => response.data);
   },
 };

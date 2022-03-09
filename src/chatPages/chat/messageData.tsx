@@ -3,7 +3,9 @@ import { Avatar } from 'antd';
 
 import { ChatMessageApiType } from '../../api/api-chat';
 
-const MessageData: React.FC<{ message: ChatMessageApiType }> = ({
+type MessagePropsType = { message: ChatMessageApiType };
+
+const MessageData: React.FC<MessagePropsType> = ({
   message: { photo, userName, message },
 }): React.ReactElement => (
   <>

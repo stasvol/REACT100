@@ -14,11 +14,11 @@ let webSoc: WebSocket | null = null;
 
 const messagesHandler = (e: MessageEvent<string>): void => {
   const newMessage: ChatMessageApiType[] = JSON.parse(e.data);
-  subscribers['messages-received'].forEach(s => s(newMessage));
+  subscribers['messages-received'].forEach(subscriber => subscriber(newMessage));
 };
 
 const changeSubscribeStatus = (status: StatusType): void => {
-  subscribers['status - changed'].forEach(s => s(status));
+  subscribers['status - changed'].forEach(subscriber => subscriber(status));
 };
 
 const closeHandler = (): void => {
@@ -76,13 +76,13 @@ export const chatApi = {
     );
     return () => {
       subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValuesType>).filter(
-        (s: EventsValuesType) => s !== callback,
+        (subscriber: EventsValuesType) => subscriber !== callback,
       ) as MessagesReceivedSubscriberType[] & StatusChangedSubscriberType[];
     };
   },
   unsubscribe(eventNames: EventNamesType, callback: EventsValuesType): void {
     subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValuesType>).filter(
-      (s: EventsValuesType) => s !== callback,
+      (subscriber: EventsValuesType) => subscriber !== callback,
     ) as MessagesReceivedSubscriberType[] & StatusChangedSubscriberType[];
   },
   sendMessageWs(message: string): void {

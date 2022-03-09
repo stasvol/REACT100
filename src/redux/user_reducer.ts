@@ -83,11 +83,13 @@ export type SetFilterType = {
   friend: null | boolean;
   term: string;
   type: typeof SET_FILTER;
-  payload: {
-    term: string;
-    friend: null | boolean;
-  };
+  // payload: {
+  //   term: string;
+  //   friend: null | boolean;
+  // };
 };
+
+type SetFilterPropsType = { type: string; payload: { term: string; friend: boolean | null } };
 
 export type TotalCountActionType = {
   type: typeof SET_TOTAL_COUNT;
@@ -208,9 +210,7 @@ export const setCurrentPage = (
   currentPage,
 });
 
-export const setFilter = (
-  filter: FilterType,
-): { type: string; payload: { term: string; friend: boolean | null } } => ({
+export const setFilter = (filter: FilterType): SetFilterPropsType => ({
   type: SET_FILTER,
   payload: filter,
 });

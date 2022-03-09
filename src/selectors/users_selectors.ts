@@ -6,7 +6,7 @@ import {
   TogglePreloaderActionType,
   TotalCountActionType,
   UsersType,
-} from './user_reducer';
+} from '../redux/user_reducer';
 
 export const getUsersSelector = (state: { usersPage: { users: UsersType } }): UsersType =>
   state.usersPage.users;

@@ -3,7 +3,7 @@ import { ContactsType, ProfileType } from '../../../redux/prof_reducer';
 
 import Contact from './contact';
 
-import smail from '../../../photo/images/smail.png';
+import smail from '../../../static/images/smail.png';
 import classes from './profilInfo.module.css';
 
 interface ProfDataType {

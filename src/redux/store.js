@@ -89,20 +89,20 @@ const store = {
     },
   },
 
-  getState() {
+  getState: () => {
     return this.state;
   },
 
-  subscriber() {
+  subscriber: () => {
     // eslint-disable-next-line no-console
     console.log('state  changed');
   },
 
-  subscribe(observer) {
+  subscribe: observer => {
     this.subscriber = observer;
   },
 
-  dispatch(action) {
+  dispatch: action => {
     this.state.dialogPage = dialogReducer(this.state.dialogPage, action);
     this.state.postPage = postReducer(this.state.postPage, action);
     this.state.siteBar = siteBarReducer(this.state.siteBar, action);

@@ -1,5 +1,5 @@
-import { addAxios, GetUsersItemsType, ApiResponseType, ResultCodeEnum } from './api';
 import { CurrentPageActionType, InitialStateUserType } from '../redux/user_reducer';
+import { addAxios, GetUsersItemsType, ApiResponseType, ResultCodeEnum } from './api';
 
 //               USERS
 
@@ -15,20 +15,14 @@ export const userApi = {
       `users?page=${currentPage}&count=${pageSize}
       &term=${term}${friend === null ? '' : `&friend=${friend.toString()}`}`,
     )
-      .then(response => {
-        return response.data;
-      });
+      .then(response => response.data);
   },
 
   deleteUser(userId: number): Promise<ApiResponseType> {
-    return addAxios.delete<ApiResponseType>(`follow/${userId}`).then(response => {
-      return response.data;
-    }); // as Promise <ResponseType>
+    return addAxios.delete<ApiResponseType>(`follow/${userId}`).then(response => response.data); // as Promise <ResponseType>
   },
 
   postUser(userId: number): Promise<ApiResponseType> {
-    return addAxios.post<ApiResponseType>(`follow/${userId}`, {}).then(response => {
-      return response.data;
-    });
+    return addAxios.post<ApiResponseType>(`follow/${userId}`, {}).then(response => response.data);
   },
 };

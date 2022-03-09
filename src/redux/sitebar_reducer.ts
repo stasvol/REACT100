@@ -9,7 +9,7 @@ export type SiteBarNavType = {
 };
 // export type InitialStateType = typeof initialState;
 
-let initialState = {
+const initialState = {
   siteBarNav: [
     {
       id: 1,
@@ -28,7 +28,7 @@ let initialState = {
       name: 'Ivan',
       img: 'https://i.pinimg.com/236x/4d/fa/04/4dfa04c4070771935150bad24ac02cbf.jpg',
     },
-  ] as Array<SiteBarNavType>,
+  ],
 };
 
 const siteBarReducer = (

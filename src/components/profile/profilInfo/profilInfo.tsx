@@ -7,7 +7,7 @@ import ProfDataForm from './profDataForm';
 import ProfData from './profData';
 import StatusContainer from './statusContainer';
 
-import kot from '../../../photo/images/kot.png';
+import kot from '../../../static/images/kot.png';
 import classes from './profilInfo.module.css';
 
 export interface ProfInfoType {

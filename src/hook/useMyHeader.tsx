@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback } from 'react';
-import { isAuthSelector, loginSelector } from '../redux/auth-selector';
+import { isAuthSelector, loginSelector } from '../selectors/auth-selector';
 import { loginOut } from '../redux/auth_reducer';
 
 type PropsType = { isAuth: boolean; logOutUser: () => void; login: string };

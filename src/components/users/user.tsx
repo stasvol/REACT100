@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import photo from '../../photo/images/user.png';
+import photo from '../../static/images/user.png';
 import { DisableButtonType, UsersType } from '../../redux/user_reducer';
 
 import classes from './user.module.css';

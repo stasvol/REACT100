@@ -101,17 +101,17 @@ const App: React.FC<MapStateType & DispatchPropsType> = ({ initializeApp, initia
                   <Menu.Item key="8">option8</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub3" icon={<NotificationOutlined />} title="CHAT">
-                  <Menu.Item key="11">
+                  <Menu.Item key="9">
                     <NavLink activeClassName={classes.active} to="/chat">
                       Chat
                     </NavLink>
                   </Menu.Item>
-                  <Menu.Item key="9">
+                  <Menu.Item key="10">
                     <NavLink activeClassName={classes.active} to="/news">
                       News
                     </NavLink>
                   </Menu.Item>
-                  <Menu.Item key="10">
+                  <Menu.Item key="11">
                     <NavLink activeClassName={classes.active} to="/Setting">
                       Settings
                     </NavLink>

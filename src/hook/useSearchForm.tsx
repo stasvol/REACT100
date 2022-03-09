@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
-import { setFilterSelector } from '../redux/users_selectors';
+import { setFilterSelector } from '../selectors/users_selectors';
 import { FilterType, SetFilterType } from '../redux/user_reducer';
 import { useUsersContainer } from './useUsersContainer';
 

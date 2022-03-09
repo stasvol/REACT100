@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { UsersType } from '../redux/user_reducer';
+import { ApiKey } from '../common/api_key';
 
 export const addAxios = axios.create({
   withCredentials: true,
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
   headers: {
-    'API-KEY': '6ca7206a-79cd-4b75-a7a8-fe4c71b43bb1',
-    // "27d40a8a-efb4-4ff9-9f59-1a96a8bc548d",
+    'API-KEY': ApiKey,
   },
 });
 
@@ -28,7 +28,6 @@ export type GetUsersItemsType = {
 };
 
 //    TYPE LOGIN
-
 export type ApiResponseType<D = Record<string, never>, RC = ResultCodeEnum> = {
   data: D;
   resultCode: RC;

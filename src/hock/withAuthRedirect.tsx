@@ -5,8 +5,9 @@ import { connect, ConnectedComponent } from 'react-redux';
 type MapStateType = {
   isAuth: boolean;
 };
+type MapStateParamsType = { auth: { isAuth: boolean } };
 
-const mapStateToPropsRedirect = (state: { auth: { isAuth: boolean } }): MapStateType => ({
+const mapStateToPropsRedirect = (state: MapStateParamsType): MapStateType => ({
   isAuth: state.auth.isAuth,
 });
 

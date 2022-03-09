@@ -5,6 +5,7 @@ import { ThunkAction } from 'redux-thunk';
 import { RootReducersType } from './reduxStore';
 
 import { profileApi } from '../api/api-profile';
+import { ResultCodeEnum } from '../api/api';
 
 const ADD_POST = 'ADD POST';
 const ADD_CHANGE_TEXT = 'ADD CHANGE TEXT';
@@ -88,13 +89,12 @@ type DeletePostActionType = {
   type: typeof DELETE_POST;
   postId: number;
 };
-
-let initialState = {
+const initialState = {
   PostData: [
     { id: 1, like: 20, message: 'Super' },
     { id: 2, like: 3, message: 'Kliovo' },
     { id: 3, like: 9, message: 'Class' },
-  ] as Array<PostDataType>,
+  ],
 
   newText: 'Hello',
   profile: null as ProfileType | null, //   {} as profileType,
@@ -193,11 +193,11 @@ export const updateStatus = (status: string) => {
     const data = await profileApi.updateStatus(status);
 
     try {
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCodeEnum.success) {
         dispatch(setStatus(status));
       }
 
-      if (data.resultCode === 1) {
+      if (data.resultCode === ResultCodeEnum.error) {
         throw new Error('Something went wrong.');
       }
     } catch (error) {
@@ -211,7 +211,7 @@ export const savePhoto = (file: File): ThunkType => {
   return async (dispatch: DispatchType) => {
     const data = await profileApi.savePhoto(file);
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.success) {
       dispatch(savePhotoSuccess(data.data.photos));
     }
   };
@@ -235,7 +235,7 @@ export const editProfile =
     async (dispatch, getState) => {
       const userId: number | string | undefined = getState().auth?.id;
       const response = await profileApi.editProfile(profile);
-      if (response.data.resultCode === 0) {
+      if (response.data.resultCode === ResultCodeEnum.success) {
         dispatch(profileThunkCreator(userId));
       } else {
         dispatch(stopSubmit('editProfile', { _error: response.data.messages }));
