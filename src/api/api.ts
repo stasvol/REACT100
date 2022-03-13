@@ -33,3 +33,14 @@ export type ApiResponseType<D = Record<string, never>, RC = ResultCodeEnum> = {
   resultCode: RC;
   messages: Array<string>;
 };
+
+export enum ChatEnum {
+  messagesReceived = 'messages-received',
+  statusChanged = 'status - changed',
+  pending = 'pending',
+  ready = 'ready',
+  error = 'error',
+  close = 'close',
+  message = 'message',
+  open = 'open',
+}

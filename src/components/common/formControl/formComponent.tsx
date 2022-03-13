@@ -21,7 +21,7 @@ export const FormComponent: React.FC<WrappedFieldProps> = ({
 export type GetStringKeys<T> = Extract<keyof T, string>;
 // type CreateFieldType = {
 //   placeholder: string,
-//   name: string,
+//   name: <FormKeysType extends string>,
 //   validators: Array<ValidatorType>,
 //   component: React.FC | React.Component | React.FC<WrappedFieldProps>,
 //   props: Record<string, unknown>,

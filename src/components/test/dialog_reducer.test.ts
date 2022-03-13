@@ -38,7 +38,7 @@ let state: any = {
       id: 9,
       name: 'Vovan',
       img: 'https://i.pinimg.com/originals/5b/1a/9a/5b1a9ab141ba1ade4ab06c8215059225.jpg',
-    } as { id: number; name: string; img: string },
+    },
   ],
   MessageUserData: [
     { id: 1, message: 'Vse klas' },
@@ -47,23 +47,23 @@ let state: any = {
     { id: 4, message: 'VOOOO !!!' },
     { id: 5, message: 'YO-YO-YO-YO' },
     { id: 6, message: 'YO-MO-YO' },
-  ] as unknown as { id: number; message: string },
+  ],
   newMessageText: 'Hi',
 };
 test('add new message and length decremented', () => {
-  let action = dialogAction.addMessage('Hello Friend');
+  let action: any = dialogAction.addMessage('Hello Friend');
   let newDialog = dialogReducer(state, action);
   expect(newDialog.MessageUserData.length).toBe(7);
 });
 
 test('add new message and length increment', () => {
-  let action = dialogAction.addMessage('Hello Friend');
+  let action: any = dialogAction.addMessage('Hello Friend');
   let newDialog = dialogReducer(state, action);
   expect(newDialog.MessageUserData[6].message).toBe('Hello Friend');
 });
 
 test('deleted  post id and  length  increment in post ', () => {
-  let action = dialogAction.deleteMessage(6);
+  let action: any = dialogAction.deleteMessage(6);
   let newDialog = dialogReducer(state, action);
   expect(newDialog.MessageUserData.length).toBe(5);
 });

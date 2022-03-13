@@ -25,29 +25,27 @@ const User: React.FC<PropsType> = ({
   return (
     <div>
       <div>
-        <div>
-          <NavLink to={`/profile/${id}`}>
-            <img
-              alt=""
-              className={classes.photo}
-              src={photos && photos.small !== null ? photos.small : photo}
-            />
-          </NavLink>
-        </div>
-        <div>
-          {followed ? (
-            <button disabled={disable} onClick={unFollowCreator}>
-              UnFollow
-            </button>
-          ) : (
-            <button disabled={disable} onClick={followCreator}>
-              Follow
-            </button>
-          )}
-        </div>
-        <div>{name}</div>
-        <div>{status}</div>
+        <NavLink to={`/profile/${id}`}>
+          <img
+            alt=""
+            className={classes.photo}
+            src={photos && photos.small !== null ? photos.small : photo}
+          />
+        </NavLink>
       </div>
+      <div>
+        {followed ? (
+          <button disabled={disable} onClick={unFollowCreator}>
+            UnFollow
+          </button>
+        ) : (
+          <button disabled={disable} onClick={followCreator}>
+            Follow
+          </button>
+        )}
+      </div>
+      <div>{name}</div>
+      <div>{status}</div>
     </div>
   );
 };

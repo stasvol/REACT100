@@ -1,11 +1,19 @@
 // const socket = 'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx';
 // type SubscribeType = (message: ChatMessageType[]) => void;
 // export type ChatMessageType = ChatMessageApiType & { id: string | number };
-type EventNamesType = 'messages-received' | 'status - changed';
+// eslint-disable-next-line import/named
+import { ChatEnum } from './api';
 
-const subscribers = {
-  'messages-received': [] as MessagesReceivedSubscriberType[],
-  'status - changed': [] as StatusChangedSubscriberType[],
+type EventNamesType = ChatEnum.messagesReceived | ChatEnum.statusChanged;
+
+type SubscribersType = {
+  'messages-received': MessagesReceivedSubscriberType[];
+  'status - changed': StatusChangedSubscriberType[];
+};
+
+const subscribers: SubscribersType = {
+  'messages-received': [],
+  'status - changed': [],
 };
 
 type EventsValuesType = MessagesReceivedSubscriberType | StatusChangedSubscriberType;
@@ -14,33 +22,33 @@ let webSoc: WebSocket | null = null;
 
 const messagesHandler = (e: MessageEvent<string>): void => {
   const newMessage: ChatMessageApiType[] = JSON.parse(e.data);
-  subscribers['messages-received'].forEach(subscriber => subscriber(newMessage));
+  subscribers[ChatEnum.messagesReceived].forEach(subscriber => subscriber(newMessage));
 };
 
 const changeSubscribeStatus = (status: StatusType): void => {
-  subscribers['status - changed'].forEach(subscriber => subscriber(status));
+  subscribers[ChatEnum.statusChanged].forEach(subscriber => subscriber(status));
 };
 
 const closeHandler = (): void => {
   // console.log('CLOSE');
-  changeSubscribeStatus('pending');
+  changeSubscribeStatus(ChatEnum.pending);
   // setTimeout(createWS, 5000);
 };
 
 const openHandler = (): void => {
-  changeSubscribeStatus('ready');
+  changeSubscribeStatus(ChatEnum.ready);
 };
 
 const errorHandler = (): void => {
-  changeSubscribeStatus('error');
+  changeSubscribeStatus(ChatEnum.error);
   // console.error('REFRESH  PAGE');
 };
 
 const cleanUp = (): void => {
-  webSoc?.removeEventListener('close', closeHandler);
-  webSoc?.removeEventListener('message', messagesHandler);
-  webSoc?.removeEventListener('open', openHandler);
-  webSoc?.removeEventListener('error', errorHandler);
+  webSoc?.removeEventListener(ChatEnum.close, closeHandler);
+  webSoc?.removeEventListener(ChatEnum.message, messagesHandler);
+  webSoc?.removeEventListener(ChatEnum.open, openHandler);
+  webSoc?.removeEventListener(ChatEnum.error, errorHandler);
 };
 
 const createWS = (): void => {
@@ -51,11 +59,11 @@ const createWS = (): void => {
     webSoc?.close();
   }
   webSoc = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
-  changeSubscribeStatus('pending');
-  webSoc?.addEventListener('close', closeHandler);
-  webSoc?.addEventListener('message', messagesHandler);
-  webSoc?.addEventListener('open', openHandler);
-  webSoc?.addEventListener('error', errorHandler);
+  changeSubscribeStatus(ChatEnum.pending);
+  webSoc?.addEventListener(ChatEnum.close, closeHandler);
+  webSoc?.addEventListener(ChatEnum.message, messagesHandler);
+  webSoc?.addEventListener(ChatEnum.open, openHandler);
+  webSoc?.addEventListener(ChatEnum.error, errorHandler);
   // setWs(webSoc);
 };
 
@@ -64,8 +72,8 @@ export const chatApi = {
     createWS();
   },
   stop(): void {
-    subscribers['messages-received'] = [];
-    subscribers['status - changed'] = [];
+    subscribers[ChatEnum.messagesReceived] = [];
+    subscribers[ChatEnum.statusChanged] = [];
     cleanUp();
     webSoc?.close();
   },
@@ -96,8 +104,8 @@ export type StatusChangedSubscriberType = (status: StatusType) => void;
 export type ChatMessageApiType = {
   message: string;
   photo: string;
-  userId: string;
+  userId: string | number;
   userName: string;
 };
 
-export type StatusType = 'pending' | 'ready' | 'error';
+export type StatusType = ChatEnum.pending | ChatEnum.ready | ChatEnum.error;
