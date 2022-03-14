@@ -4,8 +4,6 @@
 // eslint-disable-next-line import/named
 import { ChatEnum } from './api';
 
-type EventNamesType = ChatEnum.messagesReceived | ChatEnum.statusChanged;
-
 type SubscribersType = {
   'messages-received': MessagesReceivedSubscriberType[];
   'status - changed': StatusChangedSubscriberType[];
@@ -15,8 +13,6 @@ const subscribers: SubscribersType = {
   'messages-received': [],
   'status - changed': [],
 };
-
-type EventsValuesType = MessagesReceivedSubscriberType | StatusChangedSubscriberType;
 
 let webSoc: WebSocket | null = null;
 
@@ -79,25 +75,26 @@ export const chatApi = {
   },
 
   subscribe(eventNames: EventNamesType, callback: EventsValuesType): () => void {
-    subscribers[eventNames].push(
-      callback as MessagesReceivedSubscriberType & StatusChangedSubscriberType,
-    );
+    subscribers[eventNames].push(callback);
     return () => {
       subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValuesType>).filter(
         (subscriber: EventsValuesType) => subscriber !== callback,
-      ) as MessagesReceivedSubscriberType[] & StatusChangedSubscriberType[];
+      );
     };
   },
   unsubscribe(eventNames: EventNamesType, callback: EventsValuesType): void {
     subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValuesType>).filter(
       (subscriber: EventsValuesType) => subscriber !== callback,
-    ) as MessagesReceivedSubscriberType[] & StatusChangedSubscriberType[];
+    );
   },
+
   sendMessageWs(message: string): void {
     webSoc?.send(message);
   },
 };
 
+type EventNamesType = ChatEnum.messagesReceived | ChatEnum.statusChanged;
+type EventsValuesType = MessagesReceivedSubscriberType & StatusChangedSubscriberType;
 export type MessagesReceivedSubscriberType = (messages: ChatMessageApiType[]) => void;
 export type StatusChangedSubscriberType = (status: StatusType) => void;
 
