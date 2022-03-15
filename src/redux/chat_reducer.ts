@@ -2,6 +2,7 @@ import { Dispatch } from 'redux';
 
 import { chatApi, ChatMessageApiType, StatusType } from '../api/api-chat';
 import { userId } from '../utility/getId';
+import { ChatEnum } from '../api/api';
 
 const SET_MESSAGE = 'SET MESSAGE';
 const SET_STATUS = 'SET STATUS ';
@@ -13,7 +14,7 @@ type ChatStateType = {
 
 const initialState: ChatStateType = {
   messages: [], // as ChatMessageApiType [],
-  status: 'pending', // as statusType
+  status: ChatEnum.pending, // as statusType
 };
 
 type SetMessageType = { type: typeof SET_MESSAGE; messages: ChatMessageApiType[] };
@@ -29,7 +30,9 @@ export const actions = {
     type: SET_MESSAGE,
     messages,
   }),
-  setStatus: (status: StatusType): { type: string; status: 'pending' | 'ready' | 'error' } => {
+  setStatus: (
+    status: StatusType,
+  ): { type: string; status: ChatEnum.pending | ChatEnum.ready | ChatEnum.error } => {
     return { type: SET_STATUS, status };
   },
 };
@@ -90,15 +93,15 @@ export const startMessageListening =
   () =>
     async (dispatch: Dispatch): Promise<void> => {
       chatApi.start();
-      chatApi.subscribe('messages-received', newMessageHandler(dispatch));
-      chatApi.subscribe('status - changed', newStatusHandler(dispatch));
+      chatApi.subscribe(ChatEnum.messagesReceived, newMessageHandler(dispatch));
+      chatApi.subscribe(ChatEnum.statusChanged, newStatusHandler(dispatch));
     };
 
 export const stopMessageListening =
   () =>
     async (dispatch: Dispatch): Promise<void> => {
-      chatApi.unsubscribe('messages-received', newMessageHandler(dispatch));
-      chatApi.unsubscribe('status - changed', newStatusHandler(dispatch));
+      chatApi.unsubscribe(ChatEnum.messagesReceived, newMessageHandler(dispatch));
+      chatApi.unsubscribe(ChatEnum.statusChanged, newStatusHandler(dispatch));
       chatApi.stop();
     };
 

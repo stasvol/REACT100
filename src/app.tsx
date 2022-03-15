@@ -83,7 +83,6 @@ const App: React.FC<MapStateType & DispatchPropsType> = ({ initializeApp, initia
               <Menu className={classes.menu} mode="inline">
                 {dataSubMenu.map(item => (
                   <SubMenu key={item.idSub} icon={item.image} title={item.text}>
-                    \
                     <Menu.Item key={item.addSubMenuOne?.id}>
                       <NavLink activeClassName={classes.active} to={item.addSubMenuOne?.path}>
                         {item.addSubMenuOne?.name}

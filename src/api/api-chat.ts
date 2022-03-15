@@ -74,15 +74,15 @@ export const chatApi = {
     webSoc?.close();
   },
 
-  subscribe(eventNames: EventNamesType, callback: EventsValuesType): () => void {
-    subscribers[eventNames].push(callback);
+  subscribe(eventNames: EventNamesType, callback: EventsValueType): () => void {
+    subscribers[eventNames].push(callback as EventsValuesType);
     return () => {
       subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValuesType>).filter(
         (subscriber: EventsValuesType) => subscriber !== callback,
       );
     };
   },
-  unsubscribe(eventNames: EventNamesType, callback: EventsValuesType): void {
+  unsubscribe(eventNames: EventNamesType, callback: EventsValueType): void {
     subscribers[eventNames] = (subscribers[eventNames] as Array<EventsValuesType>).filter(
       (subscriber: EventsValuesType) => subscriber !== callback,
     );
@@ -92,9 +92,9 @@ export const chatApi = {
     webSoc?.send(message);
   },
 };
-
-type EventNamesType = ChatEnum.messagesReceived | ChatEnum.statusChanged;
 type EventsValuesType = MessagesReceivedSubscriberType & StatusChangedSubscriberType;
+export type EventNamesType = ChatEnum.messagesReceived | ChatEnum.statusChanged;
+type EventsValueType = MessagesReceivedSubscriberType | StatusChangedSubscriberType;
 export type MessagesReceivedSubscriberType = (messages: ChatMessageApiType[]) => void;
 export type StatusChangedSubscriberType = (status: StatusType) => void;
 

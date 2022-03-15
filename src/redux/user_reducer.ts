@@ -57,7 +57,7 @@ export const initialState = {
   disableButton: [] as DisableButtonType[], // array userId
   filter: {
     term: '',
-    friend: null as null | boolean,
+    friend: null,
   },
 };
 
