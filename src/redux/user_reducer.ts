@@ -62,7 +62,7 @@ export const initialState = {
 };
 
 export type InitialStateUserType = typeof initialState;
-export type FilterType = typeof initialState.filter;
+export type FilterType = { term: string; friend: boolean | null };
 
 export type UnfollowActionType = {
   type: typeof UNFOLLOW;

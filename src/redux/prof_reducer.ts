@@ -23,8 +23,8 @@ export type ProfileType = {
   userId?: number | string | undefined;
   lookingForAJob?: boolean;
   lookingForAJobDescription?: string | null;
-  fullName?: string | null;
-  contacts?: ContactsType;
+  fullName?: string | number | null;
+  contacts?: ContactsType | any;
   photos?: PhotosType;
   aboutMe?: string;
 };

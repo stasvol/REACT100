@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu } from 'antd';
 
-import { dataSubMenu } from '../../constants/data_sub_menu';
+import { dataSubMenu } from '../../constants/sub_menu_data';
 
 import classes from '../../app.module.css';
 
@@ -11,7 +11,6 @@ const { SubMenu } = Menu;
 export const SubMenuComponent = () => {
   dataSubMenu.map(item => (
     <SubMenu key={item.idSub} icon={item.image} title={item.text}>
-      \
       <Menu.Item key={item.addSubMenuOne?.id}>
         <NavLink activeClassName={classes.active} to={item.addSubMenuOne?.path}>
           {item.addSubMenuOne?.name}

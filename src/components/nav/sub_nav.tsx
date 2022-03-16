@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { navData } from '../../constants/data_nav';
+
+import { navData } from '../../constants/nav_data';
+
 import classes from './nav.module.css';
 
 export const SubNav = () =>

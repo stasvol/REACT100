@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContactsType, ProfileType } from '../../../redux/prof_reducer';
+import { ProfileType } from '../../../redux/prof_reducer';
 
 import Contact from './contact';
 
@@ -12,44 +12,34 @@ interface ProfDataType {
   goToEditMode: () => void;
 }
 const ProfData: React.FC<ProfDataType> = ({
-  profile,
+  profile: { contacts, fullName, lookingForAJob, lookingForAJobDescription, aboutMe },
   isOwner,
   goToEditMode,
 }): React.ReactElement => (
   <div>
     {isOwner && <button onClick={goToEditMode}>Edit</button>}
-
     <div>
-      <b>FullName</b> : {profile?.fullName}
+      <b>FullName</b> : {fullName}
     </div>
     <div>
-      <b>About Me</b> : {profile?.aboutMe}{' '}
+      <b>About Me</b> : {aboutMe}{' '}
     </div>
     <div>
-      <b>LookingForAJob</b> : {profile?.lookingForAJob ? 'Yes' : 'No'}
+      <b>LookingForAJob</b> : {lookingForAJob ? 'Yes' : 'No'}
       <img alt="" className={classes.smail} src={smail} />
     </div>
-    {profile?.lookingForAJob && (
+    {lookingForAJob && (
       <div>
-        <b>My professional skills</b> : {profile?.lookingForAJobDescription}
+        <b>My professional skills</b> : {lookingForAJobDescription}
       </div>
     )}
     <h4>
       <b>Contacts</b> :{' '}
     </h4>
-    {profile?.contacts &&
-      Object.keys(profile.contacts).map(key => {
-        return (
-          profile.contacts &&
-          profile.contacts[key as keyof ContactsType] && (
-            <Contact
-              key={key}
-              contactTitle={key}
-              contactValue={profile.contacts[key as keyof ContactsType]}
-            />
-          )
-        );
-      })}
+    {contacts &&
+      Object.keys(contacts).map(key => (
+        <Contact key={key} contactTitle={key} contactValue={contacts[key]} />
+      ))}
   </div>
 );
 

@@ -1,14 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Avatar, Button, Col, Image, Layout, Menu, Row } from 'antd';
+import { Col, Layout, Menu, Row } from 'antd';
 
+import { dataHeader } from '../../constants/header_data';
 import { useMyHeader } from '../../hook/useMyHeader';
+import HeaderAuthComponent from './header_auth_component';
+import HeaderLoginComponent from './header_login_component';
 
 import classes from './header.module.css';
-import { dataHeader } from '../../constants/header_data';
 
 const MyHeader: React.FC = () => {
-  const { isAuth, login, logOutUser } = useMyHeader();
+  const { isAuth } = useMyHeader();
   const { Header } = Layout;
 
   return (
@@ -41,31 +43,36 @@ const MyHeader: React.FC = () => {
             {/* </Menu.Item> */}
           </Menu>
         </Col>
-        {isAuth ? (
-          <>
-            <Col span={1}>
-              <Avatar
-                src={
-                  <Image src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                }
-              />
-            </Col>
-            <Col className={classes.span} span={1}>
-              {login}
-            </Col>
-            <Col span={1}>
-              <Button className={classes.button} onClick={logOutUser}>
-                Log out
-              </Button>
-            </Col>
-          </>
-        ) : (
-          <Col span={1}>
-            <Button className={classes.button}>
-              <NavLink to="/login">Login</NavLink>
-            </Button>
-          </Col>
-        )}
+        {
+          isAuth ? <HeaderAuthComponent /> : <HeaderLoginComponent />
+          // (
+          //   <>
+          //     <Col span={1}>
+          //       <Avatar src={
+          //         <Image src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+          //       }
+          //       />
+          //     </Col>
+          //     <Col className={classes.span} span={1}>
+          //       {login}
+          //     </Col>
+          //     <Col span={1}>
+          //       <Button className={classes.button} onClick={logOutUser}>
+          //         Log out
+          //       </Button>
+          //     </Col>
+          //   </>
+          // )
+          // :
+          // (
+          //   <Col span={1}>
+          //     <Button className={classes.button}>
+          //       <NavLink to="/login">Login</NavLink>
+          //     </Button>
+          //   </Col>
+          // )
+          // eslint-disable-next-line react/jsx-curly-newline
+        }
       </Row>
     </Header>
   );

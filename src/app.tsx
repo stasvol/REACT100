@@ -24,7 +24,7 @@ import { ErrorComponent } from './pagesPath/pages_error';
 import classes from './app.module.css';
 import './app.css';
 import { menuData } from './constants/ menu_data';
-import { dataSubMenu } from './constants/data_sub_menu';
+import { dataSubMenu } from './constants/sub_menu_data';
 
 const DialogComponent = React.lazy(() => import('./pagesPath/papes_dialog'));
 const ProfileComponent = React.lazy(() => import('./pagesPath/pages_profile'));

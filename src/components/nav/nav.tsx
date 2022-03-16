@@ -6,7 +6,7 @@ import SiteBar from './siteBar/siteBar';
 import { InitialStateSBarType } from '../../redux/sitebar_reducer';
 
 import classes from './nav.module.css';
-import { navData } from '../../constants/data_nav';
+import { navData } from '../../constants/nav_data';
 
 const Navbar: React.FC<InitialStateSBarType> = ({ siteBarNav }) => (
   <nav className={classes.nav}>

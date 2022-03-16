@@ -11,7 +11,6 @@ type PropsType = {
 
 const DialogUser: React.FC<PropsType> = ({ id, img, name }): React.ReactElement => {
   const path = `/dialogs/1${id}`;
-
   return (
     <>
       <img alt={name} className={classes.imgAvatar} src={img} />
