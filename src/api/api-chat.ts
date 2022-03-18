@@ -94,7 +94,7 @@ export const chatApi = {
 };
 export type EventsValuesType = MessagesReceivedSubscriberType & StatusChangedSubscriberType;
 export type EventNamesType = ChatEnum.messagesReceived | ChatEnum.statusChanged;
-type EventsValueType = MessagesReceivedSubscriberType | StatusChangedSubscriberType;
+export type EventsValueType = MessagesReceivedSubscriberType | StatusChangedSubscriberType;
 export type MessagesReceivedSubscriberType = (messages: ChatMessageApiType[]) => void;
 export type StatusChangedSubscriberType = (status: StatusType) => void;
 

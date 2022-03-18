@@ -16,7 +16,15 @@ import {
 } from '../../redux/prof_reducer';
 import Profile from './profile';
 
-type MapStatePropsTYpe = ReturnType<typeof mapStateToProps>;
+type MapStatePropsType = ReturnType<typeof mapStateToProps>;
+type MapStateParamsType = {
+  authorisedUserId: number | string | undefined;
+  isAuth: boolean;
+  profile: ProfileType;
+  state: { profile: ProfileType; status: string };
+  status: string;
+  PostData: PostDataType[];
+};
 
 type DispatchPropsTYpe = {
   profile: ProfileType;
@@ -34,7 +42,7 @@ type RouteParams = {
   userId: string;
 };
 
-type PrevPropsType = MapStatePropsTYpe & DispatchPropsTYpe & RouteComponentProps<RouteParams>;
+type PrevPropsType = MapStatePropsType & DispatchPropsTYpe & RouteComponentProps<RouteParams>;
 
 const ProfileContainer: React.FC<PrevPropsType> = ({
   match,
@@ -85,14 +93,7 @@ const ProfileContainer: React.FC<PrevPropsType> = ({
 const mapStateToProps = (state: {
   profPage: { profile: ProfileType; status: string; PostData: PostDataType[] };
   auth: { id: number | undefined | string; isAuth: boolean };
-}): {
-  authorisedUserId: number | string | undefined;
-  isAuth: boolean;
-  profile: ProfileType;
-  state: { profile: ProfileType; status: string };
-  status: string;
-  PostData: PostDataType[];
-} => ({
+}): MapStateParamsType => ({
   state: state.profPage,
   profile: state.profPage.profile,
   status: state.profPage.status,
